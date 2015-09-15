@@ -459,7 +459,7 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N2 = 21, N = 10, M = 1 << 20, _M = 3, _M2 = 1;
+const int N2 = 20+4, N = 9+2, M = 1 << 18, _M = 3, _M2 = 1;
 
 int n, m;
 int b[N+1], bb[N+1];
@@ -468,7 +468,8 @@ int c[N+1];
 
 LL encode(){
     FLC(bb, -1); int n = 1; bb[0] = 0; LL s = 0;
-    DWN(i, m, 0){
+
+    DWN(i, m+1, 0){
         s <<= _M2; s |= c[i];
     }
     DWN(i, m+1, 0){
@@ -484,9 +485,9 @@ void decode(LL s){
         b[i] = s & _U(_M);
         s >>= _M;
     }
-    REP(i, m){
+    REP(i, m+1){
         c[i] = s & _U(_M2);
-        s >> _M2;
+        s >>= _M2;
     }
 }
 
@@ -496,6 +497,7 @@ const int Prime = 9979;
 int opt[N2*N+9][M];
 int pre[N2*N+9][M];
 
+bool c0, c1, c2;
 int i, j; LL u; int d; int op; struct hashTable{
     LL state[M]; int key[M]; int sz;
     int hd[Prime], nxt[M];
@@ -505,9 +507,16 @@ int i, j; LL u; int d; int op; struct hashTable{
         FLC(hd, -1);
     }
 
-    int push(){
-        LL s = encode();
+    void push(){
+
+        if (n == 4){
+            //cout << m << endl;
+        }
+
+        c[j] = op; LL s = encode();
         int x = s % Prime;
+
+        //if (n == 4) cout << s << " " << x << endl;
 
         for (int i=hd[x];~i;i=nxt[i]){
             if (state[i] == s){
@@ -516,21 +525,29 @@ int i, j; LL u; int d; int op; struct hashTable{
                     opt[::i*m+j][i] = op;
                     pre[::i*m+j][i] = u;
                 }
-                return key[i];
+                return;
             }
         }
-        state[sz] = s; key[sz] = d;
+        state[sz] = s; key[sz] = d + op;
         nxt[sz] = hd[x]; hd[x] = sz;
         //sta[i*m+j][sz] = s;
         opt[i*m+j][sz] = op;
         pre[i*m+j][sz] = u;
         ++sz;
         assert(sz < M);
-        return d;
     }
 
     void roll(){
-        REP(ii, sz) state[ii] <<= _M;
+
+        LL U = _U(_M*(m+1));
+        LL U2 = _U(_M2*(m+1)) << (_M*(m+1));
+
+        REP(ii, sz){
+            LL s = state[ii], s1 = s & U, s2 = s & U2;
+            s1 <<= _M; s1 &= U;
+            s2 <<= _M2; s2 &= U2;
+            state[ii] = s1 | s2;
+        }
     }
 } H[2]; int src, des;
 
@@ -543,7 +560,8 @@ bool isMust(int i, int j){
 void print(){
 
     assert(H[des].sz == 1);
-    OT(H[des].key[0]-(n+m)-1);
+    printf("Case %d:\n", ++Case);
+    //OT(H[des].key[0]-(n+m)-1);
 
     int u = 0; DWN(i, n*m, 0){
 
@@ -561,6 +579,8 @@ void print(){
         u = pre[i][u];
     }
 
+    //cout << n << endl;
+
     REP(i, n-2){
         FOR(j, 2, m) if (A[i][j] == 1){
             putchar('.');
@@ -573,27 +593,37 @@ void print(){
         }
         puts("");
     }
+    puts("");
 }
 
 void init(){
-    RD(n, m); RST(A); REP_2(i, j, n, m) A[i][j+2] = RC() == '.';
+    RD(n, m);
+
+    //cout << m << endl;
+
+    RST(A); REP_2(i, j, n, m) A[i][j+2] = RC() == '.';
     n += 2; m += 2;
     A[0][1] = 1; REP(i, n-1) A[i][0] = 1;
     REP(i, m) A[n-1][i] = 1; A[n-2][m-1] = 1;
+
+    //cout << "!!!" << endl
     //REP(i, m) A[n][i] = 1; REP(i, n) A[i][m] = 1;
 }
 
 void solve(){
-    src = 0, des = 1; H[des].clear(); RST(b); d = 0; op = 0; H[des].push();
 
+    src = 0, des = 1; H[des].clear(); RST(c, b); d = 0; j = 0; op = 0;
     //cout << n << " " << m << endl;
+
+    //cout << "ok?" << endl;
+    H[des].push();
+    //cout << "ok!" << endl;
 
     int z = 0; REP_N(i, n){
         REP_N(j, m){
 
             //if (!A[i][j]) continue;
             swap(src, des); H[des].clear();
-
             //cout << i << " " << j << " " << H[src].sz << endl;
 
             if (!A[i][j]){
@@ -606,11 +636,23 @@ void solve(){
 
             REP(ii, H[src].sz){
 
-                decode(H[src].state[ii]); d = H[src].key[ii] + 1; u = ii; op = 1;
+                decode(H[src].state[ii]); d = H[src].key[ii]; u = ii; op = 1;
+
+
+
                 int lt = b[j], up = b[j+1];
                 bool dn = A[i+1][j], rt = A[i][j+1];
+                c0 = j && c[j-1], c1 = c[j], c2 = c[j+1];
+
+                /*cout << H[src].state[ii] << ": " << endl;
+                REP(jj, m+1) cout << c[jj] << " "; cout << endl;
+                REP(jj, m+1) cout << b[jj] << " "; cout << endl;
+                puts("");*/
 
                 if (lt && up){
+
+                    if (c1) continue;
+
                     if (lt == up){
                         if (i == n-1 && j == m-1){
                             int cnt = 0; REP(jj, m+1) if (b[jj]) ++cnt;  // ?
@@ -624,8 +666,15 @@ void solve(){
                     }
                 }
                 else if (lt || up){
+
                     int t = lt | up;
+
+                    if (c0 && c2) continue;
+
                     if (dn){
+
+
+
                         b[j] = t; b[j+1] = 0;
                         H[des].push();
                     }
@@ -635,9 +684,15 @@ void solve(){
                     }
                 }
                 else{
+
+
+
                     if (!isMust(i, j)){
-                        op = 0; --d; H[des].push(); ++d; op = 1;
+                        if (c0 && !c1 && c2) continue;
+                        op = 0; H[des].push(); op = 1;
                     }
+
+                    if (c0 || c1 || c2) continue;
 
                     if (dn && rt){
                         b[j] = b[j+1] = m;
@@ -660,8 +715,10 @@ int main(){
     //freopen("out.txt", "w", stdout);
 #endif
 
+
     while (~scanf("%d%d", &n, &m) && n){
         init();
         solve();
+        //break;
     }
 }
