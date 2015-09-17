@@ -92,7 +92,7 @@ public:
 	    int p0 = 15;
 	    int p1 = 3|3<<(m+1);
 	    int p2 = 3|3<<m;
-        int p3 = 3|3<<(m-1);
+	    int p3 = 3|3<<(m-1);
 
 	    REP(i, 5) idx[i] = i, H[i].clear();
 	    d = 0; H[src].push(0);
@@ -101,7 +101,7 @@ public:
 
 		    //cout << i << " " << j << ": " << H[src].sz << endl;
 
-		    REP(ii, H[src].sz){
+            REP(ii, H[src].sz){
                 int s = H[src].state[ii]; d = H[src].key[ii];
 
                 if (s&1) upd(2, s);
