@@ -1,0 +1,91 @@
+#include <set>
+#include <map>
+#include <cmath>
+#include <queue>
+#include <stack>
+#include <ctime>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <cstring>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+#define PB push_back
+#define MP make_pair
+
+typedef double DB;
+typedef long long LL;
+typedef pair <int, int> PI;
+
+#define REP(i, n) for (int i=0;i<n;++i)
+const DB eps = 1e-15;
+const int INF = 1e9 + 7;
+const int MOD = 1e9 + 7;
+
+template<class T> inline bool checkMax(T &a,const T b){return a < b ? a = b, 1 : 0;}
+template<class T> inline T sqr(T a){return a*a;}
+const int N= int(5e6) + 9;
+LL t[N];
+
+const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
+
+int main(){
+#ifndef ONLINE_JUDGE
+    freopen("in.txt", "r", stdin);
+        //freopen("out.txt", "w", stdout);
+#endif
+    int T; cin >> T;
+
+    LL n, a, b;
+
+
+    REP(i, T){
+        printf("Case #%d: ", i+1);
+        scanf("%I64d %I64d %I64d", &n, &a, &b);
+
+        LL t1 = 0, t2 = 0;
+        REP(i, n){
+            scanf("%I64d", &t[i]);
+
+            if (b > 0){
+                if (t[i] > t[t1]){
+                    t2 = t1;
+                    t1 = i;
+                }
+                else if (t[i] > t[t2]){
+                    t2 = i;
+                }
+            }
+            else{
+                if (t[i] < t[t1]){
+                    t2 = t1;
+                    t1 = i;
+                }
+                else if (t[i] < t[t2]){
+                    t2 = i;
+                }
+            }
+        }
+        //sort(t, t+n);
+
+        LL z = -INFF;
+
+        REP(i, n){
+
+            LL zz = a * sqr(t[i]);
+
+            if (i == t1) zz += b * t[t2];
+            else zz += b * t[t1];
+            checkMax(z, zz);
+
+        }
+        printf("%I64d\n", z);
+
+
+
+    }
+
+}

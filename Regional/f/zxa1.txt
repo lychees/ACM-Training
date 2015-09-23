@@ -1,0 +1,119 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+#include <cassert>
+#include <ctime>
+using namespace std;
+typedef long long LL;
+const int N = 100005;
+int n , m;
+
+int root[N];
+const int M = 2000000;
+int c[M][2] , val[M] , cnt;
+int newnode(int q = 0) {
+    ++ cnt;
+    c[cnt][0] = c[cnt][1] = 0;
+    val[cnt] = val[q];
+    return cnt;
+}
+void insert(int &p , int q , int l , int r , int top , int bot , int w) {
+    if (!p) p = newnode(q);
+    if (top <= l && r <= bot)
+        val[p] = max(val[p] , w);
+    else {
+        int mid = l + r >> 1;
+        if (top <= mid) 
+            insert(c[p][0] , c[q][0] , l , mid , top , bot , w);
+        if (bot > mid)
+            insert(c[p][1] , c[q][1] , mid + 1 , r , top , bot , w);        
+        if (!c[p][1]) c[p][1] = c[q][1];
+        if (!c[p][0]) c[p][0] = c[q][0];        
+    }
+}
+int res = 0;
+void get(int p , int l , int r , int x) {
+    if (!p) return;
+    res = max(res , val[p]);
+    if (l == r) return;
+    int mid = l + r >> 1;
+    if (x <= mid) get(c[p][0] , l , mid , x);
+    if (x > mid) get(c[p][1] , mid + 1 , r , x);
+}
+struct Tree {
+    int n;
+    int pre[N] , mcnt;
+    struct edge {
+        int x , next;
+    }e[N];
+    void addedge(int x , int y) {
+        e[mcnt] = (edge) {y , pre[x]} , pre[x] = mcnt ++;
+    }
+    int dep[N] , L[N] , R[N] , ncnt;    
+    void dfs(int x , int fa) {
+        L[x] = ++ ncnt;
+        dep[x] = dep[fa] + 1;
+        for (int i = pre[x] ; ~i ; i = e[i].next) {
+            int y = e[i].x;
+            if (y != fa) {
+                dfs(y , x);
+            }
+        }
+        R[x] = ncnt;
+    }
+    
+}A , B;
+
+void dfs(int x , int fa) {
+    root[x] = 0 , A.dep[x] = A.dep[fa] + 1;
+    insert(root[x] , root[fa] , 1 , n , B.L[x] , B.R[x] ,  x);
+    for (int i = A.pre[x] ; ~i ; i = A.e[i].next) {
+        int y = A.e[i].x;
+        if (y != fa) {
+            dfs(y , x);
+        }
+    }
+}
+
+void work() {
+    memset(A.pre , -1 , sizeof(A.pre));
+    A.mcnt = 0;
+    for (int i = 2 ; i <= n ; ++ i) {
+        int x;
+        scanf("%d" , &x);
+        A.addedge(x , i);
+    }
+    memset(B.pre , -1 , sizeof(B.pre));
+    B.mcnt = 0;
+    for (int i = 2 ; i <= n ; ++ i) {
+        int x;
+        scanf("%d" , &x);
+        B.addedge(x , i);
+    }
+    B.ncnt = 0;
+    B.dfs(1 , 0);
+    cnt = 0;
+    dfs(1 , 0);
+    int pre = 0 ;
+    while (m --) {
+        int x , y;
+        scanf("%d%d" , &x , &y);
+        x += pre , y += pre;
+        x %= n , x ++;
+        y %= n , y ++;
+        res = 0; 
+        get(root[x] , 1 , n , B.L[y]);
+        printf("%d %d %d\n" , res , A.dep[x] - A.dep[res] + 1 , B.dep[y] - B.dep[res] + 1);
+        pre = res;
+    }
+
+}
+
+int main() {
+    while (~scanf("%d%d" , &n , &m))
+        work();
+    return 0;
+}
