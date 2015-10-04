@@ -1,10 +1,12 @@
-/** Micro Mezz Macro Flation -- Overheated Economy ., Last Update: Nov. 7th 2014 **/ //{
+/*
+    This code has been written by MinakoKojima, fell free to ask me question. Blog: http://www.shuizilong.com/house
+    Template Date: 2015.10.05
+    Note: ...
+*/
 
-/** Header .. **/ //{
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
-//#include "testlib.h"
 #include <functional>
 #include <algorithm>
 #include <iostream>
@@ -107,8 +109,8 @@ using namespace std;
 }
 
 typedef long long LL;
-typedef long double DB;
-//typedef double DB;
+//typedef long double DB;
+typedef double DB;
 typedef unsigned uint;
 typedef unsigned long long uLL;
 
@@ -303,6 +305,109 @@ inline int count_bits(LL x){return __builtin_popcountll(x);}
 } using namespace BO;//}
 
 
+// <<= '2. Number Theory .,//{
+namespace NT{
+#define gcd __gcd
+inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
+
+inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
+inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
+
+/* Ê®°Êï∞‰∏§ÂÄçÂàöÂ•ΩË∂Ö int Êó∂„ÄÇ
+inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
+inline void INC(int &a, int b){a = sum(a, b);}
+*/
+
+inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
+inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
+inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
+//inline int pdt(int a, int b){return (LL)a * b % MOD;}
+inline int pdt(int x,int y) {
+    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
+    return ret;
+}
+
+
+inline int gcd(int m, int n, int &x, int &y){
+
+    x = 1, y = 0; int xx = 0, yy = 1, q;
+
+    while (1){
+        q = m / n, m %= n;
+        if (!m){x = xx, y = yy; return n;}
+        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
+        q = n / m, n %= m;
+        if (!n) return m;
+        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
+    }
+}
+
+inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
+inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
+inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
+inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
+
+inline int pow(int a, LL b){
+    int c(1); while (b){
+        if (b&1) MUL(c, a);
+        MUL(a, a), b >>= 1;
+    }
+    return c;
+}
+
+template<class T> inline T pow(T a, LL b){
+    T c(1); while (b){
+        if (b&1) c *= a;
+        a *= a, b >>= 1;
+    }
+    return c;
+}
+
+template<class T> inline T pow(T a, int b){
+    return pow(a, (LL)b);
+}
+
+inline int _I(int b){
+    int a = MOD, x1 = 0, x2 = 1, q; while (1){
+        q = a / b, a %= b;
+        if (!a) return x2;
+        DEC(x1, pdt(q, x2));
+
+        q = b / a, b %= a;
+        if (!b) return x1;
+        DEC(x2, pdt(q, x1));
+    }
+}
+
+inline void DIV(int &a, int b){MUL(a, _I(b));}
+inline int qtt(int a, int b){return pdt(a, _I(b));}
+
+struct Int{
+    int val;
+
+    operator int() const{return val;}
+
+    Int(int _val = 0):val(_val){
+        val %= MOD; if (val < 0) val += MOD;
+    }
+    Int(LL _val):val(_val){
+        _val %= MOD; if (_val < 0) _val += MOD;
+        val = _val;
+    }
+
+    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
+    Int operator +(const int& rhs) const{return sum(val, rhs);}
+    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
+    Int operator -(const int& rhs) const{return dff(val, rhs);}
+    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
+    Int operator *(const int& rhs) const{return pdt(val, rhs);}
+    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
+    Int operator /(const int& rhs) const{return qtt(val, rhs);}
+    Int operator-()const{return MOD-*this;}
+};
+
+} using namespace NT;//}
+
 // <<= '9. Comutational Geometry .,//{
 namespace CG{
 
@@ -334,6 +439,15 @@ struct Po{
     DB len2()const{return dist2(x,y);}DB len()const{return sqrt(len2());}DB arg()const{return atan2(y,x);}
     Po&_1(){rTs/=len();}Po&conj(){y=-y;rTs;}Po&lt(){swap(x,y),x=-x;rTs;}Po&rt(){swap(x,y),y=-y;rTs;}
     Po&rot(DB a,cPo o=Po()){Ts-=o;Ts*=Po(cos(a),sin(a));rTs+=o;}
+
+    // Ê±ÇÊâÄÂú®Ë±°ÈôêÔºåÂ§ßÈÉ®ÂàÜÊÉÖÂÜµ‰∏ãÂè™Âå∫ÂàÜ‰∏§‰∏™Ë∂≥Â§ü„ÄÇ
+    inline int q()const{
+        return (y > 0 || y == 0 && x >= 0) ? 0 : 1;
+        /*if (x > 0 && y >= 0) return 0;
+        if (x <= 0 && y > 0) return 1;
+        if (x < 0 && y <= 0) return 2;
+        return 3;*/
+    }
 };
 
 inline DB dot(DB x1,DB y1,DB x2,DB y2){return x1*x2+y1*y2;}
@@ -399,7 +513,7 @@ struct Line{
     }
     void getEquation(DB&A,DB&B,DB&C)const{A=a.y-b.y,B=b.x-a.x,C=det(a, b);}
 
-    Line&push(DB r){ // ’˝ ˝”“ ÷¬›–˝œÚ¿Ô
+    Line&push(DB r){ // Ê≠£Êï∞Âè≥ÊâãËû∫ÊóãÂêëÈáå
         Po v=d()._1().lt()*r;a+=v,b+=v; rTs;
     }
 };
@@ -434,16 +548,16 @@ struct Seg: public Line{
     inline int sgn(cSeg l)const;
 };
 
- // -1≤ªœ‡Ωª 0œ‡Ωª£®≤ªπÊ∑∂£© 1œ‡Ωª£®πÊ∑∂£©
+ // -1‰∏çÁõ∏‰∫§ 0Áõ∏‰∫§Ôºà‰∏çËßÑËåÉÔºâ 1Áõ∏‰∫§ÔºàËßÑËåÉÔºâ
 
-//inline int Seg::sgn(cPo p)const{return -dott(p,a,b);} // !!!!
+//inline int Seg::sgn(cPo p)const{return -dott(p,a,b);}
 
 inline int Seg::sgn(cPo p)const{
+    if (dett(p, a, b)) return -1; // ÊúâÊó∂‰ºöÊúâÁ≤æÂ∫¶ËØØÂ∑Æ„ÄÇ„ÄÇ
     if (a == p || b == p) return 0;
-    //if (dett(p,a,b)) return -1;
     return -dott(p,a,b);
-    //return (dett(p, a, b) || ~dott(p, a, b)) ? -1 : 1;
 }
+
 
 inline int Seg::sgn(cLine l)const{return sgn(Ts*l);}
 
@@ -491,274 +605,6 @@ inline DB dist2(cSeg l1,cSeg l2){
 template<class T1, class T2> inline DB dist2(const T1& a, const T2& b){
     return dist2(b, a);
 }
-
-struct Triangle; struct Circle;
-typedef const Triangle&cTriangle; typedef const Circle&cCircle;
-
-const int Disjoint = -2, Exscribe = -1, Cross = 0, Inscribe = 1, Contain = 2;
-
-Po getX3(cPo a, cPo b, cPo c){ // Õ‚Ω”‘≤‘≤–ƒ
-    Po v0=b-a,v1=c-a;DB l0=v0.len2(),l1=v1.len2(),d=2*det(a,b,c);
-    return Po(l0*v1.y-l1*v0.y,l1*v0.x-l0*v1.x)/d+a;
-    //Po v0 = b-a, v1 = c-a, m0 = (a+b)/2, m1 = (a+c)/2;
-    //return Line(m0,m0+v0.lt())*Line(m1,m1+v1.lt());
-}
-
-
-
-
-Po getX4(cPo a, cPo b, cPo c){ // ¥π–ƒ // orthocenter
-    return Line(a,a&Line(b,c))*Line(b,b&Line(a,c));
-}
-
-
-
-struct Circle{
-    Po o; DB r; Circle(cPo o=Po(),DB r=0):o(o),r(r){}
-    Circle(cPo a,cPo b):o((a+b)/2),r(dist(a,b)/2){}
-    Circle(cLine l):Circle(l.a, l.b){}
-    Circle(cPo a,cPo b,cPo c):o(getX3(a,b,c)),r(dist(o,a)){}
-
-    void in(){o.in(),RF(r);}
-    void out(){printf("%.2f %.2f %.2f\n", o.x, o.y, r);}
-
-    bool operator <(cCircle c)const{return r<c.r;}
-    //-1œ‡¿Î 0‘≤…œ 1∞¸∫¨
-    inline int sgn(cPo p)const{return ::sgn(r*r, dist2(o, p));}
-    //-1œ‡¿Î 0œ‡«– 1œ‡Ωª
-    inline int sgn(cLine l)const{return ::sgn(r*r, dist2(l, o));}
-    // -2Õ‚¿Î -1Õ‚«– 0œ‡Ωª 1ƒ⁄«– 2∞¸∫¨
-    inline int sgn(cCircle c)const{
-        DB d=dist2(o,c.o);
-        if (::sgn(sqr(r+c.r),d)<0) return Disjoint;
-        if (!::sgn(sqr(r+c.r), d)) return Exscribe;
-        if (!::sgn(sqr(r-c.r), d)) return Inscribe;
-        if (::sgn(sqr(r-c.r), d)>0) return Contain;
-        return Cross;
-    }
-
-    inline DB s(){return PI*r*r;}
-    inline DB p(){return 2*PI*r;}
-
-    inline void getIntersect(cLine l,Po&p0,Po&p1)const{
-        Po m = o&l, d = (l.b-l.a)._1() * sqrt(sqr(r)-dist2(l, o));
-        p0 = m + d, p1 = m - d;
-    }
-    inline void getIntersect(cCircle c,Po&p0,Po&p1)const{
-        Po v=(c.o-o)._1()*r;DB a=acos(cos(r,dist(o,c.o),c.r));
-        p0=o+rot(v,a),p1=o+rot(v,-a);
-    }
-
-    inline void getTangency(cPo p,Po&p0,Po&p1)const{
-        DB d=dist(o,p),a=acos(r/d);Po v=(p-o)._1()*r;
-        p0=o+rot(v,a),p1=o+rot(v,-a);
-    }
-
-    inline VP operator*(cLine l)const{
-        VP P; int t = sgn(l); if (t==-1) return P;
-        Po p0, p1; getIntersect(l, p0, p1); P.PB(p0); if (t == 1) P.PB(p1);
-        return P;
-    }
-
-    inline VP operator*(cSeg s)const{
-        VP _P = Ts*Line(s), P; ECH(p, _P){
-
-            //assert(dett(*p, s.a, s.b) == 0);
-
-            if (~s.sgn(*p)) P.PB((*p));
-        }
-        return P;
-    }
-
-    inline Po operator^(cCircle c)const{return Po(det(Po(o.x,r),Po(c.o.x,c.r)),det(Po(o.y,r),Po(c.o.y,c.r)))/(c.r-r);}
-
-    inline VP operator*(cCircle c)const{
-        VP P; int t = abs(sgn(c)); if (t == 2) return P;
-        Po p0, p1; getIntersect(c, p0, p1); P.PB(p0); if (!t) P.PB(p1);
-        return P;
-    }
-};
-
-struct Triangle{
-    Po A,B,C; DB a,b,c; DB alpha,beta,theta;
-    DB r,R; DB S,P; Po I,G,O,H;
-
-    void init(){
-        S=fabs(det(A,B,C))/2,a=dist(B,C),b=dist(A,C),c=dist(A,B);
-        alpha=acos(cos(b,c,a)),beta=acos(cos(a,c,b)),theta=acos(cos(a,b,c));
-        P=a+b+c,R=(a*b*c)/(4*S),r=2*S/P;
-        I=Po(a*A.x+b*B.x+c*C.x,a*A.y+b*B.y+c*C.y)/P;
-        G=(A+B+C)/3,O=getX3(A,B,C),H=getX4(A,B,C);
-        //DB s=P/2; assert(!sgn(S, sqrt(s*(s-a)*(s-b)*(s-c)))); // ∫£¬◊π´ Ω
-        //assert(!sgn(dist(I,O), sqrt(R*(R-2*r))));
-        //assert(!sgn(dist(H,G), dist(O,H)*2/3));
-    }
-
-    void in(){
-        A.in(),B.in(),C.in();init();
-    }
-};
-
-Po getPo(){Po p;p.in();return p;}
-Line getLine(){Line l;l.in();return l;}
-
-DB getArea(const VP& P){DB z=0;FOR(i,1,SZ(P))z+=det(P[i-1],P[i]);return z;}
-DB getPeri(const VP& P){DB z=0;FOR(i,1,SZ(P))z+=dist(P[i-1],P[i]);return z;}
-
-
-// Õπ∞¸
-VP getCH(VP& P, int b=1){ //ƒÊ ±’Î£¨ «∑Ò≤ª±£¡Ùπ≤œﬂ
-
-    int n=SZ(P); if(n<=3) return P.PB(P[0]),getArea(P)<0?RVS(P):P;
-
-    SRT(P); VP C; C.resize(n+9); int nn = -1; REP(i, n){ //#
-        while (nn > 0 && dett(C[nn-1], C[nn], P[i]) < b) --nn; //#
-        C[++nn] = P[i];
-    }
-
-    int _nn = nn; DWN(i, n-1, 0){
-        while (nn > _nn && dett(C[nn-1], C[nn], P[i]) < b) --nn; //#
-        C[++nn] = P[i];
-    }
-
-    C.resize(nn+1);
-    return C;
-}
-
-
-// ∞Î∆Ω√ÊΩª
-
-const int HPI_N = 109;
-
-bool cmpHPI(cLine l,cLine r){
-    int t = sgn(l.arg(), r.arg()); if (!t) t = dett(r.a,l);
-    return t < 0;
-}
-
-Line Q[HPI_N]; int cz, op;
-
-void cut_b(cLine l){while(cz<op&&dett(l,Q[op]*Q[op-1])<0)--op;}
-void cut_f(cLine l){while(cz<op&&dett(l,Q[cz]*Q[cz+1])<0)++cz;}
-void cut(cLine l){cut_b(l),cut_f(l),Q[++op]=l;}
-
-VP getHPI(vector<Line>&L){
-    SRT(L, cmpHPI); int n = 1; FOR(i, 1, SZ(L)) if (sgn(L[i-1].arg(), L[i].arg())) L[n++] = L[i];
-    VP P; cz = 0, op = 1, Q[0] = L[0], Q[1] = L[1]; FOR(i, 2, n){
-        if (!dett(Q[op],Q[op-1])||!dett(Q[cz],Q[cz+1])) return P;
-        cut(L[i]);
-    }
-    cut_b(Q[cz]);cut_f(Q[op]);
-
-    if (op <= cz+1) return P;
-    for (int i=cz;i<op;++i) P.PB(Q[i]*Q[i+1]);
-    if (cz<op+1) P.PB(Q[cz]*Q[op]);
-    UNQQ(P).PB(P[0]);
-    return P;
-}
-
-
-// ∑÷÷Œ - ◊ÓΩ¸∆Ω√Êµ„∂‘
-
-bool cmpy(cPo a, cPo b){return a.y < b.y;}
-
-inline DB cp(VP &P, int l, int r){
-    if (l >= r) return OO;
-
-    int m = (l + r) >> 1; DB d = min(cp(P, l, m), cp(P, m+1, r)), mx = P[m].x;
-    inplace_merge(P.begin()+l, P.begin()+m+1, P.begin()+r+1, cmpy);
-
-    VP t; FOR_1(i, l, r) if (sgn(abs(P[i].x - mx), d)<0) t.PB(P[i]);
-    REP(i, SZ(t)) FOR(j, i+1,  min(SZ(t), i+9)) checkMin(d, dist2(t[i], t[j])); //#
-    return d;
-}
-
-DB cp(VP& P){
-    UNQ(P);
-    return cp(P, 0, SZ(P)-1);
-}
-
-
-// ◊Ó–°∏≤∏«‘≤
-
-Circle getMinimalCoverCircle(VP& P){ //#
-    random_shuffle(ALL(P)); int n = SZ(P);
-    Circle C(P[0]); FOR(i, 1, n) if (!~C.sgn(P[i])){
-        C = Circle(P[i]); REP(j, i) if (!~C.sgn(P[j])){
-            C = Circle(P[i], P[j]); REP(k, j) if (!~C.sgn(P[k])){
-                C = Circle(P[i], P[j], P[k]);
-            }
-        }
-    }
-    return C;
-}
-
-struct Polygon{
-    VP P;
-    void input();
-};
-
-inline bool equal(const pair<DB, DB>& lhs, cSeg  rhs){
-    DB k, b; rhs.getEquation(k, b);
-    return !sgn(k, lhs.fi) && !sgn(b, lhs.se);
-}
-
-DB getUnion(vector<Polygon>& P, vector<Seg>& S){
-
-    vector<pair<DB,DB> > L; ECH(Si, S){
-        DB k, b; Si->getEquation(k, b);
-        L.PB(MP(k, b));
-    }
-
-    UNQ(L); DB res = 0; ECH(Li, L){
-
-        vector<pair<DB, int> > I;
-        Line l0(0,Li->se,1,Li->fi+Li->se);
-
-        ECH(Pi, P){
-            int i; FOR_N(i, 1, SZ(Pi->P)) if (equal(*Li, Seg(Pi->P[i-1], Pi->P[i]))) break;
-            if (i != SZ(Pi->P)) continue;
-
-            VP cut; FOR_N(i, 1, SZ(Pi->P)){
-                Seg l1(Pi->P[i-1], Pi->P[i]); if (!dett(l0,l1)) continue;
-                Po p=l0*l1; if (~l1.sgn(p)) cut.PB(p);
-            }
-
-            if (SZ(UNQ(cut)) == 2){
-                I.PB(MP(cut[0].x, 1));
-                I.PB(MP(cut[1].x, -1));
-            }
-        }
-
-        ECH(Si, S) if (equal(*Li, *Si)){
-            I.PB(MP(min(Si->a.x, Si->b.x), 2));
-            I.PB(MP(max(Si->a.x, Si->b.x), -2));
-        }
-#define h (I[i].fi-I[i-1].fi)
-#define y0 (Li->fi * I[i-1].fi + Li->se)
-#define y1 (Li->fi * I[i].fi + Li->se)
-        SRT(I); int c0 = 0, c1 = 0; REP(i, SZ(I)){
-            if (!c0 && c1) res += (y0+y1)*h;
-            if (abs(I[i].se)==1) c0 += I[i].se;
-            else c1 += I[i].se;
-        }
-#undef h
-#undef y0
-#undef y1
-    }
-
-    return res;
-}
-
-DB getUnion(vector<Polygon>& P){
-    vector<Seg> up, down; ECH(it, P){
-        FOR(i, 1, SZ(it->P)){
-            Seg s(it->P[i-1], it->P[i]); int t = sgn(s.a.x, s.b.x);
-            if (t > 0) up.PB(s); else if (t < 0) down.PB(s);
-        }
-    }
-    return getUnion(P, up) - getUnion(P, down);
-}
-
 
 } using namespace CG;//}
 
@@ -818,78 +664,39 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e3) + 9;
+const int N = int(1.5e3) + 9;
+Po P[N]; int n;
 
-Po P[N]; int n, r;
-
-void init(){
-    REP(i, n) P[i].in(); Po p0; p0.in(); RD(r);
-    REP(i, n) P[i] -= p0; P[n] = P[0];
-
+LL binom(int n, int m){ // m > n Êó∂‰ºöÁÆóÂá∫ 0, Ê≥®ÊÑèÁ≤æÂ∫¶ÈóÆÈ¢ò„ÄÇ
+    LL z = 1; REP(i, m) z *= (n-i), z /= (i+1);
+    return z;
 }
 
-bool inside(Po p){
-    int cnt = 0; Seg l1(p, Po(9998877, 1234534)); REP(i, n){
-        Seg l2(P[i], P[i+1]); //if (~l2.sgn(p)) return true;
-        //assert(l2.sgn(p));
-        //cout << l2.sgn(p) << endl;
-        if (l1.sgn(l2) == 1) cnt += 2;
-        else if (l1.sgn(l2) == 0) cnt += 1;
-    }
-    cnt /= 2;
-    return cnt&1;
+bool cmp(cPo a, cPo b){
+    //return a.arg() < b.arg();
+    return a.q() == b.q() ? dett(a, b) >= 0 : a.q() < b.q();
 }
 
-LL solve(){
-    DB z = 0; Circle c(Po(0,0), r);  vector<DB> I; REP(i, n){
-        Seg l(P[i], P[i+1]);
+DB solve(){
+    RD(n); REP(i, n) P[i].in();
 
-        if (c.sgn(l) == 0) continue;
-
-        VP t = c*l; ECH(it, t) I.PB(it->arg());
-
-        //cout << t.size() << " " << l << " " << endl; //<< t[0] << " " << t[1] << " ";
-    //-1œ‡¿Î 0œ‡«– 1œ‡Ωª
-
-
-
-
-        if (t.size() == 2){
-            z += dist(t[0], t[1]);
-        }
-        else if (t.size() == 1){
-            if (c.sgn(l.b) == 1) z += dist(l.b, t[0]);
-            if (c.sgn(l.a) == 1) z += dist(l.a, t[0]);
-        }
-        else{
-            //assert(c.sgn(l.a) == c.sgn(l.b));
-
-            if (c.sgn(l.a) != c.sgn(l.b)){
-                    //cout << c.sgn(l.a) <<" " << c.sgn(l.b) << endl;
-                //assert(c.sgn(l.a) && c.sgn(l.b));
-                assert(c.sgn(l.a) + c.sgn(l.b) != 0);
+    DB a = 0; REP(i, n){
+        VP PP; REP(j, n) if (i!=j) PP.PB(P[j]-P[i]); SRT(PP, cmp);
+        DB aa = binom(n-1, 3); // ‰ª• i ‰∏∫‰∏≠ÂøÉÁöÑÂáπÂ§öËæπË°åÁöÑÊï∞Èáè
+        int r = 1, rr = 0; REP(l, SZ(PP)){
+            while (~dett(PP[l], PP[r])){
+                ++rr; if (++r == SZ(PP)) r = 0;
+                if (l == r) break;
             }
-
-            if (c.sgn(l.a)==1) z += dist(l.a, l.b);
+            aa -= binom(rr--, 2);
         }
+        a += aa;
     }
 
-    DB zz = 0; if (I.empty()){
-        zz = 0; REP(i, n) if (c.sgn(P[0]) == -1) { //!
-            zz = 2*PI;
-            break;
-        }
-    }
-    else{
-        UNQ(I); I.PB(I[0]+2*PI); REP(i, I.size()-1){
-            //if (!sgn(I[i+1], I[i])) continue;
-            DB a = (I[i]+I[i+1]) / 2;
-            if (inside(Po(cos(a), sin(a)) * r)) zz += I[i+1] - I[i];
-        }
-    }
-    z += r*zz;
-    return z + 0.5 + EPS;
+    DB b = binom(n, 4) - a;
+    return (a+2*b)/binom(n,3) + 3;
 }
+
 
 int main(){
 
@@ -898,7 +705,5 @@ int main(){
         //freopen("out.txt", "w", stdout);
 #endif
 
-    while(~scanf("%d", &n) && n){
-        init(); cout << solve() << endl;
-    }
+    printf("%.6f\n", solve());
 }
