@@ -362,10 +362,11 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e5) + 9;
 VI adj[N]; int dfn[N], low[N], par[N];
-int f[N], g[N], w[N]; // 取，不取
+int f[N], g[N], w[N]; // f 取，g 不取
 int n, m, nn;
 
-void upd(int top, int u, int &ff, int &gg){
+// dp on circle
+void dpc(int top, int u, int &ff, int &gg){
     for (int v=par[u];v!=top;v=par[v]){
         int _gg = gg;
         gg = g[v] + max(ff, gg);
@@ -373,9 +374,9 @@ void upd(int top, int u, int &ff, int &gg){
     }
 }
 
-void upd(int top, int u){
-    int gg = g[u], gf = -INF, fg = -INF, ff = f[u];
-    upd(top, u, ff, fg), upd(top, u, gf, gg);
+void dpc(int top, int u){
+    int gg = g[u], gf = 0, fg = 0, ff = f[u];
+    dpc(top, u, ff, fg), dpc(top, u, gf, gg);
     g[top] += max(fg, gf, gg, ff); f[top] += gg;
 }
 
@@ -394,7 +395,7 @@ void dfs(int u = 0){
     }
 
     ECH(it, adj[u]) if (par[v] != u && dfn[u] < dfn[v]){
-        upd(u, v);
+        dpc(u, v);
     }
 }
 

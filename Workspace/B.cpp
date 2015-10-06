@@ -1,74 +1,100 @@
-#include<iostream>
-#include<cstdio>
-#include<cstdlib>
-#include<algorithm>
-#include<cmath>
-#include<cstring>
-#define inf 2000000000
-#define ll long long
+#include <bits/stdc++.h>
 using namespace std;
-inline int read()
+
+const int MAXN = 50000;
+struct node{
+    int v;
+    node* next;
+} Edge[4*MAXN+10], *adj[MAXN+10], *ecnt = Edge;
+
+int n, m;
+int A[2*MAXN+10], Q[2*MAXN+10], sum[MAXN+10];
+int ans, num, f[MAXN+10], fa[MAXN+10], low[MAXN+10], dfn[MAXN+10];
+
+inline void addedge(int u, int v)
 {
-    int x=0,f=1;char ch=getchar();
-    while(ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}
-    while(ch>='0'&&ch<='9'){x=x*10+ch-'0';ch=getchar();}
-    return x*f;
+    node* p = ++ecnt;
+    p->v = v; p->next = adj[u]; adj[u] = p;
 }
-int n,m,ind,cnt;
-int f[100005],g[100005],mx[100005];
-int dfn[100005],q[100005],fa[100005];
-int last[100005],val[100005];
-int a[100005];
-bool mark[100005];
-struct edge{
-	int to,next;
-}e[400005];
-void insert(int u,int v)
+
+void dp(int rt, int ed)
 {
-	e[++cnt].to=v;e[cnt].next=last[u];last[u]=cnt;
-	e[++cnt].to=u;e[cnt].next=last[v];last[v]=cnt;
+    int n = sum[ed] - sum[rt] + 1;
+    for (int i = ed; i != rt; i = fa[i])
+    {
+        A[n--] = f[i];
+    }
+    A[n] = f[rt]; n = sum[ed] - sum[rt] + 1;
+    //expand
+    for (int i=n+1; i<=n+n; i++)
+        A[i] = A[i-n];
+    int l = 1, r = 1;
+    Q[l] = 1;
+    for (int i = 2; i<=n + n/2; i++)
+    {
+        while (l <= r && Q[l] < i - n/2)
+            l++;
+        ans = max(ans, A[Q[l]] + A[i] + i - Q[l]);
+        while (l <= r && A[Q[r]] - Q[r] <= A[i] - i)
+            r--;
+        Q[++r] = i;
+    }
+    for (int i=2; i<=n; i++)
+    {
+        f[rt] = max(f[rt], A[i] + min(i-1, n-i+1));
+    }
 }
-void dp(int rt,int x)
+
+void tarjan(int u)
 {
-	int u0=0,u1=0,v0,v1;
-    for(int j=x;j!=rt;j=fa[j])
-	{
-		v1=u0+f[j];v0=u1+g[j];
-		u0=v0;u1=max(v0,v1);
-	}
-	g[rt]+=u1;
-	u0=-inf;u1=0;  //!
-	for(int j=x;j!=rt;j=fa[j])
-	{
-		v1=u0+f[j];v0=u1+g[j];
-	    u0=v0;u1=max(v0,v1);
-	}
-	f[rt]+=u0;
+    low[u] = dfn[u] = ++num;
+    for (node* p = adj[u]; p; p = p->next)
+    {
+        int v = p->v;
+        if (v != fa[u])
+        {
+            if (!dfn[v])
+            {
+                fa[v] = u;
+                sum[v] = sum[u] + 1;
+                tarjan(v);
+            }
+            low[u] = min(low[u], low[v]);
+            if (dfn[u] < low[v])
+            {
+                ans = max(ans, f[u] + f[v] + 1);
+                f[u] = max(f[u], f[v] + 1);
+            }
+
+        }
+    }
+    for (node* p = adj[u]; p; p = p->next)
+    {
+        int v = p->v;
+        if (fa[v] != u && dfn[u] < dfn[v])
+        {
+            dp(u, v);
+        }
+    }
 }
-void dfs(int x)
-{
-	dfn[x]=++ind;
-	for(int i=last[x];i;i=e[i].next)
-		if(!dfn[e[i].to])
-		{
-			fa[e[i].to]=x;
-			dfs(e[i].to);
-		}
-	f[x]=val[x];
-    for(int i=last[x];i;i=e[i].next)
-		if(dfn[e[i].to]>dfn[x]&&fa[e[i].to]!=x)
-			dp(x,e[i].to);
-}
-int main()
-{
-	n=read();m=read();
-	for(int i=1;i<=m;i++)
-	{
-		int u=read(),v=read();
-		insert(u,v);
-	}
-	for(int i=1;i<=n;i++)val[i]=read();
-	dfs(1);
-	printf("%d",max(f[1],g[1]));
-	return 0;
+
+int main(){
+
+#ifndef ONLINE_JUDGE
+    freopen("in.txt", "r", stdin);
+        //freopen("out.txt", "w", stdout);
+#endif
+
+    int k;
+    scanf("%d%d", &n, &m);
+    for (int i=1; i<=m; i++)
+    {
+        scanf("%d", &k);
+        for (int j=1; j<=k; j++)
+            scanf("%d", &A[j]);
+        for (int j=2; j<=k; j++)
+            addedge(A[j], A[j-1]), addedge(A[j-1], A[j]);
+    }
+    tarjan(1);
+    printf("%d\n", ans);
 }
