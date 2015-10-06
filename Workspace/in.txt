@@ -1,29 +1,16 @@
-2
-abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-2 2
-aaaa
-10 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+3
 1 1
-
-
-
-B：点分治 + SAM？
-需要验证。
-
-C：SAM + DP（http://www.lydsy.com/JudgeOnline/problem.php?id=2806
-（http://acm.hdu.edu.cn/showproblem.php?pid=5470
-
-
-好题！。。。类似 http://user.qzone.qq.com/251815992/blog/1381740443 。。。
-
-我们需要搞出。。前缀所够被识别的最长后缀！。。这样就可以用单调队列 DP 了！。。。
-
-但是这次的后缀不能太长，否则那个时刻 SAM 还没有建起来，就不行了！
-看起来我们需要一个可持久化 SAM（爆炸熊。。
-
-但是其实可以跑一下每个状态最早出现的时刻就行了。。。这样如果时间太早。。我们就在 fail 树上移动。注意要一个字符一个字符的退。）
-
-
-
-
+0 0
+0 0
+4 4
+0 0
+1 0
+0 1
+-1 0
+0 1
+1 0
+0 -1
+-1 0
+1 1
+0 0
+0 1 
