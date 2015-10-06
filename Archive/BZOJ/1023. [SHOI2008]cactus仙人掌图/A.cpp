@@ -385,15 +385,14 @@ void dfs(int u = 0){
     low[u] = dfn[u] = ++nn;
     f[u] = 0; ECH(it, adj[u]) if (v != par[u]){
         if (!dfn[v]){
-            dep[v] = dep[u] + 1, par[v] = u;
-            dfs(v);
+            dep[v] = dep[u] + 1, par[v] = u; dfs(v);
+            if (dfn[u] < low[v]){
+                checkMax(z, f[u] + f[v] + 1);
+                checkMax(f[u], f[v] + 1);
+            }
         }
 
         checkMin(low[u], low[v]);
-        if (dfn[u] < low[v]){
-            checkMax(z, f[u] + f[v] + 1);
-            checkMax(f[u], f[v] + 1);
-        }
     }
 
     ECH(it, adj[u]) if (par[v] != u && dfn[u] < dfn[v]){

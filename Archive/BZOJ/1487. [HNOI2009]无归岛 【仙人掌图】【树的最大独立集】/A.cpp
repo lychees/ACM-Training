@@ -362,36 +362,36 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e5) + 9;
 VI adj[N]; int dfn[N], low[N], par[N];
-int f[N], g[N], w[N]; // f È¡£¬g ²»È¡
+int f[N], g[N], w[N]; // f: pick.. g: doesn't pick
 int n, m, nn;
 
 // dp on circle
 void dpc(int top, int u, int &ff, int &gg){
     for (int v=par[u];v!=top;v=par[v]){
         int _gg = gg;
-        gg = g[v] + max(ff, gg);
-        ff = f[v] + _gg;
+        gg = g[v] + ff; ff = f[v] + _gg;
+        checkMax(ff, gg);
     }
 }
 
 void dpc(int top, int u){
     int gg = g[u], gf = 0, fg = 0, ff = f[u];
     dpc(top, u, ff, fg), dpc(top, u, gf, gg);
-    g[top] += max(fg, gf, gg, ff); f[top] += gg;
+    g[top] += ff; f[top] += gg;
 }
 
 #define v (*it)
 void dfs(int u = 0){
     low[u] = dfn[u] = ++nn;
-    f[u] = w[u]; g[u] = 0; ECH(it, adj[u]) if (!dfn[v]){
-        par[v] = u; dfs(v);
-        checkMin(low[u], low[v]);
-        if (dfn[u] < low[v]){
-            f[u] += g[v];
-            g[u] += max(f[v], g[v]);
+    f[u] = max(w[u], 0); g[u] = 0; ECH(it, adj[u]) if (v != par[u]){
+        if (!dfn[v]){
+            par[v] = u; dfs(v);
+            if (dfn[u] < low[v]){
+                f[u] += g[v]; g[u] += f[v];
+                checkMax(f[u], g[u]);
+            }
         }
-    }else{
-        checkMin(low[u], dfn[v]);
+        checkMin(low[u], low[v]);
     }
 
     ECH(it, adj[u]) if (par[v] != u && dfn[u] < dfn[v]){
@@ -412,5 +412,5 @@ int main(){
     }
 
     REP(i, n) RDD(w[i]); nn = 0, dfs();
-    cout << max(f[0], g[0]) << endl;
+    cout << f[0] << endl;
 }
