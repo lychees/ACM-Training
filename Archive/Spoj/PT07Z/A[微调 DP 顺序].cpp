@@ -360,41 +360,15 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
-VI adj[N]; int dfn[N], low[N], par[N];
-int f[N], g[N], w[N]; // È¡£¬²»È¡
-int n, m, nn;
-
-void upd(int top, int u, int &ff, int &gg){
-    for (int v=par[u];v!=top;v=par[v]){
-        int _gg = gg;
-        gg = g[v] + max(ff, gg);
-        ff = f[v] + _gg;
-    }
-}
-
-void upd(int top, int u){
-    int gg = g[u], gf = -INF, fg = -INF, ff = f[u];
-    upd(top, u, ff, fg), upd(top, u, gf, gg);
-    g[top] += max(fg, gf, gg, ff); f[top] += gg;
-}
-
+const int N = int(1e4) + 9;
+int f[N]; VI adj[N];
+int n, m, z;
 #define v (*it)
-void dfs(int u = 0){
-    low[u] = dfn[u] = ++nn;
-    f[u] = w[u]; g[u] = 0; ECH(it, adj[u]) if (!dfn[v]){
-        par[v] = u; dfs(v);
-        checkMin(low[u], low[v]);
-        if (dfn[u] < low[v]){
-            f[u] += g[v];
-            g[u] += max(f[v], g[v]);
-        }
-    }else{
-        checkMin(low[u], dfn[v]);
-    }
 
-    ECH(it, adj[u]) if (par[v] != u && dfn[u] < dfn[v]){
-        upd(u, v);
+void dfs(int u = 0, int p = -1){
+    f[u] = 0; ECH(it, adj[u]) if (v != p){
+        dfs(v, u); checkMax(z, f[u] + f[v] + 1);
+        checkMax(f[u], f[v] + 1);
     }
 }
 
@@ -405,11 +379,11 @@ int main(){
         //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n, m); DO(m){
+    RD(n); DO(n-1){
         int a, b; RD(a, b); --a, --b;
-        adj[a].PB(b); adj[b].PB(a);
+        adj[a].PB(b);
+        adj[b].PB(a);
     }
-
-    REP(i, n) RDD(w[i]); nn = 0, dfs();
-    cout << max(f[0], g[0]) << endl;
+    dfs();
+    cout << z << endl;
 }
