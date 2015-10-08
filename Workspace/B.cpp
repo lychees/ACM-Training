@@ -1,132 +1,134 @@
-#include <bits/stdc++.h>
-using namespace std ;
+struct SAM
+{
+    SAM *son[4],*pre;
+    int len;
+    int ok;
 
-typedef long long LL ;
-
-#define clr( a , x ) memset ( a , x , sizeof a )
-
-const int MAXN = 100005 ;
-
-namespace Suffix_Automation {
-
-    const int N = 26 ;
-
-    struct Node {
-        Node* nxt[N] ;
-        Node* fail ;
-        LL num ;
-        int l ;
-        int c ;
-
-        void newnode ( int _l , int _c ) {
-            clr ( nxt , NULL ) ;
-            fail = NULL ;
-            num = 1 ;
-            l = _l ;
-            c = _c ;
-        }
-    } ;
-
-    Node node[MAXN << 1] ;
-    Node* last ;
-    Node* root ;
-    Node* cur ;
-
-    void init () {
-        root = last = cur = node ;
-        cur->newnode ( 0 , 0 ) ;
+    void init()
+    {
+        clr(son,0);
+        pre=0;
+        ok=0;
     }
+};
 
-    void create ( Node* p , Node* np , int c ) {
-        Node *q = p->nxt[c] , *nq = ++ cur ;
-        *nq = *q ;
-        nq->l = p->l + 1 ;
-        q->fail = nq ;
-        if ( np != NULL ) np->fail = nq ;
-        for ( ; p && p->nxt[c] == q ; p = p->fail ) p->nxt[c] = nq ;
-    }
 
-    void add ( int c ) {
-        c -= 'a' ;
-        Node *p = last , *np = last = ++ cur ;
-        np->newnode ( p->l + 1 , c ) ;
-        for ( ; p && p->nxt[c] == NULL ; p = p->fail ) p->nxt[c] = np ;
-        if ( p == NULL ) np->fail = root ;
-        else {
-            if ( p->l + 1 == p->nxt[c]->l ) np->fail = p->nxt[c] ;
-            else create ( p , np , c ) ;
-        }
-    }
-} ;
+SAM sam[N],*head,*last;
+int cnt;
 
-using namespace Suffix_Automation ;
 
-char s1[MAXN] , s2[MAXN] ;
-int idx[MAXN << 1] ;
-LL d[26] ;
-
-int cmp ( const int& a , const int& b ) {
-    return node[a].l > node[b].l ;
+void initSam()
+{
+    head=last=&sam[0];
+    head->init();
+    cnt=1;
 }
 
-void solve () {
-    unsigned long long ans = 1 ;
-    scanf ( "%s%s" , s1 , s2 ) ;
-    init () ;
-    for ( int i = 0 ; s2[i] ; ++ i ) {
-        add ( s2[i] ) ;
-    }
-    int cnt = cur - node ;
-    for ( int i = 0 ; i <= cnt ; ++ i ) {
-        idx[i] = i ;
-    }
-    sort ( idx , idx + cnt + 1 , cmp ) ;
-    for ( int i = 0 ; i <= cnt ; ++ i ) {
-        Node* p = idx[i] + node ;
-        for ( int j = 0 ; j < N ; ++ j ) {
-            if ( p->nxt[j] != NULL ) p->num += p->nxt[j]->num ;
-        }
-    }
-    for ( int i = 0 ; i < N ; ++ i ) {
-        if ( root->nxt[i] != NULL ) d[i] = root->nxt[i]->num ;
-        else d[i] = 0 ;
-    }
 
-    init () ;
-    for ( int i = 0 ; s1[i] ; ++ i ) {
-        add ( s1[i] ) ;
-    }
-    cnt = cur - node ;
-    for ( int i = 0 ; i < N ; ++ i ) {
-        if ( root->nxt[i] == NULL ) ans += d[i] ;
-
-        cout << d[i] << " ";
-    }
-    cout << endl;
-
-
-    for ( int i = 1 ; i <= cnt ; ++ i ) {
-        Node* p = node + i ;
-        unsigned long long l = p->l - p->fail->l ;
-        for ( int j = 0 ; j < N ; ++ j ) {
-            if ( p->nxt[j] == NULL ) ans += l * d[j] ;
-        }
-        ans += l ;
-    }
-    printf ( "%I64u\n" , ans ) ;
+int get(char x)
+{
+    if(x=='A') return 0;
+    if(x=='T') return 1;
+    if(x=='G') return 2;
+    return 3;
 }
 
-int main () {
-#ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
-#endif
+void insert(int x)
+{
+    SAM *p=&sam[cnt++],*u=last;
 
-    int T ;
-    scanf ( "%d" , &T ) ;
-    cout << T << endl;
-    for ( int i = 1 ; i <= T ; ++ i ) {
-        solve () ;
+    p->init();
+
+    p->len=last->len+1;
+    last=p;
+    for(;u&&!u->son[x];u=u->pre) u->son[x]=p;
+    if(!u) p->pre=head;
+    else if(u->son[x]->len==u->len+1) p->pre=u->son[x];
+    else
+    {
+        SAM *r=&sam[cnt++],*q=u->son[x];
+        *r=*q; r->len=u->len+1;
+        p->pre=q->pre=r;
+        for(;u&&u->son[x]==q;u=u->pre) u->son[x]=r;
     }
-    return 0 ;
+}
+
+
+char s[N*2];
+int cur;
+
+int start[N],len[N];
+
+vector<pair<int,int> > V[N];
+
+int ans[N];
+
+
+map<int,int> mp;
+
+
+int n,m;
+
+int main()
+{
+//  FFF;
+
+    while(scanf("%d%d",&n,&m)!=-1)
+    {
+        cur=0;
+        int i;
+        for(i=1;i<=n;i++)
+        {
+            scanf("%s",s+cur);
+            start[i]=cur;
+            len[i]=strlen(s+cur);
+            cur+=len[i]+3;
+        }
+        for(i=1;i<=m;i++)
+        {
+            int u,v;
+            scanf("%d%d",&u,&v);
+            V[u].pb(MP(v,i));
+        }
+
+
+        for(i=1;i<=n;i++) if(SZ(V[i])>0)
+        {
+            int j;
+            initSam();
+            for(j=start[i];s[j];j++)  insert(get(s[j]));
+            SAM *p=last;
+            while(p!=NULL) p->ok=1,p=p->pre;
+
+
+            mp.clear();
+            for(j=0;j<SZ(V[i]);j++)
+            {
+                int k=V[i][j].first;
+                int id=V[i][j].second;
+                if(mp.count(k))
+                {
+                    ans[id]=mp[k];
+                    continue;
+                }
+                SAM *p=head;
+                int t,tmp=0,cur=0;
+                for(t=start[k];s[t];t++)
+                {
+                    int x=get(s[t]);
+                    if(p->son[x])
+                    {
+                        cur++;
+                        p=p->son[x];
+                        if(p->ok) tmp=max(tmp,cur);
+                    }
+                    else break;
+                }
+                mp[k]=tmp;
+                ans[id]=tmp;
+            }
+            V[i].clear();
+        }
+        for(i=1;i<=m;i++) printf("%d\n",ans[i]);
+    }
 }
