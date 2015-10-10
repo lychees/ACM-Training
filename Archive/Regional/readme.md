@@ -1,145 +1,154 @@
-# 2014 ACM/ICPC ÖĞ¹ú´óÂ½ÈüÇø
+# 2014 ACM/ICPC ä¸­å›½å¤§é™†èµ›åŒº
 
-## Äµµ¤½­
+## ç‰¡ä¸¹æ±Ÿ
 
 A.
-Ç©µ½
+ç­¾åˆ°
+
 B.
-Ê÷µÄÖ±¾¶£¬¶ş·Ö´ğ°¸
+æ ‘çš„ç›´å¾„ï¼ŒäºŒåˆ†ç­”æ¡ˆ
+
 C.
-¶ñÄ£Äâ
+æ¶æ¨¡æ‹Ÿ
+
 D.
-DP¡¢ÆÚÍû
+DPã€æœŸæœ›
+
 E. Excavator Contest
-¹¹Ôì
+æ„é€ 
+
 F. Fiber-optic Network
-Ê÷ DP¡¢Èİ³âÔ­Àí
+æ ‘ DPã€å®¹æ–¥åŸç†
+
 G. Garden and Sprinklers
-¼ÆËã¼¸ºÎ
+è®¡ç®—å‡ ä½•
+
 H. Hierarchical Notation
-Ä£Äâ
+æ¨¡æ‹Ÿ
+
 J. Jacobi Pattern
-£¿£¿×Ö·û´®£¿£¿
+ï¼Ÿï¼Ÿå­—ç¬¦ä¸²ï¼Ÿï¼Ÿ
+
 K.
-Ì°ĞÄ
+è´ªå¿ƒ
 
 
-## °°É½
+## éå±±
 
 A.
 ???
 B. 
-´óÄ£Äâ
+å¤§æ¨¡æ‹Ÿ
 C. 
-²¹¼¯¼ÆÊı¡¢Èİ³âÔ­Àí
+è¡¥é›†è®¡æ•°ã€å®¹æ–¥åŸç†
 D. 
-Ç©µ½
+ç­¾åˆ°
 E. 
-¼òµ¥ DP
+ç®€å• DP
 F. 
 ???
 G. 
-×îĞ¡¸î
+æœ€å°å‰²
 H. 
-ËÑË÷£¿
+æœç´¢ï¼Ÿ
 I. 
-Ç©µ½
+ç­¾åˆ°
 J. 
-SCDP£¿
+SCDPï¼Ÿ
 K. Colorful Toy
-¼ÆËã¼¸ºÎ¡¢polya ¼ÆÊı·¨
+è®¡ç®—å‡ ä½•ã€polya è®¡æ•°æ³•
 L. Trie
-AC ×Ô¶¯»ú£¬fail Ê÷£¬dfs ĞòÁĞ£¬Á´²¢£¬Ê÷×´Êı×é¡¢Ê÷Á´ÆÊ·Ö
+AC è‡ªåŠ¨æœºï¼Œfail æ ‘ï¼Œdfs åºåˆ—ï¼Œé“¾å¹¶ï¼Œæ ‘çŠ¶æ•°ç»„ã€æ ‘é“¾å‰–åˆ†
 
-## Î÷°²
-£¿£¿£¿
+## è¥¿å®‰
+ï¼Ÿï¼Ÿï¼Ÿ
 
 A.
-Ç©µ½
+ç­¾åˆ°
 B.
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 C.
-×î´óÃÜ¶È×ÓÍ¼
+æœ€å¤§å¯†åº¦å­å›¾
 D.
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 E.
-¼ÆËã¼¸ºÎ
+è®¡ç®—å‡ ä½•
 F. Color
-Èİ³âÔ­Àí
+å®¹æ–¥åŸç†
 G. The Problem to Slow Down You 
-×Ö·û´®¡¢»ØÎÄÊ÷¡¢Manacher¡¢Hash
+å­—ç¬¦ä¸²ã€å›æ–‡æ ‘ã€Manacherã€Hash
 H. The Problem to Make You Happy
-²©ŞÄ DP
+åšå¼ˆ DP
 I. International Collegiate Routing Contest
-Trie Ê÷¡¢bitset¡¢dfs
+Trie æ ‘ã€bitsetã€dfs
 J. Unlimited Battery Works 
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 K. Last Defence
 gcd
 
 
-## ±±¾©
+## åŒ—äº¬
 
 A.
-Ç©µ½
+ç­¾åˆ°
 B.
-¹¹Ôì
+æ„é€ 
 C.
-ÊıÂÛ
+æ•°è®º
 D.
-DP¡¢ÕıÄÑÔò·´
+DPã€æ­£éš¾åˆ™å
 E.
-É¨ÃèÏß
+æ‰«æçº¿
 F.
-ÆÚÍû
+æœŸæœ›
 G.
-¿É³Ö¾Ã»¯ Treap
+å¯æŒä¹…åŒ– Treap
 H.
-±³°ü¡¢xor
+èƒŒåŒ…ã€xor
 I.
-¼ÆËã¼¸ºÎ
+è®¡ç®—å‡ ä½•
 J.
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 K. Bro Sorting
-Ê÷×´Êı×é
+æ ‘çŠ¶æ•°ç»„
 
-## ÉÏº£ÈüÇø
+## ä¸Šæµ·èµ›åŒº
 http://acmicpc.info/archives/1881
 
 A. The Matrix Revolutions
 http://www.cnblogs.com/oyking/p/4598601.html
-£¿£¿£¿¾ØÕóÊ÷¶¨Àí
+ï¼Ÿï¼Ÿï¼ŸçŸ©é˜µæ ‘å®šç†
 
 B. Rotation
-Ä£Äâ¡£
+æ¨¡æ‹Ÿã€‚
 
 C. Seat Arrangement
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 D. BombX
-ÀëÉ¢»¯¡¢Ïß¶ÎÊ÷
+ç¦»æ•£åŒ–ã€çº¿æ®µæ ‘
 E. Block the Roads
-£¿£¿
+ï¼Ÿï¼Ÿ
 F. Room Assignment
-×éºÏ DP
+ç»„åˆ DP
 G. Game
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 H. Lawn Mower
-£¿£¿£¿
+ï¼Ÿï¼Ÿï¼Ÿ
 I. Defeat the Enemy
-Ì°ĞÄ¡¢ÅÅĞò
+è´ªå¿ƒã€æ’åº
 J. World Cup
-Ì°ĞÄ
+è´ªå¿ƒ
 K. LRIP
-Ê÷·ÖÖÎ
+æ ‘åˆ†æ²»
 L. Top ACMers
-£¿
+ï¼Ÿ
 
 
 
 
 To do list:
 Beijing
-04£º
+04ï¼š
 FWT
 http://user.qzone.qq.com/251815992/blog/1406398829?ptlang=2052
 
