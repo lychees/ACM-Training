@@ -1,23 +1,151 @@
-2 1
-TTZ
-TTT
-1 2
-4 4
-AAATTT
-TTTCCC
-CCCGGG
-GGGAAA
-1 2
-2 3
-3 4
-4 1
+5 5
+a
+ab
+abab
+ababab
+b
+1 5 1
+3 5 1
+1 5 2
+1 5 3
+1 4 5
 
-4 4
-AAATTTAAATTTAAATTTAAATTTAAATTTAAATTT
-AAATTTAAATTTAAATTTAAATTTAAATTTAAATTT
-AAATTTAAATTTAAATTTAAATTTAAATTTAAATTT
-AAATTTAAATTTAAATTTAAATTTAAATTTAAATTT
-1 2
-2 3
-3 4
-4 1
+1
+3   ../ x
+5
+15  ../ x
+
+
+g(n), < n 的每个数有多少个 A 里的数是其约数的约数的个数的和。
+
+
+
+f(n), < n 且存在一个 A 里的数是其约数的个数。
+g(n) = \sum_{i=1}^n [i / a]
+
+1
+g(n) = \sum f(d) d | n
+
+
+
+## 牡丹江
+
+A.
+签到
+B.
+树的直径，二分答案
+C.
+恶模拟
+D.
+DP、期望
+E. Excavator Contest
+构造
+F. Fiber-optic Network
+树 DP、容斥原理
+G. Garden and Sprinklers
+计算几何
+H. Hierarchical Notation
+模拟
+J. Jacobi Pattern
+？？字符串？？
+K.
+贪心
+
+
+## 鞍山
+
+A.
+???
+B. 
+大模拟
+C. 
+补集计数、容斥原理
+D. 
+签到
+E. 
+简单 DP
+F. 
+???
+G. 
+最小割
+H. 
+搜索？
+I. 
+签到
+J. 
+SCDP？
+K. Colorful Toy
+计算几何、polya 计数法
+L. Trie
+AC 自动机，fail 树，dfs 序列，链并，树状数组、树链剖分
+
+## 西安
+？？？
+
+A.
+签到
+B.
+？？？
+C.
+最大密度子图
+D.
+？？？
+E.
+计算几何
+F. Color
+容斥原理
+G. The Problem to Slow Down You 
+字符串、回文树、Manacher、Hash
+H. The Problem to Make You Happy
+博弈 DP
+I. International Collegiate Routing Contest
+Trie 树、bitset、dfs
+J. Unlimited Battery Works 
+？？？
+K. Last Defence
+gcd
+
+
+## 北京
+
+A.
+签到
+B.
+构造
+C.
+数论
+D.
+DP、正难则反
+E.
+扫描线
+F.
+期望
+G.
+可持久化 Treap
+H.
+背包、xor
+I.
+计算几何
+J.？？？
+K. Bro Sorting
+树状数组
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
