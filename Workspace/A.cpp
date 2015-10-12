@@ -206,10 +206,11 @@ template<class T> inline void CLR(T &A, int n){REP(i, n) CLR(A[i]);}
 
 template<class T> inline bool EPT(T &a){return a.empty();}
 template<class T> inline T& SRT(T &A){sort(ALL(A)); return A;}
-template<class T, class C> inline T& SRT(T &A, C B){sort(ALL(A), B); return A;}
+template<class T, class C> inline T& SRT(T &A, C cmp){sort(ALL(A), cmp); return A;}
 template<class T> inline T& RVS(T &A){reverse(ALL(A)); return A;}
 template<class T> inline T& UNQQ(T &A){A.resize(unique(ALL(A))-A.begin());return A;}
 template<class T> inline T& UNQ(T &A){SRT(A);return UNQQ(A);}
+template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A);}
 
 
 //}
@@ -463,201 +464,179 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = 200009, LV = 24, Z = 26;
 
-int n;
+char buf[N/2]; LL ans[N/2];
+int TtoM[N/2], MtoT[N], nn, K;
 
-namespace ST{
-    LL ss[N<<2], dd[N<<2], ll[N<<2]; int a, b, c;
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml (l+r>>1)
-#define mr (ml+1)
-#define lc lx,l,ml
-#define rc rx,mr,r
-#define xx x,l,r
-#define rt 1,1,n
-    void inc(int x, int d){
-        dd[x] += d;
-        ss[x] += ll[x]*d;
+namespace Trie{
+    int trans[N/2][Z]; VI b[N/2]; VI path[N];
+    int tot;
+
+#define v trans[u][c]
+
+    int new_node(){
+        return tot++;
     }
-    void upd(int x){
-        ss[x] = ss[lx] + ss[rx];
-    }
-    void rls(int x){
-        if (dd[x]){
-            inc(lx, dd[x]), inc(rx, dd[x]);
-            dd[x] = 0;
+
+    void Insert(int id){
+        RS(buf); int u = 0; REP_S(cur, buf){
+            int c = *cur - 'a';
+            if (!v) v = new_node();
+            b[u = v].PB(id);
+            path[id].PB(u);
         }
     }
-    void modify(int x, int l, int r){
-        if (b < l || r < a) return;
-        if (a <= l && r <= b){
-            inc(x, c);
-        }
-        else{
-            rls(x);
-            modify(lc); modify(rc);
-            upd(x);
-        }
-    }
-    LL query(int x, int l, int r){
-        if (b < l || r < a) return 0;
-        if (a <= l && r <= b){
-            return ss[x];
-        }
-        else{
-            rls(x);
-            return query(lc) + query(rc);
-        }
-    }
-    void Build(int x, int l, int r){
-        ss[x] = dd[x] = 0; ll[x] = r - l + 1;
-        if (l == r){
-        }
-        else{
-            Build(lc); Build(rc);
-        }
-    }
-    LL Query(int l, int r){
-        a = l, b = r;
-        return query(rt);
-    }
-    void Modify(int l, int r, int v){
-        a = l, b = r, c = v;
-        modify(rt);
+
+    void Init(){
+        tot = 0, new_node();
+        REP(i, nn) Insert(i);
     }
 }
 
-namespace ACM{
-    const int Z = 26, LV = 20;
-    int trans[N][Z], fail[N], Q[N], cz, op, u;
-    VI adj[N]; int L[N], R[N], up[N], fa[N], sz[N];
+namespace SAM{
 
-#define v trans[u][c]
-#define f trans[fail[u]][c]
-    void Build(){
-        cz = op = u = 0;
-        REP(c, Z) if (v) Q[op++] = v;
-        while (cz < op){
-            u = Q[cz++];
-            REP(c, Z){
-                if (v) fail[Q[op++] = v] = f;
-                else v = f;
+    int trans[N][Z], par[N], len[N], cnt[N], tot;
+    VI adj[N];
+
+#define p par[u]
+#define pp par[uu]
+
+    inline int new_node(){
+        RST(trans[tot]);
+        return tot++;
+    }
+
+    inline int new_node(int u){
+        CPY(trans[tot], trans[u]); par[tot] = par[u];
+        return tot++;
+    }
+
+    inline int h(int u){
+        return len[u] - len[p];
+    }
+
+    int Ext(int c, int tail){
+        int u = tail, uu = new_node(); len[uu] = len[u] + 1;
+        while (u && !v) v = uu, u = p; // 向上遍历没有 c-转移 的祖先 ..
+        if (!u && !v) v = uu, pp = 0;
+        else{
+            if (len[v] == len[u] + 1) pp = v;
+            else{
+                int _v = v, vv = new_node(_v); len[vv] = len[u] + 1; par[_v] = pp = vv;
+                while (u && v == _v) v = vv, u = p;
+                if (!u && v == _v) v = vv;
             }
         }
+        return uu;
     }
+
 #undef v
 #define v (*it)
 
+    /*void tarjan(int u = 0){
+
+        Make(u); ECH(it, adj[u]) tarjan(v), Union(u, v);
+
+        if(MtoT[u]) ECH(it, Trie::b[MtoT[u]]){
+            --cnt[A[Find(L[v])]]; ++cnt[u], L[v] = u;
+        }
+    }*/
+
+    int dfn[N], dep[N];
+    int st[N], ST[LV][N*2], st_n, dfn_n;
+    bool cmpByDep(int a, int b){
+        return dep[a] < dep[b];
+    }
+    int lca(int l, int r){
+        l = st[l], r = st[r];
+        if (l > r) swap(l, r); ++r;
+        int lv = lg2(r-l);
+        return min(ST[lv][l], ST[lv][r-(1<<lv)], cmpByDep);
+    }
     void dfs(int u = 0){
-        sz[u] = 1;
+        dfn[u] = ++dfn_n;
+        ST[0][st[u] = ++st_n] = u;
         ECH(it, adj[u]){
-            fa[v] = u;
+            dep[v] = dep[u] + 1;
             dfs(v);
-            sz[u] += sz[v];
+            ST[0][++st_n] = u;
         }
     }
-    void hld(int u = 0){
-        L[u] = ++n;
-        int h = 0;
 
-        ECH(it, adj[u]) if (!h || sz[v] > sz[h]) h = v;
-
-        if (h){
-            up[h] = up[u];
-            hld(h);
-            ECH(it, adj[u]) if (v != h){
-                up[v] = v;
-                hld(v);
-            }
-        }
-        R[u] = n;
+    bool cmpByDfn(int a, int b){
+        return dfn[a] < dfn[b];
     }
+
+    void AddPattern(int id){
+        VI P; ECH(it, Trie::path[id]) P.PB(TtoM[*it]);
+        UNQ(P, cmpByDfn);
+
+        REP(i, SZ(P)){
+            if (i) --cnt[lca(P[i-1], P[i])];
+            ++cnt[P[i]];
+        }
+    }
+
+    LL Query(int id){
+        VI P; ECH(it, Trie::path[id]) P.PB(TtoM[*it]);
+        UNQ(P, cmpByDfn);
+
+        LL z = 0; REP(i, SZ(P)){
+            if (i) z -= cnt[lca(P[i-1], P[i])];
+            z += cnt[P[i]];
+        }
+        return z;
+    }
+
+    void dfs1(int u = 0){
+        ECH(it, adj[u]) dfs1(v), cnt[u] += cnt[v];
+    }
+
+    void dfs2(int u = 0){
+        ECH(it, adj[u]) cnt[v] += cnt[u], dfs2(v);
+    }
+
+#undef v
+#define v Trie::trans[u][c]
+
     void Init(){
-        RD(n); REP(i, n){
-            RST(trans[i]);
-            fail[i] = 0;
-        }
-        FOR(u, 1, n){
-            int p; RD(p); --p;
-            trans[p][RC()-'a'] = u;
-        }
-        Build();
-        REP(i, n) adj[i].clear();
-        FOR(u, 1, n){
-            int p = fail[u];
-            adj[p].PB(u);
-        }
-        n = 0; dfs(); hld(); ST::Build(rt);
-    }
+        tot = 0; queue<int> Q; Q.push(0); TtoM[0] = new_node();
 
-    bool cmpByL(int a, int b){
-        return L[a] < L[b];
-    }
+        while(SZ(Q)){
+            int u = Q.front(); Q.pop();
+            REP(c, 26) if (v) Q.push(MtoT[TtoM[v] = Ext(c, TtoM[u])] = v);
+        }
 
-    void Add(){
-        VI P; Rush P.PB(RD()-1);
-        SRT(P, cmpByL);
-        int x = P[0];
-        ST::Modify(L[x], R[x], 1);
-        FOR(i, 1, SZ(P)){
-            if (L[x] <= L[P[i]] && L[P[i]] <= R[x]){
-                continue;
-            }
-            else{
-                x = P[i];
-                ST::Modify(L[x], R[x], 1);
+        FOR(u, 1, tot) adj[p].PB(u);
+
+        //tarjan();
+
+        dfn_n = st_n = 0; dfs();
+
+        for (int lv=1;(1<<lv)<=st_n;++lv){
+            for (int i=1;i+(1<<lv)<=st_n+1;++i){
+                ST[lv][i] = min(ST[lv-1][i], ST[lv-1][i+(1<<(lv-1))], cmpByDep);
             }
         }
-    }
 
-    int vis[N], pos[N], tt;
+        REP(i, nn) AddPattern(i);
 
-    LL Query(int x){
-        LL z = 0;
-        do{
-            int y = up[x];
-            if (vis[y] != tt) pos[y] = L[y]-1, vis[y] = tt;
-            if (L[x] > pos[y]){
-                z += ST::Query(pos[y]+1, L[x]);
-                pos[y] = L[x];
-            }
-            else break;
-            if (!y) break;
-            x = fa[y];
-        } while (true);
-        return z;
-    }
-
-    LL Query(){
-        LL z = 0;
-        VI P; Rush P.PB(RD()-1);
-        SRT(P, cmpByL);
-        ++tt;
-        z += Query(P[0]);
-        FOR(i, 1, SZ(P)){
-            z += Query(P[i]);
-        }
-        return z;
+        dfs1();
+        cnt[0] = 0; FOR(u, 1, tot) cnt[u] = cnt[u] >= K ? h(u) : 0;
+        dfs2();
+        REP(i, nn) ans[i] = Query(i);
     }
 }
+
 
 int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-        //freopen("out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    Rush{
-        ACM::Init(); Rush{
-            if (RD() == 1){
-                ACM::Add();
-            }
-            else{
-                OT(ACM::Query());
-            }
-        }
-    }
+    RD(nn, K); Trie::Init(); SAM::Init();
+    REP(i, nn) OT(ans[i]);
 }

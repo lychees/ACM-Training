@@ -452,213 +452,220 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    //printf("Case #%d: ", ++Case);
-    printf("%I64d\n", x);
+    printf("Case #%d: ", ++Case);
+    //printf("%lld\n", x);
     //printf("%.9f\n", x);
-    //printf("%d\n", x);
+    printf("%d\n", x);
     //cout << x << endl;
     //last_ans = x;
 }
 
 
 //}/* .................................................................................................................................. */
+//}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = int(4e5) + 9, Z = 26, LV = 20;
+int L[N],R[N],T[N];int n;
 
-int n;
+namespace SAM{
 
-namespace ST{
-    LL ss[N<<2], dd[N<<2], ll[N<<2]; int a, b, c;
+    int trans[N][Z], fail[N], len[N], tot, tail;
+
+#define v trans[u][c]
+#define p fail[u]
+#define pp fail[uu]
+
+    inline int new_node(){
+        RST(trans[tot]); tail = tot;
+        return tot++;
+    }
+
+    inline int new_node(int u){
+        CPY(trans[tot], trans[u]); fail[tot] = fail[u];
+        return tot++;
+    }
+
+    inline int h(int u){
+        return len[u] - len[p];
+    }
+
+    int Ext(int c){
+        int u = tail, uu = new_node(); len[uu] = len[u] + 1;
+        while (u && !v) v = uu, u = p;
+        if (!u && !v) v = uu, pp = 0;
+        else{
+            if (len[v] == len[u] + 1) pp = v;
+            else{
+                int _v = v, vv = new_node(_v); len[vv] = len[u] + 1; fail[_v] = pp = vv;
+                while (v == _v) v = vv, u = p;
+            }
+        }
+        return uu;
+    }
+
+    char str[N/2];int prefix[N/2];VI adj[N];int fa[LV][N],tt;
+
+    int Find(int u, int l){
+        u = prefix[u]; DWN(lv, LV, 0){
+            if(len[fa[lv][u]] >= l) u = fa[lv][u];
+        }
+        return u;
+    }
+
+#undef v
+#define v (*it)
+    void dfs(int u = 0){
+        L[u]=++tt; ECH(it, adj[u]){
+            fa[0][v] = u;
+            FOR(lv, 1, LV) fa[lv][v] = fa[lv-1][fa[lv-1][v]];
+            dfs(v);
+        }
+        R[u]=tt;
+    }
+
+    void Init(){
+        tot = 0; new_node();
+        RS(str); n = 0; REP_S(cur, str) prefix[n++] = Ext(*cur-'a');
+        REP(u, tot) adj[u].clear(); FOR(u, 1, tot) adj[p].PB(u),T[u]=0;tt=0,dfs();
+    }
+
+#undef v
+#undef p
+#undef pp
+}
+
+namespace SBT{
+    const int NN = N*LV;
+    int c[2][NN], sz[NN], ky[NN], tot;
+#define lx l[x]
+#define rx r[x]
+#define l c[d]
+#define r c[!d]
+#define kx ky[x]
+#define sx sz[x]
+#define d 0
+    int new_node(int v = 0){
+        int x=++tot;lx=rx=0;
+        sx=1;kx=v;
+        return x;
+    }
+
+    void upd(int x){
+        sx=sz[lx]+1+sz[rx];
+    }
+#undef d
+    void rot(int &x,int d){
+        int y=rx;rx=l[y];l[y]=x;
+        upd(x),upd(y),x=y;
+    }
+
+    void fix(int &x,int d){
+        if (sz[l[lx]] > sz[rx]) rot(x,!d);
+        else{
+            if (sz[r[lx]] > sz[rx]) rot(lx,d),rot(x,!d);
+            else return;
+        }
+        d=0,fix(lx,0),fix(rx,1);
+        fix(x,0),fix(x,1);
+    }
+#define d 0
+    void Ins(int &x,int v){
+        if(!x) x = new_node(v);
+        else{
+            ++sz[x]; Ins(c[v>kx][x],v);
+            fix(x,v>=kx);
+        }
+    }
+
+    int d_key; void Del(int &x,int v){
+        --sx;if(kx==v||(v<kx&&!lx)||(v>kx&&!rx)){
+            if(!lx||!rx) d_key = kx, x = lx | rx;
+            else Del(lx,v+1), kx = d_key;
+        }
+        else Del(c[v>kx][x],v);
+    }
+
+    int Rank(int x,int v){
+        int z=0;while(x){
+            if(kx<v){
+                z+=sz[lx]+1;
+                x=rx;
+            }
+            else x=lx;
+        }
+        return z;
+    }
+    bool Find(int x,int v){
+        if (!x) return 0;if (kx==v) return 1;
+        return Find(c[v>kx][x],v);
+    }
+
+    void Init(){
+        tot = 0;
+    }
+
+#undef d
+#undef l
+#undef r
+#undef lx
+#undef rx
+#undef sx
+#undef kx
+};
+
+namespace SGT{
+
+#define rt 1, 1, n
 #define lx (x<<1)
 #define rx (lx|1)
 #define ml (l+r>>1)
 #define mr (ml+1)
-#define lc lx,l,ml
-#define rc rx,mr,r
-#define xx x,l,r
-#define rt 1,1,n
-    void inc(int x, int d){
-        dd[x] += d;
-        ss[x] += ll[x]*d;
-    }
-    void upd(int x){
-        ss[x] = ss[lx] + ss[rx];
-    }
-    void rls(int x){
-        if (dd[x]){
-            inc(lx, dd[x]), inc(rx, dd[x]);
-            dd[x] = 0;
-        }
-    }
-    void modify(int x, int l, int r){
-        if (b < l || r < a) return;
-        if (a <= l && r <= b){
-            inc(x, c);
-        }
-        else{
-            rls(x);
-            modify(lc); modify(rc);
-            upd(x);
-        }
-    }
-    LL query(int x, int l, int r){
-        if (b < l || r < a) return 0;
-        if (a <= l && r <= b){
-            return ss[x];
-        }
-        else{
-            rls(x);
-            return query(lc) + query(rc);
-        }
-    }
+#define lc lx, l, ml
+#define rc rx, mr, r
+
+    int T[N*4], p, v;
+
     void Build(int x, int l, int r){
-        ss[x] = dd[x] = 0; ll[x] = r - l + 1;
-        if (l == r){
-        }
-        else{
-            Build(lc); Build(rc);
-        }
+        T[x]=0;if (l<r) Build(lc), Build(rc);
     }
-    LL Query(int l, int r){
-        a = l, b = r;
-        return query(rt);
-    }
-    void Modify(int l, int r, int v){
-        a = l, b = r, c = v;
-        modify(rt);
-    }
-}
 
-namespace ACM{
-    const int Z = 26, LV = 20;
-    int trans[N][Z], fail[N], Q[N], cz, op, u;
-    VI adj[N]; int L[N], R[N], up[N], fa[N], sz[N];
-    int dep[N], st[N], ST[LV][N*2], nn;
+    void Ins(int x, int l, int r){
+        SBT::Ins(T[x], v);
+        if (l < r){
+            if (p < mr) Ins(lc); else Ins(rc);
+        }
+    }
+    void Del(int x, int l, int r){
+        SBT::Del(T[x], v);
+        if (l < r){
+            if (p < mr) Del(lc); else Del(rc);
+        }
+    }
 
-#define v trans[u][c]
-#define f trans[fail[u]][c]
-    void Build(){
-        cz = op = u = 0;
-        REP(c, Z) if (v) Q[op++] = v;
-        while (cz < op){
-            u = Q[cz++];
-            REP(c, Z){
-                if (v) fail[Q[op++] = v] = f;
-                else v = f;
+    void Ins(int _p, int _v){
+        p = _p, v = _v; Ins(rt);
+    }
+    void Del(int _p, int _v){
+        p = _p, v = _v; Del(rt);
+    }
+
+    inline int Select(int x,int l,int r,int ll,int rr,int k){
+#define cnt(x) (SBT::Rank(T[x],rr+1)-SBT::Rank(T[x],ll))
+        while(l < r){
+            if(cnt(lx)>=k){
+                x = lx, r = ml;
+            }
+            else
+            {
+                k-=cnt(lx);
+                x = rx, l = mr;
             }
         }
-    }
-#undef v
-#define v (*it)
-
-    bool cmpByDep(int a, int b){
-        return dep[a] < dep[b];
-    }
-    int lca(int l, int r){
-        l = st[l], r = st[r];
-        if (l > r) swap(l, r); ++r;
-        int lv = lg2(r-l);
-        return min(ST[lv][l], ST[lv][r-(1<<lv)], cmpByDep);
+        return cnt(x)>=k ? l : -1;
     }
 
-    void dfs(int u = 0){
-        sz[u] = 1;
-        ST[0][st[u] = ++nn] = u;
-        ECH(it, adj[u]){
-            dep[v] = dep[u] + 1;
-            fa[v] = u;
-            dfs(v);
-            sz[u] += sz[v];
-            ST[0][++nn] = u;
-        }
-    }
-    void hld(int u = 0){
-        L[u] = ++n;
-        int h = 0;
-
-        ECH(it, adj[u]) if (!h || sz[v] > sz[h]) h = v;
-
-        if (h){
-            up[h] = up[u];
-            hld(h);
-            ECH(it, adj[u]) if (v != h){
-                up[v] = v;
-                hld(v);
-            }
-        }
-        R[u] = n;
-    }
     void Init(){
-        RD(n); REP(i, n){
-            RST(trans[i]);
-            fail[i] = 0;
-        }
-        FOR(u, 1, n){
-            int p; RD(p); --p;
-            trans[p][RC()-'a'] = u;
-        }
-        Build();
-        REP(i, n) adj[i].clear();
-        FOR(u, 1, n){
-            int p = fail[u];
-            adj[p].PB(u);
-        }
-        n = nn = 0; dfs(); hld(); ST::Build(rt);
-        for (int lv=1;(1<<lv)<=nn;++lv){
-            for (int i=1;i+(1<<lv)<=nn+1;++i){
-                ST[lv][i] = min(ST[lv-1][i], ST[lv-1][i+(1<<(lv-1))], cmpByDep);
-            }
-        }
-    }
-
-    bool cmpByL(int a, int b){
-        return L[a] < L[b];
-    }
-
-    void Add(){
-        VI P; Rush P.PB(RD()-1);
-        SRT(P, cmpByL);
-        int x = P[0];
-        ST::Modify(L[x], R[x], 1);
-        FOR(i, 1, SZ(P)){
-            if (L[x] <= L[P[i]] && L[P[i]] <= R[x]){
-                continue;
-            }
-            else{
-                x = P[i];
-                ST::Modify(L[x], R[x], 1);
-            }
-        }
-    }
-
-    int vis[N], pos[N], tt;
-
-    LL Query(int x){
-        LL z = 0;
-        do{
-            int y = up[x];
-            if (vis[y] != tt) pos[y] = L[y]-1, vis[y] = tt;
-            if (L[x] > pos[y]){
-                z += ST::Query(pos[y]+1, L[x]);
-                pos[y] = L[x];
-            }
-            else break;
-            if (!y) break;
-            x = fa[y];
-        } while (true);
-        return z;
-    }
-
-    LL Query(){
-        LL z = 0;
-        VI P; Rush P.PB(RD()-1);
-        SRT(P, cmpByL);
-        ++tt;
-        z += Query(P[0]);
-        FOR(i, 1, SZ(P)){
-            z += Query(P[i]);
-        }
-        return z;
+        Build(rt);
     }
 }
 
@@ -666,16 +673,26 @@ int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-        //freopen("out.txt", "w", stdout);
+    //freopen("out2.txt", "w", stdout);
 #endif
 
     Rush{
-        ACM::Init(); Rush{
-            if (RD() == 1){
-                ACM::Add();
+
+        printf("Case #%d:\n",++Case);
+        SAM::Init(); SBT::Init(); SGT::Init();
+
+        Rush{
+            int t,x,p,k;if(RD(t,x,p)==1){
+                int u=SAM::Find(p,x);if (SBT::Find(T[u],x))continue;
+                SGT::Ins(x,L[u]);SBT::Ins(T[u],x);
+            }
+            else if(t==2){
+                int u=SAM::Find(p,x);if(!SBT::Find(T[u],x)) continue;
+                SGT::Del(x,L[u]);SBT::Del(T[u],x);
             }
             else{
-                OT(ACM::Query());
+                int u=SAM::Find(p,x);RD(k)+=SBT::Rank(T[u],x);
+                printf("%d\n", SGT::Select(rt,L[u],R[u],k));
             }
         }
     }

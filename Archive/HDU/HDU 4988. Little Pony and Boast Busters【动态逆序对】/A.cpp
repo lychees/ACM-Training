@@ -463,219 +463,166 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = int(1e5) + 9, LV = 25;
 
-int n;
-
-namespace ST{
-    LL ss[N<<2], dd[N<<2], ll[N<<2]; int a, b, c;
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml (l+r>>1)
-#define mr (ml+1)
-#define lc lx,l,ml
-#define rc rx,mr,r
-#define xx x,l,r
-#define rt 1,1,n
-    void inc(int x, int d){
-        dd[x] += d;
-        ss[x] += ll[x]*d;
+namespace SBT{
+    const int NN = N*LV;
+    int c[2][NN], sz[NN], ky[NN], tot;
+#define lx l[x]
+#define rx r[x]
+#define l c[d]
+#define r c[!d]
+#define kx ky[x]
+#define sx sz[x]
+#define d 0
+    int new_node(int v = 0){
+        int x=++tot;lx=rx=0;
+        sx=1;kx=v;
+        return x;
     }
+
     void upd(int x){
-        ss[x] = ss[lx] + ss[rx];
+        sx=sz[lx]+1+sz[rx];
     }
-    void rls(int x){
-        if (dd[x]){
-            inc(lx, dd[x]), inc(rx, dd[x]);
-            dd[x] = 0;
-        }
+#undef d
+    void rot(int &x,int d){
+        int y=rx;rx=l[y];l[y]=x;
+        upd(x),upd(y),x=y;
     }
-    void modify(int x, int l, int r){
-        if (b < l || r < a) return;
-        if (a <= l && r <= b){
-            inc(x, c);
-        }
+
+    void fix(int &x,int d){
+        if (sz[l[lx]] > sz[rx]) rot(x,!d);
         else{
-            rls(x);
-            modify(lc); modify(rc);
-            upd(x);
+            if (sz[r[lx]] > sz[rx]) rot(lx,d),rot(x,!d);
+            else return;
         }
+        d=0,fix(lx,0),fix(rx,1);
+        fix(x,0),fix(x,1);
     }
-    LL query(int x, int l, int r){
-        if (b < l || r < a) return 0;
-        if (a <= l && r <= b){
-            return ss[x];
-        }
+#define d 0
+    void Ins(int &x,int v){
+        if(!x) x = new_node(v);
         else{
-            rls(x);
-            return query(lc) + query(rc);
-        }
-    }
-    void Build(int x, int l, int r){
-        ss[x] = dd[x] = 0; ll[x] = r - l + 1;
-        if (l == r){
-        }
-        else{
-            Build(lc); Build(rc);
-        }
-    }
-    LL Query(int l, int r){
-        a = l, b = r;
-        return query(rt);
-    }
-    void Modify(int l, int r, int v){
-        a = l, b = r, c = v;
-        modify(rt);
-    }
-}
-
-namespace ACM{
-    const int Z = 26, LV = 20;
-    int trans[N][Z], fail[N], Q[N], cz, op, u;
-    VI adj[N]; int L[N], R[N], up[N], fa[N], sz[N];
-    int dep[N], st[N], ST[LV][N*2], nn;
-
-#define v trans[u][c]
-#define f trans[fail[u]][c]
-    void Build(){
-        cz = op = u = 0;
-        REP(c, Z) if (v) Q[op++] = v;
-        while (cz < op){
-            u = Q[cz++];
-            REP(c, Z){
-                if (v) fail[Q[op++] = v] = f;
-                else v = f;
-            }
-        }
-    }
-#undef v
-#define v (*it)
-
-    bool cmpByDep(int a, int b){
-        return dep[a] < dep[b];
-    }
-    int lca(int l, int r){
-        l = st[l], r = st[r];
-        if (l > r) swap(l, r); ++r;
-        int lv = lg2(r-l);
-        return min(ST[lv][l], ST[lv][r-(1<<lv)], cmpByDep);
-    }
-
-    void dfs(int u = 0){
-        sz[u] = 1;
-        ST[0][st[u] = ++nn] = u;
-        ECH(it, adj[u]){
-            dep[v] = dep[u] + 1;
-            fa[v] = u;
-            dfs(v);
-            sz[u] += sz[v];
-            ST[0][++nn] = u;
-        }
-    }
-    void hld(int u = 0){
-        L[u] = ++n;
-        int h = 0;
-
-        ECH(it, adj[u]) if (!h || sz[v] > sz[h]) h = v;
-
-        if (h){
-            up[h] = up[u];
-            hld(h);
-            ECH(it, adj[u]) if (v != h){
-                up[v] = v;
-                hld(v);
-            }
-        }
-        R[u] = n;
-    }
-    void Init(){
-        RD(n); REP(i, n){
-            RST(trans[i]);
-            fail[i] = 0;
-        }
-        FOR(u, 1, n){
-            int p; RD(p); --p;
-            trans[p][RC()-'a'] = u;
-        }
-        Build();
-        REP(i, n) adj[i].clear();
-        FOR(u, 1, n){
-            int p = fail[u];
-            adj[p].PB(u);
-        }
-        n = nn = 0; dfs(); hld(); ST::Build(rt);
-        for (int lv=1;(1<<lv)<=nn;++lv){
-            for (int i=1;i+(1<<lv)<=nn+1;++i){
-                ST[lv][i] = min(ST[lv-1][i], ST[lv-1][i+(1<<(lv-1))], cmpByDep);
-            }
+            ++sz[x]; Ins(c[v>kx][x],v);
+            fix(x,v>=kx);
         }
     }
 
-    bool cmpByL(int a, int b){
-        return L[a] < L[b];
+    int d_key; void Del(int &x,int v){
+        --sx;if(kx==v||(v<kx&&!lx)||(v>kx&&!rx)){
+            if(!lx||!rx) d_key = kx, x = lx | rx;
+            else Del(lx,v+1), kx = d_key;
+        }
+        else Del(c[v>kx][x],v);
     }
 
-    void Add(){
-        VI P; Rush P.PB(RD()-1);
-        SRT(P, cmpByL);
-        int x = P[0];
-        ST::Modify(L[x], R[x], 1);
-        FOR(i, 1, SZ(P)){
-            if (L[x] <= L[P[i]] && L[P[i]] <= R[x]){
-                continue;
+    int Rank(int x,int v){
+        int z=0;while(x){
+            if(kx<v){
+                z+=sz[lx]+1;
+                x=rx;
             }
             else{
-                x = P[i];
-                ST::Modify(L[x], R[x], 1);
+                x=lx;
             }
         }
-    }
-
-    int vis[N], pos[N], tt;
-
-    LL Query(int x){
-        LL z = 0;
-        do{
-            int y = up[x];
-            if (vis[y] != tt) pos[y] = L[y]-1, vis[y] = tt;
-            if (L[x] > pos[y]){
-                z += ST::Query(pos[y]+1, L[x]);
-                pos[y] = L[x];
-            }
-            else break;
-            if (!y) break;
-            x = fa[y];
-        } while (true);
         return z;
     }
 
-    LL Query(){
-        LL z = 0;
-        VI P; Rush P.PB(RD()-1);
-        SRT(P, cmpByL);
-        ++tt;
-        z += Query(P[0]);
-        FOR(i, 1, SZ(P)){
-            z += Query(P[i]);
-        }
-        return z;
+    bool Find(int x,int v){
+        if (!x) return 0;if (kx==v) return 1;
+        return Find(c[v>kx][x],v);
+    }
+
+    void Init(){
+        tot = 0;
+    }
+
+#undef d
+#undef l
+#undef r
+#undef lx
+#undef rx
+#undef sx
+#undef kx
+};
+
+LL res;
+int n, m;
+
+namespace BIT{
+    int C[N];
+    void Ins(int x, int v){
+        for (;x<=n;x+=low_bit(x)) SBT::Ins(C[x],v);
+    }
+    void Del(int x, int v){
+        for (;x<=n;x+=low_bit(x)) SBT::Del(C[x],v);
+    }
+    int Rank(int x, int v){
+        int res = 0; for (;x;x^=low_bit(x)) res += SBT::Rank(C[x],v);
+        return res;
+    }
+    int Count(int x){
+        int res = 0; for (;x;x^=low_bit(x)) res += SBT::sz[C[x]];
+        return res;
+    }
+    void Init(){
+        fill(C+1, C+n+1, 0);
+    }
+};
+
+int A[N], pA[N], B[N], pB[N];
+int P[N];
+
+void Init(){
+    SBT::Init(); BIT::Init(); res = 0; int x;
+    REP_1(i, n) pA[++RD(A[i])] = i;
+
+    REP_1(i, n){
+        pB[++RD(B[i])] = i; int x = pA[B[i]];
+        res += i-1-BIT::Rank(n,x+1); //#
+        BIT::Ins(i, x), P[i] = x;
     }
 }
+
+// [>x]x[<x]
+#define v P[x]
+#define delta ((x-1)-BIT::Rank(x,v+1)+BIT::Rank(n,v)-BIT::Rank(x,v))
+void Change(int x, int vv){
+    BIT::Del(x, v);
+    res -= delta; v = vv;
+    res += delta; BIT::Ins(x, v);
+}
+#undef v
 
 int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-        //freopen("out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    Rush{
-        ACM::Init(); Rush{
-            if (RD() == 1){
-                ACM::Add();
-            }
+    while (~scanf("%d", &n)){
+        Init(); char cmd[9]; Rush{
+            RS(cmd); if (cmd[0] == 'Q') OT(res);
             else{
-                OT(ACM::Query());
+                int p, a, b; RD(p, a, b); ++a, ++b;
+                if (p == 1){
+                    swap(B[a], B[b]);
+                    pB[B[a]]=a,pB[B[b]]=b,
+                    Change(a, pA[B[a]]);
+                    Change(b, pA[B[b]]);
+                }
+                else{
+                    swap(A[a],A[b]);
+                    pA[A[a]]=a,pA[A[b]]=b,
+                    Change(pB[A[a]], a);
+                    Change(pB[A[b]], b);
+                }
+
+                /*REP_1(i, n){
+                    assert(P[i] == pA[B[i]]);
+                }*/
             }
         }
     }

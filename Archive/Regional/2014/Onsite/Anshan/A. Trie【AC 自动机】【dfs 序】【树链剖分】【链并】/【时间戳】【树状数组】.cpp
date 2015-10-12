@@ -464,68 +464,31 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}/* .................................................................................................................................. */
 
 const int N = int(1e5) + 9;
-
 int n;
 
-namespace ST{
-    LL ss[N<<2], dd[N<<2], ll[N<<2]; int a, b, c;
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml (l+r>>1)
-#define mr (ml+1)
-#define lc lx,l,ml
-#define rc rx,mr,r
-#define xx x,l,r
-#define rt 1,1,n
-    void inc(int x, int d){
-        dd[x] += d;
-        ss[x] += ll[x]*d;
+namespace BIT{
+    LL B[N], C[N];
+
+    LL Sum(int x){
+        LL s1 = 0, s2 = 0, t = n - x; while (x <= n) s1 += B[x], s2 += C[x], x += low_bit(x);
+        return s1 * t - s2;
     }
-    void upd(int x){
-        ss[x] = ss[lx] + ss[rx];
+
+    void Add(int x, int d){
+        LL t = (LL) (n - x - 1) * d;
+        while (x) B[x] += d, C[x] += t, x ^= low_bit(x);
     }
-    void rls(int x){
-        if (dd[x]){
-            inc(lx, dd[x]), inc(rx, dd[x]);
-            dd[x] = 0;
-        }
+
+    LL Sum(int l, int r){
+        return Sum(l) - Sum(r+1);
     }
-    void modify(int x, int l, int r){
-        if (b < l || r < a) return;
-        if (a <= l && r <= b){
-            inc(x, c);
-        }
-        else{
-            rls(x);
-            modify(lc); modify(rc);
-            upd(x);
-        }
+
+    void Add(int l, int r, int d){
+        Add(r, d), Add(l-1, -d);
     }
-    LL query(int x, int l, int r){
-        if (b < l || r < a) return 0;
-        if (a <= l && r <= b){
-            return ss[x];
-        }
-        else{
-            rls(x);
-            return query(lc) + query(rc);
-        }
-    }
-    void Build(int x, int l, int r){
-        ss[x] = dd[x] = 0; ll[x] = r - l + 1;
-        if (l == r){
-        }
-        else{
-            Build(lc); Build(rc);
-        }
-    }
-    LL Query(int l, int r){
-        a = l, b = r;
-        return query(rt);
-    }
-    void Modify(int l, int r, int v){
-        a = l, b = r, c = v;
-        modify(rt);
+    void Init(){
+        fill(B+1, B+n+1, 0);
+        fill(C+1, C+n+1, 0);
     }
 }
 
@@ -533,7 +496,6 @@ namespace ACM{
     const int Z = 26, LV = 20;
     int trans[N][Z], fail[N], Q[N], cz, op, u;
     VI adj[N]; int L[N], R[N], up[N], fa[N], sz[N];
-    int dep[N], st[N], ST[LV][N*2], nn;
 
 #define v trans[u][c]
 #define f trans[fail[u]][c]
@@ -551,25 +513,12 @@ namespace ACM{
 #undef v
 #define v (*it)
 
-    bool cmpByDep(int a, int b){
-        return dep[a] < dep[b];
-    }
-    int lca(int l, int r){
-        l = st[l], r = st[r];
-        if (l > r) swap(l, r); ++r;
-        int lv = lg2(r-l);
-        return min(ST[lv][l], ST[lv][r-(1<<lv)], cmpByDep);
-    }
-
     void dfs(int u = 0){
         sz[u] = 1;
-        ST[0][st[u] = ++nn] = u;
         ECH(it, adj[u]){
-            dep[v] = dep[u] + 1;
             fa[v] = u;
             dfs(v);
             sz[u] += sz[v];
-            ST[0][++nn] = u;
         }
     }
     void hld(int u = 0){
@@ -603,12 +552,7 @@ namespace ACM{
             int p = fail[u];
             adj[p].PB(u);
         }
-        n = nn = 0; dfs(); hld(); ST::Build(rt);
-        for (int lv=1;(1<<lv)<=nn;++lv){
-            for (int i=1;i+(1<<lv)<=nn+1;++i){
-                ST[lv][i] = min(ST[lv-1][i], ST[lv-1][i+(1<<(lv-1))], cmpByDep);
-            }
-        }
+        n = 0; dfs(); hld(); BIT::Init();
     }
 
     bool cmpByL(int a, int b){
@@ -619,14 +563,14 @@ namespace ACM{
         VI P; Rush P.PB(RD()-1);
         SRT(P, cmpByL);
         int x = P[0];
-        ST::Modify(L[x], R[x], 1);
+        BIT::Add(L[x], R[x], 1);
         FOR(i, 1, SZ(P)){
             if (L[x] <= L[P[i]] && L[P[i]] <= R[x]){
                 continue;
             }
             else{
                 x = P[i];
-                ST::Modify(L[x], R[x], 1);
+                BIT::Add(L[x], R[x], 1);
             }
         }
     }
@@ -639,7 +583,7 @@ namespace ACM{
             int y = up[x];
             if (vis[y] != tt) pos[y] = L[y]-1, vis[y] = tt;
             if (L[x] > pos[y]){
-                z += ST::Query(pos[y]+1, L[x]);
+                z += BIT::Sum(pos[y]+1, L[x]);
                 pos[y] = L[x];
             }
             else break;

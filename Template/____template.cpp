@@ -206,10 +206,11 @@ template<class T> inline void CLR(T &A, int n){REP(i, n) CLR(A[i]);}
 
 template<class T> inline bool EPT(T &a){return a.empty();}
 template<class T> inline T& SRT(T &A){sort(ALL(A)); return A;}
-template<class T, class C> inline T& SRT(T &A, C B){sort(ALL(A), B); return A;}
+template<class T, class C> inline T& SRT(T &A, C cmp){sort(ALL(A), cmp); return A;}
 template<class T> inline T& RVS(T &A){reverse(ALL(A)); return A;}
 template<class T> inline T& UNQQ(T &A){A.resize(unique(ALL(A))-A.begin());return A;}
 template<class T> inline T& UNQ(T &A){SRT(A);return UNQQ(A);}
+template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A);}
 
 
 //}
@@ -452,11 +453,12 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    printf("Case #%d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
+    //printf("%I64d\n", x);
     //printf("%.9f\n", x);
-    printf("%d\n", x);
-    //cout << x << endl;
+    //printf("%d\n", x);
+    cout << x << endl;
     //last_ans = x;
 }
 
