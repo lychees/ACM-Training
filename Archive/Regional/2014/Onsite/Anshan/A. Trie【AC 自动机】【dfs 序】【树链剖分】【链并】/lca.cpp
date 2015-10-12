@@ -313,7 +313,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* Ê®°Êï∞‰∏§ÂÄçÂàöÂ•ΩË∂Ö int Êó∂„ÄÇ
+/* ƒ£ ˝¡Ω±∂∏’∫√≥¨ int  ±°£
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -452,10 +452,10 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    printf("Case #%d: ", ++Case);
-    //printf("%lld\n", x);
+    //printf("Case #%d: ", ++Case);
+    printf("%I64d\n", x);
     //printf("%.9f\n", x);
-    printf("%d\n", x);
+    //printf("%d\n", x);
     //cout << x << endl;
     //last_ans = x;
 }
@@ -465,6 +465,196 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e5) + 9;
 
+int n;
+
+namespace ST{
+    LL ss[N<<2], dd[N<<2], ll[N<<2]; int a, b, c;
+#define lx (x<<1)
+#define rx (lx|1)
+#define ml (l+r>>1)
+#define mr (ml+1)
+#define lc lx,l,ml
+#define rc rx,mr,r
+#define xx x,l,r
+#define rt 1,1,n
+    void inc(int x, int d){
+        dd[x] += d;
+        ss[x] += ll[x]*d;
+    }
+    void upd(int x){
+        ss[x] = ss[lx] + ss[rx];
+    }
+    void rls(int x){
+        if (dd[x]){
+            inc(lx, dd[x]), inc(rx, dd[x]);
+            dd[x] = 0;
+        }
+    }
+    void modify(int x, int l, int r){
+        if (b < l || r < a) return;
+        if (a <= l && r <= b){
+            inc(x, c);
+        }
+        else{
+            rls(x);
+            modify(lc); modify(rc);
+            upd(x);
+        }
+    }
+    LL query(int x, int l, int r){
+        if (b < l || r < a) return 0;
+        if (a <= l && r <= b){
+            return ss[x];
+        }
+        else{
+            rls(x);
+            return query(lc) + query(rc);
+        }
+    }
+    void Build(int x, int l, int r){
+        ss[x] = dd[x] = 0; ll[x] = r - l + 1;
+        if (l == r){
+        }
+        else{
+            Build(lc); Build(rc);
+        }
+    }
+    LL Query(int l, int r){
+        a = l, b = r;
+        return query(rt);
+    }
+    void Modify(int l, int r, int v){
+        a = l, b = r, c = v;
+        modify(rt);
+    }
+}
+
+namespace ACM{
+    const int Z = 26, LV = 20;
+    int trans[N][Z], fail[N], Q[N], cz, op, u;
+    VI adj[N]; int L[N], R[N], up[N], fa[N], sz[N];
+    int dep[N], st[N], ST[LV][N*2], nn;
+
+#define v trans[u][c]
+#define f trans[fail[u]][c]
+    void Build(){
+        cz = op = u = 0;
+        REP(c, Z) if (v) Q[op++] = v;
+        while (cz < op){
+            u = Q[cz++];
+            REP(c, Z){
+                if (v) fail[Q[op++] = v] = f;
+                else v = f;
+            }
+        }
+    }
+#undef v
+#define v (*it)
+
+    bool cmpByDep(int a, int b){
+        return dep[a] < dep[b];
+    }
+    int lca(int l, int r){
+        l = st[l], r = st[r];
+        if (l > r) swap(l, r); ++r;
+        int lv = lg2(r-l);
+        return min(ST[lv][l], ST[lv][r-(1<<lv)], cmpByDep);
+    }
+
+    void dfs(int u = 0){
+        sz[u] = 1;
+        ST[0][st[u] = ++nn] = u;
+        ECH(it, adj[u]){
+            dep[v] = dep[u] + 1;
+            fa[v] = u;
+            dfs(v);
+            sz[u] += sz[v];
+            ST[0][++nn] = u;
+        }
+    }
+    void hld(int u = 0){
+        L[u] = ++n;
+        int h = 0;
+
+        ECH(it, adj[u]) if (!h || sz[v] > sz[h]) h = v;
+
+        if (h){
+            up[h] = up[u];
+            hld(h);
+            ECH(it, adj[u]) if (v != h){
+                up[v] = v;
+                hld(v);
+            }
+        }
+        R[u] = n;
+    }
+    void Init(){
+        RD(n); REP(i, n){
+            RST(trans[i]);
+            fail[i] = 0;
+        }
+        FOR(u, 1, n){
+            int p; RD(p); --p;
+            trans[p][RC()-'a'] = u;
+        }
+        Build();
+        REP(i, n) adj[i].clear();
+        FOR(u, 1, n){
+            int p = fail[u];
+            adj[p].PB(u);
+        }
+        n = nn = 0; dfs(); hld(); ST::Build(rt);
+        for (int lv=1;(1<<lv)<=nn;++lv){
+            for (int i=1;i+(1<<lv)<=nn+1;++i){
+                ST[lv][i] = min(ST[lv-1][i], ST[lv-1][i+(1<<(lv-1))], cmpByDep);
+            }
+        }
+    }
+
+    bool cmpByL(int a, int b){
+        return L[a] < L[b];
+    }
+
+    void Add(){
+        VI P; Rush P.PB(RD()-1);
+        SRT(P, cmpByL);
+        int x = P[0];
+        ST::Modify(L[x], R[x], 1);
+        FOR(i, 1, SZ(P)){
+            if (L[x] <= L[P[i]] && L[P[i]] <= R[x]){
+                continue;
+            }
+            else{
+                x = P[i];
+                ST::Modify(L[x], R[x], 1);
+            }
+        }
+    }
+
+    LL Query(int x){
+        LL z = 0;
+        do{
+            int y = up[x];
+            z += ST::Query(L[y], L[x]);
+            if (!y) break;
+            x = fa[y];
+        } while (true);
+        return z;
+    }
+
+    LL Query(){
+        LL z = 0;
+        VI P; Rush P.PB(RD()-1);
+        SRT(P, cmpByL);
+        z += Query(P[0]);
+        FOR(i, 1, SZ(P)){
+            z -= Query(lca(P[i-1], P[i]));
+            z += Query(P[i]);
+        }
+        return z;
+    }
+}
+
 int main(){
 
 #ifndef ONLINE_JUDGE
@@ -472,5 +662,14 @@ int main(){
         //freopen("out.txt", "w", stdout);
 #endif
 
-
+    Rush{
+        ACM::Init(); Rush{
+            if (RD() == 1){
+                ACM::Add();
+            }
+            else{
+                OT(ACM::Query());
+            }
+        }
+    }
 }
