@@ -1,10 +1,12 @@
-/** Micro Mezz Macro Flation -- Overheated Economy ., Last Update: July. 18th 2014 **/ //{
+/*
+ This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
+ Template Date: 2015.10.12
+ Note: ...
+ */
 
-/** Header .. **/ //{
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
-//#include "testlib.h"
 #include <functional>
 #include <algorithm>
 #include <iostream>
@@ -59,7 +61,8 @@ using namespace std;
 #define FOR_1_C_N(i, a, b) for (int b____=(i=a,b);i<=b____;++i)
 #define DWN_1_C_N(i, b, a) for (int a____=(i=b,a);i>=a____;--i)
 
-#define ECH(it, A) for (__typeof(A.begin()) it=A.begin(); it != A.end(); ++it)
+#define ECH(it, A) for (__typeof((A).begin()) it=(A).begin(); it != (A).end(); ++it)
+#define rECH(it, A) for (__typeof((A).rbegin()) it=(A).rbegin(); it != (A).rend(); ++it)
 #define REP_S(i, str) for (char*i=str;*i;++i)
 #define REP_L(i, hd, suc) for (int i=hd;i;i=suc[i])
 #define REP_G(i, u) REP_L(i,hd[u],suc)
@@ -78,7 +81,7 @@ using namespace std;
 #define INS(A, P, B) A.insert(A.begin() + P, B)
 #define ERS(A, P) A.erase(A.begin() + P)
 #define LBD(A, x) (lower_bound(ALL(A), x) - A.begin())
-#define UBD(A, x) (lower_bound(ALL(A), x) - A.begin())
+#define UBD(A, x) (upper_bound(ALL(A), x) - A.begin())
 #define CTN(T, x) (T.find(x) != T.end())
 #define SZ(A) int((A).size())
 #define PB push_back
@@ -91,18 +94,18 @@ using namespace std;
 #define re real()
 #define im imag()
 
-#define Rush for(int ____T=RD(); ____T--;)
+#define Rush for(int ____T=int(RD()); ____T--;)
 #define Display(A, n, m) {                      \
-  REP(i, n){		                            \
-        REP(j, m-1) cout << A[i][j] << " ";     \
-        cout << A[i][m-1] << endl;		        \
-	}						                    \
+REP(i, n){		                            \
+REP(j, m-1) cout << A[i][j] << " ";     \
+cout << A[i][m-1] << endl;		        \
+}						                    \
 }
 #define Display_1(A, n, m) {                    \
-	REP_1(i, n){		                        \
-        REP_1(j, m-1) cout << A[i][j] << " ";   \
-        cout << A[i][m] << endl;		        \
-	}						                    \
+REP_1(i, n){		                        \
+REP_1(j, m-1) cout << A[i][j] << " ";   \
+cout << A[i][m] << endl;		        \
+}						                    \
 }
 
 typedef long long LL;
@@ -169,8 +172,8 @@ inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f){RF(a), RF(b), RF(c), RF(
 inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f, DB &g){RF(a), RF(b), RF(c), RF(d), RF(e), RF(f), RF(g); return a;}
 inline void RS(char *s1, char *s2){RS(s1), RS(s2);}
 inline void RS(char *s1, char *s2, char *s3){RS(s1), RS(s2), RS(s3);}
-template<class T0,class T1>inline void RDD(T0&a, T1&b){RDD(a),RDD(b);}
-template<class T0,class T1,class T2>inline void RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c);}
+template<class T0,class T1>inline T0& RDD(T0&a, T1&b){RDD(a),RDD(b); return a;}
+template<class T0,class T1,class T2>inline T1& RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c); return a;}
 
 template<class T> inline void RST(T &A){memset(A, 0, sizeof(A));}
 template<class T> inline void FLC(T &A, int x){memset(A, x, sizeof(A));}
@@ -203,10 +206,11 @@ template<class T> inline void CLR(T &A, int n){REP(i, n) CLR(A[i]);}
 
 template<class T> inline bool EPT(T &a){return a.empty();}
 template<class T> inline T& SRT(T &A){sort(ALL(A)); return A;}
-template<class T, class C> inline T& SRT(T &A, C B){sort(ALL(A), B); return A;}
+template<class T, class C> inline T& SRT(T &A, C cmp){sort(ALL(A), cmp); return A;}
 template<class T> inline T& RVS(T &A){reverse(ALL(A)); return A;}
 template<class T> inline T& UNQQ(T &A){A.resize(unique(ALL(A))-A.begin());return A;}
 template<class T> inline T& UNQ(T &A){SRT(A);return UNQQ(A);}
+template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A);}
 
 
 //}
@@ -228,12 +232,9 @@ const int dy[] = {0, 1, 0, -1};
 /** Add On .. **/ //{
 // <<= '0. Nichi Joo ., //{
 
-template<class T> inline T& checkMin(T &a,const T b){if (b<a) a=b;return a;}
-template<class T> inline T& checkMax(T &a,const T b){if (a<b) a=b;return a;}
-template<class T> inline T& checkMin(T &a, T &b, const T x){checkMin(a, x), checkMin(b, x);return a;}
-template<class T> inline T& checkMax(T &a, T &b, const T x){checkMax(a, x), checkMax(b, x);return a;}
-template <class T, class C> inline T& checkMin(T& a, const T b, C c){if (c(b,a)) a = b;return a;}
-template <class T, class C> inline T& checkMax(T& a, const T b, C c){if (c(a,b)) a = b;return a;}
+template<class T> inline bool checkMin(T &a,const T b){return b < a ? a = b, 1 : 0;}
+template<class T> inline bool checkMax(T &a,const T b){return a < b ? a = b, 1 : 0;}
+template <class T, class C> inline bool checkUpd(T& a, const T b, C c){return c(b,a) ? a = b, 1 : 0;}
 template<class T> inline T min(T a, T b, T c){return min(min(a, b), c);}
 template<class T> inline T max(T a, T b, T c){return max(max(a, b), c);}
 template<class T> inline T min(T a, T b, T c, T d){return min(min(a, b), min(c, d));}
@@ -256,130 +257,58 @@ inline DB csc(DB x){return 1./sin(x);};
 // <<= '1. Bitwise Operation ., //{
 namespace BO{
 
-inline bool _1(int x, int i){return bool(x&1<<i);}
-inline bool _1(LL x, int i){return bool(x&1LL<<i);}
-inline LL _1(int i){return 1LL<<i;}
-inline LL _U(int i){return _1(i) - 1;};
+    inline bool _1(int x, int i){return bool(x&1<<i);}
+    inline bool _1(LL x, int i){return bool(x&1LL<<i);}
+    inline LL _1(int i){return 1LL<<i;}
+    inline LL _U(int i){return _1(i) - 1;};
 
-inline int reverse_bits(int x){
-    x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
-    x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
-    x = ((x >> 4) & 0x0f0f0f0f) | ((x << 4) & 0xf0f0f0f0);
-    x = ((x >> 8) & 0x00ff00ff) | ((x << 8) & 0xff00ff00);
-    x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
-    return x;
-}
+    inline int reverse_bits(int x){
+        x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
+        x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
+        x = ((x >> 4) & 0x0f0f0f0f) | ((x << 4) & 0xf0f0f0f0);
+        x = ((x >> 8) & 0x00ff00ff) | ((x << 8) & 0xff00ff00);
+        x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
+        return x;
+    }
 
-inline LL reverse_bits(LL x){
-    x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
-    x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
-    x = ((x >> 4) & 0x0f0f0f0f0f0f0f0fLL) | ((x << 4) & 0xf0f0f0f0f0f0f0f0LL);
-    x = ((x >> 8) & 0x00ff00ff00ff00ffLL) | ((x << 8) & 0xff00ff00ff00ff00LL);
-    x = ((x >>16) & 0x0000ffff0000ffffLL) | ((x <<16) & 0xffff0000ffff0000LL);
-    x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
-    return x;
-}
+    inline LL reverse_bits(LL x){
+        x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
+        x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
+        x = ((x >> 4) & 0x0f0f0f0f0f0f0f0fLL) | ((x << 4) & 0xf0f0f0f0f0f0f0f0LL);
+        x = ((x >> 8) & 0x00ff00ff00ff00ffLL) | ((x << 8) & 0xff00ff00ff00ff00LL);
+        x = ((x >>16) & 0x0000ffff0000ffffLL) | ((x <<16) & 0xffff0000ffff0000LL);
+        x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
+        return x;
+    }
 
-template<class T> inline bool odd(T x){return x&1;}
-template<class T> inline bool even(T x){return !odd(x);}
-template<class T> inline T low_bit(T x) {return x & -x;}
-template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
-template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
-template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
+    template<class T> inline bool odd(T x){return x&1;}
+    template<class T> inline bool even(T x){return !odd(x);}
+    template<class T> inline T low_bit(T x) {return x & -x;}
+    template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
+    template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
+    template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
 
-inline int clz(int x){return __builtin_clz(x);}
-inline int clz(LL x){return __builtin_clzll(x);}
-inline int ctz(int x){return __builtin_ctz(x);}
-inline int ctz(LL x){return __builtin_ctzll(x);}
-inline int lg2(int x){return !x ? -1 : 31 - clz(x);}
-inline int lg2(LL x){return !x ? -1 : 63 - clz(x);}
-inline int low_idx(int x){return !x ? -1 : ctz(x);}
-inline int low_idx(LL x){return !x ? -1 : ctz(x);}
-inline int high_idx(int x){return lg2(x);}
-inline int high_idx(LL x){return lg2(x);}
-inline int parity(int x){return __builtin_parity(x);}
-inline int parity(LL x){return __builtin_parityll(x);}
-inline int count_bits(int x){return __builtin_popcount(x);}
-inline int count_bits(LL x){return __builtin_popcountll(x);}
+    inline int clz(int x){return __builtin_clz(x);}
+    inline int clz(LL x){return __builtin_clzll(x);}
+    inline int ctz(int x){return __builtin_ctz(x);}
+    inline int ctz(LL x){return __builtin_ctzll(x);}
+    inline int lg2(int x){return !x ? -1 : 31 - clz(x);}
+    inline int lg2(LL x){return !x ? -1 : 63 - clz(x);}
+    inline int low_idx(int x){return !x ? -1 : ctz(x);}
+    inline int low_idx(LL x){return !x ? -1 : ctz(x);}
+    inline int high_idx(int x){return lg2(x);}
+    inline int high_idx(LL x){return lg2(x);}
+    inline int parity(int x){return __builtin_parity(x);}
+    inline int parity(LL x){return __builtin_parityll(x);}
+    inline int count_bits(int x){return __builtin_popcount(x);}
+    inline int count_bits(LL x){return __builtin_popcountll(x);}
 
 } using namespace BO;//}
 
 
-// <<= '2. Number Theory .,//{
-namespace NT{
-#define gcd __gcd
-inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-
-inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
-inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
-/* 模数两倍刚好超 int 时。
-inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
-inline void INC(int &a, int b){a = sum(a, b);}
-*/
-
-inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
-inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
-inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
-inline int pdt(int a, int b){return (LL)a * b % MOD;}
-
-inline int gcd(int m, int n, int &x, int &y){
-
-    x = 1, y = 0; int xx = 0, yy = 1, q;
-
-    while (1){
-        q = m / n, m %= n;
-        if (!m){x = xx, y = yy; return n;}
-        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
-        q = n / m, n %= m;
-        if (!n) return m;
-        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
-    }
-}
-
-inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
-inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
-inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
-inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
-
-inline int pow(int a, LL b){
-    int c(1); while (b){
-        if (b&1) MUL(c, a);
-        MUL(a, a), b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, LL b){
-    T c(1); while (b){
-        if (b&1) c *= a;
-        a *= a, b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, int b){
-    return pow(a, (LL)b);
-}
-
-inline int _I(int b){
-    int a = MOD, x1 = 0, x2 = 1, q; while (1){
-        q = a / b, a %= b;
-        if (!a) return x2;
-        DEC(x1, pdt(q, x2));
-
-        q = b / a, b %= a;
-        if (!b) return x1;
-        DEC(x2, pdt(q, x1));
-    }
-}
-
-inline void DIV(int &a, int b){MUL(a, _I(b));}
-inline int qtt(int a, int b){return pdt(a, _I(b));}
-
-} using namespace NT;//}
-
 
 //}
+
 
 
 /** I/O Accelerator Interface .. **/ //{
@@ -403,9 +332,9 @@ inline DB& RF(DB &x){
     //scanf("%lf", &x);
     char c;while(g,c!='-'&&c!='.'&&!isdigit(c));
     if(c=='-')if(g=='.'){x=0;DB l=1;while(d)nn;x*=l;}
-        else{x='0'-c;while(d)n;if(c=='.'){DB l=1;while(d)nn;x*=l;}}
+    else{x='0'-c;while(d)n;if(c=='.'){DB l=1;while(d)nn;x*=l;}}
     else if(c=='.'){x=0;DB l=1;while(d)pp;x*=l;}
-        else{x=c-'0';while(d)p;if(c=='.'){DB l=1;while(d)pp;x*=l;}}
+    else{x=c-'0';while(d)p;if(c=='.'){DB l=1;while(d)pp;x*=l;}}
     return x;
 }
 #undef nn
@@ -423,125 +352,176 @@ inline char* RS(char *s){
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
+    //printf("%I64d\n", x);
     //printf("%.9f\n", x);
     //printf("%d\n", x);
     cout << x << endl;
     //last_ans = x;
 }
-//}
 
 
 //}/* .................................................................................................................................. */
 
-const int N = int(5e5) + 9, Z = 26;
+const int N = int(2e6) + 9;
 
-namespace SAM{
+LL res, tmp;
 
-    int hd[N/2], deg[N], suc[N], to[N], GtoM[N/2]; char s[N/2]; int o[Z];
-    int n;
+struct node{
 
-    int trans[N][Z], par[N], len[N], tot; LL cnt[N];
+    static node* NIL, *tp; node *c[2], *p;
+    int sz, ky;
 
-#define v trans[u][c]
-#define p par[u]
-#define pp par[uu]
+#define NIL node::NIL
+#define rt node::rt
+#define l c[0]
+#define r c[1]
+#define lx x->l
+#define rx x->r
+#define px x->p
+#define ly y->l
+#define ry y->r
+#define py y->p
 
-    inline int new_node(){
-        //RST(trans[tot]);
-        return tot++;
+    inline void reset(int v){l=r=p=NIL,sz=1,ky=v;}
+
+    inline int sgn(){return p->r==this;}
+    inline void setc(int d,node*x){c[d]=x,px=this;}
+    inline void setl(node*x){setc(0,x);}
+    inline void setr(node*x){setc(1,x);}
+
+    inline void upd(){
+        assert(this != NIL);
+        sz = l->sz + 1 + r->sz;
     }
 
-    inline int new_node(int u){
-        CPY(trans[tot], trans[u]); par[tot] = par[u];
-        return tot++;
+    inline void rls(){
+        assert(this != NIL);
     }
 
-    int Ext(int c, int tail){
-        int u = tail, uu = new_node(); len[uu] = len[u] + 1;
-        while (u && !v) v = uu, u = p;
-        if (!u && !v) v = uu, pp = 0;
-        else{
-            if (len[v] == len[u] + 1) pp = v;
-            else{
-                int _v = v, vv = new_node(_v); len[vv] = len[u] + 1;
-                par[_v] = pp = vv; while (v == _v) v = vv, u = p;
-            }
+
+    inline void rot(int d){
+        node*y=p,*z=py;z->setc(y->sgn(),this);
+        y->setc(d,c[!d]),setc(!d,y),y->upd();
+    }
+    inline void rot(){rot(sgn());}
+
+    //inline void fix(){if (~sgn()) p->fix(); rls();}
+    /*
+     inline node* splay(node*t){
+     while (p!=t) rot(); upd();
+     return this;
+     }
+     */
+    inline node*splay(node*t = NIL){
+        int a,b;while(p!=t){
+            if (p->p==t){rot();break;}
+            else a=sgn(),b=p->sgn(),(a^b?this:p)->rot(a),rot(b);
         }
-        return uu;
+        upd();//if (t==NIL)rt=this;
+        return this;
     }
 
-#define c o[i]
-    void kth(LL k){
-        if (--k >= cnt[0]) puts("-1");
-        else{
-            int u = 0; while (k--){
-                REP(i, Z) if (v){
-                    if (k >= cnt[v]) k -= cnt[v];
-                    else{
-                        putchar(c+'a');
-                        u = v; break;
-                    }
-                }
-            }
-            puts("");
+    node* lower_bound(int k){
+        node* x = this; node* z = NIL;
+        while (x != NIL){
+            if (x->ky < k) x = rx;
+            else z = x, x = lx;
         }
-    }
-#undef c
-
-    int Q[N], C[N/2], q;
-
-    void Run(){
-
-        REP(i, tot) ++C[len[i]];
-        REP_1(i, n) C[i] += C[i-1];
-        REP(i, tot) Q[--C[len[i]]] = i;
-
-        DWN(i, tot, 0){
-            int u = Q[i]; cnt[u] = 1;
-            REP(c, Z) if (v) cnt[u] += cnt[v];
-            cout << u << " " << len[u] << " " << cnt[u] <<endl;
-        }
-
-        OT(cnt[0]); DO(q){
-            RS(s); REP(i, Z) o[i] = s[i] - 'a'; kth(RD());
-        }
+        return z;
     }
 
-#undef v
-#define aa to[i^1]
-#define bb to[i]
-#define v bb
-
-    void Init(){
-
-        RD(n, q); RS(s+1);  REP_1(i, n) s[i] -= 'a';
-
-        //RST(hd);
-        FOR_C(i, 2, n<<1){
-            RD(aa, bb);
-            suc[i] = hd[aa], hd[aa] = i++;
-            suc[i] = hd[aa], hd[aa] = i;
+    node* upper_bound(int k){
+        node* x = this; node* z = NIL;
+        while (x != NIL){
+            if (x->ky <= k) x = rx;
+            else z = x, x = lx;
         }
+        return z;
+    }
 
-        tot = 0; queue<int> Q; Q.push(1);
-        GtoM[1] = Ext(s[1], new_node());
+    static node* Q[N]; static int cz, op;
 
-        while(SZ(Q)){
-            int u = Q.front(); Q.pop();
-            REP_G(i, u) if (!GtoM[v]){
-                GtoM[v] = Ext(s[v], GtoM[u]);
-                Q.push(v);
-            }
-        }
+} *NIL, *T[N]; int tot;
+
+
+node* Insert(node*&x, node *t){
+    node *y; while (x != NIL){
+        y = x, x = y->c[t->ky >= x->ky];
+    }
+
+    if (y == NIL) return x = t;
+    else{
+        y->setc(t->ky >= y->ky, t);
+        x = t->splay();
+    }
+    return x;
+}
+
+node* Q[N]; int cz, op;
+
+void dfs(node*x){
+    if (x == NIL) return;
+    dfs(rx); Q[op++] = x; dfs(lx);
+    lx = rx = NIL; x->upd();
+}
+
+node* Merge(node*&y, node* x){
+    tmp = 0; cz = 0, op = 0; Q[cz] = x; dfs(x);
+    REP(i, op){
+        x = Q[i]; Insert(y, x); tmp += lx->sz;
+    }
+    return y;
+}
+
+#undef l
+#undef r
+
+
+int ll[N], rr[N];
+
+node* new_node(int k){
+    node* x = new node();
+    x->reset(k);
+    return x;
+}
+
+void dfs(int u = 1){
+    if (ll[u]){
+        int l = ll[u], r = rr[u]; dfs(l); dfs(r);
+        int a = T[l]->sz, b = T[r]->sz;
+        if (a < b) swap(l, r), swap(a, b);
+        T[u] = Merge(T[l], T[r]);
+        res += min(tmp, (LL)a*b-tmp);
     }
 }
+
+void readtree(int& x){
+    x = ++tot; int v; RD(v);
+
+    //cout << x << " " << v << endl;
+
+    if (!v){
+        readtree(ll[x]);
+        readtree(rr[x]);
+    }
+    else{
+        T[x] = new_node(v);
+    }
+
+}
+
+
+stack<int> sta;
+int n;
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
 
-    SAM::Init(); SAM::Run();
+    NIL = new_node(0); NIL->sz = 0;
+    RD(n); int t; readtree(t);
+    dfs(); OT(res);
 }
