@@ -1,0 +1,38 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Maya has a magical matrix toy.
+The matrix has n rows and m columns, and each entry a[r][c] at row r and column c is a Bernoulli random varaible.
+That is, a[r][c] is either 1 with a p[r][c]% chance or 0 with a (100-p[r][c])% chance.
+Assume that the set of <b>n</b>*<b>m</b> random variables are mutually independent.
+
+</p>
+<br></br>
+
+<p>Maya wants to know whether the magical matrix contains at least one column that consists only of 1's.
+Maya does not know the realization of any entry to begin with, but Maya can inspect an arbitrary entry of the matrix at unit cost which reveals the realization of it.
+</p>
+
+<br></br>
+
+<p>
+Maya is going to choose an inspection ordering of the entries of the matrix (which is a permutation of the <b>n</b>*<b>m</b> entries of the matrix).
+Maya is not going to make unnecessary inspections, as follows:
+</p>
+<ul>
+<li>If Maya finds that every column contains at least one 0, then Maya will stop inspecting immediately.</li>
+<li>If Maya finds that some column <b>c</b> consists only of 1's, then Maya will stop inspecting immediately.</li>
+<li>If Maya finds that some column <b>c</b> contains at least one 0, then Maya will not inspect the entries of this column in the future (but she will continue inspecting according to the inspection ordering she chose to begin with).</li>
+</ul>
+<p>
+Given a permutation of the entries of the matrix, Maya can easily compute the expected number of inspections she needs to perform.
+But Maya wants to know of the minimum expected number of inspections, and asks for your help. 
+Given the size of Maya's magical matrix and associated probabilities, compute the minimum expected number of inspections she needs to perform, in order to determine whether the matrix contains a column consisting only of 1's or not.
+</p>
+
+<br></br>
+
+<p>
+You are given as input an array of integers <b>prob</b> which contains exactly <b>n</b>*<b>m</b> elements.
+The probability p[r][c] is given by <b>prob</b>[(r-1)*m + c]. 
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>MagicalMatrix</td></tr><tr><td>Method:</td><td>MagicalInspection</td></tr><tr><td>Parameters:</td><td>int, int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double MagicalInspection(int n, int m, vector &lt;int&gt; prob)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>n</b> will be between 1 and 10, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>m</b> will be between 1 and 250, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>prob will contain exactly <b>n</b>*<b>m</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>prob</b> will be between 1 and 99, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{50}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1.0</pre></td></tr><tr><td><table><tr><td colspan="2">The matrix is a one-by-one matrix. Maya needs to inspect one element in this case.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>{99}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1.0</pre></td></tr><tr><td><table><tr><td colspan="2">Again, Maya needs to inspection one element.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>{50,50,50,50}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2.625</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>{1,1,1,1,1,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.0296970101000005</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>{60,70,90,80}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2.382</pre></td></tr><tr><td><table><tr><td colspan="2">In this case we have p[1][1] = 60%, p[1][2] = 70%, p[2][1] = 90%, and p[2][2] = 80%.
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
