@@ -54,7 +54,7 @@ int main()
 {
 #if TEST_LOCAL
 	freopen("in.txt","r",stdin);
-    freopen("out.txt","w",stdout);
+	//freopen("out.txt","w",stdout);
 #endif
 
 	int T;
@@ -92,7 +92,7 @@ int main()
 		}
 		else if (m == 1)
 		{
-			printf("? ?\n");
+			printf("? 0\n");
 		}
 		else
 		{
