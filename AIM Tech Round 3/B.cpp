@@ -465,27 +465,44 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(4e5) + 9;
-VI adj[N]; int sz[N], ans[N];
-int n;
+const int N = int(1e5) + 9;
 
-int c, cc; // centroid
-void dfc(int u = 1, int p = 0){ // dfs for centroid
-    int uu = 0; sz[u] = 1; for(auto v: adj[u]) if (v != p){
-        dfc(v, u), sz[u] += sz[v];
-        checkMax(uu, sz[v]);
+int a00, a01, a10, a11;
+
+VI sol(LL t){
+    VI z;
+    if (!t){
+        z.PB(0);z.PB(1);
     }
-    checkMax(uu, n - sz[u]);
-    if (uu <= cc) cc = uu, c = u;
+    else{
+        //x*(x-1) == t * 2; x2 - x - t2
+        LL x = 1 + sqrt(1 + 8*t) / 2;
+        if (x*(x-1) == t*2) z.PB(x);
+    }
+    return z;
 }
 
-void dfs(int u, int p, int max_sz){ // dfs for answer
-    if (n - max_sz - sz[u] <= n/2) ans[u] = 1;
-    for(auto v: adj[u]) if (v != p){
-        dfs(v, u, max_sz);
-    }
-}
+bool gao(VI A0, VI A1){
 
+    for(auto a0: A0) for (auto a1: A1) if (a0*a1 == a01 + a10){
+        string z; DO(a0+a1){
+            if (a01 >= a1){
+                z.PB('0'); --a0;
+                a01 -= a1;
+            }
+            else{
+                z.PB('1'); --a1;
+                a10 -= a0;
+            }
+        }
+        //cout << a0 << " "<< a1 << " " << a01 << " "<< a10 << endl;
+        if (!z.empty()){
+            cout << z << endl;
+            return true;
+        }
+    }
+    return false;
+}
 
 int main(){
 
@@ -493,31 +510,6 @@ int main(){
     freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
-
-    RD(n); DO(n-1){
-        int a, b; RD(a, b);
-        adj[a].PB(b); adj[b].PB(a);
-    }
-
-    cc = INF; dfc(); dfc(c);
-
-    int sz0 = 0, sz1 = 0;
-
-    for (auto v: adj[c]){
-        if (sz[v] > sz0){
-            sz1 = sz0;
-            sz0 = sz[v];
-        }
-        else if (sz[v] > sz1){
-            sz1 = sz[v];
-        }
-    }
-
-    ans[c] = 1;
-
-    for (auto v: adj[c]){
-        dfs(v, c, sz0*2 != n && sz[v] == sz0 ? sz1 : sz0);
-    }
-
-    REP_1(i, n) printf("%d ", ans[i]);
+    RD(a00, a01, a10, a11);
+    if (!gao(sol(a00), sol(a11))) puts("Impossible");
 }

@@ -465,59 +465,27 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(4e5) + 9;
-VI adj[N]; int sz[N], ans[N];
-int n;
+const int N = int(1e5) + 9;
 
-int c, cc; // centroid
-void dfc(int u = 1, int p = 0){ // dfs for centroid
-    int uu = 0; sz[u] = 1; for(auto v: adj[u]) if (v != p){
-        dfc(v, u), sz[u] += sz[v];
-        checkMax(uu, sz[v]);
-    }
-    checkMax(uu, n - sz[u]);
-    if (uu <= cc) cc = uu, c = u;
-}
-
-void dfs(int u, int p, int max_sz){ // dfs for answer
-    if (n - max_sz - sz[u] <= n/2) ans[u] = 1;
-    for(auto v: adj[u]) if (v != p){
-        dfs(v, u, max_sz);
-    }
-}
-
+string s;
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
-
-    RD(n); DO(n-1){
-        int a, b; RD(a, b);
-        adj[a].PB(b); adj[b].PB(a);
-    }
-
-    cc = INF; dfc(); dfc(c);
-
-    int sz0 = 0, sz1 = 0;
-
-    for (auto v: adj[c]){
-        if (sz[v] > sz0){
-            sz1 = sz0;
-            sz0 = sz[v];
+    cin >> s;
+    REP(i, s.size()) if (s[i] != 'a'){
+        FOR(j, i, s.size()) if (s[j] != 'a'){
+            s[j] -= 1;
         }
-        else if (sz[v] > sz1){
-            sz1 = sz[v];
+        else{
+            break;
         }
+        cout << s << endl;
+        exit(0);
     }
-
-    ans[c] = 1;
-
-    for (auto v: adj[c]){
-        dfs(v, c, sz0*2 != n && sz[v] == sz0 ? sz1 : sz0);
-    }
-
-    REP_1(i, n) printf("%d ", ans[i]);
+    s[s.size()-1] = 'z';
+    cout << s <<endl;
 }
