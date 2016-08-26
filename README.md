@@ -1,4 +1,4 @@
-﻿# ACM-Training
+# ACM-Training
 
 ## Archive
 
@@ -11,7 +11,6 @@
 ## Template
 
 模板
-
 
 
 
