@@ -465,21 +465,102 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1.5e3) + 9, K = int(1e5) + 9;
+const int N = int(1e5) + 9;
 
-Int dp[2][N], s[N]; Int fact[K];
-Int Pr[N], Ps[N];
-int n, m, a, b, k; // l > x, r < x
 
-Int binom(int n, int m){
-    return fact[n] / (fact[m] * fact[n-m]);
-}
-Int pr(int n){
-    if (n > k) return 0;
-    return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
-}
-Int pr(int l, int r){
-    return pr(l)*pr(m-1-r);
+namespace MCMF{
+
+    const int N = 509, M = 2*N*N + 9;
+    const int NN = 511; // cover_bit(N) - 1
+
+    LL D[N]; int hd[N], suc[M], to[M], cap[M], cst[M];
+    int n, m, s, t; LL flow, cost;
+
+    int new_node(){
+        hd[n] = 0;
+        return n++;
+    }
+
+    inline void add_edge(int x, int y, int c, int w = 0){
+        suc[m] = hd[x], to[m] = y, cap[m] = c, cst[m] =  w, hd[x] = m++;
+        suc[m] = hd[y], to[m] = x, cap[m] = 0, cst[m] = -w, hd[y] = m++;
+    }
+
+    inline void add_edgee(int x, int y, int c, int w = 0){
+        add_edge(x, y, c, w);
+        add_edge(y, x, c, w);
+    }
+
+    int Q[NN+1], pre[N], cz, op; bool inQ[N];
+
+#define v to[i]
+#define c cap[i]
+#define f cap[i^1]
+#define w cst[i]
+
+    bool spfa(){
+        fill(inQ, inQ+n, 0), fill(D, D+n, INF);
+        cz = 0, op = 1; D[Q[cz] = s] = 0; while (cz != op){
+            int u = Q[cz++]; inQ[u] = 0; cz &= NN;
+            REP_G(i, u) if (c && checkMin(D[v], D[u]+w)){
+                pre[v] = i; if (!inQ[v]) Q[op++] = v, inQ[v] = 1, op &= NN;
+            }
+        }
+        return D[t] != INF;
+    }
+
+#undef v
+
+    void add_path(){
+        int d = INF; int u, v = t; do{
+            int i = pre[v]; checkMin(d, c);
+            u = to[i^1], v = u;
+        } while (u != s);
+
+        flow += d; u, v = t; do{
+            int i = pre[v]; f += d, c -= d; cost += (LL)d*w;
+            u = to[i^1], v = u;
+        } while (u != s);
+    }
+
+#undef c
+#undef f
+#undef w
+
+    int e[N];
+
+    int Run(){
+
+        RD(n); n = n+2, m = 2, s = 0, t = n -1;
+        int pre_cost = 0;
+
+        Rush{
+            int u, v, c, f; RD(u, v, c, f);
+            e[u] -= f; e[v] += f;
+            add_edge(u, v, INF, 2);
+            if (f <= c){ //fc
+                add_edge(u, v, c-f, 1);
+                add_edge(v, u, f, 1);
+            }
+            else{ // cf
+                pre_cost += f-c;
+                add_edge(v, u, f-c, 0);
+                add_edge(v, u, c, 1);
+            }
+        }
+
+        add_edge(t-1, s+1, INF, 0);
+        REP_1(i, n) if (e[i] > 0){
+            add_edge(s, i, e[i], 0);
+        }
+        else{
+            add_edge(i, t, -e[i], 0);
+        }
+        to[m] = s, cost = 0, flow = 0; while (spfa()) add_path();
+        return cost + pre_cost;
+    }
+
+
 }
 
 int main(){
@@ -489,19 +570,5 @@ int main(){
         //freopen("out.txt", "w", stdout);
 #endif
 
-    fact[0] = 1; FOR(i, 1, K) fact[i] = fact[i-1] * i;
-
-    RD(n, m, a, b, k);
-
-    REP(i, m) Pr[i] = pr(i);
-    REP(i, m) Ps[i+1] = Ps[i] + Pr[i];
-    int p = 0, q = 1; dp[p][m] = 1;
-
-    DO(n){
-        swap(p, q); RST(dp[p]);
-        REP(l, m) s[l+1] = s[l] + Pr[l]*(dp[q][m]-dp[q][l]);
-        REP(r, m) dp[p][r+1] = dp[p][r]+Pr[m-1-r]*(s[r+1]-Ps[r+1]*dp[q][m-1-r]);
-    }
-
-    cout << dp[p][m] << endl;
+    printf("%d\n", MCMF::Run());
 }

@@ -465,43 +465,27 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1.5e3) + 9, K = int(1e5) + 9;
+const int N = int(1e5) + 9;
 
-Int dp[2][N], s[N]; Int fact[K];
-Int Pr[N], Ps[N];
-int n, m, a, b, k; // l > x, r < x
-
-Int binom(int n, int m){
-    return fact[n] / (fact[m] * fact[n-m]);
-}
-Int pr(int n){
-    if (n > k) return 0;
-    return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
-}
-Int pr(int l, int r){
-    return pr(l)*pr(m-1-r);
-}
+string s;
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
-
-    fact[0] = 1; FOR(i, 1, K) fact[i] = fact[i-1] * i;
-
-    RD(n, m, a, b, k);
-
-    REP(i, m) Pr[i] = pr(i);
-    REP(i, m) Ps[i+1] = Ps[i] + Pr[i];
-    int p = 0, q = 1; dp[p][m] = 1;
-
-    DO(n){
-        swap(p, q); RST(dp[p]);
-        REP(l, m) s[l+1] = s[l] + Pr[l]*(dp[q][m]-dp[q][l]);
-        REP(r, m) dp[p][r+1] = dp[p][r]+Pr[m-1-r]*(s[r+1]-Ps[r+1]*dp[q][m-1-r]);
+    cin >> s;
+    REP(i, s.size()) if (s[i] != 'a'){
+        FOR(j, i, s.size()) if (s[j] != 'a'){
+            s[j] -= 1;
+        }
+        else{
+            break;
+        }
+        cout << s << endl;
+        exit(0);
     }
-
-    cout << dp[p][m] << endl;
+    s[s.size()-1] = 'z';
+    cout << s <<endl;
 }

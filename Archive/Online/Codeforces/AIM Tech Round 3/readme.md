@@ -2,10 +2,8 @@
 
 ___
 
-
-[http://codeforces.com/contest/708](http://codeforces.com/contest/708 "http://codeforces.com/contest/708")
-
-[https://async.icpc-camp.org/d/530-aim-tech-round-3](https://async.icpc-camp.org/d/530-aim-tech-round-3 "https://async.icpc-camp.org/d/530-aim-tech-round-3")
+- [http://codeforces.com/contest/708](http://codeforces.com/contest/708 "http://codeforces.com/contest/708")
+- [https://async.icpc-camp.org/d/530-aim-tech-round-3](https://async.icpc-camp.org/d/530-aim-tech-round-3 "https://async.icpc-camp.org/d/530-aim-tech-round-3")
 
 ## Problem A. Letters Cyclic Shift ##
 ### Brief description ###
@@ -58,12 +56,45 @@ ___
 D：给定一个网络流的 容量函数 c 和 流量函数 f，在 c 和 f 上做最小的修改，使得 f 是合法的流量函数。
 
 ### Analysis ###
-最小费用流。
+
+最小费用可行流，仿照上下界可行流中的方法来解决流量平衡的问题即可。
+
+[http://www.cnblogs.com/kane0526/archive/2013/04/05/3001108.html](http://www.cnblogs.com/kane0526/archive/2013/04/05/3001108.html "http://www.cnblogs.com/kane0526/archive/2013/04/05/3001108.html")
+
 
 ## Problem E. Student's Camp ##
 ### Brief description ###
-给定一个 N*M 的墙，每天白天，左边裸露出来的部分有 p 概率被风摧毁，晚上，右边裸露的部分有 p 概率被摧毁，问最后墙体不发生坍塌的概率。
+给定一个 n*m 的墙，每天白天，左边裸露出来的部分有 p 概率被风摧毁，晚上，右边裸露的部分有 p 概率被摧毁，问最后墙体不发生坍塌的概率。
 
 ### Analysis ###
 动态规划。
+
+先考虑 Naive 的方法，首先层与层之间相互独立。
+
+    Int pr(int n){
+    	return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
+    }
+    Int pr(int l, int r){ //于是有每层最后的剩下的区间为 [l, r] 的概率。
+    	return pr(l)*pr(m-1-r);
+    }
+
+按照层数划分阶段，我们有
+
+	dp[i][l][r] = pr(l,r) * \sum dp[i-1][ll][rr]
+
+这里要求区间 [l, r] 与 [ll, rr] 有重叠部分。
+
+设 sr[l] 表示右端点小于 l 的和，sl[r] 表示左端点大于 r 的和。
+
+	dp[i][l][r] = pr(l,r) * (all-sr[l]-sl[r])
+
+至此状态为 O(n3)，转移为 O(1)，进一步，注意到 sl, sr 彼此对称。
+我们直接用 sr 表示状态。
+
+	sr[i][r] = sl[i][r-1] + \sum pr(l, r) * (all-sr[l]-sr[m-1-l])
+
+最后将转移方程中的 l 和 r 分离，再用一次前缀和，至此状态 O(n2)，转移 O(1)。
+
+
+
 

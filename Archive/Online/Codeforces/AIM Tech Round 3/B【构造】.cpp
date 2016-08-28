@@ -465,21 +465,43 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1.5e3) + 9, K = int(1e5) + 9;
+const int N = int(1e5) + 9;
 
-Int dp[2][N], s[N]; Int fact[K];
-Int Pr[N], Ps[N];
-int n, m, a, b, k; // l > x, r < x
+int a00, a01, a10, a11;
 
-Int binom(int n, int m){
-    return fact[n] / (fact[m] * fact[n-m]);
+VI sol(LL t){
+    VI z;
+    if (!t){
+        z.PB(0);z.PB(1);
+    }
+    else{
+        //x*(x-1) == t * 2; x2 - x - t2
+        LL x = 1 + sqrt(1 + 8*t) / 2;
+        if (x*(x-1) == t*2) z.PB(x);
+    }
+    return z;
 }
-Int pr(int n){
-    if (n > k) return 0;
-    return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
-}
-Int pr(int l, int r){
-    return pr(l)*pr(m-1-r);
+
+bool gao(VI A0, VI A1){
+
+    for(auto a0: A0) for (auto a1: A1) if (a0*a1 == a01 + a10){
+        string z; DO(a0+a1){
+            if (a01 >= a1){
+                z.PB('0'); --a0;
+                a01 -= a1;
+            }
+            else{
+                z.PB('1'); --a1;
+                a10 -= a0;
+            }
+        }
+        //cout << a0 << " "<< a1 << " " << a01 << " "<< a10 << endl;
+        if (!z.empty()){
+            cout << z << endl;
+            return true;
+        }
+    }
+    return false;
 }
 
 int main(){
@@ -488,20 +510,6 @@ int main(){
     freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
-
-    fact[0] = 1; FOR(i, 1, K) fact[i] = fact[i-1] * i;
-
-    RD(n, m, a, b, k);
-
-    REP(i, m) Pr[i] = pr(i);
-    REP(i, m) Ps[i+1] = Ps[i] + Pr[i];
-    int p = 0, q = 1; dp[p][m] = 1;
-
-    DO(n){
-        swap(p, q); RST(dp[p]);
-        REP(l, m) s[l+1] = s[l] + Pr[l]*(dp[q][m]-dp[q][l]);
-        REP(r, m) dp[p][r+1] = dp[p][r]+Pr[m-1-r]*(s[r+1]-Ps[r+1]*dp[q][m-1-r]);
-    }
-
-    cout << dp[p][m] << endl;
+    RD(a00, a01, a10, a11);
+    if (!gao(sol(a00), sol(a11))) puts("Impossible");
 }

@@ -465,49 +465,25 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(4e5) + 9;
-VI adj[N]; int sz[N], up[N], dn[N], ans[N];
-int n;
+const int N = int(1.5e3) + 9, K = int(1e5) + 9;
 
-bool ck(int x){
-    return x*2 <= n;
+Int dp[2][N][N], sl[N], sr[N]; Int fact[K];
+int n, m, a, b, k; // l > x, r < x
+
+Int binom(int n, int m){
+    return fact[n] / (fact[m] * fact[n-m]);
+}
+Int pr(int n){
+
+    //cout << " " << n << " " << k-n << endl;
+    //cout << pow(a, n) << " " << pow(b-a, k-n) << endl;
+
+    return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
+}
+Int pr(int l, int r){
+    return pr(l)*pr(m-1-r);
 }
 
-void dfs0(int u = 1, int p = 0){
-    sz[u] = 1; for(auto&& v: adj[u]) if (v != p){
-        dfs0(v, u), sz[u] += sz[v];
-    }
-    if (ck(sz[u])) dn[u] = sz[u];
-    else{
-        for(auto &&v: adj[u]) if (v != p)
-            checkMax(dn[u], dn[v]);
-    }
-}
-
-void dfs1(int u = 1, int p = 0){
-
-    PII sub(n-sz[u], up[u]);
-    for (auto &&v: adj[u]) if (v != p)
-        checkMax(sub, {sz[v], dn[v]});
-    ans[u] = ck(sub.fi - sub.se);
-
-    int dn0 = 0, dn1 = 0;
-    for (auto&& v: adj[u]) if (v != p && ck(dn[v])){
-        if (dn[v] > dn0){
-            dn1 = dn0;
-            dn0 = dn[v];
-        }
-        else if (dn[v] > dn1){
-            dn1 = dn[v];
-        }
-    }
-
-    for (auto&& v: adj[u]) if (v != p){
-        if (ck(n-sz[v])) up[v] = n-sz[v];
-        else up[v] = max(up[u], dn[v]==dn0 ? dn1 : dn0);
-        dfs1(v, u);
-    }
-}
 
 int main(){
 
@@ -516,14 +492,36 @@ int main(){
         //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n); DO(n-1){
-        int a, b; RD(a, b);
-        adj[a].PB(b); adj[b].PB(a);
+    fact[0] = 1; FOR(i, 1, K) fact[i] = fact[i-1] * i;
+
+    RD(n, m, a, b, k);
+
+    int p = 0, q = 1;
+
+    REP(l, m) FOR(r, l, m){
+        dp[p][l][r] = pr(l, r);
     }
 
-    dfs0(); dfs1();
+    DO(n-1){
+        swap(p, q); RST(dp[p], sl, sr); Int all = 0;
+        REP(l, m) FOR(r, l, m){
+            sr[r+1] += dp[q][l][r];
+            if (l) sl[l-1] += dp[q][l][r];
+            all += dp[q][l][r];
+        }
 
-    REP_1(i, n){
-        printf("%d%c", ans[i] , " \n"[i == n]);
+
+
+        REP(i, m) sr[i+1] += sr[i];
+        DWN(i, m, 0) sl[i] += sl[i+1];
+
+        cout << all << " " << sr[1] << endl;
+
+        REP(l, m) FOR(r, l, m){
+            dp[p][l][r] = pr(l, r) * (all-sr[l]-sl[r]);
+        }
     }
+
+    Int all = 0; REP(l, m) FOR(r, l, m) all += dp[p][l][r];
+    cout << all << endl;
 }
