@@ -465,24 +465,27 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-int a[5010],b[5010],n;
-long long F[2][5010],M,*f=F[0],*g=F[1];
-int main()
-{
+const int N = int(1e5) + 9;
+
+string s;
+
+int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
-    scanf("%d",&n);
-    for(int i=0;i<n;scanf("%d",a+i),a[i] -= i, b[i]=a[i],i++);
-    sort(b,b+n);
-    for(int i=0;i<=n;i++)
-    {
-        M=f[0];
-        for(int j=0;j<n;M=min(M,f[j]),g[j]=M+abs(b[j]-a[i]),j++);
-        swap(f,g);
+    cin >> s;
+    REP(i, s.size()) if (s[i] != 'a'){
+        FOR(j, i, s.size()) if (s[j] != 'a'){
+            s[j] -= 1;
+        }
+        else{
+            break;
+        }
+        cout << s << endl;
+        exit(0);
     }
-    printf("%I64d\n",M);
-    return 0;
+    s[s.size()-1] = 'z';
+    cout << s <<endl;
 }

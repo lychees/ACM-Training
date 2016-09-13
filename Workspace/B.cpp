@@ -314,7 +314,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* Ä£ÊıÁ½±¶¸ÕºÃ³¬ int Ê±¡£
+/* æ¨¡æ•°ä¸¤å€åˆšå¥½è¶… int æ—¶ã€‚
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -465,20 +465,179 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1.5e3) + 9, K = int(1e5) + 9;
+const int N = int(1e5) + 9;
 
-Int dp[2][N], s[N]; Int fact[K];
-int n, m, a, b, k; // l > x, r < x
+// l1, l2, r1 ,r2
+// l1 r1 l2 r2
 
-Int binom(int n, int m){
-    return fact[n] / (fact[m] * fact[n-m]);
+int l1, l2, r1, r2;
+int b1, b2, u1, u2;
+int n;
+
+int test = 0;
+int L1 = 8888, L2 = 8888, R1 = 9999, R2 = 19999;
+int B1 = 8888, B2 = 4000, U1 = 9999, U2 = 4001;
+
+//int L1 = 20, L2 = 20, R1 = 60, R2 = 101;
+//int B1 = 20, B2 = 70, U1 = 60, U2 = 101;
+
+int get(int a, int b, int c, int d){
+    if (! (a <= c && b <= d)){
+        cout << a << " " << c << " " << b << " " <<d <<endl;
+        assert(a <= c && b <= d);
+    }
+
+    if (test == 1){
+        int z = 0;
+        if (a <= L1 && R1 <= c && b <= B1 && U1 <= d)++z;
+        if (a <= L2 && R2 <= c && b <= B2 && U2 <= d)++z;
+        return z;
+    }
+    else{
+        cout << "? " << a << " " << b << " "<< c << " "<< d << endl;
+        //fflush(stdout);
+        int z; cin >> z;
+        return z;
+    }
 }
-Int pr(int n){
-    if (n > k) return 0;
-    return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
+
+
+
+void getX(){
+
+
+    /*cout << get(1, 1, 5, 5) << endl;
+    cout << get(1, 1, 4, 5) << endl;
+    cout << get(1, 1, 3, 5) << endl;*/
+
+    int l = 1, r = n, t;
+    while (l < r){
+        int m = (l + r) / 2;
+        t = get(1, 1, m, n);
+        if (t == 2) r = m;
+        else l = m + 1;
+    }
+    r2 = l;
+
+    l = 1, r = n;
+    while (l < r){
+        int m = (l + r) / 2;
+        t = get(1, 1, m, n);
+        if (t >= 1) r = m;
+        else l = m + 1;
+    }
+    r1 = l;
+
+    l = 1, r = n;
+    while (l < r){
+        int m = (l + r + 1) / 2;
+        t = get(m, 1, n, n);
+        if (t == 2) l = m;
+        else r = m - 1;
+    }
+    l1 = l;
+
+    l = 1, r = n;
+    while (l < r){
+        int m = (l + r + 1) / 2;
+        t = get(m, 1, n, n);
+        if (t >= 1) l = m;
+        else r = m - 1;
+    }
+    l2 = l;
 }
-Int pr(int l, int r){
-    return pr(l)*pr(m-1-r);
+
+
+
+void getY(){
+    int l = 1, r = n, t;
+    while (l < r){
+        int m = (l + r) / 2;
+        t = get(1, 1, n, m);
+        if (t == 2) r = m;
+        else l = m + 1;
+    }
+    u2 = l;
+
+    l = 1, r = n;
+    while (l < r){
+        int m = (l + r) / 2;
+        t = get(1, 1, n, m);
+        if (t >= 1) r = m;
+        else l = m + 1;
+    }
+    u1 = l;
+
+    l = 1, r = n;
+    while (l < r){
+        int m = (l + r + 1) / 2;
+        t = get(1, m, n, n);
+        if (t == 2) l = m;
+        else r = m - 1;
+    }
+    b1 = l;
+
+    l = 1, r = n;
+    while (l < r){
+        int m = (l + r + 1) / 2;
+        t = get(1, m, n, n);
+        if (t >= 1) l = m;
+        else r = m - 1;
+    }
+    b2 = l;
+}
+
+bool bad(){
+
+    if (l1 > r1) return 1;
+    if (l2 > r2) return 1;
+    if (b1 > u1) return 1;
+    if (b2 > u2) return 1;
+
+    int l = max(l1, l2);
+    int r = min(r1, r2);
+    int b = max(b1, b2);
+    int u = min(u1, u2);
+
+    //cout << l << " " << r << " " << b << " " << u << endl;
+
+    return l <= r && b <= u;
+}
+
+bool dfs(int k = 0){
+    if (k == 3){
+
+        if (bad()) return 0;
+
+
+        int z1, z2;
+        z1 = get(l1, b1, r1, u1);
+        z2 = get(l2, b2, r2, u2);
+        return z1 == 1 && z2 == 1;
+    }
+
+    if (dfs(k+1)) return 1;
+    if (k == 0){
+        swap(r1, r2);
+        if (dfs(k+1)) return 1;
+        swap(r1, r2);
+    }
+    else if (k == 1){
+        swap(u1, u2);
+        if (dfs(k+1)) return 1;
+        swap(u1, u2);
+    }
+    else if (k == 2){
+        swap(b1, b2);
+        if (dfs(k+1)) return 1;
+        swap(b1, b2);
+    }
+
+    // l1, l2
+    // r1, r2
+    //
+
+    return false;
 }
 
 
@@ -489,25 +648,14 @@ int main(){
         //freopen("out.txt", "w", stdout);
 #endif
 
-    fact[0] = 1; FOR(i, 1, K) fact[i] = fact[i-1] * i;
+    cin >> n;
+    getX(); getY();
+    //cout << l1 << " " << l2 << " " << r1 << " " << r2 << endl;
 
-    RD(n, m, a, b, k);
-
-    int p = 0, q = 1;
-
-    REP(l, m) FOR(r, l, m){
-        dp[p][r+1] += pr(l, r);
-    }
-    REP(r, m) dp[p][r+1] += dp[p][r];
-
-    DO(n-1){
-        swap(p, q); RST(dp[p]);
-
-        REP(r, m){
-            dp[p][r+1] += dp[p][r];
-            REP(l, r+1) dp[p][r+1] += pr(l, r) * (dp[q][m]-dp[q][l]-dp[q][m-1-r]);
-        }
-    }
-
-    cout << dp[p][m] << endl;
+    dfs();
+    //bad();
+    cout << "! " << l1 << " " << b1 << " " << r1 << " " << u1 << " "
+                 << l2 << " " << b2 << " " << r2 << " " << u2 << endl;
+    //fflush(stdout);
 }
+

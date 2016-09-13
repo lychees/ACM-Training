@@ -1,0 +1,26 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Fox Ciel really wanted to write a task for Topcoder Open.
+She came up with the following suggestion:
+"You are given two strings: <b>A</b> and <b>B</b>. 
+Compute and return the smallest number of characters we should <i>remove</i> to make the two strings equal."
+<br></br>
+<br></br>
+<br></br>
+This proposal was rejected with the comment that it is too classic.
+Apparently, everybody knows that it can be solved by using dynamic programming to compute the longest common subsequence of the two strings.
+<br></br>
+<br></br>
+<br></br>
+Ciel then suggested to make the task less classic by adding a single word:
+changing "smallest number of characters" into "smallest number of <i>distinct</i> characters".
+More precisely, you are still allowed to remove any subset of characters, but this time we want you to minimize the number of <i>distinct</i> characters among the characters you remove.
+<br></br>
+<br></br>
+<br></br>
+Solve this new version of Ciel's task.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RemoveCharacters</td></tr><tr><td>Method:</td><td>minimalDistinct</td></tr><tr><td>Parameters:</td><td>string, string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minimalDistinct(string A, string B)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> will contain between 1 and 1,000 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>B</b> will contain between 1 and 1,000 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>A</b> will be a lowercase English letter (i.e. 'a'-'z').</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>B</b> will be a lowercase English letter (i.e. 'a'-'z').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;acabc&quot;</pre></td></tr><tr><td><pre>&quot;accabcc&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">One optimal solution here is to remove characters at 0-based indices 1 and 6 in the string <b>B</b>.
+Both removed characters are 'c's.
+This changes the string <b>B</b> from "accabcc" to "acabc" and makes the two strings equal.
+As we only removed one distinct character, the correct return value is 1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;aabbcc&quot;</pre></td></tr><tr><td><pre>&quot;ccbbaa&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">One optimal solution is to remove the first four characters of <b>A</b> and the last four characters of <b>B</b>.
+After this change, both strings become equal to "cc".
+We removed two distinct characters: some 'a's and some 'b's.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;aaaabc&quot;</pre></td></tr><tr><td><pre>&quot;bcaaaaa&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">The optimal solution here is to remove all nine 'a's.
+Note that we are only interested in minimizing the number of <i>distinct</i> characters among the characters we remove.
+The total number of removed characters may be arbitrary.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;abcde&quot;</pre></td></tr><tr><td><pre>&quot;abcde&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;abcdefghijklm&quot;</pre></td></tr><tr><td><pre>&quot;nopqrstuvwxyz&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 26</pre></td></tr><tr><td><table><tr><td colspan="2">We need to remove all of them.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -314,7 +314,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* Ä£ÊıÁ½±¶¸ÕºÃ³¬ int Ê±¡£
+/* æ¨¡æ•°ä¸¤å€åˆšå¥½è¶… int æ—¶ã€‚
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -465,63 +465,44 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1.5e3) + 9, K = int(1e5) + 9;
+const int N = int(1e5) + 9;
 
-Int dp[2][N][N], sl[N], sr[N]; Int fact[K];
-int n, m, a, b, k; // l > x, r < x
+map<LL, int> H;
 
-Int binom(int n, int m){
-    return fact[n] / (fact[m] * fact[n-m]);
+LL get(){
+    LL x; RD(x);
+    VI t; while (x){
+        if (x&1) t.PB(1); else t.PB(0);
+        x /= 10;
+    }
+    LL z = 0;
+    DWN(i, t.size(), 0){
+        z *= 10;
+        z += t[i];
+    }
+    //cout << " " << z << endl;
+    return z;
 }
-Int pr(int n){
-
-    //cout << " " << n << " " << k-n << endl;
-    //cout << pow(a, n) << " " << pow(b-a, k-n) << endl;
-
-    return binom(k, n)*pow(a, n)*pow(b-a, k-n)/pow(b, k);
-}
-Int pr(int l, int r){
-    return pr(l)*pr(m-1-r);
-}
-
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
 
-    fact[0] = 1; FOR(i, 1, K) fact[i] = fact[i-1] * i;
-
-    RD(n, m, a, b, k);
-
-    int p = 0, q = 1;
-
-    REP(l, m) FOR(r, l, m){
-        dp[p][l][r] = pr(l, r);
-    }
-
-    DO(n-1){
-        swap(p, q); RST(dp[p], sl, sr); Int all = 0;
-        REP(l, m) FOR(r, l, m){
-            sr[r+1] += dp[q][l][r];
-            if (l) sl[l-1] += dp[q][l][r];
-            all += dp[q][l][r];
+    Rush{
+        char cmd; RC(cmd); if (cmd == '+'){
+            ++H[get()];
         }
-
-
-
-        REP(i, m) sr[i+1] += sr[i];
-        DWN(i, m, 0) sl[i] += sl[i+1];
-
-        cout << all << " " << sr[1] << endl;
-
-        REP(l, m) FOR(r, l, m){
-            dp[p][l][r] = pr(l, r) * (all-sr[l]-sl[r]);
+        else if (cmd == '-'){
+            --H[get()];
+        }
+        else{
+            LL t; cin >> t; //cout << "? " << t << endl;
+            cout << H[t] << endl;
         }
     }
 
-    Int all = 0; REP(l, m) FOR(r, l, m) all += dp[p][l][r];
-    cout << all << endl;
+
 }

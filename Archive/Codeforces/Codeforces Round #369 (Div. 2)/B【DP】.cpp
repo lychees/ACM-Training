@@ -465,24 +465,51 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-int a[5010],b[5010],n;
-long long F[2][5010],M,*f=F[0],*g=F[1];
-int main()
-{
+const int N = int(1e5) + 9;
+
+int a00, a01, a10, a11;
+
+VI sol(LL t){
+    VI z;
+    if (!t){
+        z.PB(0);z.PB(1);
+    }
+    else{
+        //x*(x-1) == t * 2; x2 - x - t2
+        LL x = 1 + sqrt(1 + 8*t) / 2;
+        if (x*(x-1) == t*2) z.PB(x);
+    }
+    return z;
+}
+
+bool gao(VI A0, VI A1){
+
+    for(auto a0: A0) for (auto a1: A1) if (a0*a1 == a01 + a10){
+        string z; DO(a0+a1){
+            if (a01 >= a1){
+                z.PB('0'); --a0;
+                a01 -= a1;
+            }
+            else{
+                z.PB('1'); --a1;
+                a10 -= a0;
+            }
+        }
+        //cout << a0 << " "<< a1 << " " << a01 << " "<< a10 << endl;
+        if (!z.empty()){
+            cout << z << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
         //freopen("out.txt", "w", stdout);
 #endif
-    scanf("%d",&n);
-    for(int i=0;i<n;scanf("%d",a+i),a[i] -= i, b[i]=a[i],i++);
-    sort(b,b+n);
-    for(int i=0;i<=n;i++)
-    {
-        M=f[0];
-        for(int j=0;j<n;M=min(M,f[j]),g[j]=M+abs(b[j]-a[i]),j++);
-        swap(f,g);
-    }
-    printf("%I64d\n",M);
-    return 0;
+    RD(a00, a01, a10, a11);
+    if (!gao(sol(a00), sol(a11))) puts("Impossible");
 }
