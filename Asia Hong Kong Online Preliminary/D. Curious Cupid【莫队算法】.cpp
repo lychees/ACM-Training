@@ -314,7 +314,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* Ê®°Êï∞‰∏§ÂÄçÂàöÂ•ΩË∂Ö int Êó∂„ÄÇ
+/* ƒ£ ˝¡Ω±∂∏’∫√≥¨ int  ±°£
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -465,149 +465,61 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = int(1e6) + 9;
+int A[N], B[N], C[N], n, z;
 
-int l1, l2, r1, r2;
-int b1, b2, u1, u2;
-int n;
-
-//#define DEBUG
-int L1 = 8888, L2 = 8888, R1 = 9999, R2 = 19999;
-int B1 = 8888, B2 = 4000, U1 = 9999, U2 = 4001;
-
-int get(int a, int b, int c, int d){
-    #ifdef DEBUG
-        int z = 0;
-        if (a <= L1 && R1 <= c && b <= B1 && U1 <= d)++z;
-        if (a <= L2 && R2 <= c && b <= B2 && U2 <= d)++z;
-        return z;
-    #endif
-    cout << "? " << a << " " << b << " "<< c << " "<< d << endl;
-    return RD();
+void ins(int i){
+    if (C[A[i]] < 0) ++z;
+    ++C[A[i]];
+    if (C[B[i]] > 0) ++z;
+    --C[B[i]];
 }
 
-void getX(){
-    int l = 1, r = n, t;
-    while (l < r){
-        int m = (l + r) / 2;
-        t = get(1, 1, m, n);
-        if (t == 2) r = m;
-        else l = m + 1;
-    }
-    r2 = l;
-
-    l = 1, r = n;
-    while (l < r){
-        int m = (l + r) / 2;
-        t = get(1, 1, m, n);
-        if (t >= 1) r = m;
-        else l = m + 1;
-    }
-    r1 = l;
-
-    l = 1, r = n;
-    while (l < r){
-        int m = (l + r + 1) / 2;
-        t = get(m, 1, n, n);
-        if (t == 2) l = m;
-        else r = m - 1;
-    }
-    l1 = l;
-
-    l = 1, r = n;
-    while (l < r){
-        int m = (l + r + 1) / 2;
-        t = get(m, 1, n, n);
-        if (t >= 1) l = m;
-        else r = m - 1;
-    }
-    l2 = l;
+void del(int i){
+    --C[A[i]];
+    if (C[A[i]] < 0) --z;
+    ++C[B[i]];
+    if (C[B[i]] > 0) --z;
 }
 
-void getY(){
-    int l = 1, r = n, t;
-    while (l < r){
-        int m = (l + r) / 2;
-        t = get(1, 1, n, m);
-        if (t == 2) r = m;
-        else l = m + 1;
-    }
-    u2 = l;
+int ans[N], nn;
 
-    l = 1, r = n;
-    while (l < r){
-        int m = (l + r) / 2;
-        t = get(1, 1, n, m);
-        if (t >= 1) r = m;
-        else l = m + 1;
+struct query{
+    static int Qn;
+    int l, r, ll, id;
+    void in(){
+        RD(l, r); ll = l / nn;
+        id = Qn++;
     }
-    u1 = l;
+    bool operator <(const query& rhs){
+        return ll == rhs.ll ? r < rhs.r : ll < rhs.ll;
+    }
+} Q[N];
 
-    l = 1, r = n;
-    while (l < r){
-        int m = (l + r + 1) / 2;
-        t = get(1, m, n, n);
-        if (t == 2) l = m;
-        else r = m - 1;
-    }
-    b1 = l;
-
-    l = 1, r = n;
-    while (l < r){
-        int m = (l + r + 1) / 2;
-        t = get(1, m, n, n);
-        if (t >= 1) l = m;
-        else r = m - 1;
-    }
-    b2 = l;
-}
-
-bool bad(){
-    if (l1 > r1 || l2 > r2 || b1 > u1 || b2 > u2) return 1;
-    int l = max(l1, l2), r = min(r1, r2);
-    int b = max(b1, b2), u = min(u1, u2);
-    return l <= r && b <= u;
-}
-
-bool dfs(int k = 0){
-    if (k == 3){
-        if (bad()) return 0;
-        return get(l1, b1, r1, u1) == 1 && get(l2, b2, r2, u2) == 1;
-    }
-
-    if (dfs(k+1)) return 1;
-    if (k == 0){
-        swap(r1, r2);
-        if (dfs(k+1)) return 1;
-        swap(r1, r2);
-    }
-    else if (k == 1){
-        swap(b1, b2);
-        if (dfs(k+1)) return 1;
-        swap(b1, b2);
-    }
-    else if (k == 2){
-        swap(u1, u2);
-        if (dfs(k+1)) return 1;
-        swap(u1, u2);
-    }
-    return false;
-}
-
+int query::Qn, m, k;
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
-        //freopen("out.txt", "w", stdout);
+    //freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    cin >> n;
-    getX(); getY();
+    RD(n, m, k);
+    REP(i, n) RD(A[i]);
+    REP(i, n) RD(B[i]);
 
-    dfs();
+    nn = sqrt(n);
+    REP(i, m) Q[i].in();
+    sort(Q, Q+m);
 
-    cout << "! " << l1 << " " << b1 << " " << r1 << " " << u1 << " "
-                 << l2 << " " << b2 << " " << r2 << " " << u2 << endl;
+    int l = 0, r = -1;
+    REP(i, m){
+        while (r < Q[i].r) ins(++r);
+        while (r > Q[i].r) del(r--);
+        while (l < Q[i].l) del(l++);
+        while (l > Q[i].l) ins(--l);
+        ans[Q[i].id] = z;
+    }
+    REP(i, m) printf("%d\n", ans[i]);
 }
-

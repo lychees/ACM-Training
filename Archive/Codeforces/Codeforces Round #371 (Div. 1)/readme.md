@@ -26,7 +26,7 @@ ___
 ### Analysis ###
 二分出每一条边，然后 dfs() 生成所有可能的组合情况，从中筛选出合法的一组，非重叠的条件可以确保不会产生多解，注意 dfs() 的检查过程中提前判断掉不合法的询问。
 
-## Problem C.Sonya and Problem Wihtout a Legend ##
+## Problem C. Sonya and Problem Wihtout a Legend ##
 ### Brief description ###
 给定一个数组，每次编辑可以使一个数 +1s 或 -1s。
 求最少的编辑次数，使得该数组严格递增。
