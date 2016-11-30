@@ -465,152 +465,54 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = int(1e3) + 9, LN = 10;
 
-LL A[N];
-int n, m, a ,b, d;
 
-struct Seg{
-    int ss; LL d0; LL d1;
-    int ll[3], rr[3];
-    //up,dn,updn.
-} T[4*N];
+int ST[LN][LN][N][N];
+int n, m;
 
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml ((l+r)>>1)
-#define mr (ml+1)
-#define lc lx,l,ml
-#define rc rx,mr,r
-#define xx x, l, r
-#define root 1, 0, n-1
-
-void rls(int x){
-    if (T[x].d0){
-        T[lx].d0 += T[x].d0;
-        T[rx].d0 += T[x].d0;
-        T[x].d1 += T[x].d0;
-        T[x].d0 = 0;
-    }
+int rmq(int x1, int y1, int x2, int y2){
+    int lx = lg2(x2-x1), ly = lg2(y2-y1); x2 -= _1(lx), y2 -= _1(ly);
+#define st ST[lx][ly]
+    return max(st[x1][y1], st[x1][y2], st[x2][y1], st[x2][y2]);
+#undef st
 }
-
-void Update(int x, int l, int r){
-    REP(i, 3){
-        T[x].ll[i] = T[lx].ll[i],
-        T[x].rr[i] = T[rx].rr[i];
-    }
-    T[x].ss = max(T[lx].ss, T[rx].ss);
-    
-    //cout << ml << " " << mr << " " << A[ml] << " " << A[mr] << endl;
-    LL al = A[ml] + T[lx].d1 + T[lx].d0;
-    LL ar = A[mr] + T[rx].d1 + T[rx].d0;
-    
-    cout << "????" << l << " "<< r << ":   " << al << " " << ar << endl;
-    
-    if (al == ar){
-        return;
-    }
-    //
-    
-    if (al < ar){
-        
-        if (T[x].ll[0] == mr - l){
-            T[x].ll[0] += T[rx].ll[0];
-            T[x].ll[2] += T[rx].ll[2];
-        }
-        if (T[x].rr[0] == r - ml){
-            T[x].rr[0] += T[lx].rr[0];
-            T[x].rr[2] += T[lx].rr[0];
-        }
-        else if (T[x].rr[2] == r - ml){
-            T[x].rr[2] += T[lx].rr[0];
-        }
-        
-        checkMax(T[x].ss, T[lx].rr[0] + T[rx].ll[2]);
-    }
-    else{
-        if (T[x].ll[1] == mr - l){
-            T[x].ll[1] += T[rx].ll[1];
-            T[x].ll[2] += T[rx].ll[1];
-        }
-        else if (T[x].ll[2] == mr - l){
-            T[x].ll[2] += T[rx].ll[1];
-        }
-        
-        if (T[x].rr[1] == r - ml){
-            T[x].rr[1] += T[lx].rr[1];
-            T[x].rr[2] += T[lx].rr[2];
-        }
-        checkMax(T[x].ss, T[lx].rr[2] + T[rx].ll[1]);
-    }
-    
-    checkMax(T[x].ss, T[x].ll[2]);
-    checkMax(T[x].ss, T[x].rr[2]);
-    
-}
-
-
-void Build(int x, int l, int r){
-    T[x].d0 = 0;
-    
-    if (l == r){
-        REP(i, 3) T[x].ll[i] = T[x].rr[i] = 1;
-        T[x].ss = 1;
-    }
-    else {
-        Build(lc), Build(rc);
-        Update(xx);
-    }
-}
-
-void Modify(int x, int l, int r){
-    if (r < a || a < l) return;
-    if (a <= l && r <= b){
-        T[x].d0 += d;
-    }
-    else {
-        //rls(x);
-        Modify(lc); Modify(rc);
-        Update(xx);
-    }
-}
-
-void gao(int x, int l, int r){
-    
-    
-    if (l == r){
-        //printf("%d ", T[x].d0 + A[l] + T[x].d1);
-        //T[x].d0 += d;
-        //        T[x].al =
-    }
-    else {
-        rls(x);
-        
-        gao(lc); gao(rc);
-        Update(xx);
-        
-        printf("%d %d: %d %d %d\n", l, r, T[x].ll[2], T[x].rr[2], T[x].ss);
-        
-        
-    }
-}
-
-
 
 
 int main(){
     
 #ifndef ONLINE_JUDGE
-    freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    freopen("/users/minakokojima/ACM-training/Workspace/in.txt", "r", stdin);
+    freopen("/users/minakokojima/ACM-training/Workspace/out.txt", "w", stdout);
 #endif
     
+#define st ST[0][0]
+    cin >> n >> m;
+    REP_2_1(i, j, n, m){
+        st[i][j] = RD() ? min(st[i-1][j],st[i][j-1],st[i-1][j-1])+1 : 0;
+    }
+#undef st
     
-    RD(n); REP(i, n) RD(A[i]); Build(root); Rush{
-        RD(a, b, d); --a, --b;
-        Modify(root);
-        gao(root);
-        gao(root); cout << endl;
-        cout << T[1].ss << endl;
+    REP(xx, lg2(n)+1) REP(yy, lg2(m)+1) if (xx+yy){
+        REP_1(x, n-_1(xx)+1) REP_1(y, m-_1(yy)+1){
+            if (xx){
+                ST[xx][yy][x][y] = max(ST[xx-1][yy][x][y], ST[xx-1][yy][x+_1(xx-1)][y]);
+            }
+            else{
+                ST[xx][yy][x][y] = max(ST[xx][yy-1][x][y], ST[xx][yy-1][x][y+_1(yy-1)]);
+            }
+        }
+    }
+    
+    
+    Rush{
+        int x1, y1, x2, y2; RD(x1, y1, x2, y2); ++x2, ++y2;
+        int l = 0, r = min(x2-x1, y2-y1);
+        while (l < r){
+            int m = l + r + 1 >> 1;
+            if (rmq(x1+m-1, y1+m-1, x2, y2) >= m) l = m;
+            else r = m - 1;
+        }
+        printf("%d\n", l);
     }
 }

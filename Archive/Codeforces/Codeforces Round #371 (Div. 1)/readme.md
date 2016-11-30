@@ -5,6 +5,11 @@ ___
 [http://codeforces.com/contest/713](http://codeforces.com/contest/713 "http://codeforces.com/contest/713")
 
 
+[https://async.icpc-camp.org/d/553-2016](https://async.icpc-camp.org/d/553-2016
+                                         "https://async.icpc-camp.org/d/553-2016
+")
+
+
 ## Problem A. Sonya and Queries ##
 ### Brief description ###
 维护一个 multiset，支持以下操作：
@@ -40,6 +45,9 @@ ___
 
 ### Analysis ###
 dp，二维 RMQ，二分答案。 
+
+
+fork: [http://vjudge.net/problem/HDU-2888](http://vjudge.net/problem/HDU-2888 "http://vjudge.net/problem/HDU-2888")
 
 我们 dp 预处理出，每个结点为右下角时的最大方阵的边长，用这个来进行二维 RMQ。
 最后外面再套一层二分答案，来避免越界。
