@@ -5,6 +5,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include "testlib.h"
 using namespace std;
 const int N = 300005;
 
@@ -145,7 +146,7 @@ void gena(int n, int total, int c) {
     for (int i = 0; i < total - 1; ++i) {
         perm[i] = i + 1;
     }
-    random_shuffle(perm, perm + total - 1);
+    shuffle(perm, perm + total - 1);
     sort(perm, perm + n - 1);
     perm[n - 1] = total;
     vector<string> V;
@@ -158,7 +159,7 @@ void gena(int n, int total, int c) {
         // printf("%d%c" , length[i] , " \n"[i + 1 == n]);
         string str;
         while (length[i]--) {
-            str += (char)(rand() % c + 'a');
+            str += (char)(rnd.next('a','a'+c-1));
         }
         V.push_back(str);
     }
@@ -167,18 +168,18 @@ void gena(int n, int total, int c) {
 void genb(int n, int len, int ww = 3) {
     string str;
     for (int i = 0; i < n; ++i) {
-        str += (char)(rand() % 26 + 'a');
+        str += (char)(rnd.next('a','z'));
     }
     vector<string> V;
     V.push_back(str);
     int tot = n;
     while (V.size() < 50000) {
-        int l = rand() % (n * 2 / 3) + 1;
+        int l = rnd.next(1,n*2/3);
         if (tot + l > len) break;
-        int p = rand() % (n - l + 1);
+        int p = rnd.next(1,n-l);
         string s = str.substr(p, l);
-        for (int k = rand() % ww; k >= 0; --k) {
-            s[rand() % l] = rand() % 26 + 'a';
+        for (int k = rnd.next(0,ww-1); k >= 0; --k) {
+            s[rnd.next(0,l-1)] = rnd.next('a','z');
         }
         V.push_back(s);
         tot += l;
@@ -189,7 +190,7 @@ void genb(int n, int len, int ww = 3) {
 void genc(int n, int len) {
     string str;
     for (int i = 0; i < n; ++i) {
-        str += (char)(rand() % 26 + 'a');
+        str += (char)(rnd.next('a','z'));
     }
     vector<string> V;
     V.push_back(str);
@@ -216,10 +217,8 @@ void antihash() {
 }
 
 int main(int argc, char **argv) {
-    assert(argc == 3);
     int diff = atoi(argv[1]);
-    srand(atoi(argv[2]));
-    assert(RAND_MAX == 2147483647);
+    registerGen(argc,argv,1);
     
     if (diff == 1) {
         for (int i = 0; i < 14; ++i) {

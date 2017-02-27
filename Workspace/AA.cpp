@@ -453,7 +453,7 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    //printf("Case #%d: ", ++Case);
+    printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,152 +465,132 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = int(2e5) + 9;
+int T,n,m;
+LL f[800010][3];
 
-LL A[N];
-int n, m, a ,b, d;
+struct spell
+{
+    LL w,d,z,s;
+}t[800010];
+struct seg
+{
+    int p,l,r;
+    LL sum0,sum1,sum2,sum3;
+}seg[3200010];
 
-struct Seg{
-    int ss; LL d0; LL d1;
-    int ll[3], rr[3];
-    //up,dn,updn.
-} T[4*N];
-
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml ((l+r)>>1)
-#define mr (ml+1)
-#define lc lx,l,ml
-#define rc rx,mr,r
-#define xx x, l, r
-#define root 1, 0, n-1
-
-void rls(int x){
-    if (T[x].d0){
-        T[lx].d0 += T[x].d0;
-        T[rx].d0 += T[x].d0;
-        T[x].d1 += T[x].d0;
-        T[x].d0 = 0;
-    }
+inline void build(int p,int l,int r)
+{
+    seg[p].l=l;seg[p].r=r;
+    seg[p].sum0=seg[p].sum1=seg[p].sum2=seg[p].sum3=1;
+    if(l==r)
+        return;
+    
+    int mid=(l+r)>>1;
+    build(p<<1,l,mid);
+    build(p<<1|1,mid+1,r);
 }
-
-void Update(int x, int l, int r){
-    REP(i, 3){
-        T[x].ll[i] = T[lx].ll[i],
-        T[x].rr[i] = T[rx].rr[i];
-    }
-    T[x].ss = max(T[lx].ss, T[rx].ss);
-    
-    //cout << ml << " " << mr << " " << A[ml] << " " << A[mr] << endl;
-    LL al = A[ml] + T[lx].d1 + T[lx].d0;
-    LL ar = A[mr] + T[rx].d1 + T[rx].d0;
-    
-    cout << "????" << l << " "<< r << ":   " << al << " " << ar << endl;
-    
-    if (al == ar){
+#define P MOD
+inline void update(int p,int x)
+{
+    if(seg[p].l==seg[p].r)
+    {
+        seg[p].sum0=f[x][1];
         return;
     }
-    //
     
-    if (al < ar){
-        
-        if (T[x].ll[0] == mr - l){
-            T[x].ll[0] += T[rx].ll[0];
-            T[x].ll[2] += T[rx].ll[2];
-        }
-        if (T[x].rr[0] == r - ml){
-            T[x].rr[0] += T[lx].rr[0];
-            T[x].rr[2] += T[lx].rr[0];
-        }
-        else if (T[x].rr[2] == r - ml){
-            T[x].rr[2] += T[lx].rr[0];
-        }
-        
-        checkMax(T[x].ss, T[lx].rr[0] + T[rx].ll[2]);
-    }
-    else{
-        if (T[x].ll[1] == mr - l){
-            T[x].ll[1] += T[rx].ll[1];
-            T[x].ll[2] += T[rx].ll[1];
-        }
-        else if (T[x].ll[2] == mr - l){
-            T[x].ll[2] += T[rx].ll[1];
-        }
-        
-        if (T[x].rr[1] == r - ml){
-            T[x].rr[1] += T[lx].rr[1];
-            T[x].rr[2] += T[lx].rr[2];
-        }
-        checkMax(T[x].ss, T[lx].rr[2] + T[rx].ll[1]);
+    int mid=(seg[p].l+seg[p].r)>>1;
+    if(x<=mid)
+        update(p<<1,x);
+    else
+        update(p<<1|1,x);
+    
+    seg[p].sum0=(long long)seg[p<<1].sum0*seg[p<<1|1].sum0%P;
+    seg[p].sum0=(seg[p].sum0+((long long)seg[p<<1].sum1*seg[p<<1|1].sum2%P)*((long long)f[mid][2]*f[mid+1][0]%P)%P)%P;
+    
+    if(seg[p<<1|1].l==seg[p<<1|1].r)
+        seg[p].sum1=seg[p<<1].sum0;
+    else
+    {
+        seg[p].sum1=(long long)seg[p<<1].sum0*seg[p<<1|1].sum1%P;
+        seg[p].sum1=(seg[p].sum1+((long long)seg[p<<1].sum1*seg[p<<1|1].sum3%P)*((long long)f[mid][2]*f[mid+1][0]%P)%P)%P;
     }
     
-    checkMax(T[x].ss, T[x].ll[2]);
-    checkMax(T[x].ss, T[x].rr[2]);
+    if(seg[p<<1].l==seg[p<<1].r)
+        seg[p].sum2=seg[p<<1|1].sum0;
+    else
+    {
+        seg[p].sum2=(long long)seg[p<<1].sum2*seg[p<<1|1].sum0%P;
+        seg[p].sum2=(seg[p].sum2+((long long)seg[p<<1].sum3*seg[p<<1|1].sum2%P)*((long long)f[mid][2]*f[mid+1][0]%P)%P)%P;
+    }
+    
+    if(seg[p<<1].l==seg[p<<1].r&&seg[p<<1|1].l==seg[p<<1|1].r)
+        seg[p].sum3=1;
+    else
+        if(seg[p<<1].l==seg[p<<1].r)
+            seg[p].sum3=seg[p<<1|1].sum1;
+        else
+            if(seg[p<<1|1].l==seg[p<<1|1].r)
+                seg[p].sum3=seg[p<<1].sum2;
+            else
+            {
+                seg[p].sum3=(long long)seg[p<<1].sum2*seg[p<<1|1].sum1%P;
+                seg[p].sum3=(seg[p].sum3+((long long)seg[p<<1].sum3*seg[p<<1|1].sum3%P)*((long long)f[mid][2]*f[mid+1][0]%P)%P)%P;
+            }
+}
+void init(){
+    RD(n, m); int aw,bw; RD(t[1].w,aw,bw);
+    FOR_1(i, 2, m){
+        long long temp=t[i-1].w;
+        t[i].w = (temp*aw+bw)%n+1;
+    }
+    int ad,bd;
+    scanf("%d%d%d",&t[1].d,&ad,&bd);
+    t[1].z=max(1,min(n,t[1].w+t[1].d-1));
+    for(int i=2;i<=m;i++)
+    {
+        LL temp=t[i-1].d;
+        t[i].d=(temp*ad+bd)%3;
+        t[i].z=max(1,min(n,t[i].w+t[i].d-1));
+    }
+    
+    int as,bs;
+    scanf("%d%d%d",&t[1].s,&as,&bs);
+    for(int i=2;i<=m;i++)
+    {
+        long long temp=t[i-1].s;
+        t[i].s=(temp*as+bs)%1000000000LL+1;
+    }
+    
+    for(int i=1;i<=n;i++)
+    {
+        f[i][0]=f[i][2]=0;
+        f[i][1]=1;
+    }
+    
+    build(1,1,n);
+    Int z =0;
+    for(int i=1;i<=m;i++)
+    {
+        if(t[i].w==1&&t[i].d==0)t[i].d=1;
+        if(t[i].w==n&&t[i].d==2)t[i].d=1;
+        f[t[i].w][t[i].d]=(f[t[i].w][t[i].d]+t[i].s);
+        //printf("#%d %d %d\n",t[i].w,t[i].d,t[i].z);
+        update(1,t[i].w);
+        z += seg[1].sum0;
+    }
+    
+    OT(int(z));
     
 }
-
-
-void Build(int x, int l, int r){
-    T[x].d0 = 0;
-    
-    if (l == r){
-        REP(i, 3) T[x].ll[i] = T[x].rr[i] = 1;
-        T[x].ss = 1;
-    }
-    else {
-        Build(lc), Build(rc);
-        Update(xx);
-    }
-}
-
-void Modify(int x, int l, int r){
-    if (r < a || a < l) return;
-    if (a <= l && r <= b){
-        T[x].d0 += d;
-    }
-    else {
-        //rls(x);
-        Modify(lc); Modify(rc);
-        Update(xx);
-    }
-}
-
-void gao(int x, int l, int r){
-    
-    
-    if (l == r){
-        //printf("%d ", T[x].d0 + A[l] + T[x].d1);
-        //T[x].d0 += d;
-        //        T[x].al =
-    }
-    else {
-        rls(x);
-        
-        gao(lc); gao(rc);
-        Update(xx);
-        
-        printf("%d %d: %d %d %d\n", l, r, T[x].ll[2], T[x].rr[2], T[x].ss);
-        
-        
-    }
-}
-
-
-
 
 int main(){
     
 #ifndef ONLINE_JUDGE
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    
-    
-    RD(n); REP(i, n) RD(A[i]); Build(root); Rush{
-        RD(a, b, d); --a, --b;
-        Modify(root);
-        gao(root);
-        gao(root); cout << endl;
-        cout << T[1].ss << endl;
+    Rush{
+        init();
     }
 }

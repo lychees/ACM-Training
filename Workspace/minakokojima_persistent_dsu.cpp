@@ -409,6 +409,24 @@ namespace NT{
     
 } using namespace NT;//}
 
+// <<= 'Random Event .. . //{
+namespace RNG{
+    //srand((unsigned)time(NULL));
+#ifdef _TESTLIB_H_
+    inline uLL random(LL l, LL r){return rnd.next(l, r);}
+    int dice(){return random(0, 5);}
+    bool coin(){return random(0, 1);}
+#else
+    inline unsigned int rand16(){return ((rand()) << 15) ^ rand();}
+    inline unsigned int rand32(){return (rand16() << 16) | rand16();}
+    inline uLL rand64(){return ((LL)rand32() << 32) | rand32();}
+    inline uLL random(LL l, LL r){return l == r ? l : rand64() % (r - l) + l;}
+    int dice(){return rand() % 6;}
+    bool coin(){return bool(rand() % 2);}
+#endif
+} using namespace RNG;
+//}
+
 
 //}
 
@@ -467,15 +485,169 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(2e5) + 9;
 
-int n;
+int n, m;
 
+namespace DSU{
+    const int NN = N * 20;
+    int T[N], c[NN][2], p[NN], dep[NN];
+    int t, tot, _p, _v;
+    
+#define lx c[x][0]
+#define rx c[x][1]
+#define ly c[y][0]
+#define ry c[y][1]
+#define ml (l + r >> 1)
+#define mr (ml + 1)
+    
+    int new_node(){
+        RST(c[tot]); p[tot] = 0; dep[tot] = 0;
+        return tot++;
+    }
+    void Build(int &x, int l, int r){
+        x = new_node();
+        if (l == r){
+            p[x] = l;
+            return;
+        }
+        Build(lx, l, ml);
+        Build(rx, mr, r);
+    }
+    void _modify(int &x, int y, int l, int r){
+        x = new_node();
+        if (l == r){
+            p[x] = _v;
+            return;
+        }
+        
+        if (_p < mr){
+            rx = ry; lx = ly;
+            _modify(lx, ly, l, ml);
+        }
+        else{
+            lx = ly; rx = ry;
+            _modify(rx, ry, mr, r);
+        }
+    }
+    void Modify(int &x, int y, int p, int v){
+        _p = p, _v = v;
+        _modify(x, y, 1, n);
+    }
+    int _find(int x, int l, int r){
+        if (l == r) return x;
+        return _p < mr ? _find(lx, l, ml) : _find(rx, mr, r);
+    }
+    
+    int _find(int x){
+        _p = x; int _x = _find(T[t], 1, n);
+        return x == p[_x] ? _x : _find(p[_x]);
+    }
+    int Find(int x){
+        return p[_find(x)];
+    }
+    
+    void Merge(int x, int y){
+        //x = Find(x); y = Find(y);
+        //  if (p[x] == p[y]) return false;
+        //    if (dep[x] > dep[y]) swap(x, y);
+        ++t; Modify(T[t], T[t-1], y, x);
+        //T[t] = T[t-1];
+        //        if (dep[x] == dep[y])
+    }
+    
+    //P[y] = x;
+    
+    void Init(){
+        t = 0; tot = 1;
+        Build(T[0], 1, n);
+    }
+}
+
+int color[N]; tuple<int, int, int> E[N]; vector<int> W;
+map<int, int> flowers[N]; vector<pair<int, int> > state[N]; int best[N];
+
+void Merge(int p, int q){
+    
+    if (flowers[p].size() < flowers[q].size()){
+        swap(p, q);
+    }
+    
+    for(auto it: flowers[q]){
+        int t = flowers[p][it.first] += it.second;
+        if (t > flowers[p][best[p]] || t == flowers[p][best[p]] && it.first < best[p]){
+            best[p] = it.first;
+        }
+    }
+    // q -> p
+    
+    /*int _p = DSU::_find(p);
+     int _q = DSU::_find(q);
+     
+     int dp = DSU::dep[_p];
+     int dq = DSU::dep[_q];*/
+    
+    /* if (dp < dq){
+     swap(p, q);
+     swap(flowers[p], flowers[q]);
+     swap(best[p], best[q]);
+     }*/
+    
+    DSU::Merge(p, q);
+    
+    /* if (dp == dq){
+     ++DSU::dep[DSU::_find(p)];
+     }*/
+}
+
+void Kruskal(){
+    sort(E, E+m);
+    
+    REP_1(i, n){
+        flowers[i].clear(); state[i].clear();
+        flowers[i][color[i]] = 1; best[i] = color[i];
+        state[i].push_back(make_pair(0, best[i]));
+    }
+    
+    W.clear(); W.PB(0); DSU::Init();
+    
+    REP(i, m){
+        int x = get<1>(E[i]), y = get<2>(E[i]), w = get<0>(E[i]);
+        x = DSU::Find(x), y = DSU::Find(y);
+        if (x != y){
+            W.PB(w); Merge(x, y); x = DSU::Find(x);
+            state[x].PB({w, best[x]});
+        }
+    }
+}
+
+void init(){
+    RD(n, m); REP_1(i, n) RD(color[i]);
+    REP(i, m){
+        int x, y, w; RD(x, y, w);
+        E[i] = make_tuple(w, x, y);
+    }
+}
+
+void solve(){
+    Kruskal();
+    last_ans = 0; Rush{
+        int x, w; RD(x, w); x ^= last_ans, w ^= last_ans;
+        DSU::t = upper_bound(W.begin(), W.end(), w) - W.begin() - 1;
+        int p = DSU::Find(x);
+        last_ans =  (--lower_bound(state[p].begin(), state[p].end(), make_pair(w+1, 0))) ->second;
+        printf("%d\n", last_ans);
+    }
+}
 
 int main(){
     
 #ifndef ONLINE_JUDGE
-    freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
     
-    RD(n);
+    Rush{
+        printf("Case #%d:\n", ++Case);
+        cerr << Case << endl;
+        init(); solve();
+    }
 }

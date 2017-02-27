@@ -457,25 +457,109 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
-    //printf("%d\n", x);
-    cout << x << endl;
+    printf("%d\n", x);
+    //cout << x << endl;
     //last_ans = x;
 }
 
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
+const int N = int(5e5) + 9, LV = 20;
+
+namespace ST{
+#define lx c[x][0]
+#define rx c[x][1]
+#define ly c[y][0]
+#define ry c[y][1]
+    
+    const int NN = N*LV + 9;
+    int c[NN][2], s[NN], tt;
+    int T[N];
+    
+    int new_node(int y){
+        int x = ++tt;
+        lx = ly; rx = ry; s[x] = s[y];
+        return tt;
+    }
+    
+    int ins(int y, int p, int lv){
+        --lv; int x = new_node(y); ++s[x];
+        if (lv >= 0){
+            int d = _1(p, lv);
+            c[x][d] = ins(c[y][d], p, lv);
+        }
+        return x;
+    }
+    int queryMaxXor(int y, int x, int p, int lv){
+        --lv; if (!x || lv<0) return 0;
+        int d = _1(p, lv);
+        if (s[c[y][d^1]] < s[c[x][d^1]]){
+            return _1(lv) + queryMaxXor(c[y][d^1], c[x][d^1], p, lv);
+        }
+        else{
+            return queryMaxXor(c[y][d], c[x][d], p, lv);
+        }
+    }
+    int queryLessEqu(int y, int x, int p, int lv){
+        --lv; if (!x) return 0;
+        if (lv<0) return s[x]-s[y]; // equal
+        int d = _1(p, lv);
+        if (d == 0){
+            return queryLessEqu(ly, lx, p, lv);
+        }
+        else{
+            return s[lx]-s[ly]+queryLessEqu(ry, rx, p, lv);
+        }
+    }
+    int queryKth(int y, int x, int k, int lv){
+        --lv; if (!x || lv<0) return 0;
+        int ls = s[lx]-s[ly];
+        if (k < ls){
+            return queryKth(ly, lx, k, lv);
+        }
+        else{
+            return _1(lv) + queryKth(ry, rx, k-ls, lv);
+        }
+    }
+} using namespace ST;
 
 int n;
-
 
 int main(){
     
 #ifndef ONLINE_JUDGE
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
     
-    RD(n);
+    Rush{
+        int cmd, l, r, p, k; RD(cmd);
+        switch(cmd){
+            case 0:{
+                T[n+1] = ins(T[n], RD(), LV);
+                ++n;
+                break;
+            }
+            case 1:{
+                RD(l, r, p);
+                OT(p ^ queryMaxXor(T[l-1], T[r], p, LV));
+                break;
+            }
+            case 2:{
+                n -= RD();
+                break;
+            }
+            case 3:{
+                RD(l, r, p);
+                OT(queryLessEqu(T[l-1], T[r], p, LV));
+                break;
+            }
+            case 4:{
+                RD(l, r, k); --k;
+                OT(queryKth(T[l-1], T[r], k, LV));
+                break;
+            }
+        }
+    }
 }

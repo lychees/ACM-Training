@@ -465,30 +465,17 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9, L = 25;
-int a[N], fa[N][L], up[N][L], w[N];
+const int N = int(2e5) + 9;
+
 int n;
 
-void dfs(int u){
-    ECH(it, adj[u]){
-        int v = *it;
-        FOR(lv, 1, L){
-            fa[v][lv] = fa[fa[v][lv-1]];
-            up[v][lv] = up[v][lv-1] + up[fa[v][lv-1]][lv-1];
-        }
-        dfs(v, p);
-    }
-}
 
 int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    RD(n); REP_1(i, n) RD(a[i]);
-    FOR_1(i, 2, n){
-        RD(fa[i][0], up[i][0]);
-        adj[fa[i]].PB(i);
-    }
+    
+    RD(n);
 }
