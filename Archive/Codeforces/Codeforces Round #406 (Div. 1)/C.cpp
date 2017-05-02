@@ -465,73 +465,85 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e2) + 9;
+const int N = int(1e5) + 9;
+int a[N];
+int n;
 
-int dp[2][N][N][N];
-VII adj[N];
-int n, k, m;
+int T[N], A[N], pre[N];
 
-priority_queue<pair<int, int>> Q;
-
-PII encode(int pos, int l, int r, int kk){
-    return MP(-dp[pos][l][r][kk],
-              (kk + r*N + l*N*N)*2 + pos
-              );
-}
-
-void init(int pos, int l, int r, int kk){
-    dp[pos][l][r][kk] = 0;
-    Q.push(encode(pos, l, r, kk));
-}
-
-int Dijkstra(){
-    FLC(dp, 0x3f);
-    REP(i, n){
-        init(1,0,i,0);
-        init(0,i,n-1,0);
+namespace ST{
+    
+#define lx l[x]
+#define rx r[x]
+#define ly l[y]
+#define ry r[y]
+#define ml (ll + rr >> 1)
+#define mr (ml + 1)
+    
+    const int NN = N*50 + 9;
+    int l[NN], r[NN], c[NN], tot;
+    
+    int new_node(){
+        return ++tot;
     }
     
-    while (!Q.empty()){
-        int du = -Q.top().fi, state = Q.top().se; Q.pop();
-        int pos = state % 2; state /= 2;
-        int kk = state % N; state /= N;
-        int r = state % N; state /= N;
-        int l = state;
+    int Add(int y, int p, int d){
+        int x = new_node(), root = x; int ll = 0, rr = n-1;
         
-        if (dp[pos][l][r][kk] != du) continue;
-        
-        // cout << pos << " " << l+1 << " " << r+1 << " " << kk << ": " << du << endl;
-        
-        
-        if (kk == k-1){
-            return du;
-        }
-        
-        int x = l;
-        if (pos == 1){
-            x = r;
-        }
-        ECH(it, adj[x]){
-            int y = it->fi, w = it->se;
-            if (!(l <= y && y <= r)) continue;
-            int poss = 0;
-            if (y > x){
-                poss = 1;
+        c[x] = c[y] + d;
+        while (ll < rr){
+            if (p < mr){
+                lx = new_node(), rx = ry;
+                x = lx, y = ly, rr = ml;
             }
-            int dd = du + w;
-            
-            int xx = min(x, y), yy = max(x, y);
-            if (checkMin(dp[poss][xx][yy][kk+1], dd)){
-                Q.push(encode(poss, xx, yy, kk+1));
+            else {
+                lx = ly, rx = new_node();
+                x = rx, y = ry, ll = mr;
             }
+            c[x] = c[y] + d;
         }
-        
-        
+        return root;
     }
-    return -1;
     
+    int Sum(int x, int p){
+        int z = 0, ll = 0, rr = n-1;
+        while (p != rr){
+            if (p < mr) x = lx, rr = ml;
+            else z += c[lx], x = rx, ll = mr;
+        }
+        z += c[x];
+        return z;
+    }
+    int kth(int x, int k){
+        int ll = 0, rr = n-1;
+        while (ll < rr){
+            if (k < c[lx]) x = lx, rr = ml;
+            else k -= c[lx], x = rx, ll = mr;
+        }
+        if (k || !c[x]) ++ll;
+        return ll;
+    }
 }
 
+int next(int x, int k){
+    int l = x, r = n - 1;
+    while (l < r){
+        int m = (l + r + 1) / 2;
+        if (ST::Sum(T[x], m) <= k) l = m;
+        else r = m - 1;
+    }
+    return l+1;
+}
+
+int f(int k){
+    int x = 0, z = 0;
+    while (x < n){
+        //assert(ST::kth(T[x], k) == next(x, k));
+        x = ST::kth(T[x], k);
+        ++z;
+    }
+    return z;
+}
 
 int main(){
     
@@ -539,12 +551,15 @@ int main(){
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
+
+    RD(n); REP(i, n) RD(a[i]);
     
-    RD(n, k, m);
-    REP(i, m){
-        int a, b, c;
-        RD(a, b, c); --a, --b;
-        adj[a].PB(MP(b, c));
+#define ii pre[a[i]]
+    
+    DWN(i, n, 0){
+        int x = T[i+1]; if (ii) x = ST::Add(x, ii, -1); x = ST::Add(x, i, 1); ii = i;
+        T[i] = x;
     }
-    cout << Dijkstra() << endl;
+
+    REP_1(k, n) printf("%d ", f(k));
 }

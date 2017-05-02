@@ -456,95 +456,47 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
-    //printf("%.9f\n", x);
+    printf("%.9f\n", x);
     //printf("%d\n", x);
-    cout << x << endl;
+    //cout << x << endl;
     //last_ans = x;
 }
 
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e2) + 9;
+int n; DB L, S;
+deque<pair<DB, DB>> W;
 
-int dp[2][N][N][N];
-VII adj[N];
-int n, k, m;
-
-priority_queue<pair<int, int>> Q;
-
-PII encode(int pos, int l, int r, int kk){
-    return MP(-dp[pos][l][r][kk],
-              (kk + r*N + l*N*N)*2 + pos
-              );
-}
-
-void init(int pos, int l, int r, int kk){
-    dp[pos][l][r][kk] = 0;
-    Q.push(encode(pos, l, r, kk));
-}
-
-int Dijkstra(){
-    FLC(dp, 0x3f);
-    REP(i, n){
-        init(1,0,i,0);
-        init(0,i,n-1,0);
+void pop_front(DB t, DB l){
+    S += t*l;
+    while (!W.empty()) {
+        if (sgn(l, W.front().se) > 0) {
+            l-=W.front().se; S -= W.front().fi*W.front().se;
+            W.pop_front();
+        } else {
+            W.front().se-=l; S -= W.front().fi*l;
+            break;
+        }
     }
-    
-    while (!Q.empty()){
-        int du = -Q.top().fi, state = Q.top().se; Q.pop();
-        int pos = state % 2; state /= 2;
-        int kk = state % N; state /= N;
-        int r = state % N; state /= N;
-        int l = state;
-        
-        if (dp[pos][l][r][kk] != du) continue;
-        
-        // cout << pos << " " << l+1 << " " << r+1 << " " << kk << ": " << du << endl;
-        
-        
-        if (kk == k-1){
-            return du;
-        }
-        
-        int x = l;
-        if (pos == 1){
-            x = r;
-        }
-        ECH(it, adj[x]){
-            int y = it->fi, w = it->se;
-            if (!(l <= y && y <= r)) continue;
-            int poss = 0;
-            if (y > x){
-                poss = 1;
-            }
-            int dd = du + w;
-            
-            int xx = min(x, y), yy = max(x, y);
-            if (checkMin(dp[poss][xx][yy][kk+1], dd)){
-                Q.push(encode(poss, xx, yy, kk+1));
-            }
-        }
-        
-        
-    }
-    return -1;
-    
 }
-
 
 int main(){
     
 #ifndef ONLINE_JUDGE
-    freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
     
-    RD(n, k, m);
-    REP(i, m){
-        int a, b, c;
-        RD(a, b, c); --a, --b;
-        adj[a].PB(MP(b, c));
+    RD(n, L);
+    DO(n){
+        DB t, l; RF(t, l); pop_front(t, l); OT(S/L);
+        while (!W.empty() && sgn(W.back().fi, t) >= 0){
+            DB ll = l + W.back().se;
+            t = (l*t + W.back().fi*W.back().se) / ll;
+            l = ll; W.pop_back();
+        }
+        W.PB(MP(t, l));
+        //ECH(it, W) cout << it->fi << " " << it->se << ")" << endl;
     }
-    cout << Dijkstra() << endl;
 }

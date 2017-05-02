@@ -465,134 +465,56 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-int n,m; Int f[800010][3];
+const int N = int(2e5) + 9;
 
-struct spell
-{
-    int w,d,z,s;
-}t[800010];
-struct Seg
-{
-    int p,l,r;
-    Int s0,s1,s2,ss;
-}T[3200010];
+int gg[N];
+int n, m, t, d;
 
-inline void build(int p,int l,int r)
-{
-    T[p].l=l;T[p].r=r;
-    T[p].s0=T[p].s1=T[p].s2=T[p].ss=1;
-    if(l==r)
-        return;
-    
-    int mid=(l+r)>>1;
-    build(p<<1,l,mid);
-    build(p<<1|1,mid+1,r);
+Int g(int i){
+    Int z = 0; int nn = n-i+1, mm = m-i+1;
+    REP_1(j, mm-(i+1)){
+        Int t = (Int)j*(j+d);
+        z += t;
+    }
+    if (i) z += z;
+    return z;
 }
 
-inline void update(int p,int x)
-{
-    if(T[p].l==T[p].r)
-    {
-        T[p].s0=f[x][1];
-        return;
+int f(){
+    Int z = 0;
+    if (m > n) swap(m, n);
+    t = m; d = n - m;
+    
+    REP(i, t){
+        if (i >= t-i+1) break;
+        int j = i; Int t = (Int)(n-i-j+1)*(m-i-j+1);
+        z += t;
+        z += g(i);
     }
-    
-    int mid=(T[p].l+T[p].r)>>1;
-    if(x<=mid)
-        update(p<<1,x);
-    else
-        update(p<<1|1,x);
-    
-    T[p].s0=T[p<<1].s0*T[p<<1|1].s0;
-    T[p].s0=(T[p].s0+(T[p<<1].s1*T[p<<1|1].s2)*(f[mid][2]*f[mid+1][0]));
-    
-    if(T[p<<1|1].l==T[p<<1|1].r)
-        T[p].s1=T[p<<1].s0;
-    else
-    {
-        T[p].s1=T[p<<1].s0*T[p<<1|1].s1;
-        T[p].s1=(T[p].s1+(T[p<<1].s1*T[p<<1|1].ss)*(f[mid][2]*f[mid+1][0]));
-    }
-    
-    if(T[p<<1].l==T[p<<1].r)
-        T[p].s2=T[p<<1|1].s0;
-    else
-    {
-        T[p].s2=T[p<<1].s2*T[p<<1|1].s0;
-        T[p].s2=(T[p].s2+(T[p<<1].ss*T[p<<1|1].s2)*(f[mid][2]*f[mid+1][0]));
-    }
-    
-    if(T[p<<1].l==T[p<<1].r&&T[p<<1|1].l==T[p<<1|1].r)
-        T[p].ss=1;
-    else
-        if(T[p<<1].l==T[p<<1].r)
-            T[p].ss=T[p<<1|1].s1;
-        else
-            if(T[p<<1|1].l==T[p<<1|1].r)
-                T[p].ss=T[p<<1].s2;
-            else
-            {
-                T[p].ss=T[p<<1].s2*T[p<<1|1].s1;
-                T[p].ss=(T[p].ss+(T[p<<1].ss*T[p<<1|1].ss)*(f[mid][2]*f[mid+1][0]));
-            }
+    z -= (Int)(n+1)*(m+1);
+    return z;
 }
 
-void init(){
-    RD(n, m);
+Int ff(){
+    /* bignum z = n;
+     z *= (n+1);
+     z *= (n+2);
+     z *= ((LL)m*2 - n + 1);
+     z /= 12;*/
     
-    int aw,bw;
-    RD(t[1].w,aw,bw);
-    for(int i=2;i<=m;i++)
-    {
-        long long temp=t[i-1].w;
-        t[i].w=(temp*aw+bw)%n+1;
-    }
+    if (n > m) swap(n, m);
     
-    int ad,bd; RD(t[1].d,ad,bd);
-    t[1].z=max(1,min(n,t[1].w+t[1].d-1));
-    for(int i=2;i<=m;i++)
-    {
-        long long temp=t[i-1].d;
-        t[i].d=(temp*ad+bd)%3;
-        t[i].z=max(1,min(n,t[i].w+t[i].d-1));
-    }
-    
-    int as,bs; RD(t[1].s,as,bs);
-    for(int i=2;i<=m;i++)
-    {
-        long long temp=t[i-1].s;
-        t[i].s=(temp*as+bs)%1000000000LL+1;
-    }
-    
-    for(int i=1;i<=n;i++)
-    {
-        f[i][0]=f[i][2]=0;
-        f[i][1]=1;
-    }
+    return ((Int)n*(Int)(n+1)*(Int)(n+2)*((Int)m*2 - (Int)n + 1)) / 12;
+    //    return z % MOD;
 }
 
-int main()
-{
-    
+int main(){
 #ifndef ONLINE_JUDGE
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
     freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    
     Rush{
-        init();
-        
-        build(1,1,n);
-        
-        Int z=0;
-        for(int i=1;i<=m;i++)
-        {
-            if(t[i].w==1&&t[i].d==0)t[i].d=1;
-            if(t[i].w==n&&t[i].d==2)t[i].d=1;
-            f[t[i].w][t[i].d] += t[i].s;
-            update(1,t[i].w);
-            z += T[1].s0;
-        }
-        OT(int(z));
+        RD(n, m);
+        OT(ff());
     }
 }

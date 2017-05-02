@@ -453,7 +453,7 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    //printf("Case #%d: ", ++Case);
+    printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,17 +465,62 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
+const int N = int(2e3) + 9;
+bool f[N][N];
+string s1, s2;
+int n, m;
 
-int n;
-
+bool ok(){
+    cin >> s1 >> s2; RST(f);
+    n = s1.size(), m = s2.size(); f[n][m] = true;
+    
+    
+    DWN(i, n+1, 0) if (!i || s1[i] != '*' || s1[i-1] != '*') DWN(j, m+1, 0) if (!j || s2[j] != '*' || s2[j-1] != '*'){
+        if (i == n && j == m) continue;
+        
+        if (s1[i] == '*' || s2[j] == '*'){
+            int t1 = 0, t2 = 0, ii = i, jj = j;
+            while (s1[ii] == '*') ++ii, t1 += 4;
+            while (s2[jj] == '*') ++jj, t2 += 4;
+            
+            FOR_1(iii, ii, min(n-1, ii+t2)) if (s1[iii] == '*') ++t2;
+            FOR_1(jjj, jj, min(m-1, jj+t1)) if (s2[jjj] == '*') ++t1;
+            
+            
+            //cout << i << " " << j << " " << ii << " " << jj << " " << t1 << " " << t2 << endl;
+            //cout << f[2][1] << endl;
+            
+            FOR_1(iii, ii, min(n, ii+t2)) if (f[iii][jj]){
+                f[i][j] = true;
+                break;
+            }
+            if (!f[i][j]) FOR_1(jjj, jj, min(m, jj+t1)) if (f[ii][jjj] == true){
+                f[i][j] = true;
+                break;
+            }
+        }
+        else{
+            f[i][j] = f[i+1][j+1] && (s1[i] == s2[j]);
+        }
+    }
+    //abcd
+    //*
+    
+    // shakes*e
+    // s*speare
+    
+    //cout << f[5][2] << endl;
+    //cout << f[7][7] << endl;
+    return f[0][0];
+}
 
 int main(){
-    
 #ifndef ONLINE_JUDGE
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
+    freopen("/users/minakokojima/ACM-Training/Workspace/out2.txt", "w", stdout);
 #endif
-    
-    RD(n);
+    Rush{
+        printf("Case #%d: ", ++Case);
+        puts(ok() ? "true" : "false");
+    }
 }
