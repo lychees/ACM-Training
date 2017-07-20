@@ -465,72 +465,9 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e2) + 9;
+const int N = int(2e5) + 9;
 
-int dp[2][N][N][N];
-VII adj[N];
-int n, k, m;
-
-priority_queue<pair<int, int>> Q;
-
-PII encode(int pos, int l, int r, int kk){
-    return MP(-dp[pos][l][r][kk],
-              (kk + r*N + l*N*N)*2 + pos
-              );
-}
-
-void init(int pos, int l, int r, int kk){
-    dp[pos][l][r][kk] = 0;
-    Q.push(encode(pos, l, r, kk));
-}
-
-int Dijkstra(){
-    FLC(dp, 0x3f);
-    REP(i, n){
-        init(1,0,i,0);
-        init(0,i,n-1,0);
-    }
-    
-    while (!Q.empty()){
-        int du = -Q.top().fi, state = Q.top().se; Q.pop();
-        int pos = state % 2; state /= 2;
-        int kk = state % N; state /= N;
-        int r = state % N; state /= N;
-        int l = state;
-        
-        if (dp[pos][l][r][kk] != du) continue;
-        
-        // cout << pos << " " << l+1 << " " << r+1 << " " << kk << ": " << du << endl;
-        
-        
-        if (kk == k-1){
-            return du;
-        }
-        
-        int x = l;
-        if (pos == 1){
-            x = r;
-        }
-        ECH(it, adj[x]){
-            int y = it->fi, w = it->se;
-            if (!(l <= y && y <= r)) continue;
-            int poss = 0;
-            if (y > x){
-                poss = 1;
-            }
-            int dd = du + w;
-            
-            int xx = min(x, y), yy = max(x, y);
-            if (checkMin(dp[poss][xx][yy][kk+1], dd)){
-                Q.push(encode(poss, xx, yy, kk+1));
-            }
-        }
-        
-        
-    }
-    return -1;
-    
-}
+int n;
 
 
 int main(){
@@ -540,11 +477,12 @@ int main(){
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
     
-    RD(n, k, m);
-    REP(i, m){
-        int a, b, c;
-        RD(a, b, c); --a, --b;
-        adj[a].PB(MP(b, c));
-    }
-    cout << Dijkstra() << endl;
+    int jsk = 548 * 3;
+    int sk = 378 * 3;
+    int op = 498 * 4;
+    int cy = 238 * 5;
+    int yd = 28 * 6;
+    
+    cout << jsk+sk+op+cy+yd << endl;
+    
 }
