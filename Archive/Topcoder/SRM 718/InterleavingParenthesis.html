@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Correct parentheses sequences can be defined recursively as follows:
+<ul>
+<li>The empty string "" is a correct sequence.</li>
+<li>If "X" and "Y" are correct sequences, then "XY" (the concatenation of X and Y) is a correct sequence.</li>
+<li>If "X" is a correct sequence, then "(X)" is a correct sequence.</li>
+<li>Each correct parentheses sequence can be derived using the above rules.</li>
+</ul>
+</p>
+
+<p>
+Examples of correct parentheses sequences include "", "()", "()()()", "(()())", and "(((())))".
+</p>
+
+<p>
+You are given two strings <b>s1</b> and <b>s2</b>.
+Each character in these strings is a parenthesis, but the strings themselves are not necessarily correct sequences of parentheses.
+</p>
+
+<p>
+You would like to interleave the two sequences so that they will form a correct parentheses sequence.
+Note that sometimes two different ways of interleaving the two sequences will produce the same final sequence of characters.
+Even if that happens, we count each of the ways separately.
+(See Example 0 for a clarification.)
+</p>
+
+<p>
+Compute and return the number of different ways to produce a correct parentheses sequence, modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>InterleavingParenthesis</td></tr><tr><td>Method:</td><td>countWays</td></tr><tr><td>Parameters:</td><td>string, string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int countWays(string s1, string s2)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>s1,s2</b> will contain between 1 and 2,500 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>s1,s2</b> will be '(' or ')'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;(()&quot;</pre></td></tr><tr><td><pre>&quot;())&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 19</pre></td></tr><tr><td><table><tr><td colspan="2">The 19 ways are:
+
+<p>
+<img src="http://www.topcoder.com/contest/problem/InterleavingParenthesis/pic.png"></img>
+</p>
+
+Here, the red characters come from the first sequence, and the blue characters come from the second sequence.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;)&quot;</pre></td></tr><tr><td><pre>&quot;(&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;(((((&quot;</pre></td></tr><tr><td><pre>&quot;)))))&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 42</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;()(()&quot;</pre></td></tr><tr><td><pre>&quot;))((())&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;()()()()()()()()()()()()()()()()()()()()&quot;</pre></td></tr><tr><td><pre>&quot;()()()()()()()()()()()()()()()()()&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 487340184</pre></td></tr><tr><td><table><tr><td colspan="2">Don't forget about the mod.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;(())())))&quot;</pre></td></tr><tr><td><pre>&quot;(())()&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
