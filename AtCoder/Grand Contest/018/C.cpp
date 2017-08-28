@@ -453,7 +453,7 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    printf("Case #%d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,73 +465,59 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(5e3) + 9;
-map<LL, LL> H;
-map<LL, LL> S1; LL s1;
-map<LL, LL> S2; LL s2;
-int n;
+const int N = int(1e5) + 9;
 
-LL C4(LL x){
-    return x*(x-1)*(x-2)*(x-3)/24;
-}
-LL C3(LL x){
-    return x*(x-1)*(x-2)/6;
-}
-LL C2(LL x){
-    return x*(x-1)/2;
-}
-LL f(LL a, LL b){
-    //cout << a << " " << b << " " << (DB)(b-a) / (DB)2 << endl;
-    //    cout << S.lower_bound(b-a)->fi << endl;
-    LL z = s2 - (--S2.upper_bound(b-a))->se;
-    //    cout << " " << endl;
-    if ((b-a) < a*2) z -= C2(H[a]);
-    if ((b-a) < b*2) z -= C2(H[b]);
-    //cout << a << " " << b << " " << z << endl;
-    return z;
-}
-
-
-
-LL f(){
-    H.clear(); S1.clear(); S2.clear();
-    RD(n); REP(i, n){
-        H[RD()]++;
-    }
-    s1 = s2 = 0; S2[0] = 0; S1[0] = 0;
-    LL z = 0;
-    ECH(it, H){
-        //z += C2(it->se) * s2;
-        //cout << it->fi << " " << z << endl;
-        s2 += C2(it->se);
-        s1 += it->se;
-        S2[it->fi*2] = s2;
-        S1[it->fi] = s1;
-    }
-    ECH(it, H){
-        //z += C4(it->se);
-        auto tt = (--S1.lower_bound(3*it->fi));
-        LL t = tt->se;
-        if (tt->fi >= it->fi) t -= it->se;
-        z += C3(it->se) * t;
-        //cout << t << " " << z << endl;
-        
-        auto jt = it; ++jt;
-        for (; jt != H.end(); ++jt){
-            z += (LL) it->se * jt->se * f(it->fi, jt->fi);
-            //   cout << it->fi << " " << jt->fi << " " << z << endl;
-        }
-    }
-    return z;
-}
+int A[N], B[N], C[N]; LL L[N], R[N];
+int n, x, y, z;
 
 int main(){
     
 #ifndef ONLINE_JUDGE
-    freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    Rush{
-        OT(f());
+    
+    RD(x, y, z); n = x + y + z;
+    LL z = 0; vector<int> O;
+    REP(i, n){
+        RD(A[i], B[i], C[i]); O.PB(i);
+        A[i] -= C[i], B[i] -= C[i];
+        z += C[i];
     }
+    sort(ALL(O), [](const int &x, const int &y){
+        return A[x]-B[x] > A[y]-B[y];
+    });
+    REP(i, n) L[i] = A[i], R[i] = B[i];
+    REP(i, n) A[i] = L[O[i]], B[i] = R[O[i]];
+    
+    priority_queue<int, vector<int>, greater<int>> Q;
+    
+    L[x-1] = 0; REP(i, x) L[x-1] += A[i], Q.push(A[i]);
+    FOR(i, x, n-y+1){
+        if (Q.top() < A[i]){
+            L[i] = L[i-1] + A[i] - Q.top();
+            Q.pop(); Q.push(A[i]);
+        }
+        else{
+            L[i] = L[i-1];
+        }
+    }
+    CLR(Q);
+    
+    R[n-y] = 0; DWN(i, n, n-y) R[n-y] += B[i], Q.push(B[i]);
+    DWN(i, n-y, x){
+        if (Q.top() < B[i]){
+            R[i] = R[i+1] + B[i] - Q.top();
+            Q.pop(); Q.push(B[i]);
+        }
+        else{
+            R[i] = R[i+1];
+        }
+    }
+    
+    LL zz = -INFF;
+    FOR(i, x, n-y+1){
+        checkMax(zz, L[i-1] + R[i]);
+    }
+    cout << z + zz << endl;
 }

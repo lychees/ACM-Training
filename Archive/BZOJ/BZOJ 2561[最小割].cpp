@@ -453,7 +453,7 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    printf("Case #%d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,73 +465,92 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(5e3) + 9;
-map<LL, LL> H;
-map<LL, LL> S1; LL s1;
-map<LL, LL> S2; LL s2;
-int n;
+const int N = 20009, M = int(2e6) + 9;
 
-LL C4(LL x){
-    return x*(x-1)*(x-2)*(x-3)/24;
-}
-LL C3(LL x){
-    return x*(x-1)*(x-2)/6;
-}
-LL C2(LL x){
-    return x*(x-1)/2;
-}
-LL f(LL a, LL b){
-    //cout << a << " " << b << " " << (DB)(b-a) / (DB)2 << endl;
-    //    cout << S.lower_bound(b-a)->fi << endl;
-    LL z = s2 - (--S2.upper_bound(b-a))->se;
-    //    cout << " " << endl;
-    if ((b-a) < a*2) z -= C2(H[a]);
-    if ((b-a) < b*2) z -= C2(H[b]);
-    //cout << a << " " << b << " " << z << endl;
-    return z;
+//struct Network_Flow{
+
+int D[N], hd[N], suc[M], to[M], cap[M];
+int n, m, s, t;
+
+inline void ae(int x, int y, int c){
+    suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
+    suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = 0;
 }
 
+inline void aee(int x, int y, int c){
+    suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
+    suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = c;
+}
 
+#define v to[i]
+#define c cap[i]
+#define f cap[i^1]
 
-LL f(){
-    H.clear(); S1.clear(); S2.clear();
-    RD(n); REP(i, n){
-        H[RD()]++;
+bool bfs(){
+    static int Q[N]; int cz = 0, op = 1;
+    fill(D, D+n, 0), D[Q[0] = s] = 1; while (cz < op){
+        int u = Q[cz++]; REP_G(i, u) if (!D[v]&&c){
+            D[Q[op++]=v] = D[u]+1;
+            if (v==t) return 1;
+        }
     }
-    s1 = s2 = 0; S2[0] = 0; S1[0] = 0;
-    LL z = 0;
-    ECH(it, H){
-        //z += C2(it->se) * s2;
-        //cout << it->fi << " " << z << endl;
-        s2 += C2(it->se);
-        s1 += it->se;
-        S2[it->fi*2] = s2;
-        S1[it->fi] = s1;
-    }
-    ECH(it, H){
-        //z += C4(it->se);
-        auto tt = (--S1.lower_bound(3*it->fi));
-        LL t = tt->se;
-        if (tt->fi >= it->fi) t -= it->se;
-        z += C3(it->se) * t;
-        //cout << t << " " << z << endl;
-        
-        auto jt = it; ++jt;
-        for (; jt != H.end(); ++jt){
-            z += (LL) it->se * jt->se * f(it->fi, jt->fi);
-            //   cout << it->fi << " " << jt->fi << " " << z << endl;
+    return 0;
+}
+
+LL Dinitz(){
+    LL z=0; while (bfs()){
+        static int cur[N], pre[N];
+        int u=s;pre[s]=-1;cur[s]=hd[s];while (~u){
+#define i cur[u]
+            if (u==t){
+                int d=INF;for(u=s;u!=t;u=v)checkMin(d,c);
+                z+=d;for(u=s;u!=t;u=v)f+=d,c-=d;u=s;
+            }
+#undef i
+            int i;for(i=cur[u];i;i=suc[i])if(D[u]+1==D[v]&&c){cur[u]=i,cur[v]=hd[v],pre[v]=u,u=v;break;}
+            if (!i)D[u]=0,u=pre[u];
         }
     }
     return z;
+}
+#undef f
+#undef c
+#undef v
+//} G;
+
+struct edge{
+    int x, y, w;
+    void in(){
+        RD(x, y, w); --x, --y;
+    }
+} E[M];
+
+void init(){
+    int _m; RD(n, _m), m = 2;
+    fill(hd, hd+n, 0);
+    
+    REP(i, _m){
+        E[i].in();
+    }
+    int L; RD(s, t, L); --s, --t;
+    REP(i, _m){
+        if (E[i].w <= L) continue;
+        aee(E[i].x, E[i].y, 1);
+    }
+    int z = Dinitz();
+    fill(hd, hd+n, 0); m = 2;
+    REP(i, _m){
+        if (E[i].w >= L) continue;
+        aee(E[i].x, E[i].y, 1);
+    }
+    z += Dinitz();
 }
 
 int main(){
     
 #ifndef ONLINE_JUDGE
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
-    freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    Rush{
-        OT(f());
-    }
+    init();
 }
