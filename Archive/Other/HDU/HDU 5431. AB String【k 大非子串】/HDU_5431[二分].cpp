@@ -478,7 +478,7 @@ void gao(){
     RST(s); FOR(i, 1, M) sub[i].clear();
     
     REP(i, n){
-        FOR(len, 1, min(M, n-i)){
+        FOR(len, 1, min(M, n-i+1)){
             s[i] <<= 1; s[i] |= str[i+len-1] -'A';
             sub[len].PB(s[i]);
         }
@@ -487,10 +487,11 @@ void gao(){
     FOR(len, 1, M) s[len] = (_1(len) - UNQ(sub[len]).size());
     
     Rush{
-        int k; RD(k); len = 1; FOR(i, 1, M){
+        int k; --RD(k); len = 1; FOR(i, 1, M){
             if (k >= s[i]) k -= s[i], ++len;
             else break;
         }
+        
         int l = 0, r = _1(len)-1;
         while (l < r){
             int m = (l + r) / 2;
@@ -518,12 +519,3 @@ int main(){
     Rush gao();
     
 }
-/*
- B
- ABA
- B
- AABBBAAB
- ABAABBAAABA
- BABBBBAAAABBABBAAA
- ABBBBBABABBBBAAABBAABBBAAA
- */

@@ -465,157 +465,56 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(109);
+const int N = int(2e5) + 9;
 
-char Level[N][N];
-int n, m, ex, ey;
-
-struct Snake{
-    int x, y;
-    vector<int> body;
+int n; vector<PII> E;
+bool gao(int l, int r, int d){
     
-    void decode(LL z){
-        if (z == -1){
-            x = ex, y = ey;
-        }
-        else{
-            body.clear();
-            int len = z & 15; z >>= 4;
-            REP(i, len) body.PB(z & 3), z >>= 2;
-            x = z & 65535; z >>= 16; y = z;
-        }
+    if (l > r) return true;
+    if (d == 0) return false;
+    
+    FOR(i, l, l+d-1){
+        E.PB(MP(i, i+1));
+        cout << " " << i << " " << d << " " << r << " " << E.size() << endl;
+        if (i > r) return true;
     }
     
-    LL encode(){
-        // 16/16/4/28
-        if (Level[x][y] == 'E') return -1;
-        LL z = 0;
-        z += x; z <<= 16; z += y;
-        for(auto &i: body){
-            z <<= 2; z += body[i];
-        }
-        z <<= 4; z += body.size();
-        return z;
-    }
+    int m = l+d/2;
+    int l1 = l + l+d;
+    int r1 = l1 + (r-l+1-d)/2;
+    int l2 = r1 + 1;
+    int r2 = r;
+    E.PB(MP(m, r1));
+    E.PB(MP(m, r2));
     
-    void init(){
-        char c = tolower(Level[x][y]);
-        int x = this->x, y = this->y;
-        bool found;
-        do{
-            found = false;
-            REP(i, 4){
-                int xx = x + dx[i], yy = y + dy[i];
-                if (Level[xx][yy] == c){
-                    Level[xx][yy] = '-';
-                    body.PB(i);
-                    found = true;
-                    x = xx, y = yy;
-                    break;
-                }
-            }
-        } while(found);
-        x = this->x, y = this->y;
-        for(auto &i: body){
-            x += dx[i], y += dy[i];
-            assert(Level[x][y] == '-');
-            Level[x][y] = c;
-        }
-    }
-} R, G, B;
-
-vector<Snake*> S;
-
-typedef vector<LL> state;
-
-set<vector<LL>> visited;
-const int QN = int(1e6) + 9;
-state Q[QN]; int D[QN]; char O[QN]; int pre[QN];
-int cz, op;
-
-void decode(vector<LL> &s){
-    REP(i, s.size()) S[i]->decode(s[i]);
+    if (d & 1) d /= 2;
+    else d /= 2, --d;
+    
+    if (gao(l1, r1, d) && gao(l2, r2, d)) return true;
+    return false;
 }
 
-void print_answer(){
-    string z; int x = op; while (x){
-        z.PB(O[x]);
-        x = pre[x];
-    }
-    RVS(z);
-    cout << z << endl;
-}
-//const int dx[] = {-1, 0, 1, 0};
-//const int dy[] = {0, 1, 0, -1};
-char OP[256];
-
-void BFS(){
-    cz = 0, op = 1; D[0] = 0;
-    state u; for(auto &s: S) u.PB(s->encode());
-    visited.clear(); visited.insert(u);
-    while (cz < op){
-        decode(Q[cz]);
-        int h = 0;
-        int x = S[h]->x, y = S[h]->y;
-        REP(i, 4){
-            int xx = x + dx[i], yy = y + dy[i];
-            if (Level[xx][yy] == 'E'){
-                O[op] = OP[i]; pre[op] = cz;
-                print_answer();
-                exit(0);
-            }
-            if (Level[xx][yy] == '.'){
-                O[op] = OP[i]; pre[op] = cz;
-            }
-        }
-        ++cz;
-    }
-}
-
-void Init(){
-    RD(n, m); FLC(Level, '.');
-    REP(i, n) REP(j, m){
-        RC(Level[i][j]);
-        if (Level[i][j] == 'R'){
-            R.x = i, R.y = j;
-            S.push_back(&R);
-        }
-        else if (Level[i][j] == 'G'){
-            G.x = i, G.y = j;
-            S.push_back(&G);
-        }
-        else if (Level[i][j] == 'B'){
-            B.x = i, B.y = j;
-            S.push_back(&B);
-        }
-        else if (Level[i][j] == 'E'){
-            ex = i, ey = j;
-        }
-    }
-    
-    int o = 0; // boundary offset
-    for (auto &s: S) s->init(), o += s->body.size()+1;
-    for (auto &s: S) s->x += o, s->y += o;
-    
-    DWN(i, n, 0) DWN(j, m, 0) Level[i+o][j+o] = Level[i][j];
-    REP(i, o) REP(j, m) Level[i][j] = '.';
-    REP(i, n) REP(j, o) Level[i][j] = '.';
-    
-    n += 2*o; m += 2*o;
-    REP(i, n){
-        REP(j, m) putchar(Level[i][j]);
-        puts("");
-    }
-}
+//1 1
+//2 2
+//3 3
+//4 3
+//5 3
+//6 4
+//13 5
 
 int main(){
     
 #ifndef ONLINE_JUDGE
-    freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    OP[0] = 'u'; OP[1] = 'l';
-    OP[2] = 'd'; OP[3] = 'r';
-    Init(); BFS();
-    puts("No solution");
+    while (~scanf("%d %*d", &n)){
+        REP_1(i, n){
+            cout << " " << i << endl;
+            if (gao(1, n, i)) break;
+            //E.clear();
+        }
+        cout << E.size() << endl;
+        ECH(it, E) printf("%d %d\n", it->fi, it->se);
+    }
 }
