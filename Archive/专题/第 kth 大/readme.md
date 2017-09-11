@@ -1,5 +1,9 @@
 【第 k 大、区间第 k 大、Next】【排列、子串、子序列】
 
+BZOJ 4310: 跳蚤
+- http://www.lydsy.com/JudgeOnline/problem.php?id=4310
+- http://blog.csdn.net/u011542204/article/details/50727273
+
 第 k 大子串
 - http://www.spoj.com/problems/SUBLEX/
 - http://codeforces.com/contest/128/problem/B
