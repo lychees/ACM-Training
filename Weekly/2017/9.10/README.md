@@ -1,6 +1,14 @@
 # Algorithm Contest Weekly 9.4 - 9.11
 
+
 ## CF
+### Codeforces #432
+http://codeforces.com/blog/entry/54265
+### Codeforces #433
+http://codeforces.com/blog/entry/54350
+
+## AtCoder Beginner Contest 073
+http://abc073.contest.atcoder.jp/assignments
 
 ## TCO WildCard：
 http://codeforces.com/blog/entry/54442
