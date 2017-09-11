@@ -20,6 +20,12 @@ http://codeforces.com/blog/entry/54442
 n <= 50
 
 ## Regional 网络赛：
+
+### 乌鲁木齐
+https://www.zhihu.com/question/65103755
+
+### 沈阳
+https://www.zhihu.com/question/65154670
 http://acm.split.hdu.edu.cn/search.php?field=problem&key=2017+ACM%2FICPC+Asia+Regional+Shenyang+Online&source=1&searchmode=source
 https://post.icpc-camp.org/d/724-hdoj-6200-mustedge-mustedge-mustedge
 
