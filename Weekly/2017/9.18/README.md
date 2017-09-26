@@ -1,4 +1,4 @@
-# Algorithm Contest Weekly 9.4 - 9.11
+# Algorithm Contest Weekly 9.12 - 9.18
 
 
 ## CF
