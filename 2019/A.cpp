@@ -465,56 +465,77 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 const int N = int(5e5) + 9;
-VI adj[N]; VII ans;
-int deg[N]; bool dead[N], in_tree[N];
-int n, m;
+// price, height, order
+int bp[N], bh[N], bo[N], fp[N], fh[N], fo[N];
+int n;
 
-void dfs(int u) {
-    in_tree[u] = true;
-    if (SZ(adj[u]) == 1) ans.PB({u, adj[u][0]});
-    for (auto v: adj[u]) if (!in_tree[v]) {
-        dfs(v);
+bool ok() {
+    iota(bo, bo+n, 0);
+    iota(fo, fo+n, 0);
+    sort(bo, bo+n, [&](int i, int j){
+        return bp[i] < bp[j];
+    });
+    sort(fo, fo+n, [&](int i, int j){
+        return fp[i] < fp[j];
+    });
+
+    // 分批丢进 set
+    // 贪心判断每次较小的一个 set 能否被满足
+
+    set<pair<int, int>> bs, fs;
+    int bi = 0, fi = 0, i = 0;
+    while (bi < n || fi < n) {
+        if (bs.empty()) {
+            do {
+                bs.emplace(bh[bo[bi]], bo[bi]); ++bi;
+            } while (bi<n && bp[bo[bi]]==bp[bo[bi-1]]);
+        }
+        if (fs.empty()) {
+            do {
+                fs.emplace(fh[fo[fi]], fo[fi]); ++fi;
+            } while (fi<n && fp[fo[fi]]==fp[fo[fi-1]]);
+        }
+
+        if (bs.size() < fs.size()) {
+            for (auto bit=bs.begin();bit!=bs.end();++bit) {
+                auto fit = fs.lower_bound(MP(bit->fi, -1));
+                if (fit == fs.begin()) return 0; --fit;
+                assert(fit->fi < bit->fi);
+                bo[i] = bit->se; fo[i] = fit->se; ++i;
+                fs.erase(fit);
+            }
+            bs.clear();
+        } else {
+            for (auto fit=fs.begin();fit!=fs.end();++fit) {
+                auto bit = bs.lower_bound(MP(fit->fi, INF));
+                if (bit == bs.end()) return 0;
+                assert(fit->fi < bit->fi);
+                bo[i] = bit->se; fo[i] = fit->se; ++i;
+                bs.erase(bit);
+            }
+            fs.clear();
+        }
     }
+
+    return 1;
 }
 
 int main() {
 #ifndef ONLINE_JUDGE
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    RD(n, m); DO(m) {
-        int u, v; RD(u, v); --u; --v;
-        adj[u].PB(v); adj[v].PB(u);
-        ++deg[u]; ++deg[v];
-    }
+    RD(n);
+    REP(i, n) RD(bp[i]);
+    REP(i, n) RD(bh[i]);
+    REP(i, n) RD(fp[i]);
+    REP(i, n) RD(fh[i]);
 
-    VI Q;
-    REP(u, n) if (deg[u] == 1) {
-        Q.PB(u);
-    }
-
-    for (int i=0;i<Q.size();++i) {
-        int u = Q[i];
-        if (deg[u] == 0) {
-            dfs(u);
-        } else {
-            dead[u] = 1;
-            for (auto v: adj[u]) if (!dead[v]){
-                if (--deg[v] == 1) Q.PB(v);
-            }
-        }
-    }
-
-    REP(u, n) if (!in_tree[u]) {
-        for (auto v: adj[u]) if (!dead[u] && dead[v]) {
-            ans.PB({u, v});
-        }
-    }
-
-    cout << ans.size() << endl;
-    sort(ALL(ans));
-    ECH(it, ans) {
-        printf("%d %d\n", it->fi+1, it->se+1);
+    if (ok()) {
+        REP(i, n) printf("%d ", bo[i]+1); puts("");
+        REP(i, n) printf("%d ", fo[i]+1); puts("");
+    } else {
+        puts("impossible");
     }
 }
 

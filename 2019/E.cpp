@@ -517,6 +517,3 @@ int main() {
         printf("%d %d\n", it->fi+1, it->se+1);
     }
 }
-
-
-
