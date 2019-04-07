@@ -1,2 +1,17 @@
-8
-s1 s1 e3 e1 s3 e1 e3 s3
+10 6
+S 0
+Y 1
+R 2
+E 3
+N 4
+E 5
+A 6
+D 7
+Y 7
+R 9
+RY
+E
+N
+S
+AY
+R
