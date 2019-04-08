@@ -1,8 +1,8 @@
 ## Ref
+[ICPC Finals 2019, Codeforces](https://codeforces.com/blog/entry/66365)
+[地球队 Mirror Live Stream，ICPC World Finals 2019 mirror live stream with tourist and Endagorion](https://www.youtube.com/watch?v=X6YdKQspOBk)
 https://judge.icpc.global/problem-sources/ACM-ICPC%20World%20Finals%202019
 https://www.zhihu.com/question/318037136/answer/641749693
-[地球队 Mirror Live Stream，ICPC World Finals 2019 mirror live stream with tourist and Endagorion](https://www.youtube.com/watch?v=X6YdKQspOBk)
-
 
 ## A. Azulejos
 分批丢进 set，贪心判断每次较小的一个 set 能否被满足。
