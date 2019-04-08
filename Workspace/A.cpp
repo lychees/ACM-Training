@@ -464,92 +464,43 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 //}/* .................................................................................................................................. */
-const int N = int(1e6) + 9;
+const int N = 109;
+VI adj[N]; int need[N], cost[N];
+int n;
 
-int Pn;
-
-namespace Text{
-    VI adj[N]; char ch[N];
-    int n;
-    void init() {
-        RD(n, Pn);
-        REP(i, n+1) adj[i].clear();
-        REP_1(i, n) {
-            RC(ch[i]); adj[RD()].PB(i);
-        }
+PII dfs(int u, int p) {
+    VII st;
+    for (int v: adj[u]) if (v != p){
+        st.PB(dfs(v, u));
     }
+    SRT(st);
+    PII z = MP(need[u], cost[u]);
+    DWN(i, st.size(), 0) {
+        checkMax(z.fi, z.se + st[i].fi);
+        z.se += st[i].se;
+    }
+    checkMax(z.fi, z.se);
+    return z;
 }
-
-namespace ACM{ // Aho–Corasick Automator
-    const int Z = 26;
-    int trans[N][Z], fail[N], cnt[N], Q[N], u, cz, op, tot;
-    VI pattern[N]; int ans[N];
-    char str[N]; VI adj[N]; // fail tree;
-
-
-    inline int new_node(){
-        RST(trans[tot]), fail[tot] = cnt[tot] = 0, pattern[tot].clear();
-        return tot++;
-    }
-#define v trans[u][c]
-#define f trans[fail[u]][c]
-    inline void Build(){
-        cz = op = u = 0; REP(c, Z) if (v) Q[op++] = v;
-        while (cz < op){
-            u = Q[cz++]; REP(c, Z)
-                if (v) fail[Q[op++] = v] = f; // .. .
-                else v = f;
-        }
-    }
-    inline void Insert(int i){
-        RS(str), u = 0;
-        DWN(i, strlen(str), 0) {
-            int c = str[i] - 'A';
-            if (!v) v = new_node();
-            u = v;
-        }
-        ans[i] = 0;
-        pattern[u].PB(i);
-    }
-
-    void dfs(int Tu, int u) {
-        cnt[u] += 1;
-        for (auto Tv: Text::adj[Tu]) {
-            int c = Text::ch[Tv] - 'A';
-            dfs(Tv, v);
-        }
-    }
-#undef v
-
-    void gao(int u) {
-        for (auto v: adj[u]) {
-            gao(v); cnt[u] += cnt[v];
-        }
-        for (auto p: pattern[u]) {
-            ans[p] += cnt[u];
-        }
-    }
-
-    void Run(){
-        dfs(0, 0);
-        REP(i, tot) adj[i].clear();
-        FOR(u, 1, tot) adj[fail[u]].PB(u);
-        gao(0); REP(i, Pn) {
-            printf("%d\n", ans[i]);
-        }
-    }
-
-    void Init(){
-        tot = 0, new_node();
-        REP(i, Pn) Insert(i); Build();
-    }
-};
 
 int main() {
 #ifndef ONLINE_JUDGE
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    Text::init(); ACM::Init();
-    ACM::Run();
+    while (RD(n)) {
+        REP(i, n) {
+            adj[i].clear();
+            int a, m, g; RD(a, m, g);
+            cost[i] = m + g;
+            need[i] = a;
+        }
+        DO(n-1) {
+            int u, v; RD(u, v); --u, --v;
+            adj[u].PB(v);
+            adj[v].PB(u);
+        }
+        int z = INF; REP(i, n) checkMin(z, dfs(i, -1).fi);
+        printf("Case %d: %d\n", ++Case, z);
+    }
 }

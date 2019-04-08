@@ -1,7 +1,12 @@
+/*
+ This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
+ Template Date: 2015.10.12
+ Note: ...
+ */
+
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
-//#include "testlib.h"
 #include <functional>
 #include <algorithm>
 #include <iostream>
@@ -89,18 +94,18 @@ using namespace std;
 #define re real()
 #define im imag()
 
-#define Rush for(int ____T=int(RD()); ____T--;)
+#define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-REP(i, n){                                    \
+REP(i, n){		                            \
 REP(j, m-1) cout << A[i][j] << " ";     \
-cout << A[i][m-1] << endl;                \
-}                                            \
+cout << A[i][m-1] << endl;		        \
+}						                    \
 }
 #define Display_1(A, n, m) {                    \
-REP_1(i, n){                                \
+REP_1(i, n){		                        \
 REP_1(j, m-1) cout << A[i][j] << " ";   \
-cout << A[i][m] << endl;                \
-}                                            \
+cout << A[i][m] << endl;		        \
+}						                    \
 }
 
 typedef long long LL;
@@ -201,10 +206,11 @@ template<class T> inline void CLR(T &A, int n){REP(i, n) CLR(A[i]);}
 
 template<class T> inline bool EPT(T &a){return a.empty();}
 template<class T> inline T& SRT(T &A){sort(ALL(A)); return A;}
-template<class T, class C> inline T& SRT(T &A, C B){sort(ALL(A), B); return A;}
+template<class T, class C> inline T& SRT(T &A, C cmp){sort(ALL(A), cmp); return A;}
 template<class T> inline T& RVS(T &A){reverse(ALL(A)); return A;}
 template<class T> inline T& UNQQ(T &A){A.resize(unique(ALL(A))-A.begin());return A;}
 template<class T> inline T& UNQ(T &A){SRT(A);return UNQQ(A);}
+template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A);}
 
 
 //}
@@ -308,7 +314,7 @@ namespace NT{
     inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
     inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-    /* ƒ£ ˝¡Ω±∂∏’∫√≥¨ int  ±°£
+    /* Ê®°Êï∞‰∏§ÂÄçÂàöÂ•ΩË∂Ö int Êó∂„ÄÇ
      inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
      inline void INC(int &a, int b){a = sum(a, b);}
      */
@@ -416,8 +422,7 @@ namespace NT{
 #define pp l/=10,p
 #define nn l/=10,n
 template<class T> inline T& RD(T &x){
-    scanf("%d", &x);
-    //char c;while(!d);x=c-'0';while(d)p;
+    char c;while(!d);x=c-'0';while(d)p;
     return x;
 }
 template<class T> inline T& RDD(T &x){
@@ -442,14 +447,15 @@ inline DB& RF(DB &x){
 #undef d
 #undef g
 inline char* RS(char *s){
-    gets(s);
-    //scanf("%s", s);
+    //gets(s);
+    scanf("%s", s);
     return s;
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    printf("Case %d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
+    //printf("%I64d\n", x);
     //printf("%.9f\n", x);
     //printf("%d\n", x);
     cout << x << endl;
@@ -458,239 +464,53 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 //}/* .................................................................................................................................. */
+const int N = 15, L = 109;
+int S[1<<N]; bool dp[1<<N][L], vis[1<<N][L];
+int n, a, b;
 
-const int N2 = 20+2, N = 9+2, M = 1 << 19, _M = 3, _M2 = 1;
-
-int n, m;
-int b[N+1], bb[N+1];
-int c[N+1];
-
-LL encode(){
-    FLC(bb, -1); int n = 1; bb[0] = 0; LL s = 0;
-
-    DWN(i, m+1, 0){
-        s <<= _M2; s |= c[i];
-    }
-    DWN(i, m+1, 0){
-        if (!~bb[b[i]]) bb[b[i]] = n++;
-        b[i] = bb[b[i]];
-        s <<= _M; s |= b[i];
-    }
-    return s;
-}
-
-void decode(LL s){
-    REP(i, m+1){
-        b[i] = s & _U(_M);
-        s >>= _M;
-    }
-    REP(i, m+1){
-        c[i] = s & _U(_M2);
-        s >>= _M2;
-    }
-}
-
-const int Prime = 9979;
-
-int opt[N2*N+9][M];
-int pre[N2*N+9][M];
-
-bool c0, c1, c2; int i, j;
-LL u; int d; int op; struct hashTable{
-
-    LL state[M]; int key[M]; int sz;
-    int hd[Prime], nxt[M];
-
-    void clear(){
-        sz = 0;
-        FLC(hd, -1);
-    }
-
-    void push(){
-
-        int d = ::d + op;
-        c[j] = op; LL s = encode();
-        int x = s % Prime;
-
-        for (int i=hd[x];~i;i=nxt[i]){
-            if (state[i] == s){
-                if (d > key[i]){
-                    key[i] = d;
-                    opt[::i*m+j][i] = op;
-                    pre[::i*m+j][i] = u;
+bool f(int s, int a) {
+    bool &z = dp[s][a];
+    if (!vis[s][a]) {
+        vis[s][a] = 1;
+        if (low_bit(s) == s) {
+            z = 1;
+        } else {
+            z = 0; int b = S[s] / a;
+            for (int ss=(s-1)&s;ss;ss=(ss-1)&s) {
+                // split a
+                if (S[ss] % b == 0) {
+                    int aa = S[ss]/b;
+                    z |= f(ss, min(aa, b)) && f(ss^s, min(a-aa, b));
                 }
-                return;
-            }
-        }
-        state[sz] = s; key[sz] = d;
-        nxt[sz] = hd[x]; hd[x] = sz;
-        //sta[i*m+j][sz] = s;
-        opt[i*m+j][sz] = op;
-        pre[i*m+j][sz] = u;
-        ++sz;
-        assert(sz < M);
-    }
-
-    void roll(){
-
-        LL U = _U(_M*(m+1));
-        LL U2 = _U(_M2*(m+1)) << (_M*(m+1));
-
-        REP(ii, sz){
-            LL s = state[ii], s1 = s & U, s2 = s & U2;
-            s1 <<= _M; s1 &= U;
-            s2 <<= _M2; s2 &= U2;
-            state[ii] = s1 | s2;
-        }
-    }
-} H[2]; int src, des;
-
-int A[N2+1][N+1];
-
-bool isMust(int i, int j){
-    return j < 2 || i >= n-2;
-}
-
-void print(){
-
-    assert(H[des].sz == 1);
-    printf("Case %d:\n", ++Case);
-
-    int z = H[des].key[0]-(n+m)-1;
-    //OT(z);
-
-    int u = 0; DWN(i, n*m, 0){
-
-        int ii = i / m, jj = i % m;
-
-        if (opt[i][u]){
-            assert(A[ii][jj] == 1);
-            A[ii][jj] = 2;
-        }
-
-        u = pre[i][u];
-    }
-
-    int zz = 0;
-
-    REP(i, n-2){
-        FOR(j, 2, m) if (A[i][j] == 1){
-            putchar('.');
-        }
-        else if (A[i][j] == 2){
-            putchar('C');
-            ++zz;
-        }
-        else{
-            putchar('#');
-        }
-        puts("");
-    }
-    puts("");
-    assert(z == zz);
-}
-
-void init(){
-    RD(n, m);
-    RST(A); REP_2(i, j, n, m) A[i][j+2] = RC() == '.';
-    n += 2; m += 2;
-    A[0][1] = 1; REP(i, n-1) A[i][0] = 1;
-    REP(i, m) A[n-1][i] = 1; A[n-2][m-1] = 1;
-}
-
-void skip(){
-    if (c0 && c2 && !c1) return;
-    op = 0; H[des].push(); op = 1;
-}
-
-void solve(){
-
-    src = 0, des = 1; H[des].clear(); RST(c, b); d = 0; j = 0; op = 0; H[des].push();
-
-    int z = 0; REP_N(i, n){
-        REP_N(j, m){
-
-            swap(src, des); H[des].clear();
-
-            if (!A[i][j]){
-                 op = 0; REP(ii, H[src].sz){
-                    decode(H[src].state[ii]); d = H[src].key[ii]; u = ii;
-                    int lt = b[j], up = b[j+1];
-                    c0 = j && c[j-1] && !lt, c1 = c[j], c2 = c[j+1] && !up;
-                    skip();
-                }
-                continue;
-            }
-
-            REP(ii, H[src].sz){
-
-                decode(H[src].state[ii]); d = H[src].key[ii]; u = ii; op = 1;
-
-                int lt = b[j], up = b[j+1];
-                bool dn = A[i+1][j], rt = A[i][j+1];
-
-                c0 = j && c[j-1], c1 = c[j], c2 = c[j+1];
-
-                if (lt && up){
-
-                    if (c1) continue;
-
-                    if (lt == up){
-                        if (i == n-1 && j == m-1){
-                            int cnt = 0; REP(jj, m+1) if (b[jj]) ++cnt;  // ?
-                            if (cnt == 2) H[des].push();
-                        }
-                    }
-                    else{
-                        b[j] = b[j+1] = 0;
-                        REP(jj, m+1) if (b[jj] == lt) b[jj] = up;
-                        H[des].push();
-                    }
-                }
-                else if (lt || up){
-
-                    int t = lt | up;
-                    if (c0 && c2) continue;
-
-                    if (dn){
-                        b[j] = t; b[j+1] = 0;
-                        H[des].push();
-                    }
-                    if (rt){
-                        b[j] = 0; b[j+1] = t;
-                        H[des].push();
-                    }
-                }
-                else{
-
-                    if (!isMust(i, j)) skip();
-                    if (c0 || c1 || c2) continue;
-
-                    if (dn && rt){
-                        b[j] = b[j+1] = m;
-                        H[des].push();
-                    }
+                // split b
+                if (S[ss] % a == 0) {
+                    int bb = S[ss]/a;
+                    z |= f(ss, min(a, bb)) && f(ss^s, min(a, b-bb));
                 }
             }
         }
-        H[des].roll();
     }
-
-    print();
+    return z;
 }
 
+bool ok() {
+    if (a * b != S[_U(n)]) return 0;
+    RST(vis); return f(_U(n), a);
+}
 
-int main(){
-
+int main() {
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-
-
-    while (~scanf("%d%d", &n, &m) && n){
-        init();
-        solve();
-        //break;
+    while (RD(n)) {
+        RD(a, b); if (a > b) swap(a, b);
+        REP(i, n) RD(S[1<<i]);
+        FOR(s, 1, _1(n)) {
+            int b = low_bit(s);
+            S[s] = S[s^b] + S[b];
+        }
+        printf("Case %d: ", ++Case);
+        puts(ok() ? "Yes" : "No");
     }
 }
