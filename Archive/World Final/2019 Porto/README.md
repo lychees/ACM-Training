@@ -31,6 +31,10 @@
 
 ## F. Directing Rainfall
 
+https://codeforces.com/blog/entry/6939
+
+https://web.archive.org/web/20130524164357/https://www.13331.org/420.html
+
 ## G. First of Her Name
 多模式串匹配。对每个询问翻转建立 AC 自动机，在文本树上跑一遍标记每个位置对答案的贡献，
 注意每个位置除了自己还会影响所有 fail 树的祖先，最后再 dfs() 一遍统计答案即可。
