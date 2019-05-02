@@ -1,0 +1,38 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Elly plays a platform game on her computer.
+There are <b>N</b> platforms with distinct heights, placed on top of each other.
+You can generate the heights of the platforms as follows:
+</p>
+<ul>
+<li>Platform number 1 is has height[1] = <b>H1</b>.</li>
+<li>For each i between 2 and <b>N</b>, inclusive, height[i] = (height[i-1] * <b>A</b> + <b>B</b>) % <b>M</b>.</li>
+</ul>
+<p>
+The girl has a "hero" whom she can move from platform to platform.
+At the beginning of the game there is a coin on each platform.
+The hero collects the coin the first time she visits the platform.
+(Once a coin is collected, it is gone. Visiting the same platform again does not give Elly a second coin.)
+</p>
+<p>
+In the beginning of the game Elly can place her hero on any of the <b>N</b> platforms.
+Once she does that, the hero will pick up the coin from that platform and then the game starts.
+</p>
+<p>
+During the game Elly only has one way to move her hero: by using a device that teleports the hero vertically.
+The device is deterministic and it behaves as follows:
+if the hero's current platform is at height X, the hero gets teleported to the height Y = (X * <b>P</b> + <b>Q</b>) % <b>M</b>.
+After the teleport, one of three different things will happen:
+</p>
+<ul>
+<li>If there is a platform at height Y, the hero will stand on that platform and collect the coin from that platform (if it is still there).</li>
+<li>If there is no platform at height Y but there are some lower platforms, the hero falls down until she hits the closest platform. She will always lands safely, regardless of the height of the fall. Then, she will collect the coin from that platform (if it is still there).</li>
+<li>If there are no platforms at or below the hero's new height, the game ends.</li>
+</ul>
+<p>
+Elly can use the device arbitrarily many times, one after another.
+Note that the device can only be used while the hero is standing on a platform (i.e., not while she is falling).
+</p>
+<p>
+You are given all the ints mentioned in the problem statement.
+Compute and return the largest number of coins Elly's hero can collect during a single game.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>EllysTeleport</td></tr><tr><td>Method:</td><td>getMax</td></tr><tr><td>Parameters:</td><td>int, int, int, int, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int getMax(int N, int H1, int A, int B, int P, int Q, int M)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 10,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>M</b> will be between 1 and 1,000,000,007, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>H1</b>, <b>A</b>, <b>B</b>, <b>P</b> and <b>Q</b> will be between 0 and <b>M</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>All platform heights will be distinct.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>11</pre></td></tr><tr><td><pre>9</pre></td></tr><tr><td><pre>17</pre></td></tr><tr><td><pre>9</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>13</pre></td></tr><tr><td><pre>23</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">The generated heights are {9, 1, 3, 14, 17, 22, 15, 11, 12, 6, 19}. The optimal choice would be to start from the platform with height 15. The heights Elly's hero will visit are: 15 -> 3 -> 11 -> [21] -> 19 -> [8] -> 6 -> 9 -> [7] -> 6... With [Y] we have denoted a height where the hero is teleported to, but there is no platform so she starts falling down.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>17</pre></td></tr><tr><td><pre>23</pre></td></tr><tr><td><pre>19</pre></td></tr><tr><td><pre>15</pre></td></tr><tr><td><pre>28</pre></td></tr><tr><td><pre>43</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">The generated numbers are {17, 23, 32, 24, 12, 37, 10, 34}. There are two possible choices for a starting platform, which yields the maximal number of coins: 32 or 12 (the paths being, respectively, 32 -> [35] -> 34 -> [22] -> 17 -> [25] -> 24 -> [1] -> game ends, and 12 -> [36] -> 34 -> [22] -> 17 -> [25] -> 24 -> [1] -> game ends).</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>15</pre></td></tr><tr><td><pre>42</pre></td></tr><tr><td><pre>114</pre></td></tr><tr><td><pre>52</pre></td></tr><tr><td><pre>76</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>131</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">The generated numbers are {42, 124, 40, 27, 117, 28, 100, 55, 34, 129, 86, 31, 49, 5, 98}.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>71</pre></td></tr><tr><td><pre>54</pre></td></tr><tr><td><pre>85</pre></td></tr><tr><td><pre>96</pre></td></tr><tr><td><pre>52</pre></td></tr><tr><td><pre>100</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">Here the heights are {71, 19, 11, 79, 51, 39, 91, 99, 31, 59}. Starting from the platform with height 99 Elly's hero can collect all of the coins: 99 -> [56] -> 51 -> [49] -> 39 -> [96] -> 91 -> [88] -> 79 -> [36] -> 31 -> [28] -> 19 -> [76] -> 71 -> [68] -> 59 -> [16] -> 11 -> [8] -> game ends</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1000</pre></td></tr><tr><td><pre>1337</pre></td></tr><tr><td><pre>706135</pre></td></tr><tr><td><pre>1085680</pre></td></tr><tr><td><pre>1153206</pre></td></tr><tr><td><pre>345473</pre></td></tr><tr><td><pre>1234567</pre></td></tr></table></td></tr><tr><td><pre>Returns: 42</pre></td></tr><tr><td><table><tr><td colspan="2">Watch out for overflows when generating the heights!</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

@@ -1,0 +1,26 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Elly hates the cold, but for some weird reason she likes skiing. Now she has started organizing a new ski adventure on a mountain ridge she hasn't visited before.
+</p>
+<p>
+Elly has a map of the mountain ridge: the vector &lt;int&gt; <b>height</b>.
+The mountain (when viewed from a side) has the shape of a polyline that goes through the points (0, <b>height</b>[0]), (1, <b>height</b>[1]), (2, <b>height</b>[2]), and so on.
+For example, suppose <b>height</b> = {3, 4, 11, 6, 2, 2, 2, 5, 7, 7, 10, 8, 5, 8, 1, 4}.
+If you walk along this mountain from the left to the right, you start at altitude 3, go up to altitude 4, then up some more to altitude 11. From there it goes down the hill to altitudes 6, 2, and so on.
+</p>
+<p>
+Elly can hire a helicopter to bring her up to any point on the mountain. 
+She can then pick a direction (either left or right) and start skiing.
+There are only two restrictions:
+</p>
+<ul>
+<li>She cannot ski uphill.</li>
+<li>While skiing, she cannot change direction. (If she started skiing left, she cannot turn around and ski right, or vice versa.)</li>
+</ul>
+<p>
+For example, suppose Elly starts at index 2 (altitude 11) and chooses to go right. In this case the longest possible ski run consists of five points: {11, 6, 2, 2, 2}. She cannot continue farther because the next segment of the mountain goes uphill.
+Should she start at the same place and go left instead, she would only visit three points (altitudes 11, 4, and 3, in this order).
+</p>
+<p>
+Find the longest section of the mountain Elly can ski in a single run, and return the number of points that form the section.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>EllysSki</td></tr><tr><td>Method:</td><td>getMax</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int getMax(vector &lt;int&gt; height)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>height</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>height</b> will be between 1 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3, 4, 11, 6, 2, 2, 2, 5, 7, 7, 10, 8, 5, 8, 1, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2"><p>The example from the problem statement.</p>
+<p>The optimal solution is to start at index 10 (altitude 10) and ski left. The points visited, in order in which Elly skis through them, have altitudes {10, 7, 7, 5, 2, 2, 2}.</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{42, 42, 42}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">This mountain is quite flat, but okay for skiing, according to Elly. She should start at either end and ski towards the other end.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{543, 230, 421, 415, 271, 962, 677, 373, 951, 114, 379, 15, 211, 955, 66, 573, 982, 296, 730, 591}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{50, 77, 24, 86, 98, 84, 42, 70, 88, 78, 73, 17, 76, 68, 64, 65, 40, 77, 33, 87, 11, 23, 78, 20, 8, 74, 44, 95, 94, 78, 27, 88, 71, 40, 11, 98, 82, 85, 79, 89, 31, 67, 41, 61, 71, 62, 74, 77, 86, 36}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
