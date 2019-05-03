@@ -22,7 +22,7 @@ using namespace std;
 #define CLR(A) A.clear()
 #define CPY(A, B) memcpy(A, B, sizeof(A))
 #define INS(A, P, B) A.insert(A.begin() + P, B)
-#define ERS(A, P) A.erase(A.begin() + P) 
+#define ERS(A, P) A.erase(A.begin() + P)
 #define SRT(A) sort(ALL(A))
 #define SZ(A) int(A.size())
 #define PB push_back
@@ -42,25 +42,27 @@ template<class T> inline void checkMax(T &a, T b){if (b>a) a=b;}
 const int MOD = 1000000007;
 const int INF = 0x7fffffff;
 
-const int N = 50;
-
+const int N = 51, M = 16;
+int dp[N][1<<M], cnt[M];
 
 class EllysPearls {
 public:
-	int getMin(int N, int M, vector <int> pearls) {	
-		
-
-		
-
-
-
-		int res = 0;
-
-		
-		return res;
+	int getMin(int n, int m, vector <int> pearls) {
+        for (auto &p: pearls) --p;
+		int z = 0; RST(dp);
+		REP(i, n+1) REP(s, 1<<m) {
+            int &u = dp[i][s]; checkMax(z, u);
+            RST(cnt); FOR(j, i, n) {
+                int p = pearls[j], w = ++cnt[p];
+                if (!(s&1<<p)) {
+                    int &v = dp[j+1][s|1<<p];
+                    checkMax(v, u + w);
+                }
+            }
+		}
+		return n - z;
 	}
 };
-
 
 // BEGIN CUT HERE
 namespace moj_harness {
@@ -72,7 +74,7 @@ namespace moj_harness {
 			}
 			return;
 		}
-		
+
 		int correct = 0, total = 0;
 		for (int i=0;; ++i) {
 			int x = run_test_case(i);
@@ -83,7 +85,7 @@ namespace moj_harness {
 			correct += x;
 			++total;
 		}
-		
+
 		if (total == 0) {
 			cerr << "No test cases run." << endl;
 		} else if (correct < total) {
@@ -92,25 +94,25 @@ namespace moj_harness {
 			cerr << "All " << total << " tests passed!" << endl;
 		}
 	}
-	
-	int verify_case(int casenum, const int &expected, const int &received, clock_t elapsed) { 
-		cerr << "Example " << casenum << "... "; 
-		
+
+	int verify_case(int casenum, const int &expected, const int &received, clock_t elapsed) {
+		cerr << "Example " << casenum << "... ";
+
 		string verdict;
 		vector<string> info;
 		char buf[100];
-		
+
 		if (elapsed > CLOCKS_PER_SEC / 200) {
 			sprintf(buf, "time %.2fs", elapsed * (1.0/CLOCKS_PER_SEC));
 			info.push_back(buf);
 		}
-		
+
 		if (expected == received) {
 			verdict = "PASSED";
 		} else {
 			verdict = "FAILED";
 		}
-		
+
 		cerr << verdict;
 		if (!info.empty()) {
 			cerr << " (";
@@ -121,12 +123,12 @@ namespace moj_harness {
 			cerr << ")";
 		}
 		cerr << endl;
-		
+
 		if (verdict == "FAILED") {
-			cerr << "    Expected: " << expected << endl; 
-			cerr << "    Received: " << received << endl; 
+			cerr << "    Expected: " << expected << endl;
+			cerr << "    Received: " << received << endl;
 		}
-		
+
 		return verdict == "PASSED";
 	}
 
