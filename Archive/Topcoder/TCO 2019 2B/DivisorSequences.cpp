@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -22,7 +23,7 @@ using namespace std;
 #define CLR(A) A.clear()
 #define CPY(A, B) memcpy(A, B, sizeof(A))
 #define INS(A, P, B) A.insert(A.begin() + P, B)
-#define ERS(A, P) A.erase(A.begin() + P) 
+#define ERS(A, P) A.erase(A.begin() + P)
 #define SRT(A) sort(ALL(A))
 #define SZ(A) int(A.size())
 #define PB push_back
@@ -40,24 +41,40 @@ template<class T> inline void checkMax(T &a, T b){if (b>a) a=b;}
 /* -&$&#*( &#*@)^$@&*)*/
 
 const int MOD = 1000000007;
-const int INF = 0x7fffffff;
+const int INF = 0x3f3f3f3f;
 
 const int N = 50;
 
+unordered_map<int, int> dp;
 
-class SubsetXor {
+#define z dp[x]
+int f(int x) {
+    if (z == 0) {
+        int xx = x-1;
+        if (xx > 1) z = 1;
+        for (int d=2;d*d<=xx;++d) {
+            if (xx%d == 0) {
+                checkMax(z, f(xx/d));
+                checkMax(z, f(d));
+            }
+		}
+		++z;
+    }
+    return z;
+}
+#undef z
+
+class DivisorSequences {
 public:
-	long long computeSmallest(vector<long long> A) {	
-		
-
-		
-
-
-
-		long long res = 0;
-
-		
-		return res;
+	int longest(int N) {
+		int z = f(N);
+		for (int d=2;d*d<=N;++d) {
+            if (N%d == 0) {
+                checkMax(z, f(N/d));
+                checkMax(z, f(d));
+            }
+		}
+		return z;
 	}
 };
 
@@ -72,7 +89,7 @@ namespace moj_harness {
 			}
 			return;
 		}
-		
+
 		int correct = 0, total = 0;
 		for (int i=0;; ++i) {
 			int x = run_test_case(i);
@@ -83,7 +100,7 @@ namespace moj_harness {
 			correct += x;
 			++total;
 		}
-		
+
 		if (total == 0) {
 			cerr << "No test cases run." << endl;
 		} else if (correct < total) {
@@ -92,25 +109,25 @@ namespace moj_harness {
 			cerr << "All " << total << " tests passed!" << endl;
 		}
 	}
-	
-	int verify_case(int casenum, const long long &expected, const long long &received, clock_t elapsed) { 
-		cerr << "Example " << casenum << "... "; 
-		
+
+	int verify_case(int casenum, const int &expected, const int &received, clock_t elapsed) {
+		cerr << "Example " << casenum << "... ";
+
 		string verdict;
 		vector<string> info;
 		char buf[100];
-		
+
 		if (elapsed > CLOCKS_PER_SEC / 200) {
 			sprintf(buf, "time %.2fs", elapsed * (1.0/CLOCKS_PER_SEC));
 			info.push_back(buf);
 		}
-		
+
 		if (expected == received) {
 			verdict = "PASSED";
 		} else {
 			verdict = "FAILED";
 		}
-		
+
 		cerr << verdict;
 		if (!info.empty()) {
 			cerr << " (";
@@ -121,58 +138,66 @@ namespace moj_harness {
 			cerr << ")";
 		}
 		cerr << endl;
-		
+
 		if (verdict == "FAILED") {
-			cerr << "    Expected: " << expected << endl; 
-			cerr << "    Received: " << received << endl; 
+			cerr << "    Expected: " << expected << endl;
+			cerr << "    Received: " << received << endl;
 		}
-		
+
 		return verdict == "PASSED";
 	}
 
 	int run_test_case(int casenum) {
 		switch (casenum) {
 		case 0: {
-			long long A[]             = {2000, 300, 46};
-			long long expected__      = 1;
+			int N                     = 15;
+			int expected__            = 4;
 
 			clock_t start__           = clock();
-			long long received__      = SubsetXor().computeSmallest(vector<long long>(A, A + (sizeof A / sizeof A[0])));
+			int received__            = DivisorSequences().longest(N);
 			return verify_case(casenum, expected__, received__, clock()-start__);
 		}
 		case 1: {
-			long long A[]             = {1, 2};
-			long long expected__      = 4;
+			int N                     = 12;
+			int expected__            = 2;
 
 			clock_t start__           = clock();
-			long long received__      = SubsetXor().computeSmallest(vector<long long>(A, A + (sizeof A / sizeof A[0])));
+			int received__            = DivisorSequences().longest(N);
+			return verify_case(casenum, expected__, received__, clock()-start__);
+		}
+		case 2: {
+			int N                     = 34;
+			int expected__            = 4;
+
+			clock_t start__           = clock();
+			int received__            = DivisorSequences().longest(N);
 			return verify_case(casenum, expected__, received__, clock()-start__);
 		}
 
 		// custom cases
 
-/*      case 2: {
-			long long A[]             = ;
-			long long expected__      = ;
-
-			clock_t start__           = clock();
-			long long received__      = SubsetXor().computeSmallest(vector<long long>(A, A + (sizeof A / sizeof A[0])));
-			return verify_case(casenum, expected__, received__, clock()-start__);
-		}*/
 /*      case 3: {
-			long long A[]             = ;
-			long long expected__      = ;
+			int N                     = ;
+			int expected__            = ;
 
 			clock_t start__           = clock();
-			long long received__      = SubsetXor().computeSmallest(vector<long long>(A, A + (sizeof A / sizeof A[0])));
+			int received__            = DivisorSequences().longest(N);
 			return verify_case(casenum, expected__, received__, clock()-start__);
 		}*/
 /*      case 4: {
-			long long A[]             = ;
-			long long expected__      = ;
+			int N                     = ;
+			int expected__            = ;
 
 			clock_t start__           = clock();
-			long long received__      = SubsetXor().computeSmallest(vector<long long>(A, A + (sizeof A / sizeof A[0])));
+			int received__            = DivisorSequences().longest(N);
+			return verify_case(casenum, expected__, received__, clock()-start__);
+		}*/
+/*      case 5: {
+			int N                     = ;
+			int expected__            = ;
+
+			clock_t start__           = clock();
+			int received__            = DivisorSequences().longest(N);
 			return verify_case(casenum, expected__, received__, clock()-start__);
 		}*/
 		default:
