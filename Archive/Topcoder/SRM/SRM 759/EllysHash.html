@@ -1,0 +1,35 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>This problem has a nonstandard time limit: 3 seconds.</i></p>
+
+<p>
+Recently Elly, Kriss, and Stancho learned the following algorithm for hashing a string:
+</p>
+
+<pre>
+function hash(S):
+    answer = 0
+    for each valid index i into S, starting from 0:
+        answer = (answer * 127 + ord(S[i])) mod 1000000000000037
+    return answer
+</pre>
+
+<p>
+The returned value is called the hash of the string S.
+In the pseudocode, ord(S[i]) is the ASCII code of the i-th character of the string S. 
+</p>
+
+<p>
+Each of the three friends has a favorite string with length <b>N</b>: the one Elly has is <b>A</b>, the one Kriss has is <b>B</b> and the one Stancho has is <b>C</b>. Now they have decided to create a new string S with the same length <b>N</b> such that for each position i we have S[i] = <b>A</b>[i] or S[i] = <b>B</b>[i] or S[i] = <b>C</b>[i]. 
+</p>
+
+<p>
+Among all such strings Elly, Kriss, and Stancho want to find the string S with the lowest hash.
+You are given the length of the strings <b>N</b> and the three favorite strings <b>A</b>, <b>B</b> and <b>C</b>.
+Find and return the value of the smallest possible hash of a string S with the above property.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>EllysHash</td></tr><tr><td>Method:</td><td>getHash</td></tr><tr><td>Parameters:</td><td>int, string, string, string</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long getHash(int N, string A, string B, string C)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>3.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The uppercase letter 'A' has ASCII code 65, 'B' has code 66, ..., and 'Z' has code 90.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 28, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b>, <b>B</b> and <b>C</b> will contain exactly <b>N</b> characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>A</b>, <b>B</b> and <b>C</b> will be an uppercase letter of the English alphabet ({'A'-'Z'}).</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>&quot;ELLY&quot;</pre></td></tr><tr><td><pre>&quot;KRIS&quot;</pre></td></tr><tr><td><pre>&quot;STAN&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 142572564</pre></td></tr><tr><td><table><tr><td colspan="2">There are 81 possible strings that can be formed, some of which are:
+<ul>
+    <li>"KLAY" (with hash 154862873)</li>
+    <li>"SRLY" (with hash 171348108)</li>
+    <li>"KRIS" (with hash 154960657)</li>
+    <li>"ELAN" (with hash 142572564)</li>
+</ul>
+The last one is the one with the lowest hash among all 81.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>11</pre></td></tr><tr><td><pre>&quot;TOPCODERSRM&quot;</pre></td></tr><tr><td><pre>&quot;INTHEMIDDLE&quot;</pre></td></tr><tr><td><pre>&quot;OFTHEDAYNOO&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2840613885160</pre></td></tr><tr><td><table><tr><td colspan="2">The best possible string that can be formed is "TOPHODADDLE" with hash 2840613885160.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>18</pre></td></tr><tr><td><pre>&quot;EVERYSTEPTHATITAKE&quot;</pre></td></tr><tr><td><pre>&quot;ISANOTHERMISTAKETO&quot;</pre></td></tr><tr><td><pre>&quot;YOOOOOOOOOOOOOOOOO&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 325013178</pre></td></tr><tr><td><table><tr><td colspan="2">The best possible string that can be formed is "YVORYSHOROISOOKAKE" with hash 325013178.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>28</pre></td></tr><tr><td><pre>&quot;ANDNEVERMINDTHENOISEYOUHEARD&quot;</pre></td></tr><tr><td><pre>&quot;ITSJUSTTHEBEASTSUNDERYOURBED&quot;</pre></td></tr><tr><td><pre>&quot;INYOURCLOSETINYOURHEAAAAAAAD&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 745</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
