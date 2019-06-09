@@ -464,43 +464,61 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 //}/* .................................................................................................................................. */
-const int N = 109;
-VI adj[N]; int need[N], cost[N];
-int n;
 
-PII dfs(int u, int p) {
-    VII st;
-    for (int v: adj[u]) if (v != p){
-        st.PB(dfs(v, u));
+const int MAXL = 63;
+
+struct LinearBasis
+{
+    std::vector<long long> v;
+    int n; // 原有集合 S 的大小
+
+    // 数组 x 表示集合 S，下标范围 [1...n]
+    void build(long long *x, int n)
+    {
+        this->n = n;
+        std::vector<long long> a(MAXL + 1);
+
+        for (int i = 0; i < n; i++)
+        {
+            long long t = x[i];
+
+            for (int j = MAXL; j >= 0; j--)
+            {
+                if ((t & (1ll << j)) == 0) continue;
+
+                if (a[j]) t ^= a[j];
+                else
+                {
+                    for (int k = 0; k < j; k++) if (t & (1ll << k)) t ^= a[k];
+                    for (int k = j + 1; k <= MAXL; k++) if (a[k] & (1ll << j)) a[k] ^= t;
+
+                    a[j] = t;
+                    break;
+                }
+            }
+        }
+
+        v.clear();
+        for (int i = 0; i <= MAXL; i++) if (a[i]) v.push_back(a[i]);
     }
-    SRT(st);
-    PII z = MP(need[u], cost[u]);
-    DWN(i, st.size(), 0) {
-        checkMax(z.fi, z.se + st[i].fi);
-        z.se += st[i].se;
+
+    long long queryMax()
+    {
+        long long x = 0;
+        for (size_t i = 0; i < v.size(); i++) x ^= v[i];
+        return x;
     }
-    checkMax(z.fi, z.se);
-    return z;
-}
+} S;
+
+const int N = 109;
+LL A[N]; int n;
 
 int main() {
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    while (RD(n)) {
-        REP(i, n) {
-            adj[i].clear();
-            int a, m, g; RD(a, m, g);
-            cost[i] = m + g;
-            need[i] = a;
-        }
-        DO(n-1) {
-            int u, v; RD(u, v); --u, --v;
-            adj[u].PB(v);
-            adj[v].PB(u);
-        }
-        int z = INF; REP(i, n) checkMin(z, dfs(i, -1).fi);
-        printf("Case %d: %d\n", ++Case, z);
-    }
+    RD(n); REP(i, n) RD(A[i]);
+    S.build(A, n);
+    cout << S.queryMax() << endl;
 }
