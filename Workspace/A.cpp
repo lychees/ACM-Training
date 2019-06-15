@@ -96,16 +96,16 @@ using namespace std;
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-REP(i, n){		                            \
+REP(i, n){                                    \
 REP(j, m-1) cout << A[i][j] << " ";     \
-cout << A[i][m-1] << endl;		        \
-}						                    \
+cout << A[i][m-1] << endl;                \
+}                                            \
 }
 #define Display_1(A, n, m) {                    \
-REP_1(i, n){		                        \
+REP_1(i, n){                                \
 REP_1(j, m-1) cout << A[i][j] << " ";   \
-cout << A[i][m] << endl;		        \
-}						                    \
+cout << A[i][m] << endl;                \
+}                                            \
 }
 
 typedef long long LL;
@@ -256,12 +256,12 @@ inline DB csc(DB x){return 1./sin(x);};
 //}
 // <<= '1. Bitwise Operation ., //{
 namespace BO{
-
+    
     inline bool _1(int x, int i){return bool(x&1<<i);}
     inline bool _1(LL x, int i){return bool(x&1LL<<i);}
     inline LL _1(int i){return 1LL<<i;}
     inline LL _U(int i){return _1(i) - 1;};
-
+    
     inline int reverse_bits(int x){
         x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
         x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
@@ -270,7 +270,7 @@ namespace BO{
         x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
         return x;
     }
-
+    
     inline LL reverse_bits(LL x){
         x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
         x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
@@ -280,14 +280,14 @@ namespace BO{
         x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
         return x;
     }
-
+    
     template<class T> inline bool odd(T x){return x&1;}
     template<class T> inline bool even(T x){return !odd(x);}
     template<class T> inline T low_bit(T x) {return x & -x;}
     template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
     template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
     template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
-
+    
     inline int clz(int x){return __builtin_clz(x);}
     inline int clz(LL x){return __builtin_clzll(x);}
     inline int ctz(int x){return __builtin_ctz(x);}
@@ -302,23 +302,26 @@ namespace BO{
     inline int parity(LL x){return __builtin_parityll(x);}
     inline int count_bits(int x){return __builtin_popcount(x);}
     inline int count_bits(LL x){return __builtin_popcountll(x);}
-
+    
 } using namespace BO;//}
 
 
 // <<= '2. Number Theory .,//{
 namespace NT{
-#define gcd __gcd
-    inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-
+    //#define gcd __gcd
+    //  inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
+    inline LL gcd(LL a, LL b) {
+        if (b == 0) return a;
+        return gcd(b, a%b);
+    }
     inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
     inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
-
+    
     /* 模数两倍刚好超 int 时。
      inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
      inline void INC(int &a, int b){a = sum(a, b);}
      */
-
+    
     inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
     inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
     inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
@@ -327,12 +330,12 @@ namespace NT{
         int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
         return ret;
     }
-
-
+    
+    
     inline int gcd(int m, int n, int &x, int &y){
-
+        
         x = 1, y = 0; int xx = 0, yy = 1, q;
-
+        
         while (1){
             q = m / n, m %= n;
             if (!m){x = xx, y = yy; return n;}
@@ -342,12 +345,12 @@ namespace NT{
             DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
         }
     }
-
+    
     inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
     inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
     inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
     inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
-
+    
     inline int pow(int a, LL b){
         int c(1); while (b){
             if (b&1) MUL(c, a);
@@ -355,7 +358,7 @@ namespace NT{
         }
         return c;
     }
-
+    
     template<class T> inline T pow(T a, LL b){
         T c(1); while (b){
             if (b&1) c *= a;
@@ -363,31 +366,31 @@ namespace NT{
         }
         return c;
     }
-
+    
     template<class T> inline T pow(T a, int b){
         return pow(a, (LL)b);
     }
-
+    
     inline int _I(int b){
         int a = MOD, x1 = 0, x2 = 1, q; while (1){
             q = a / b, a %= b;
             if (!a) return x2;
             DEC(x1, pdt(q, x2));
-
+            
             q = b / a, b %= a;
             if (!b) return x1;
             DEC(x2, pdt(q, x1));
         }
     }
-
+    
     inline void DIV(int &a, int b){MUL(a, _I(b));}
     inline int qtt(int a, int b){return pdt(a, _I(b));}
-
+    
     struct Int{
         int val;
-
+        
         operator int() const{return val;}
-
+        
         Int(int _val = 0):val(_val){
             val %= MOD; if (val < 0) val += MOD;
         }
@@ -395,7 +398,7 @@ namespace NT{
             _val %= MOD; if (_val < 0) _val += MOD;
             val = _val;
         }
-
+        
         Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
         Int operator +(const int& rhs) const{return sum(val, rhs);}
         Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
@@ -406,7 +409,7 @@ namespace NT{
         Int operator /(const int& rhs) const{return qtt(val, rhs);}
         Int operator-()const{return MOD-*this;}
     };
-
+    
 } using namespace NT;//}
 
 
@@ -453,7 +456,7 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    //printf("Case #%d: ", ++Case);
+    printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,60 +468,22 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int MAXL = 63;
 
-struct LinearBasis
-{
-    std::vector<long long> v;
-    int n; // 原有集合 S 的大小
 
-    // 数组 x 表示集合 S，下标范围 [1...n]
-    void build(long long *x, int n)
-    {
-        this->n = n;
-        std::vector<long long> a(MAXL + 1);
-
-        for (int i = 0; i < n; i++)
-        {
-            long long t = x[i];
-
-            for (int j = MAXL; j >= 0; j--)
-            {
-                if ((t & (1ll << j)) == 0) continue;
-
-                if (a[j]) t ^= a[j];
-                else
-                {
-                    for (int k = 0; k < j; k++) if (t & (1ll << k)) t ^= a[k];
-                    for (int k = j + 1; k <= MAXL; k++) if (a[k] & (1ll << j)) a[k] ^= t;
-
-                    a[j] = t;
-                    break;
-                }
-            }
-        }
-
-        v.clear();
-        for (int i = 0; i <= MAXL; i++) if (a[i]) v.push_back(a[i]);
-    }
-
-    long long queryMax()
-    {
-        long long x = 0;
-        for (size_t i = 0; i < v.size(); i++) x ^= v[i];
-        return x;
-    }
-} S;
-
-const int N = 109;
-LL A[N]; int n;
-
-int main() {
+int main(){
 #ifndef ONLINE_JUDGE
-    //freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    freopen("/users/minakokojima/Documents/github/ACM-Training/Workspace/in.txt", "r", stdin);
+    freopen("/users/minakokojima/Documents/github/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    RD(n); REP(i, n) RD(A[i]);
-    S.build(A, n);
-    cout << S.queryMax() << endl;
+    Rush {
+        string s; cin >> s;
+        int n = s.size();
+        int b = 0, c = 0;
+        FOR(i, 1, n) {
+            if (s[i] == '.') ++c;
+            else ++b;
+        }
+        printf("Case #%d: ", ++Case);
+        puts((c != 0 && b >= c) ? "Y" : "N");
+    }
 }

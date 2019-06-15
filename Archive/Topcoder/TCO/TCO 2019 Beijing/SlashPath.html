@@ -1,0 +1,42 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A slash maze is a rectangular table of characters, each being either a slash or a backslash. Example:
+</p>
+<pre>
+\\/\/
+\\//\
+\//\/
+\\/\\
+</pre>
+<p>
+Each character represents a square cell with penetrable walls but an impenetrable diagonal wall. 
+The entrance to the maze is always on the leftmost unit segment of the top side, and the exit is always on the rightmost unit segment of the bottom side.
+Thus, the slashes shown above correspond to the following maze:
+</p>
+<p>
+<img src="https://www.topcoder.com/contest/problem/SlashPath/slashpath-small.png"></img>
+</p>
+<p>
+You start outside of the maze and you must end outside of the maze. 
+Entering the maze takes one step, and leaving the maze takes one step. 
+In each other step you can move from your current triangle across the side of a square into an adjacent triangle. 
+The above figure shows a 17-step path through the maze.
+</p>
+<p>
+You are given the int <b>steps</b>. Construct any rectangular slash maze with the following properties:
+</p>
+<ul>
+<li>the number of rows is between 1 and 50, inclusive</li>
+<li>the number of colums is between 1 and 50, inclusive</li>
+<li><b>steps</b> is exactly equal to the smallest number of steps needed to cross the maze from start to finish</li>
+</ul>
+<p>
+Return the maze as a vector &lt;string&gt;. If there is no maze with the desired properties, return an empty vector &lt;string&gt; instead.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SlashPath</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; construct(int steps)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>steps</b> will be between 1 and 3000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;\\\\/\\&quot;, &quot;/\\\\\\&quot;, &quot;\\\\\\\\&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">A nicer formatting for the returned maze:
+<pre>
+\\/\
+/\\\
+\\\\
+</pre>
+
+(Note that in all example outputs the backslashes in strings are escaped: each \\ represents a single backslash.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>17</pre></td></tr></table></td></tr><tr><td><pre>Returns: {&quot;\\\\/\\/&quot;, &quot;\\\\//\\&quot;, &quot;\\//\\/&quot;, &quot;\\\\/\\\\&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">The example from the problem statement.
+The return value shown above corresponds to the figure in the statement.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1234</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

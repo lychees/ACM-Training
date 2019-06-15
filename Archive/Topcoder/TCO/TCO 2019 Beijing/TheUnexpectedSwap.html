@@ -1,0 +1,37 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are given a string N that contains the decimal representation of a (possibly very large) positive integer.
+In order to keep the input size low, you have to generate this number N on your own.
+You are given the int <b>digits</b>, the string <b>prefN</b>, and the int <b>seed</b>.
+Use the following pseudocode to generate N:
+</p>
+<pre>
+A[0] = seed
+for i = 1 to digits-1:
+	A[i] = (A[i-1] * 1009 + 10009) modulo 100019
+
+for i = 0 to length(prefN)-1:
+        N[i] = prefN[i]
+
+for i = length(prefN) to digits-1:
+	N[i] = N[ A[i] modulo i ]
+</pre>
+
+<p>
+We are going to swap two digits of the large number stored in N.
+The digits to swap will be chosen uniformly at random.
+More precisely, we will consider all pairs of indices (i, j) such that 0 &lt;= i &lt; j &lt;= <b>digits</b>-1, we will select one of these pairs of indices uniformly at random, and then we will swap the digits N[i] and N[j].
+</p>
+
+<p>
+Let E be the expected value of the number we will obtain.
+(In other words, E is the average of all possible outcomes.)
+Then, let F = E * <b>digits</b> * (<b>digits</b> - 1).
+It can be shown that F is always an integer.
+As the value F can be very large, please calculate and return the value (F modulo 1,000,000,007).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TheUnexpectedSwap</td></tr><tr><td>Method:</td><td>findExpectedResult</td></tr><tr><td>Parameters:</td><td>int, string, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findExpectedResult(int digits, string prefN, int seed)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution would correctly solve any N that matches the constraints. It does not depend on the properties of the pseudorandom generator.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>digits</b> will be between 2 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The length of <b>prefN</b> will be between 1 and min(1000,<b>digits</b>), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of <b>prefN</b> will be a digit ('0'-'9').</td></tr><tr><td align="center" valign="top">-</td><td>Character 0 of <b>prefN</b> will not be '0'.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 100,018, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>&quot;32&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 46</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The number is N = "32". There is exactly one possible swap: we swap the characters N[0] and N[1], producing the new number "23".
+</p>
+<p>
+As there is only one outcome, we get that E = 23, and then F = 23 * 2 * 1 = 46.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>&quot;60&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2">After the swap the number obtained from N can have a leading zero. This is allowed. In this case the only possible swap will produce the number "06". The value of this number is simply 6.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>&quot;1&quot;</pre></td></tr><tr><td><pre>0</pre></td></tr></table></td></tr><tr><td><pre>Returns: 999999297</pre></td></tr><tr><td><table><tr><td colspan="2">The number you'll generate is N = "1111111111". There are 45 different pairs of digits we can swap. Regardless of which two digits we swap, the value of the new number will always be 1,111,111,111. Thus, we get that E = 1,111,111,111, and then F = 1,111,111,111 * 10 * 9 = 99,999,999,990. Make sure you correctly compute and return the value F modulo 10^9 + 7.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>6</pre></td></tr><tr><td><pre>&quot;123&quot;</pre></td></tr><tr><td><pre>47</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5331084</pre></td></tr><tr><td><table><tr><td colspan="2"><p>When generating N, you should first compute the sequence A = { 47, 57432, 47896, 27896, 51734, 99716 } and then use that to obtain N = "123332".</p>
+<p>There are 15 possible swaps. The average of their outcomes is E = 177702.8.</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
