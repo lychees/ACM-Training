@@ -317,7 +317,7 @@ namespace NT{
     inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
     inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-    /* ƒ£ ˝¡Ω±∂∏’∫√≥¨ int  ±°£
+    /* Ê®°Êï∞‰∏§ÂÄçÂàöÂ•ΩË∂Ö int Êó∂„ÄÇ
      inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
      inline void INC(int &a, int b){a = sum(a, b);}
      */
@@ -468,34 +468,43 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(3e3) + 9;
-Int L[N][N], R[N][N];
-int M[N][N];
-int a[N];
+const int N = int(1e6) + 9;
+Int Sl[N], Sr[N], Dl[N], Dr[N];
+int h[N]; Int hh[N];
 int n;
 
 int main(){
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    // freopen("in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
     Rush{
-        RD(n); REP(i, n) RD(a[i]);
-        REP(i, n) {
-            L[i][i] = 0; M[i][i] = i;
-            FOR(j, i+1, n) {
-                M[i][j] = a[j] > a[M[i][j-1]] ? j : M[i][j-1];
-                L[i][j] = L[i][j-1] + a[M[i][j]] - a[j];
+        RD(n); REP_1(i, n) hh[i] = hh[i-1] + RD(h[i]); h[0] = h[n+1] = INF;
+        stack<int> s; s.push(0); REP_1(i, n) {
+            Sl[i] = 0;
+            while (h[i] > h[s.top()]) {
+                Int sl = Int(h[s.top()]) * (i-s.top()-1) - (hh[i-1]-hh[s.top()]);
+                int sp = s.top(); s.pop();
+                Sl[i] += sl * (sp - s.top()) + Sl[sp];
             }
+            Dl[i] = i - s.top();
+            s.push(i);
         }
-        DWN(j, n, 0) {
-            R[j][j] = 0;
-            DWN(i, j, 0) {
-                R[i][j] = R[i+1][j] + a[M[i][j]] - a[i];
+        CLR(s); s.push(n+1); DWN_1(i, n, 1) {
+            Sr[i] = 0;
+            while (h[i] >= h[s.top()]) {
+                Int sr = Int(h[s.top()]) * (s.top()-i-1) - (hh[s.top()-1]-hh[i]);
+                int sp = s.top(); s.pop();
+                Sr[i] += sr * (s.top() - sp) + Sr[sp];
             }
+            Dr[i] = s.top() - i;
+            s.push(i);
         }
+
         Int z = 0;
-        REP(i, n) FOR(j, i, n) z += L[i][M[i][j]] + R[M[i][j]][j];
+        REP_1(i, n) {
+            z += Dl[i] * Sr[i] + Dr[i] * Sl[i];
+        }
         OT(z);
     }
 }
