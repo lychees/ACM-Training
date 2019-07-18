@@ -29,9 +29,15 @@ using namespace std;
 #define MP(A, B) make_pair(A, B)
 #define Ts *this
 #define rTs return Ts
-
+template<class T> inline T min(T a, T b, T c){return min(min(a, b), c);}
+template<class T> inline T max(T a, T b, T c){return max(max(a, b), c);}
+template<class T> inline T min(T a, T b, T c, T d){return min(min(a, b), min(c, d));}
+template<class T> inline T max(T a, T b, T c, T d){return max(max(a, b), max(c, d));}
+template<class T> inline T min(T a, T b, T c, T d, T e){return min(min(min(a,b),min(c,d)),e);}
+template<class T> inline T max(T a, T b, T c, T d, T e){return max(max(max(a,b),max(c,d)),e);}
 typedef long long LL;
 typedef double DB;
+const DB OO = 1e20;
 const DB EPS = 1e-9;
 template<class T> inline T sqr(T a){return a*a;}
 inline int sgn(DB x){return x < -EPS ? -1 : x > EPS;}
@@ -68,7 +74,7 @@ inline int sgn(DB x, DB y){return sgn(x - y);}
         Po&rot(DB a,cPo o=Po()){Ts-=o;Ts*=Po(cos(a),sin(a));rTs+=o;}
 
 
-        // æ±‚æ‰€åœ¨è±¡é™ï¼Œå¤§éƒ¨åˆ†æƒ…å†µä¸‹åªåŒºåˆ†ä¸¤ä¸ªè¶³å¤Ÿã€‚
+        // ÇóËùÔÚÏóÏŞ£¬´ó²¿·ÖÇé¿öÏÂÖ»Çø·ÖÁ½¸ö×ã¹»¡£
         inline int q()const{
             return (y > 0 || y == 0 && x >= 0) ? 0 : 1;
             /*if (x > 0 && y >= 0) return 0;
@@ -137,7 +143,7 @@ inline int sgn(DB x, DB y){return sgn(x - y);}
         }
         void getEquation(DB&A,DB&B,DB&C)const{A=a.y-b.y,B=b.x-a.x,C=det(a, b);}
 
-        Line&push(DB r){ // æ­£æ•°å³æ‰‹èºæ—‹å‘é‡Œ
+        Line&push(DB r){ // ÕıÊıÓÒÊÖÂİĞıÏòÀï
             Po v=d()._1().lt()*r;a+=v,b+=v; rTs;
         }
     };
@@ -172,12 +178,12 @@ inline int sgn(DB x, DB y){return sgn(x - y);}
         inline int sgn(cSeg l)const;
     };
 
-    // -1ä¸ç›¸äº¤ 0ç›¸äº¤ï¼ˆä¸è§„èŒƒï¼‰ 1ç›¸äº¤ï¼ˆè§„èŒƒï¼‰
+    // -1²»Ïà½» 0Ïà½»£¨²»¹æ·¶£© 1Ïà½»£¨¹æ·¶£©
 
     //inline int Seg::sgn(cPo p)const{return -dott(p,a,b);}
 
     inline int Seg::sgn(cPo p)const{
-        if (dett(p, a, b)) return -1; // æœ‰æ—¶ä¼šæœ‰ç²¾åº¦è¯¯å·®ã€‚ã€‚
+        if (dett(p, a, b)) return -1; // ÓĞÊ±»áÓĞ¾«¶ÈÎó²î¡£¡£
         if (a == p || b == p) return 0;
         return -dott(p,a,b);
     }
@@ -236,12 +242,12 @@ class CutCutCut {
 public:
 	vector <int> findPieces(vector <int> X1, vector <int> Y1, vector <int> X2, vector <int> Y2, int Q) {
 
-		vector <int> res = 0;
+		vector <int> res;
 		int z = 1;
 		REP(i, Q) {
 		    ++z;
 		    REP(j, i) if (Seg(X1[i], Y1[i], X2[i], Y2[i]).sgn(
-                        Seg(X1[j], Y1[j], X2[j], Y2[j]))) ++z;
+                        Seg(X1[j], Y1[j], X2[j], Y2[j])) > 0 ) ++z;
             res.PB(z);
 		}
 

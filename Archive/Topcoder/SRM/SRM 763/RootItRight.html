@@ -1,0 +1,60 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are given an undirected tree on <b>N</b> nodes, numbered from 0 to <b>N</b>-1.
+Each node x has some value V[x].
+Below we define how to compute the cost of rooting the tree at some node r.
+Your task is to find the root for which that cost is minimized and to return that minimal cost.
+</p>
+<p>
+When we root the tree at the node r, each node x will require some payment C[r,x].
+The cost of rooting the tree at r is the sum of C[r,x] over all x.
+The value C[r,x] is defined as follows:
+</p>
+<p>
+Let the nodes on the (unique) simple path from the root r to x be the nodes r = s<sub>0</sub>, s<sub>1</sub>, s<sub>2</sub>, ..., s<sub>k</sub> = x.
+Then, C[r,x] = V[s<sub>0</sub>] * 0 + V[s<sub>1</sub>] * 1 + ... + V[s<sub>k</sub>] * k.
+</p>
+<br></br>
+<p>
+You are given the int <b>N</b>,
+the vector &lt;int&gt;s <b>edge</b> and <b>val</b>, and the ints <b>D</b>, <b>seed</b>, and <b>MX</b>.
+Use the pseudocode below to generate the edges of the tree and the values of all its nodes.
+</p>
+<pre>
+A[0] = seed
+for i = 1 to 2*N-1:
+    A[i] = (A[i-1] * 1103515245 + 12345) modulo 2147483648
+
+E = edge
+for i = size(edge) to N-1:
+    E[i] = (A[i] modulo min(i,D)) + i - min(i,D) 
+
+for i = 1 to N-1:
+    the tree contains an edge between i and E[i]
+
+V = val
+for i = size(val) to N-1:
+    V[i] = A[N+i] modulo MX
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RootItRight</td></tr><tr><td>Method:</td><td>findMinimumTotalCost</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, int, int, int</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long findMinimumTotalCost(int N, vector &lt;int&gt; edge, vector &lt;int&gt; val, int D, int seed, int MX)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Be careful to avoid potential overflows.</td></tr><tr><td align="center" valign="top">-</td><td>The reference solution would correctly solve any case that matches the constraints. It does not depend on the properties of the pseudorandom generator.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in <b>edge</b> will between 1 and min(<b>N</b>, 100), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>edge</b>[0] will be equal to -1.</td></tr><tr><td align="center" valign="top">-</td><td>For i &gt; 0, <b>edge</b>[i] will be between 0 and i-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in <b>val</b> will between 0 and min(<b>N</b>, 100), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>val</b> will be between 0 and <b>MX</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>D</b> will be between 1 and 200,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2,147,483,647, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>MX</b> will  be between 1 and 1,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{-1,0,1,2}</pre></td></tr><tr><td><pre>{4,3,3,4}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 18</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The tree is a path 0-1-2-3.
+If we root it at 0 or 3, the cost is 33.
+If we root it at 1 or 2, the cost is only 18.
+Thus, the correct return value is 18.
+</p>
+<p>
+When we root the tree at node 1, the payments for the individual nodes are as follows:
+</p>
+<ul>
+<li>C[1,0] = 3*0 + 4*1 = 4</li>
+<li>C[1,1] = 3*0 = 0</li>
+<li>C[1,2] = 3*0 + 3*1 = 3</li>
+<li>C[1,3] = 3*0 + 3*1 + 4*2 = 11</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{-1,0,0,0}</pre></td></tr><tr><td><pre>{3,2,3,0}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This tree is a star with node 0 in the center. Node 0 is also the optimal root. The payments are C[0,0] = 0, C[0,1] = 2, C[0,2] = 3, and C[0,3] = 0, thus the total cost of rooting the tree at node 0 is 0+2+3+0 = 5.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{-1,0,0,1,3}</pre></td></tr><tr><td><pre>{5,0,3,2,3}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>6</pre></td></tr></table></td></tr><tr><td><pre>Returns: 20</pre></td></tr><tr><td><table><tr><td colspan="2">Again, an optimal root for this tree is node 0. The total cost is the sum of the following payments:
+<ul>
+<li>C[0,0] = 5*0 = 0</li>
+<li>C[0,1] = 5*0 + 0*1 = 0</li>
+<li>C[0,2] = 5*0 + 3*1 = 3</li>
+<li>C[0,3] = 5*0 + 0*1 + 2*2 = 4</li>
+<li>C[0,4] = 5*0 + 0*1 + 2*2 + 3*3 = 13</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>17</pre></td></tr><tr><td><pre>{-1}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>7</pre></td></tr><tr><td><pre>176</pre></td></tr><tr><td><pre>15</pre></td></tr></table></td></tr><tr><td><pre>Returns: 620</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>200000</pre></td></tr><tr><td><pre>{-1,0,0,0}</pre></td></tr><tr><td><pre>{4,7}</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>0</pre></td></tr><tr><td><pre>1000</pre></td></tr></table></td></tr><tr><td><pre>Returns: 166346919874650680</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

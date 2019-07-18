@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are waiting at a bus station.
+</p>
+<p>
+There are n buses.
+Each of them stops at this station at regular intervals.
+You know the length of the interval for each bus, but you have no idea when the bus started running, so you do not know the offset.
+</p>
+<p>
+Formally, you are given a vector &lt;int&gt; <b>f</b> with n elements.
+For each valid index i, there is a bus labeled i which comes to your bus stop every <b>f</b>[i] minutes.
+Additionally, for each bus there is some hidden random <i>real</i> number x[i] such that the exact times when the bus arrives at the bus stop have the form x[i] + k*<b>f</b>[i] for all integers k.
+We assume that each x[i] was chosen uniformly at random from the half-open interval [0, <b>f</b>[i]), and that all x[i] are mutually independent.
+</p>
+<p>
+You just arrived at this bus stop.
+What is the expected value of the label of the next bus that will come to the station?
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>WaitingForBusAgain</td></tr><tr><td>Method:</td><td>expectedBus</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double expectedBus(vector &lt;int&gt; f)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Your answer will be accepted if your return value has an absolute or a relative error at most 1e-9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>f</b> will have between 1 and 1,000 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>f</b> will be between 1 and 1,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{8,8,8,8}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1.5</pre></td></tr><tr><td><table><tr><td colspan="2">The setting is symmetric, so all buses have equal probability to be the next bus that arrives. Thus, the answer is (0+1+2+3) / 4 = 1.5</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2,3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.5</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,2,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1.5000000000000002</pre></td></tr><tr><td><table><tr><td colspan="2">The answer is different from case 1 since the buses have different labels. The bus that has the smallest period now has the biggest label.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,1,4,1,5,9,2,6,5,3,5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.7044469870664325</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{26, 19548, 19299, 19431, 39568, 19476, 19726, 19530, 19613,
+19529, 19679, 19552, 19706, 19505, 19666, 19349, 19755, 19424,
+19486, 19596, 19439, 19500, 19639, 19520, 19472, 19675, 19602,
+19552, 19933, 19424, 19316, 19497, 19582, 19531, 19679, 19742,
+19896, 19365, 20083, 19542, 19827, 19583, 19592, 19593, 19661,
+19340, 19403, 19664, 19690, 19655, 19727, 19661, 19528, 19836,
+19819, 19414, 19770, 19500, 19653, 19613, 19579, 19794, 19668,
+19729, 19428, 19477, 19733, 19641, 19680, 19594, 19667, 19878,
+19571, 19627, 19576, 19422, 19521, 19512, 19481, 19620, 19364,
+19487, 19740, 19627, 19795, 19353, 19251, 19865, 19710, 19597,
+19610, 19710, 19491, 19598, 19650, 19828, 19726, 19810, 19766,
+19692}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3.1415926535671885</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

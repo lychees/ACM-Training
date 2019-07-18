@@ -476,6 +476,6 @@ int main(){
     freopen("/users/minakokojima/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    
+
     RD(n);
 }
