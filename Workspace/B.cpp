@@ -217,7 +217,8 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = int(1e9) + 7;
+//const int MOD = int(1e9) + 7;
+const int MOD = 998244353;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -308,12 +309,7 @@ namespace BO{
 
 // <<= '2. Number Theory .,//{
 namespace NT{
-//#define gcd __gcd
-  //  inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-    inline LL gcd(LL a, LL b) {
-        if (b == 0) return a;
-        return gcd(b, a%b);
-    }
+
     inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
     inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
@@ -456,7 +452,7 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    printf("Case #%d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -468,34 +464,60 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(3e3) + 9;
-Int L[N][N], R[N][N];
-int M[N][N];
-int a[N];
-int n;
+#include<bits/stdc++.h>
+using namespace std;
 
-int main(){
+#define RI register int
+const int mod=998244353,G=3,N=2100000;
+int n;
+int a[N],b[N],c[N],rev[N];
+int ksm(int x,int y) {
+    int z=1;
+    for(;y;y>>=1,x=1LL*x*x%mod) if(y&1) z=1LL*z*x%mod;
+    return z;
+}
+void NTT(int *a,int n,int x) {
+    for(RI i=0;i<n;++i) if(i<rev[i]) swap(a[i],a[rev[i]]);
+    for(RI i=1;i<n;i<<=1) {
+        RI gn=ksm(G,(mod-1)/(i<<1));
+        for(RI j=0;j<n;j+=(i<<1)) {
+            RI t1,t2,g=1;
+            for(RI k=0;k<i;++k,g=1LL*g*gn%mod) {
+                t1=a[j+k],t2=1LL*g*a[j+k+i]%mod;
+                a[j+k]=(t1+t2)%mod,a[j+k+i]=(t1-t2+mod)%mod;
+            }
+        }
+    }
+    if(x==1) return;
+    int ny=ksm(n,mod-2); reverse(a+1,a+n);
+    for(RI i=0;i<n;++i) a[i]=1LL*a[i]*ny%mod;
+}
+void work(int deg,int *a,int *b) {
+    if(deg==1) {b[0]=ksm(a[0],mod-2);return;}
+    work((deg+1)>>1,a,b);
+    RI len=0,orz=1;
+    while(orz<(deg<<1)) orz<<=1,++len;
+    for(RI i=1;i<orz;++i) rev[i]=(rev[i>>1]>>1)|((i&1)<<(len-1));
+    for(RI i=0;i<deg;++i) c[i]=a[i];
+    for(RI i=deg;i<orz;++i) c[i]=0;
+    NTT(c,orz,1),NTT(b,orz,1);
+    for(RI i=0;i<orz;++i)
+        b[i]=1LL*(2-1LL*c[i]*b[i]%mod+mod)%mod*b[i]%mod;
+    NTT(b,orz,-1);
+    for(RI i=deg;i<orz;++i) b[i]=0;
+}
+int main()
+{
+
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("/users/minakokojima/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    Rush{
-        RD(n); REP(i, n) RD(a[i]);
-        REP(i, n) {
-            L[i][i] = 0; M[i][i] = i;
-            FOR(j, i+1, n) {
-                M[i][j] = a[j] > a[M[i][j-1]] ? j : M[i][j-1];
-                L[i][j] = L[i][j-1] + a[M[i][j]] - a[j];
-            }
-        }
-        DWN(j, n, 0) {
-            R[j][j] = 0;
-            DWN(i, j, 0) {
-                R[i][j] = R[i+1][j] + a[M[i][j]] - a[i];
-            }
-        }
-        Int z = 0;
-        REP(i, n) FOR(j, i, n) z += L[i][M[i][j]] + R[M[i][j]][j];
-        OT(z);
-    }
+
+
+    n=read();
+    for(RI i=0;i<n;++i) a[i]=read();
+    work(n,a,b);
+    for(RI i=0;i<n;++i) printf("%d ",b[i]);
+    return 0;
 }

@@ -685,18 +685,14 @@ inline void find_center(int u, int p = -1){
 
 inline void stat(bool ADD = 1){
 
-
+    //REP(i, nn) cout << A[i] << " "; cout << endl;
     FFT(A); REP(i, nn) A[i] *= A[i];
     FFT(A, -1);
 
-
-
     if (ADD){
-            REP(i, nn) cout << nearbyint(A[i].re/nn) << " "; cout << endl;
         REP(i, nn) Count[i] += nearbyint(A[i].re/nn);
     }
     else {
-        REP(i, nn) cout << nearbyint(A[i].re/nn) << " "; cout << endl;
         REP(i, nn) Count[i] -= nearbyint(A[i].re/nn);
     }
 
@@ -732,10 +728,7 @@ int main(){
 
     //REP(i, n) cout << Count[i] << " "; cout << endl;
 
-    DB z = 0; REP(i, n) {
-        cout << Count[i] << " ";
-        z += (DB)Count[i] / (i+1);
-    }
+    DB z = 0; REP(i, n) z += (DB)Count[i] / (i+1);
     cout << z << endl;
 
     // 1 //
