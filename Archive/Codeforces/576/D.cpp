@@ -607,102 +607,26 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}
 
 //}/* .................................................................................................................................. */
+const int N = int(50);
 
-const int RN = int(50);
-
-vector<int> Px, Py;
-
-struct Rect {
-    int x0, y0, x1, y1;
-    void in() {
-        RD(x0, y0, x1, y1); ++x1, ++y1;
-        Px.PB(x0); Px.PB(x1);
-        Py.PB(y0); Py.PB(y1);
-    }
-} R[RN];
+int dp[N][N][N][N];
 int n, m;
-
-struct Network_Flow{
-    const static int N = 209, M = 2*N*N;
-
-    int D[N], hd[N], suc[M], to[M], cap[M];
-    int n, m, s, t;
-
-    inline void ae(int x, int y, int c){
-        suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
-        suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = 0;
-    }
-
-    inline void aee(int x, int y, int c){
-        suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
-        suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = c;
-    }
-
-    #define v to[i]
-    #define c cap[i]
-    #define f cap[i^1]
-
-    bool bfs(){
-        static int Q[N]; int cz = 0, op = 1;
-        fill(D, D+n, 0), D[Q[0] = s] = 1; while (cz < op){
-            int u = Q[cz++]; REP_G(i, u) if (!D[v]&&c){
-                D[Q[op++]=v] = D[u]+1;
-                if (v==t) return 1;
-            }
-        }
-        return 0;
-    }
-
-    LL Dinitz(){
-        LL z=0; while (bfs()){
-            static int cur[N], pre[N];
-            int u=s;pre[s]=-1;cur[s]=hd[s];while (~u){
-    #define i cur[u]
-                if (u==t){
-                    int d=INF;for(u=s;u!=t;u=v)checkMin(d,c);
-                    z+=d;for(u=s;u!=t;u=v)f+=d,c-=d;u=s;
-                }
-    #undef i
-                int i;for(i=cur[u];i;i=suc[i])if(D[u]+1==D[v]&&c){cur[u]=i,cur[v]=hd[v],pre[v]=u,u=v;break;}
-                if (!i)D[u]=0,u=pre[u];
-            }
-        }
-        return z;
-    }
-    #undef f
-    #undef c
-    #undef v
-
-    void init() {
-        int nx = SZ(Px)-1, ny = SZ(Py)-1;
-        n = nx + ny; m = 2; s = n++, t = n++;
-        fill(hd, hd+n, 0);
-        REP(i, nx) ae(s, i, Px[i+1]-Px[i]);
-        REP(i, ny) ae(nx+i, t, Py[i+1]-Py[i]);
-
-        set<int> Edge;
-
-        REP(i, ::m) {
-            int xl = BSC(Px, R[i].x0), xr = BSC(Px, R[i].x1);
-            int yl = BSC(Py, R[i].y0), yr = BSC(Py, R[i].y1);
-            FOR(xi, xl, xr) FOR(yi, yl, yr) {
-                if (!CTN(Edge, xi*nx+yi)) {
-                    ae(xi, nx+yi, INF);
-                    Edge.insert(xi*nx+yi);
-                }
-            }
-        }
-    }
-
-} G;
-
 
 int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
 #endif
-    RD(n, m); REP(i, m) R[i].in(); UNQ(Px); UNQ(Py);
-    G.init();
-    cout << G.Dinitz() << endl;
+    RD(n); m = n; FLC(dp, 0x3f);
+    REP(x, n) REP(y, m) dp[x][y][x][y] = RC() == '#' ? 1 : 0;
+
+    REP_1(w, n) REP_1(h, n) REP(x0, n-w+1) REP(y0, m-h+1){
+        int x1 = x0 + w - 1, y1 = y0 + h - 1;
+        int &u = dp[x0][y0][x1][y1];
+        checkMin(u, max(w, h));
+        FOR(x, x0, x1) checkMin(u, dp[x0][y0][x][y1] + dp[x+1][y0][x1][y1]);
+        FOR(y, y0, y1) checkMin(u, dp[x0][y0][x1][y] + dp[x0][y+1][x1][y1]);
+    }
+
+    printf("%d\n", dp[0][0][n-1][m-1]);
 }

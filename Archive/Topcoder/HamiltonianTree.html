@@ -1,0 +1,48 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are given a string describing the left-to-right depth-first traversal of a rooted tree: 'D' is a step down (to a new child) and 'U' is a step up.
+The tree is almost binary: the root of the tree has <i>at least</i> two children and each other inner node has <i>exactly</i> two children.
+</p>
+<p>
+The nodes of the tree are numbered from 0 to N-1, for some appropriate N.
+The nodes are numbered in order of being discovered by the traversal, with 0 being the root.
+</p>
+<p>
+Use the given <b>seed</b> to generate a pseudorandom sequence:
+</p>
+<ul>
+<li>a[0] = <b>seed</b> (this value will remain unused)</li>
+<li>for each i &gt;= 1: a[i] = (a[i-1] * 1103515245 + 12345) modulo 2^31</li>
+</ul>
+<p>
+The edges of the tree can be traversed in either direction. 
+For each i between 1 and N-1, inclusive, the cost of traversing the edge between node i and its parent (in either direction) is (a[i] div 2^21).
+</p>
+<p>
+The leaves of the tree can be ordered from left to right.
+This is a cyclic order, i.e., the leftmost and the rightmost leaf are also considered adjacent in this order.
+In addition to traveling along the edges of the tree, you are also able to jump from any leaf to one of its two neighbors in this cyclic order.
+You may make as many of these jumps as you want.
+The cost of each jump is <b>jumpCost</b>.
+</p>
+<p>
+You want to visit each node exactly once and return to where you started -- i.e., you want to traverse some Hamiltonian cycle.
+Suppose we order all possible Hamiltonian cycles by their total cost (starting with smallest) and break ties lexicographically.
+Determine and return the sequence of nodes visited by the <b>index</b>-th Hamiltonian cycle in this order.
+</p>
+<p>
+The numbering starts from 1.
+I.e., for <b>index</b> = 1 you are supposed to return the lexicographically smallest among all cheapest Hamiltonian cycles.
+If there is no Hamiltonian cycle for the given index, return an empty vector &lt;int&gt; instead.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>HamiltonianTree</td></tr><tr><td>Method:</td><td>construct</td></tr><tr><td>Parameters:</td><td>string, int, int, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; construct(string dfs, int seed, int jumpCost, int index)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>If the Hamiltonian cycle we seek exists, the return value should contain exactly N values. Do not append the starting node twice.</td></tr><tr><td align="center" valign="top">-</td><td>Two Hamiltonian cycles are distinct if they would produce distinct outputs.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 3 and 250, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>dfs</b> will contain 2*(N-1) characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>dfs</b> will be 'D' or 'U'.</td></tr><tr><td align="center" valign="top">-</td><td><b>dfs</b> will be a valid traversal of a tree with the properties given in the problem statement.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>jumpCost</b> will be between 0 and 1023, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>index</b> will be between 1 and 10^9, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;DUDU&quot;</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>500</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 0, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This is the smallest valid tree. The edge between 0 and 1 has traversal cost 155 and the edge between 0 and 2 has traversal cost 125.
+</p>
+<p>
+Each of the 3! = 6 permutations of nodes is valid and has the same total cost of traversing. Thus, output for <b>index</b> = 3 is the third smallest permutation of {0, 1, 2}.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;DUDU&quot;</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>500</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: { }</pre></td></tr><tr><td><table><tr><td colspan="2">A tree with 3 nodes can have at most 3! = 6 different Hamiltonian cycles.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;DUDUDUDU&quot;</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>500</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 0, 4, 3, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+This tree has root = 0 with four children labeled 1, 2, 3, 4 from left to right.
+The costs of traversing the corresponding edges are {155, 125, 496, 76}.
+</p>
+<p>
+The cheapest way to traverse this tree has total cost 1731.
+The lexicographically smallest permutation that corresponds to this cost is {0, 1, 2, 3, 4}, the second smallest is {0, 4, 3, 2, 1}, and the third smallest is {1, 0, 4, 3, 2}.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;DUDUDUDU&quot;</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>500</pre></td></tr><tr><td><pre>17</pre></td></tr></table></td></tr><tr><td><pre>Returns: {3, 2, 0, 1, 4 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;DDDUDUUDUUDUDUDDUDUU&quot;</pre></td></tr><tr><td><pre>4747</pre></td></tr><tr><td><pre>10</pre></td></tr><tr><td><pre>45</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 5, 4, 2, 3, 10, 8, 9, 7, 6 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
