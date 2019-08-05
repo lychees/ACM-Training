@@ -599,102 +599,83 @@ inline char* RS(char *s){
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case %d: %d\n", ++Case, x);
-    //printf("%lld ", x);
-    printf("%.6f\n", x);
-    //cout << x << endl;
-    //last_ans = x;
+    //printf("%lld\n", x);
+    //printf("%.6f\n", x);
+    cout << x << endl;
+    last_ans = x;
 }
 //}
 
 //}/* .................................................................................................................................. */
 
-const int RN = int(50);
+const int N = int(4*2e5) + 9;
 
-vector<int> Px, Py;
+#define lx (x<<1)
+#define rx (lx|1)
+#define ml (l+r>>1)
+#define mr (ml+1)
+#define lc lx, l, ml
+#define rc rx, mr, r
+#define xx x, l, r
+#define rt 1, 1, n
 
-struct Rect {
-    int x0, y0, x1, y1;
+struct rec{
+    LL mx, mn, ls, rs, ss;
+    LL d; // delay, lazy tag
+} T[N];
+
+int A[N], a, b, n; LL t, d, v;
+
+void mark(int x, LL d) {
+    T[x].mx += d; T[x].mn -= 2*d;
+    T[x].ls -= d; T[x].rs -= d;
+    T[x].d += d;
+}
+
+void rls(int x) {
+    mark(lx, T[x].d); mark(rx, T[x].d);
+    T[x].d = 0;
+}
+
+void upd(int x) {
+    T[x].mx = max(T[lx].mx, T[rx].mx);
+    T[x].mn = max(T[lx].mn, T[rx].mn);
+    T[x].ls = max({T[lx].ls, T[rx].rs, T[lx].mx + T[rx].mn});
+    T[x].rs = max({T[lx].rs, T[rx].rs, T[lx].mn + T[rx].mx});
+    T[x].ss = max({T[lx].ss, T[rx].ss, T[lx].ss + T[rx].mx, T[lx].mx + T[rx].ss});
+}
+
+void Modify(int x, int l, int r){
+    if (a <= l && r <= b){
+        mark(x, d);
+    }
+    else{
+        rls(x);
+        if (a < mr) Modify(lc);
+        if (ml < b) Modify(rc);
+        upd(x);
+    }
+}
+
+struct Edge {
+    int a, b; LL w;
     void in() {
-        RD(x0, y0, x1, y1); ++x1, ++y1;
-        Px.PB(x0); Px.PB(x1);
-        Py.PB(y0); Py.PB(y1);
+        RD(a, b, w);
     }
-} R[RN];
-int n, m;
+} E[N];
+VI adj[N]; int st[N], ed[N];
 
-struct Network_Flow{
-    const static int N = 209, M = 2*N*N;
-
-    int D[N], hd[N], suc[M], to[M], cap[M];
-    int n, m, s, t;
-
-    inline void ae(int x, int y, int c){
-        suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
-        suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = 0;
+void dfs(int u = 1, int p = -1) {
+    st[p] = t++;
+    for (int i: adj[u]) if (i != p) {
+        int v = E[i].a ^ E[i].b ^ u;
+        dfs(v, i);
+        a = st[i], b = ed[i]-1, d = E[i].w;
+        Modify(rt);
     }
+    ed[p] = t;
+}
 
-    inline void aee(int x, int y, int c){
-        suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
-        suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = c;
-    }
-
-    #define v to[i]
-    #define c cap[i]
-    #define f cap[i^1]
-
-    bool bfs(){
-        static int Q[N]; int cz = 0, op = 1;
-        fill(D, D+n, 0), D[Q[0] = s] = 1; while (cz < op){
-            int u = Q[cz++]; REP_G(i, u) if (!D[v]&&c){
-                D[Q[op++]=v] = D[u]+1;
-                if (v==t) return 1;
-            }
-        }
-        return 0;
-    }
-
-    LL Dinitz(){
-        LL z=0; while (bfs()){
-            static int cur[N], pre[N];
-            int u=s;pre[s]=-1;cur[s]=hd[s];while (~u){
-    #define i cur[u]
-                if (u==t){
-                    int d=INF;for(u=s;u!=t;u=v)checkMin(d,c);
-                    z+=d;for(u=s;u!=t;u=v)f+=d,c-=d;u=s;
-                }
-    #undef i
-                int i;for(i=cur[u];i;i=suc[i])if(D[u]+1==D[v]&&c){cur[u]=i,cur[v]=hd[v],pre[v]=u,u=v;break;}
-                if (!i)D[u]=0,u=pre[u];
-            }
-        }
-        return z;
-    }
-    #undef f
-    #undef c
-    #undef v
-
-    void init() {
-        int nx = SZ(Px)-1, ny = SZ(Py)-1;
-        n = nx + ny; m = 2; s = n++, t = n++;
-        fill(hd, hd+n, 0);
-        REP(i, nx) ae(s, i, Px[i+1]-Px[i]);
-        REP(i, ny) ae(nx+i, t, Py[i+1]-Py[i]);
-
-        set<int> Edge;
-
-        REP(i, ::m) {
-            int xl = BSC(Px, R[i].x0), xr = BSC(Px, R[i].x1);
-            int yl = BSC(Py, R[i].y0), yr = BSC(Py, R[i].y1);
-            FOR(xi, xl, xr) FOR(yi, yl, yr) {
-                if (!CTN(Edge, xi*nx+yi)) {
-                    ae(xi, nx+yi, INF);
-                    Edge.insert(xi*nx+yi);
-                }
-            }
-        }
-    }
-
-} G;
 
 
 int main() {
@@ -702,7 +683,25 @@ int main() {
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
 #endif
-    RD(n, m); REP(i, m) R[i].in(); UNQ(Px); UNQ(Py);
-    G.init();
-    cout << G.Dinitz() << endl;
+
+    int q; LL w; RD(n, q, w);
+    REP(i, n-1) {
+        E[i].in();
+        adj[E[i].a].PB(i);
+        adj[E[i].b].PB(i);
+    }
+
+    dfs();
+
+    DO(q) {
+        RD(t, v);
+        cout << t << " " << v << endl;
+        a = ((LL)a + last_ans) % (n-1);
+        v = (v + last_ans) % w;
+        a = st[t], b = ed[t]-1;
+        d = v - E[t].w;
+        Modify(rt);
+        E[t].w = v;
+        OT(T[1].ss);
+    }
 }
