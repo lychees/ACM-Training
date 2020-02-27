@@ -96,16 +96,16 @@ using namespace std;
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-  REP(i, n){		                            \
+  REP(i, n){                                    \
         REP(j, m-1) cout << A[i][j] << " ";     \
-        cout << A[i][m-1] << endl;		        \
-	}						                    \
+        cout << A[i][m-1] << endl;                \
+    }                                            \
 }
 #define Display_1(A, n, m) {                    \
-	REP_1(i, n){		                        \
+    REP_1(i, n){                                \
         REP_1(j, m-1) cout << A[i][j] << " ";   \
-        cout << A[i][m] << endl;		        \
-	}						                    \
+        cout << A[i][m] << endl;                \
+    }                                            \
 }
 
 typedef long long LL;
@@ -307,8 +307,8 @@ inline int count_bits(LL x){return __builtin_popcountll(x);}
 
 // <<= '2. Number Theory .,//{
 namespace NT{
-#define gcd __gcd
-inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
+//#define gcd __gcd
+//inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
@@ -466,14 +466,30 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e5) + 9;
 
+int h[N], l[N], r[N]; stack<int> s;
 int n;
 
-int main(){
+int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RD(n);
+    while (RD(n)) {
+        REP_1(i, n) RD(h[i]); h[0] = h[n+1] = -1; // 0 -> RE
+        
+        CLR(s); s.push(0); REP_1(i, n){
+            while (h[i] <= h[s.top()]) s.pop();
+            l[i] = s.top();
+            s.push(i);
+        }
+        CLR(s); s.push(n+1); DWN_1(i, n, 1){
+            while (h[i] <= h[s.top()]) s.pop();
+            r[i] = s.top();
+            s.push(i);
+        }
+
+        LL z = 0; REP_1(i, n) checkMax(z, (LL)h[i]*(r[i]-l[i]-1)); OT(z);
+    }
 }
