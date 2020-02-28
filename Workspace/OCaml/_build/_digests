@@ -1,0 +1,5 @@
+"Rule: ocaml: ml -> d.cmo & cmi (%=main )": "\\\255\255q\220\161\007\020$a?Cp\212\251\168"
+"Rule: ocaml: ml -> cmo & cmi (%=main )": ",\254\006#\172\227\252\128\000-\253\005S\000R\005"
+"Rule: ocaml dependencies ml (%=main )": ",\238\r9\019C\199\194\n\182\000 \017\"}\239"
+"Resource: /Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/OCaml/main.ml": "\018L\1726AT\228\145(\129n\021\026\169\200\030"
+"Rule: ocaml: d.cmo* -> d.byte (%=main )": "\163z+\005\014\170<\138s\161\190*%\192\190!"

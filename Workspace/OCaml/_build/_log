@@ -1,0 +1,10 @@
+### Starting build.
+# Target: main.ml.depends, tags: { extension:ml, file:main.ml, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules main.ml > main.ml.depends
+# Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
+ocamlfind ocamlc -c -o main.cmo main.ml
+# Target: main.d.cmo, tags: { byte, compile, debug, extension:cmo, extension:ml, file:main.d.cmo, file:main.ml, implem, ocaml, quiet }
+ocamlfind ocamlc -c -g -o main.d.cmo main.ml
+# Target: main.d.byte, tags: { byte, debug, dont_link_with, extension:byte, file:main.d.byte, link, ocaml, program, quiet }
+ocamlfind ocamlc -linkpkg -g main.d.cmo -o main.d.byte
+# Compilation successful.
