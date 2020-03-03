@@ -510,30 +510,46 @@ inline int dist(int x, int y) {
 
 namespace Virtual_Tree {
     VI adj[N]; int sta[N], top; bool bj[N];
-    int dp[N];
+    LL dp[N]; int sz[N], nn; int min_dist, diameter;
 
-    bool dfs(int u) {
-        int child = 0;
-        for (auto v: adj[u]) {
-            if (bj[u] && bj[v] && dist(u, v) == 1) return 0;
-            if (!dfs(v)) return 0;
-            if (bj[v]) ++child;
-            dp[u] += dp[v];
-        }
-        if (!bj[u]) {
-            if (child >= 2) {
-                dp[u] += 1;
-            } else if (child == 1) {
-                bj[u] = 1;
+    PII dfs(int u) {
+
+        int f0 = 0, f1 = 0, d0 = INF, d1 = INF;
+        sz[u] = bj[u];
+
+        //for (auto v: adj[u]) {
+        ECH(it, adj[u]) {
+            int v = *it;
+            PII t = dfs(v); int w = dep[v]-dep[u]; int f = t.fi, d = t.se;
+
+            dp[u] += dp[v] + (LL)w*sz[v]*(nn-sz[v]);
+            sz[u] += sz[v];
+
+            f += w; d += w;
+
+            if (f >= f0) {
+                f1 = f0;
+                f0 = f;
+            } else if (f >= f1) {
+                f1 = f;
             }
-        } else {
-            dp[u] += child;
+
+            if (d <= d0) {
+                d1 = d0;
+                d0 = d;
+            } else if (d <= d1){
+                d1 = d;
+            }
         }
-        return 1;
+        //cout << " " << u << " " << f0 << " " << d0 << endl;
+
+        checkMin(min_dist, bj[u] ? d0 : d0 + d1);
+        checkMax(diameter, f0 + f1);
+        return {f0, bj[u]?0:d0};
     }
 
     void gao() {
-        VI T; Rush {
+        VI T; DO(RD(nn)) {
             int x; RD(x); bj[x] = 1;
             T.PB(x);
         }
@@ -544,16 +560,19 @@ namespace Virtual_Tree {
         UNQ(T, cmp); top = 0; REP(i, SZ(T)) {
             int u = T[i];
             while (top && lfn[sta[top]] < dfn[u]) --top;
-            if (top) adj[sta[top]].PB(u); sta[++top] = u;
+            if (top) {
+                    adj[sta[top]].PB(u);
+                    //cout << sta[top] << " " << u << endl;
+            }
+            sta[++top] = u;
         }
 
-        if (!dfs(T[0])) {
-            puts("-1");
-        } else {
-            printf("%d\n", dp[T[0]]);
-        }
-        for (auto u: T) {
-            adj[u].clear(), bj[u] = dp[u] = 0;
+        min_dist = INF; diameter = 0;
+        dfs(T[0]); printf("%lld %d %d\n", dp[T[0]], min_dist, diameter);
+        //for (auto u: T)
+        ECH(it, T) {
+            int u = *it;
+            adj[u].clear(), bj[u] = dp[u] = sz[u] = 0;
         }
     }
 }
@@ -566,7 +585,7 @@ int main() {
 #endif
 
     DO(RD(n)-1) {
-        int x, y; RD(x, y);
+        int x, y, w; RD(x, y);
         adj[x].PB(y);
         adj[y].PB(x);
     }
