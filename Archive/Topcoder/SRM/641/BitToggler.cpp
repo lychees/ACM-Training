@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <cassert>
 
 using namespace std;
 
@@ -22,7 +23,7 @@ using namespace std;
 #define CLR(A) A.clear()
 #define CPY(A, B) memcpy(A, B, sizeof(A))
 #define INS(A, P, B) A.insert(A.begin() + P, B)
-#define ERS(A, P) A.erase(A.begin() + P) 
+#define ERS(A, P) A.erase(A.begin() + P)
 #define SRT(A) sort(ALL(A))
 #define SZ(A) int(A.size())
 #define PB push_back
@@ -37,10 +38,14 @@ template<class T> inline void FLC(T &A, int x){memset(A, x, sizeof(A));}
 template<class T> inline void checkMin(T &a, T b){if (b<a) a=b;}
 template<class T> inline void checkMax(T &a, T b){if (b>a) a=b;}
 
-/* -&$&#*( &#*@)^$@&*)*/
-
 const int MOD = 1000000007;
 const int INF = 0x7fffffff;
+const DB EPS = 1e-9;
+
+inline int sgn(DB x){return x < -EPS ? -1 : x > EPS;}
+inline int sgn(DB x, DB y){return sgn(x - y);}
+
+/* -&$&#*( &#*@)^$@&*)*/
 
 const int N = 109, M = N;
 DB A[N][M], B[N];
@@ -48,7 +53,7 @@ int n;
 
 void Gauss() {
     REP(i, n) {
-        
+
         int ii = i;
         FOR(j, i+1, n) {
             if (fabs(A[j][i]) > fabs(A[ii][i])) {
@@ -59,11 +64,11 @@ void Gauss() {
             REP(j, n) swap(A[i][j], A[ii][j]);
             swap(B[i], B[ii]);
         }
-        
+
         DB &r = A[i][i]; assert(sgn(r));
         FOR(j, i+1, n) A[i][j] /= r;
         B[i] /= r; r = 1;
-        
+
         REP(j, n) {
             if (i == j) continue;
             DB &r = A[j][i]; if (!sgn(r)) continue;
@@ -73,20 +78,53 @@ void Gauss() {
     }
 }
 
+int nn, cn;
 
+// xi: The expectation times of pass in the end.
+// c: How many outside points need to be toggle
+// a: is b[i] != b[j]
+// b: is current at i?
+
+inline int g(int c,int a,int b) {
+    return 2*(2*c + a)+ b;
+}
+
+DB gao(string b, int p) {
+    DB z = 0; REP(i, nn) REP(j, nn) if (i != j) {
+        int ci = 0;
+        REP(k, nn) if (k != i && k != j) {
+            if (b[i]^b[k]) ++ci;
+        }
+        z += B[g(ci,b[i]!=b[j],p==i)]*abs(i-j);
+    }
+    return z;
+}
 
 class BitToggler {
 public:
-	vector <double> expectation(int n, vector <string> bits, vector <int> pos) {	
-		
+	vector <double> expectation(int nn, vector <string> bits, vector <int> pos) {
+	    ::nn = nn; cn = nn-2; n = g(cn, 1, 1)+1;
+        RST(A); RST(B);
 
-		
+	    REP(c, cn+1) REP(a, 2) REP(b, 2) {
+            int u = g(c,a,b); A[u][u] = nn;
+            if (c || a) {
+                if (b) B[u] = 1;
+                if (c) A[u][g(c-1,a,0)] = -c;
+                if (cn-c) A[u][g(c+1,a,0)] = -(cn-c);
+                A[u][g(c,a^1,0)] = -1; // ->j
+                A[u][g(cn-c,a^1,1)] = -1; // ->i
+            }
+	    }
 
+	    /*REP(i, n) {
+	        REP(j, n) cout << A[i][j] << " ";
+	        cout << " = ";
+	        cout << B[i] << endl;
+	    }*/
 
-
-		vector <double> res = 0;
-
-		
+	    if (cn >= 0) Gauss();
+		vector <double> res; REP(i, SZ(pos)) res.PB(gao(bits[i], pos[i]));
 		return res;
 	}
 };
@@ -102,7 +140,7 @@ namespace moj_harness {
 			}
 			return;
 		}
-		
+
 		int correct = 0, total = 0;
 		for (int i=0;; ++i) {
 			int x = run_test_case(i);
@@ -113,7 +151,7 @@ namespace moj_harness {
 			correct += x;
 			++total;
 		}
-		
+
 		if (total == 0) {
 			cerr << "No test cases run." << endl;
 		} else if (correct < total) {
@@ -122,29 +160,29 @@ namespace moj_harness {
 			cerr << "All " << total << " tests passed!" << endl;
 		}
 	}
-	
+
 	static const double MAX_DOUBLE_ERROR = 1e-9; static bool topcoder_fequ(double expected, double result) { if (isnan(expected)) { return isnan(result); } else if (isinf(expected)) { if (expected > 0) { return result > 0 && isinf(result); } else { return result < 0 && isinf(result); } } else if (isnan(result) || isinf(result)) { return false; } else if (fabs(result - expected) < MAX_DOUBLE_ERROR) { return true; } else { double mmin = min(expected * (1.0 - MAX_DOUBLE_ERROR), expected * (1.0 + MAX_DOUBLE_ERROR)); double mmax = max(expected * (1.0 - MAX_DOUBLE_ERROR), expected * (1.0 + MAX_DOUBLE_ERROR)); return result > mmin && result < mmax; } }
 	double moj_relative_error(double expected, double result) { if (isnan(expected) || isinf(expected) || isnan(result) || isinf(result) || expected == 0) return 0; return fabs(result-expected) / fabs(expected); }
 	static bool topcoder_fequ(const vector<double> &a, const vector<double> &b) { if (a.size() != b.size()) return false; for (size_t i=0; i<a.size(); ++i) if (!topcoder_fequ(a[i], b[i])) return false; return true; }
 	double moj_relative_error(const vector<double> &expected, const vector<double> &result) { double ret = 0.0; for (size_t i=0; i<expected.size(); ++i) { ret = max(ret, moj_relative_error(expected[i], result[i])); } return ret; }
-	
+
 	template<typename T> ostream& operator<<(ostream &os, const vector<T> &v) { os << "{"; for (typename vector<T>::const_iterator vi=v.begin(); vi!=v.end(); ++vi) { if (vi != v.begin()) os << ","; os << " " << *vi; } os << " }"; return os; }
 
-	int verify_case(int casenum, const vector <double> &expected, const vector <double> &received, clock_t elapsed) { 
-		cerr << "Example " << casenum << "... "; 
-		
+	int verify_case(int casenum, const vector <double> &expected, const vector <double> &received, clock_t elapsed) {
+		cerr << "Example " << casenum << "... ";
+
 		string verdict;
 		vector<string> info;
 		char buf[100];
-		
+
 		if (elapsed > CLOCKS_PER_SEC / 200) {
 			sprintf(buf, "time %.2fs", elapsed * (1.0/CLOCKS_PER_SEC));
 			info.push_back(buf);
 		}
-		
+
 		if (topcoder_fequ(expected, received)) {
 			verdict = "PASSED";
-			double rerr = moj_relative_error(expected, received); 
+			double rerr = moj_relative_error(expected, received);
 			if (rerr > 0) {
 				sprintf(buf, "relative error %.3e", rerr);
 				info.push_back(buf);
@@ -152,7 +190,7 @@ namespace moj_harness {
 		} else {
 			verdict = "FAILED";
 		}
-		
+
 		cerr << verdict;
 		if (!info.empty()) {
 			cerr << " (";
@@ -163,12 +201,12 @@ namespace moj_harness {
 			cerr << ")";
 		}
 		cerr << endl;
-		
+
 		if (verdict == "FAILED") {
-			cerr << "    Expected: " << expected << endl; 
-			cerr << "    Received: " << received << endl; 
+			cerr << "    Expected: " << expected << endl;
+			cerr << "    Received: " << received << endl;
 		}
-		
+
 		return verdict == "PASSED";
 	}
 
