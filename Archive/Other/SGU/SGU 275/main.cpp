@@ -310,17 +310,19 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}/* .................................................................................................................................. */
 
 const int M = 63;
-LL b[M];
+LL b[M]; int n;
 
 int main() {
 
 #ifndef ONLINE_JUDGE
-    freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-    
+
     Rush {
-        LL a; RD(a); DWN(i, M, 0) if ((a>>i)&1) {
+        LL a; RD(a);
+        DWN(i, M, 0) if ((a>>i)&1) {
+        //REP(i, M) if ((a>>i)&1) {
             if (b[i]) {
                 a ^= b[i];
             } else {
@@ -330,7 +332,28 @@ int main() {
         }
     }
 
+    REP(i, M) {
+        FOR(j, i+1, M) if ((b[j]>>i)&1) {
+            b[j] ^= b[i];
+        }
+    }
+
+
+    /*REP(i, 10) {
+        REP(j, 10) {
+            if ((b[i]>>j)&1) {
+                putchar('1');
+            } else {
+                putchar('0');
+            }
+        }
+        puts("");
+    }*/
+
     LL z = 0;
-    DWN(i, M, 0) checkMax(z, z^b[i]);
+    DWN(i, M, 0) {
+        z ^= b[i];
+    }
+    //checkMax(z, z^b[i]);
     cout << z << endl;
 }
