@@ -216,15 +216,16 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = int(1e9) + 7;
+//const int MOD = int(1e9) + 7;
+const int MOD = int(1e9) + 1;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
-const int dx[] = {-1, 1, 0, 0};
-const int dy[] = {0, 0, 1, -1};
+const int dx[] = {-2, -2, -1, -1, 1, 1, 2, 2};
+const int dy[] = {-1, 1, -2, 2, -2, 2, -1, 1};
 
 //}
 
@@ -456,113 +457,74 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
-    printf("%.9f\n", x);
+    //printf("%.9f\n", x);
     //printf("%d\n", x);
-    //cout << x << endl;
+    cout << x << endl;
     //last_ans = x;
 }
 
 
 
 //}/* .................................................................................................................................. */
+const int N = (1e5) + 9, M = 12;
 
-class MinCostFlow {
-public:
-  struct Result {
-    int flow, cost;
-  };
+vector<PII> I;
 
-  MinCostFlow(int n, int m = 0) : visited(n), head(n, -1), dist(n), prev(n) {
-    edges.reserve(m << 1);
-  }
+int f(int n){
 
-  void add_edge(int u, int v, int capacity, int cost) {
-    internal_add_edge(u, v, capacity, cost);
-    internal_add_edge(v, u, 0, -cost);
-  }
+    static bool Map[N][M]; static Int F[2][1<<M];
 
-  Result augment(int src, int dst) {
-    const int infdist = std::numeric_limits<int>::max();
-    std::fill(dist.begin(), dist.end(), infdist);
-    dist[src] = 0;
-    std::queue<int> queue;
-    queue.push(src);
-    while (!queue.empty()) {
-      int u = queue.front();
-      queue.pop();
-      visited[u] = false;
-      for (int iter = head[u]; ~iter;) {
-        auto &e = edges[iter];
-        int v = e.v;
-        if (e.rest && dist[u] + e.cost < dist[v]) {
-          dist[v] = dist[u] + e.cost;
-          prev[v] = iter;
-          if (!visited[v]) {
-            visited[v] = true;
-            queue.push(v);
-          }
+    RST(Map); int r = 0, c = 0, x, xx;
+
+    for(r=0,x=1;x<=n;++r,x*=2){
+        int j; for (j=0,xx=x;xx<=n;++j,xx*=3) Map[r][j] = 1;
+        if (!c) c = j;
+    }
+
+    int p = 0, q = 1; RST(F[p]); F[p][0]=1;
+
+    REP_2(i, j, r, c){
+        if (!Map[i][j]) continue;
+        swap(p, q); RST(F[p]);
+#define u F[q][s]
+#define v0 F[p][s<<1&_U(c)]
+#define v1 F[p][s<<1|1&_U(c)]
+        REP(s, _1(c)) if (u){
+
+
+            v0 += u;
+            if (Map[i][j] && (!j || !_1(s, 0))) v1 += u;
+            //cout << " " << u << " " << v0 << " " << v1 <<endl;
         }
-        iter = e.next;
-      }
     }
-    if (dist[dst] == infdist) {
-      return Result{0, 0};
+    //cout << n << endl;
+    Int z = 0; REP(s, _1(c)) {
+        //cout << s << " " << F[p][s] << endl;
+        z += F[p][s];
     }
-    for (int v = dst; v != src; v = edges[prev[v] ^ 1].v) {
-      edges[prev[v]].rest--;
-      edges[prev[v] ^ 1].rest++;
+    return z;
+}
+
+int ff(int n){
+    Int z = 1; REP_1(i, n) if(i % 2 && i % 3){
+        z *= (upper_bound(ALL(I), MP(n/i, INF))-1)->se;
     }
-    return Result{1, dist[dst]};
-  }
+    return z;
+}
 
-private:
-  struct Edge {
-    int v, next, rest, cost;
-  };
+void Init(){
+    for (int x=1;x<=N;x*=2){
+        for (int xx=x;xx<=N;xx*=3) I.PB(MP(xx, f(xx)));
+    }
+    SRT(I);
+}
 
-  void internal_add_edge(int u, int v, int capacity, int cost) {
-    edges.push_back(Edge{v, head[u], capacity, cost});
-    head[u] = edges.size() - 1;
-  }
-
-  std::vector<bool> visited;
-  std::vector<int> head, dist, prev;
-  std::vector<Edge> edges;
-};
-
-int n, m;
-
-int main() {
+int main(){
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
 
-  scanf("%d%d", &n, &m);
-  MinCostFlow net(n, m);
-  for (int i = 0, a, b, c; i < m; ++i) {
-    scanf("%d%d%d", &a, &b, &c);
-    net.add_edge(a - 1, b - 1, 1, c);
-  }
-  std::vector<int> ch(1);
-  int cost = 0;
-  while (true) {
-    auto result = net.augment(0, n - 1);
-    if (!result.flow) {
-      break;
-    }
-    ch.push_back(cost += result.cost);
-    cout << result.flow << " " << result.cost << endl;
-  }
-  int q, x;
-  scanf("%d", &q);
-  while (q--) {
-    scanf("%d", &x);
-    auto result = std::numeric_limits<double>::max();
-    for (int f = 1; f < static_cast<int>(ch.size()); ++f) {
-      result = std::min(result, 1.0 * (ch[f] + x) / f);
-    }
-    printf("%.9f\n", result);
-  }
+    Init(); Rush OT(ff(RD()));
 }

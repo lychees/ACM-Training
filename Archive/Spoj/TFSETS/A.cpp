@@ -217,7 +217,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 /** Constant List .. **/ //{
 
 //const int MOD = int(1e9) + 7;
-const int MOD = 998244353; //int(1e9) + 1;
+const int MOD = int(1e9) + 1;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -455,9 +455,9 @@ inline char* RS(char *s){
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
-    printf("%lld\n", x);
+    //printf("%lld\n", x);
     //printf("%I64d\n", x);
-    //printf("%.9f\n", x);
+    printf("%.9f\n", x);
     //printf("%d\n", x);
     //cout << x << endl;
     //last_ans = x;
@@ -466,40 +466,81 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 //}/* .................................................................................................................................. */
-const int N = int(5e5) + 9;
+const int L3 = 12;
+Int f[2][1<<L3];
+Int *f0, *f1;
+int b2, b3;
+VI a, l3; int n;
 
-VI adj[N]; MII trans[N];
-LL s[N], c[N];
-int n, m, nn;
+// https://yangjijingru.com/2018/02/06/BZOJ2734-HNOI2012-%E9%9B%86%E5%90%88%E9%80%89%E6%95%B0/
+
+map<int, Int> F;
+
+void gao(int x, int i) {
+
+    cout << "gao: " << x << " " << i << endl;
+    swap(f0, f1); int b = _1(i);
+
+    LL z = 0; REP(s, _1(L3)) {
+
+        if (s&b){
+
+            if (i && _1(s,i-1)) continue;
+            f1[s] = f0[s^b];
+        } else {
+            f1[s] = f0[s] + f0[s^b];
+        }
+
+        if (f1[s])
+        cout << s << " " << f1[s] << endl;
+
+        z += f1[s];
+    }
+
+    F[x] = z;
+}
+
+// 1 3 9
+// 2 6
+// 4 12
+// 8
+
+
+
+
+void init() {
+    a.PB(1); l3.PB(0);
+    f0 = f[0]; f1 = f[1];
+    f1[0] = f1[1] = 1;
+
+    F[1] = 2;
+    while (true) {
+        int k = min(a[b2]*2, a[b3]*3);
+        //cout << " " << k << endl;
+        if (k > n) break;
+        int l;
+        if (a[b2]*2 == k) l = l3[b2++];
+        if (a[b3]*3 == k) l = l3[b3++] + 1;
+        a.PB(k); l3.PB(l); gao(k, l);
+    }
+}
 
 int main(){
 
+    // {}, {1} ,{2}
+    // {}, {1} ,{2}, {3}, {2,3}
+    // {}, {1} ,{2}, {3}, {2,3},  {4},{1,4},{3,4}
+
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
 
-    Rush {
-        RD(n, m); REP_1(i, n) adj[i].clear(), RD(c[i]);
-        trans[nn = 0].clear();
+    RD(n); init();
 
-        DO(m) {
-            int x, y; RD(x, y);
-            adj[y].PB(x);
-        }
-
-        REP_1(y, n) {
-            SRT(adj[y]);
-            int u = 0;
-#define v trans[u][x]
-            for (auto x: adj[y]) {
-                if (!v) trans[v = ++nn].clear(), s[nn] = 0;
-                u = v;
-            }
-            s[u] += c[y];
-        }
-
-        LL d = 0; REP_1(i, nn) d = gcd(d, s[i]);
-        OT(d);
+    Int z = 1; REP_1(i, n) if (i%2 && i%3) {
+        cout << i << " " << n/i << " " <<F[n/i] << endl;
+        z *= F[n/i];
     }
+    cout << z << endl;
 }
