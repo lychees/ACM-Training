@@ -217,7 +217,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 /** Constant List .. **/ //{
 
 //const int MOD = int(1e9) + 7;
-const int MOD = 998244353; //int(1e9) + 1;
+const int MOD = 10007; //998244353; //int(1e9) + 1;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -467,55 +467,85 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e4) + 9;
-VI adj[N]; string s;
-int f0[N],f1[N]; // 不取, 取 or 不取
-bool g0[N],g1[N]; // 是否唯一
-int n, p;
+const int MAXN = 50010;
+const int MAXK = 510;
+//const f80 MI = f80(1)/MOD;
+//const f80 MI = f80(1)/MOD;
+//const int INF = 100001;
 
-void dfs(int u = 0, int p = -1) {
-#define v (*it)
-    ECH(it, adj[u]) if (v != p) {
-        dfs(v, u);
-        f0[u] += f1[v]; g0[u] &= g1[v];
-        f1[u] += f0[v]; g1[u] &= g0[v];
-    }
-    f1[u] += 1;
-    if (f1[u] < f0[u]) {
-        f1[u] = f0[u];
-        g1[u] = g0[u];
-    } else if (f1[u] == f0[u]) {
-        g1[u] = 0;
+Int S[MAXK][MAXK];
+int n, k;
+
+VI v[MAXN];
+Int f[MAXN][MAXK], g[MAXN][MAXK];
+
+void dfs1(int x, int p)
+{
+    f[x][0] = 1;
+    for (int i = 1; i <= k; ++ i)
+        f[x][i] = 0;
+    for (auto y : v[x])
+    {
+        if (y == p) continue;
+        dfs1(y, x);
+        for (int i = 0; i <= k; ++ i)
+            (f[x][i] += f[y][i]+i*f[y][i-1]);
     }
 }
 
-map<string, int> H;
-
-int h(const string s) {
-    if (!CTN(H, s)) {
-        int t = SZ(H);
-        H[s] = t;
+void dfs2(int x, int p)
+{
+    if (!p)
+    {
+        for (int i = 0; i <= k; ++ i)
+            g[x][i] = f[x][i];
     }
-    return H[s];
+    for (auto y : v[x])
+    {
+        if (y == p) continue;
+        g[y][0] = g[x][0];
+        for (int i = 1; i <= k; ++ i)
+        {
+            Int g1 = (g[x][i]-(f[y][i]+i*f[y][i-1]));
+
+            Int g2 = (g[x][i-1]-(f[y][i-1]+(i-1)*(i-2 >= 0 ? f[y][i-2] : Int(0))));
+            g[y][i] = (f[y][i]+g1+i*g2);
+        }
+        dfs2(y, x);
+    }
 }
 
-int main() {
+int main()
+{
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
 
-    while (RD(n)) {
-        REP(i, n) f0[i] = f1[i] = 0, g0[i] = g1[i] = 1, adj[i].clear();
-        H.clear(); cin >> s; DO (n-1) {
-            cin >> s; int x = h(s);
-            cin >> s; int y = h(s);
-            adj[x].PB(y);
-            adj[y].PB(x);
+    S[0][0] = 1;
+    FOR(i, 1, MAXK) REP_1(j, i) S[i][j] = S[i-1][j-1]+S[i-1][j]*j;
+
+    Rush {
+        RD(n, k);
+        for (int i = 1; i <= n; ++ i)
+            v[i].clear();
+        for (int i = 1; i < n; ++ i)
+        {
+            int x, y; RD(x, y);
+            v[x].push_back(y);
+            v[y].push_back(x);
         }
-        dfs();
-        printf("%d ", f1[0]);
-        puts(g1[0] ? "Yes" : "No");
+        dfs1(1, 0);
+        dfs2(1, 0);
+        for (int x = 1; x <= n; ++ x)
+        {
+            int ret = 0;
+            for (int i = 0; i <= k; ++ i)
+                (ret += S[k][i]*g[x][i]) %= MOD;
+            printf("%d\n", (ret+MOD)%MOD);
+        }
     }
+
+    return 0;
 }

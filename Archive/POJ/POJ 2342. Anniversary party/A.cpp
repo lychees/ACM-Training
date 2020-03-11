@@ -217,7 +217,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 /** Constant List .. **/ //{
 
 //const int MOD = int(1e9) + 7;
-const int MOD = 10007; //998244353; //int(1e9) + 1;
+const int MOD = 998244353; //int(1e9) + 1;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -314,7 +314,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* Ê®°Êï∞‰∏§ÂÄçÂàöÂ•ΩË∂Ö int Êó∂„ÄÇ
+/* ƒ£ ˝¡Ω±∂∏’∫√≥¨ int  ±°£
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -467,45 +467,19 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(5e4) + 9;
-VI adj[N]; bool vis[N];
-int f0[2][N], f1[2][N];
+const int N = int(1e4) + 9;
+VI adj[N];
+int f0[N], f1[N]; // ≤ª»°, »°
 int n, p;
 
-int dfs(int u = 0, int p = -1) { // back to
-    int z = -1, is_circle_tail = 0; vis[u] = true;
+void dfs(int u = 0, int p = -1) {
 #define v (*it)
     ECH(it, adj[u]) if (v != p) {
-        if (vis[v]) {
-            is_circle_tail = true;
-            z = v;
-        } else {
-            int t = dfs(v, u);
-            if (t ^ u) {
-                REP(i, 2) {
-                    f0[i][u] += f1[i][v];
-                    f1[i][u] += f0[i][v];
-                }
-                z = t;
-            } else {
-                REP(i, 2) {
-                    f0[i][u] += max(f1[1][v], f1[i][v]);
-                    f1[i][u] += f0[i][v];
-                }
-            }
-        }
+        dfs(v, u);
+        f0[u] += f1[v];
+        f1[u] += f0[v];
     }
-
-    if (is_circle_tail) {
-        f1[0][u] = -INF;
-    }
-
-    REP(i, 2) {
-        f1[i][u] += 1;
-        checkMax(f1[i][u], f0[i][u]);
-    }
-
-    return z;
+    checkMax(f1[u], f0[u]);
 }
 
 int main() {
@@ -515,12 +489,15 @@ int main() {
     //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n); Rush {
-        int x, y; RD(x, y); --x, --y;
-        adj[x].PB(y);
-        adj[y].PB(x);
-    }
+    while (RD(n)) {
+        REP(i, n) RDD(f1[i]), f0[i] = 0, adj[i].clear();
 
-    dfs();
-    cout << f1[0][0] << endl;
+        DO (n-1) {
+            int x, y; RD(x, y); --x; --y;
+            adj[x].PB(y);
+            adj[y].PB(x);
+        }
+        dfs();
+        cout << f1[0] << endl;
+    }
 }
