@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Limak is a polar bear who often chats online with his friends.
+Nowadays, bears often use emoticons to express their feelings.
+In this problem we consider one particular emoticon: the crying emoticon.</p>
+<br></br>
+<p>A crying emoticon consists of an arbitrary positive number of underscores between two semicolons.
+Hence, the shortest possible crying emoticon is ";_;" (quotes for clarity).
+The strings ";__;" and ";_____________;" are also valid crying emoticons.</p>
+<br></br>
+<p>Today Limak is sad, so he sent his friend a sequence of crying emoticons.
+However, due to a network malfunction all those emoticons got mixed together into a single string.</p>
+<br></br>
+<p>You are given a string <b>message</b> containing the message Limak's friend received.
+You guess that the message can be divided into one or more crying emoticons.
+Each emoticon must be a <i>subsequence</i> of the message, and each character of the message must belong to exactly one emoticon.
+Note that the subsequences are <i>not</i> required to be contiguous.</p>
+<br></br>
+<p>Let X be the number of ways in which one can divide the given message into emoticons.
+Compute and return the value (X modulo 1,000,000,007).</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BearCries</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(string message)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>message</b> will contain between 1 and 200 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>message</b> will be either semicolon or underscore.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;;_;;_____;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">There are two ways to divide this string into two crying emoticons.
+One looks as follows:
+<pre>
+ ;_;
+    ;_____;
+</pre>
+and the other looks like this:
+<pre>
+ ;_ ;
+   ; _____;
+</pre></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;;;;___;;;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 36</pre></td></tr><tr><td><table><tr><td colspan="2">This message consists of 3 semicolons, 3 underscores and 3 semicolons again.
+Clearly, we have to divide this message into exactly three crying emoticons, each with a single underscore.
+There are 36 different ways to do so.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;_;__;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">As this message begins with an underscore, it clearly cannot be divided into one or more crying emoticons: each crying emoticon starts with a semicolon.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;;_____________________________________;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;;__;____;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;;_;;__;_;;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 52</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

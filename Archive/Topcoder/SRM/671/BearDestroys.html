@@ -1,0 +1,59 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Limak is a big grizzly bear.
+He is now going to destroy an entire forest.</p>
+<br></br>
+<p>Limak's forest is a rectangular grid that consists of <b>W</b> columns by <b>H</b> rows of cells.
+At the beginning a single tree grows in each cell.
+The forest is aligned with the major compass directions: row numbers increase towards the South and column numbers increase towards the East.</p>
+<br></br>
+<p>Limak will destroy the forest by pushing some of the trees.
+Whenever Limak pushes a tree, the tree will fall down and remain lying both in the current cell and in the next cell in the direction in which it was pushed.
+For example, if Limak pushes the tree that grows in the cell (r,c) southwards, he will obtain a toppled tree that lies in the cells (r,c) and (r+1,c).</p>
+<br></br>
+<p>When pushing the trees, Limak always follows a few rules:
+<ul>
+<li>He only pushes trees in two directions: either southwards or eastwards.</li>
+<li>He will never push a tree in a way that would cause it to fall out of the forest. For example, he will never push a tree in the last column eastwards.</li>
+<li>He will never push a tree in a way that would produce two fallen trees lying on the same cell.</li>
+</ul></p>
+<br></br>
+<p>There is a single letter written on each of the trees.
+Each of these letters is either S or E (representing South and East, respectively).
+When pushing a tree, Limak will prefer the direction that is written on the tree.
+For example, if a tree has the letter S, Limak will push it southwards if possible.</p>
+<br></br>
+<p>Limak is going to visit each cell in the forest exactly once, in row major order.
+I.e., first he will visit all the cells in the first row from left to right, then the cells in the second row from left to right, and so on.
+In each cell he will act according to the following algorithm:</p>
+<br></br>
+<p><ol>
+<li>Is there a fallen tree in the current cell? If yes, there is no room here to do anything, so I'll just move to the next cell.</li>
+<li>Can I push the tree in the direction that is given by the letter written on the tree? If yes, I'll do so and move to the next cell.</li>
+<li>Can I push the tree in the other direction? If yes, I'll do so and move to the next cell.</li>
+<li>I'll move to the next cell without pushing the tree.</li>
+</ol></p>
+<br></br>
+<p>See Example 0 for a sample execution of Limak's algorithm.</p>
+<br></br>
+<p>You are given the ints <b>W</b>, <b>H</b>, and <b>MOD</b>.
+There are 2^(<b>W</b>*<b>H</b>) different forests with these dimensions.
+(Different forests have different assignments of letters S and E to the trees.)
+For each of these forests, compute the number of trees Limak would topple.
+Return the sum of those 2^(<b>W</b>*<b>H</b>) numbers, modulo <b>MOD</b>.</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BearDestroys</td></tr><tr><td>Method:</td><td>sumUp</td></tr><tr><td>Parameters:</td><td>int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int sumUp(int W, int H, int MOD)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>W</b> will be between 1 and 30, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>H</b> will be between 1 and 13, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>MOD</b> will be between 3 and 10^9, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>MOD</b> will be prime.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>999999937</pre></td></tr></table></td></tr><tr><td><pre>Returns: 24064</pre></td></tr><tr><td><table><tr><td colspan="2">There are 2^(4*3) = 2^12 = 4096 different forests with <b>W</b>=4 columns and <b>H</b>=3 rows. One of those forests looks as follows:
+
+<pre>
+SEEE
+ESSS
+EESS
+</pre>
+ 
+When destroying this forest, Limak will push five trees. In the scheme below, the final locations of the toppled trees are shown using the numbers 1 through 5. The trees are numbered in the order in which Limak pushed them. The two cells that do not contain a fallen tree at the end are denoted by underscores.
+
+<pre>
+1223
+1453
+_45_
+</pre>
+
+It can be shown that for these dimensions there are exactly 512 forests in which Limak would topple exactly 5 trees.
+In each of the remaining (4096-512) forests Limak would topple 6 trees.
+Thus, the return value is 512 * 5 + (4096-512) * 6.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>4</pre></td></tr><tr><td><pre>999999937</pre></td></tr></table></td></tr><tr><td><pre>Returns: 24576</pre></td></tr><tr><td><table><tr><td colspan="2">For these dimensions of the forest Limak will always topple exactly 6 trees. The return value is 6 * 2^12.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>20</pre></td></tr><tr><td><pre>2</pre></td></tr><tr><td><pre>584794877</pre></td></tr></table></td></tr><tr><td><pre>Returns: 190795689</pre></td></tr><tr><td><table><tr><td colspan="2">For these dimensions of the forest Limak will always topple exactly 20 trees. The return value is (20 * 2^40) modulo <b>MOD</b>.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>5</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>19</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>30</pre></td></tr><tr><td><pre>13</pre></td></tr><tr><td><pre>312880987</pre></td></tr></table></td></tr><tr><td><pre>Returns: 107607437</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
