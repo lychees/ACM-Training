@@ -16,13 +16,16 @@ using namespace std;
 #define REP(I, N) for (int I=0;I<int(N);++I)
 #define FOR(I, A, B) for (int I=int(A);I<int(B);++I)
 #define DWN(I, B, A) for (int I=int(B-1);I>=int(A);--I)
+#define REP_1(i, n) for (int i=1;i<=n;++i)
+#define FOR_1(i, a, b) for (int i=a;i<=b;++i)
+#define DWN_1(i, b, a) for (int i=b;i>=a;--i)
 #define ECH(it, A) for (typeof(A.begin()) it=A.begin(); it != A.end(); ++it)
 
 #define ALL(A) A.begin(), A.end()
 #define CLR(A) A.clear()
 #define CPY(A, B) memcpy(A, B, sizeof(A))
 #define INS(A, P, B) A.insert(A.begin() + P, B)
-#define ERS(A, P) A.erase(A.begin() + P) 
+#define ERS(A, P) A.erase(A.begin() + P)
 #define SRT(A) sort(ALL(A))
 #define SZ(A) int(A.size())
 #define PB push_back
@@ -42,22 +45,24 @@ template<class T> inline void checkMax(T &a, T b){if (b>a) a=b;}
 const int MOD = 1000000007;
 const int INF = 0x7fffffff;
 
-const int N = 50;
+const int N = 109;
 
+DB dp[N*N];
 
 class BeatTheStar {
 public:
-	double doesItMatter(int N, int G) {	
-		
-
-		
-
-
-
-		double res = 0;
-
-		
-		return res;
+	double doesItMatter(int n, int g) {
+	    int s = n*(n+1)/2;
+	    RST(dp); dp[0] = 1;
+        REP_1(i, n) if (i != g) {
+            DWN_1(j, s-i, 0) {
+                dp[j+i] += dp[j] * 0.5;
+                dp[j] = dp[j] * 0.5;
+            }
+	    }
+		DB z = 0;
+		FOR_1(i, s/2-g+1, s/2) z += dp[i];
+		return z;
 	}
 };
 
@@ -72,7 +77,7 @@ namespace moj_harness {
 			}
 			return;
 		}
-		
+
 		int correct = 0, total = 0;
 		for (int i=0;; ++i) {
 			int x = run_test_case(i);
@@ -83,7 +88,7 @@ namespace moj_harness {
 			correct += x;
 			++total;
 		}
-		
+
 		if (total == 0) {
 			cerr << "No test cases run." << endl;
 		} else if (correct < total) {
@@ -92,25 +97,25 @@ namespace moj_harness {
 			cerr << "All " << total << " tests passed!" << endl;
 		}
 	}
-	
+
 	static const double MAX_DOUBLE_ERROR = 1e-9; static bool topcoder_fequ(double expected, double result) { if (isnan(expected)) { return isnan(result); } else if (isinf(expected)) { if (expected > 0) { return result > 0 && isinf(result); } else { return result < 0 && isinf(result); } } else if (isnan(result) || isinf(result)) { return false; } else if (fabs(result - expected) < MAX_DOUBLE_ERROR) { return true; } else { double mmin = min(expected * (1.0 - MAX_DOUBLE_ERROR), expected * (1.0 + MAX_DOUBLE_ERROR)); double mmax = max(expected * (1.0 - MAX_DOUBLE_ERROR), expected * (1.0 + MAX_DOUBLE_ERROR)); return result > mmin && result < mmax; } }
 	double moj_relative_error(double expected, double result) { if (isnan(expected) || isinf(expected) || isnan(result) || isinf(result) || expected == 0) return 0; return fabs(result-expected) / fabs(expected); }
-	
-	int verify_case(int casenum, const double &expected, const double &received, clock_t elapsed) { 
-		cerr << "Example " << casenum << "... "; 
-		
+
+	int verify_case(int casenum, const double &expected, const double &received, clock_t elapsed) {
+		cerr << "Example " << casenum << "... ";
+
 		string verdict;
 		vector<string> info;
 		char buf[100];
-		
+
 		if (elapsed > CLOCKS_PER_SEC / 200) {
 			sprintf(buf, "time %.2fs", elapsed * (1.0/CLOCKS_PER_SEC));
 			info.push_back(buf);
 		}
-		
+
 		if (topcoder_fequ(expected, received)) {
 			verdict = "PASSED";
-			double rerr = moj_relative_error(expected, received); 
+			double rerr = moj_relative_error(expected, received);
 			if (rerr > 0) {
 				sprintf(buf, "relative error %.3e", rerr);
 				info.push_back(buf);
@@ -118,7 +123,7 @@ namespace moj_harness {
 		} else {
 			verdict = "FAILED";
 		}
-		
+
 		cerr << verdict;
 		if (!info.empty()) {
 			cerr << " (";
@@ -129,12 +134,12 @@ namespace moj_harness {
 			cerr << ")";
 		}
 		cerr << endl;
-		
+
 		if (verdict == "FAILED") {
-			cerr << "    Expected: " << expected << endl; 
-			cerr << "    Received: " << received << endl; 
+			cerr << "    Expected: " << expected << endl;
+			cerr << "    Received: " << received << endl;
 		}
-		
+
 		return verdict == "PASSED";
 	}
 
