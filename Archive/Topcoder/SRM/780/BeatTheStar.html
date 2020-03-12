@@ -1,0 +1,28 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+<i>Beat the Star</i> is a TV game show franchise started by the German original <i>Schlag den Raab</i>.
+In the game show a candidate attempts to beat a celebrity in a series of games.
+There are <b>N</b> games, numbered 1 to <b>N</b>.
+Each game has a winner and a loser.
+The winner of game X is awarded X points.
+The winner of the game show is the player (either the celebrity or the candidate) whose point total at the end is bigger.
+</p>
+<p>
+In this problem we will make two simplifying assumptions (in comparison to the actual show):
+</p>
+<ul>
+<li><b>N</b> will be such that the total number of points is odd, so that we do not have to handle ties.</li>
+<li>We will assume that all games always get played, even if the final winner is already known by that point.</li>
+</ul>
+<p>
+You are soon going to take part in the game show as the candidate.
+The celebrity you'll compete against happens to be your twin.
+When trying to find an edge that would help you in the game, you watched many episodes of the show and you realized that the early games matter even less than it seems.
+Hence, you could save your strength by giving up some of the early games with the hope that this will help you beat your twin in the later games that are worth more points.
+</p>
+<p>
+In this problem we want you to analyze how much each of the individual games matters.
+More precisely, we ask the following question:
+Assume that in each game each player wins with probability 50 percent.
+What is the probability that at the end game number <b>G</b> actually matters?
+(Given the full results of the show, game <b>G</b> matters if changing the winner of <b>G</b> would change the winner of the show.)
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BeatTheStar</td></tr><tr><td>Method:</td><td>doesItMatter</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double doesItMatter(int N, int G)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The return value must have an absolute error at most 1e-9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 100, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be such that the total number of points in the show is odd.</td></tr><tr><td align="center" valign="top">-</td><td><b>G</b> will be between 1 and <b>N</b>, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.0</pre></td></tr><tr><td><table><tr><td colspan="2">There are two games: game 1 awards one point and game 2 awards two. In this setting, game 1 does not matter <i>at all</i>: the winner of game 2 wins the show.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.625</pre></td></tr><tr><td><table><tr><td colspan="2">If there are five games, game 5 matters quite often so winning it is crucial.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.125</pre></td></tr><tr><td><table><tr><td colspan="2">Game 1 matters much less.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.125</pre></td></tr><tr><td><table><tr><td colspan="2">Perhaps quite surprisingly, even though game 2 is worth twice as many points as game 1, in this particular format their importance is exactly the same.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>9</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0.328125</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

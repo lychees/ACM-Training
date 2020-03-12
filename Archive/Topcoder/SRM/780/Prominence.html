@@ -1,0 +1,66 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+In topography, the <i>prominence</i> of a mountain is defined as its height relative to the lowest contour line encircling it but containing no higher summit within it.
+In other words:
+</p>
+<ul>
+<li>The prominence of each tallest mountain is equal to its height.</li>
+<li>For any non-tallest mountain M of height h, its prominence is the largest x with the following property: If you start at the top of mountain M and never reach the altitude h-x, you cannot walk to the top of any mountain that is strictly taller than M.</li>
+</ul>
+<p>
+In this problem we have a 2-dimensional mountain range: a polyline that goes from the left to the right. 
+The range is described by the vector &lt;int&gt; H.
+The vertices of the polyline are the points (i, H[i]) for i = 0 to <b>N</b>-1.
+We assume that these are the only mountains in the world.
+</p>
+<p>
+A peak in the mountain range is any point such that from that point we go strictly downwards in each possible direction.
+(Thus, peaks correspond to strict local maxima of H.)
+</p>
+<p>
+For each peak, calculate its prominence.
+Return the sum of all those prominences.
+</p>
+<p>
+Due to the limitations of our current platform, please use the pseudocode below to generate the array H.
+The symbol % represents the modulo operator.
+</p>
+<pre>
+for i = 0 .. N-1:
+    parity = i % 2
+    a = coef[3*parity]
+    b = coef[3*parity+1]
+    c = coef[3*parity+2]
+    H[i] = (((a*i + b) % 1000000007)*i + c) % 1000000007
+
+for j = 0 .. idx.length-1:
+    H[ idx[j] ] = val[j]
+</pre></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Prominence</td></tr><tr><td>Method:</td><td>sumOfProminences</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;, vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>long long</td></tr><tr><td>Method signature:</td><td>long long sumOfProminences(int N, vector &lt;int&gt; coef, vector &lt;int&gt; idx, vector &lt;int&gt; val)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The reference solution can efficiently solve any array of the given size.</td></tr><tr><td align="center" valign="top">-</td><td>Please use 64-bit integers in the code that generates H to avoid integer overflow.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 1,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>coef</b> will contain exactly 6 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>coef</b> will be between 0 and 1,000,000,006, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>idx</b> will contain between 0 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>idx</b> will be between 0 and <b>N</b>-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Elements of <b>idx</b> will be distinct.</td></tr><tr><td align="center" valign="top">-</td><td><b>val</b> will contain the same number of elements as <b>idx</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>val</b> will be between 0 and 1,000,000,006, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>7</pre></td></tr><tr><td><pre>{0, 0, 47, 0, 0, 47}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+H = {47, 47, 47, 47, 47, 47, 47}
+</p>
+<p>
+There are no peaks.
+The sum of an empty set is zero.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>8</pre></td></tr><tr><td><pre>{0, 0, 47, 0, 0, 42}</pre></td></tr><tr><td><pre>{}</pre></td></tr><tr><td><pre>{}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 188</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+H = {47, 42, 47, 42, 47, 42, 47, 42}
+</p>
+<p>
+There are four peaks. Each of them has prominence 47.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>{0, 0, 0, 0, 0, 0}</pre></td></tr><tr><td><pre>{0, 1, 2, 3, 4, 5, 6, 7, 9, 8}</pre></td></tr><tr><td><pre>{500, 300, 400, 200, 400, 700, 100, 300, 300, 100}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1500</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+H = {500, 300, 400, 200, 400, 700, 100, 300, 100, 300}
+</p>
+<p>
+Peaks correspond to indices 0, 2, 5, 7, and 9.
+Their prominences are 300, 100, 700, 200, and 200.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>16</pre></td></tr><tr><td><pre>{123456789, 234567890, 345678901, 456789012, 567890123, 678901234}</pre></td></tr><tr><td><pre>{7}</pre></td></tr><tr><td><pre>{890123456}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4543586810</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+H = {345678901, 703580362, 308641830, 493672669, 259259064, 938077051, 197530603, 890123456, 123456447, 789822019, 37036596, 197162605, 938271057, 258815266, 827159816, 974780002}.
+</p>
+<p>
+The peaks in this mountain range, going left to right, have prominences  444321298,
+ 185030839,
+ 901040455,
+ 692592853,
+ 666365572,
+ 679455791, and
+ 974780002.
+</p>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

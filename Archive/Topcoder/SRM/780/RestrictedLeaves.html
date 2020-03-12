@@ -1,0 +1,36 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Given is a rooted tree on N &gt;= 4 vertices.
+The vertices are labeled 0 through N-1 in such a way that the parent always has a smaller number than its child.
+(Hence, vertex 0 is the root.)
+</p>
+<p>
+The tree is such that each vertex that is not a leaf has at least two children.
+</p>
+<p>
+The leaves of this tree can be ordered by running a depth-first search from the root.
+During the depth-first search, each vertex will visit its children ordered from the smallest to the largest label.
+</p>
+<p>
+We will now define a new undirected graph G.
+Informally, G is obtained by drawing the tree and then drawing a cycle through all leaves of the tree, in their DFS order.
+More formally, the new graph G has the same vertices as the tree, and two vertices are considered adjacent in G if:
+</p>
+<ul>
+<li>They are a parent and its child in the tree.</li>
+<li>They are two leaves who are adjacent in the DFS order of all leaves.</li>
+<li>They are the first and the last leaf in the DFS order of all leaves.</li>
+</ul>
+<p>
+You are given a description of the tree: the vector &lt;int&gt; <b>parent</b> with N elements.
+Element 0 of <b>parent</b> is -1 and should be ignored.
+For each i &gt; 0, <b>parent</b>[i] is the parent of i in the tree.
+Count all independent sets (of all sizes) in the graph G described above. Return that count modulo 10^9 + 7.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>RestrictedLeaves</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(vector &lt;int&gt; parent)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>An independent set is a subset of vertices such that no two vertices in the subset are connected by an edge.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>parent</b> will contain between 4 and 1000 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>parent</b>[0] will be -1.</td></tr><tr><td align="center" valign="top">-</td><td>For each i &gt; 0, <b>parent</b>[i] will be between 0 and i-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The tree described by <b>parent</b> will have degrees as described by the problem statement.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-1, 0, 0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The tree is a star with 0 as the root and 1, 2, 3, 4 as the leaves. The DFS order of leaves is {1, 2, 3, 4}.
+</p>
+<p>
+Graph G contains the following edges: 0-1, 0-2, 0-3, 0-4, 1-2, 2-3, 3-4, 4-1.
+</p>
+<p>
+The eight independent sets of its vertices are the empty set, the five 1-element sets, and the sets {1,3} and {2,4}.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-1, 0, 0, 1, 2, 1, 2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 21</pre></td></tr><tr><td><table><tr><td colspan="2">The DFS order of leaves is {3,5,4,6}. In G there is one empty independent set, seven 1-element sets, eleven 2-element sets (all non-edges), and the sets {0,3,4} and {0,5,6}.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-1, 0, 0, 1, 2, 1, 2, 1, 4, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 75</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
