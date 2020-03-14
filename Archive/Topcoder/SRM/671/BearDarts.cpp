@@ -22,7 +22,7 @@ using namespace std;
 #define CLR(A) A.clear()
 #define CPY(A, B) memcpy(A, B, sizeof(A))
 #define INS(A, P, B) A.insert(A.begin() + P, B)
-#define ERS(A, P) A.erase(A.begin() + P) 
+#define ERS(A, P) A.erase(A.begin() + P)
 #define SRT(A) sort(ALL(A))
 #define SZ(A) int(A.size())
 #define PB push_back
@@ -47,16 +47,12 @@ const int N = 50;
 
 class BearDarts {
 public:
-	long long count(vector <int> w) {	
-		
+	long long count(vector <int> w) {
+	    int n = SZ(w);
 
-		
+	    REP(i, n)
 
 
-
-		long long res = 0;
-
-		
 		return res;
 	}
 };
@@ -72,7 +68,7 @@ namespace moj_harness {
 			}
 			return;
 		}
-		
+
 		int correct = 0, total = 0;
 		for (int i=0;; ++i) {
 			int x = run_test_case(i);
@@ -83,7 +79,7 @@ namespace moj_harness {
 			correct += x;
 			++total;
 		}
-		
+
 		if (total == 0) {
 			cerr << "No test cases run." << endl;
 		} else if (correct < total) {
@@ -92,25 +88,25 @@ namespace moj_harness {
 			cerr << "All " << total << " tests passed!" << endl;
 		}
 	}
-	
-	int verify_case(int casenum, const long long &expected, const long long &received, clock_t elapsed) { 
-		cerr << "Example " << casenum << "... "; 
-		
+
+	int verify_case(int casenum, const long long &expected, const long long &received, clock_t elapsed) {
+		cerr << "Example " << casenum << "... ";
+
 		string verdict;
 		vector<string> info;
 		char buf[100];
-		
+
 		if (elapsed > CLOCKS_PER_SEC / 200) {
 			sprintf(buf, "time %.2fs", elapsed * (1.0/CLOCKS_PER_SEC));
 			info.push_back(buf);
 		}
-		
+
 		if (expected == received) {
 			verdict = "PASSED";
 		} else {
 			verdict = "FAILED";
 		}
-		
+
 		cerr << verdict;
 		if (!info.empty()) {
 			cerr << " (";
@@ -121,12 +117,12 @@ namespace moj_harness {
 			cerr << ")";
 		}
 		cerr << endl;
-		
+
 		if (verdict == "FAILED") {
-			cerr << "    Expected: " << expected << endl; 
-			cerr << "    Received: " << received << endl; 
+			cerr << "    Expected: " << expected << endl;
+			cerr << "    Received: " << received << endl;
 		}
-		
+
 		return verdict == "PASSED";
 	}
 

@@ -54,7 +54,7 @@ public:
 	double doesItMatter(int n, int g) {
 	    int s = n*(n+1)/2;
 	    RST(dp); dp[0] = 1;
-        REP_1(i, n) if (i != g) {
+	    REP_1(i, n) if (i != g) {
             DWN_1(j, s-i, 0) {
                 dp[j+i] += dp[j] * 0.5;
                 dp[j] = dp[j] * 0.5;
