@@ -216,16 +216,15 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-//const int MOD = int(1e9) + 7;
-const int MOD = 10007; //998244353; //int(1e9) + 1;
+const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
-const int dx[] = {-2, -2, -1, -1, 1, 1, 2, 2};
-const int dy[] = {-1, 1, -2, 2, -2, 2, -1, 1};
+const int dx[] = {-1, 1, 0, 0};
+const int dy[] = {0, 0, 1, -1};
 
 //}
 
@@ -243,7 +242,7 @@ template<class T> inline T min(T a, T b, T c, T d, T e){return min(min(min(a,b),
 template<class T> inline T max(T a, T b, T c, T d, T e){return max(max(max(a,b),max(c,d)),e);}
 template<class T> inline T sqr(T a){return a*a;}
 template<class T> inline T cub(T a){return a*a*a;}
-template<class T> inline T ceil(T x, T y){return (x + y - 1) / y;}
+template<class T> inline T ceil(T x, T y){return (x - 1) / y + 1;}
 template<class T> T abs(T x){return x>0?x:-x;}
 inline int sgn(DB x){return x < -EPS ? -1 : x > EPS;}
 inline int sgn(DB x, DB y){return sgn(x - y);}
@@ -254,161 +253,6 @@ inline DB sec(DB x){return 1./cos(x);};
 inline DB csc(DB x){return 1./sin(x);};
 
 //}
-// <<= '1. Bitwise Operation ., //{
-namespace BO{
-
-inline bool _1(int x, int i){return bool(x&1<<i);}
-inline bool _1(LL x, int i){return bool(x&1LL<<i);}
-inline LL _1(int i){return 1LL<<i;}
-inline LL _U(int i){return _1(i) - 1;};
-
-inline int reverse_bits(int x){
-    x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
-    x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
-    x = ((x >> 4) & 0x0f0f0f0f) | ((x << 4) & 0xf0f0f0f0);
-    x = ((x >> 8) & 0x00ff00ff) | ((x << 8) & 0xff00ff00);
-    x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
-    return x;
-}
-
-inline LL reverse_bits(LL x){
-    x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
-    x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
-    x = ((x >> 4) & 0x0f0f0f0f0f0f0f0fLL) | ((x << 4) & 0xf0f0f0f0f0f0f0f0LL);
-    x = ((x >> 8) & 0x00ff00ff00ff00ffLL) | ((x << 8) & 0xff00ff00ff00ff00LL);
-    x = ((x >>16) & 0x0000ffff0000ffffLL) | ((x <<16) & 0xffff0000ffff0000LL);
-    x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
-    return x;
-}
-
-template<class T> inline bool odd(T x){return x&1;}
-template<class T> inline bool even(T x){return !odd(x);}
-template<class T> inline T low_bit(T x) {return x & -x;}
-template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
-template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
-template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
-
-inline int clz(int x){return __builtin_clz(x);}
-inline int clz(LL x){return __builtin_clzll(x);}
-inline int ctz(int x){return __builtin_ctz(x);}
-inline int ctz(LL x){return __builtin_ctzll(x);}
-inline int lg2(int x){return !x ? -1 : 31 - clz(x);}
-inline int lg2(LL x){return !x ? -1 : 63 - clz(x);}
-inline int low_idx(int x){return !x ? -1 : ctz(x);}
-inline int low_idx(LL x){return !x ? -1 : ctz(x);}
-inline int high_idx(int x){return lg2(x);}
-inline int high_idx(LL x){return lg2(x);}
-inline int parity(int x){return __builtin_parity(x);}
-inline int parity(LL x){return __builtin_parityll(x);}
-inline int count_bits(int x){return __builtin_popcount(x);}
-inline int count_bits(LL x){return __builtin_popcountll(x);}
-
-} using namespace BO;//}
-
-
-// <<= '2. Number Theory .,//{
-namespace NT{
-#define gcd __gcd
-inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-
-inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
-inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
-
-/* 模数两倍刚好超 int 时。
-inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
-inline void INC(int &a, int b){a = sum(a, b);}
-*/
-
-inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
-inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
-inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
-//inline int pdt(int a, int b){return (LL)a * b % MOD;}
-inline int pdt(int x,int y) {
-    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
-    return ret;
-}
-
-
-inline int gcd(int m, int n, int &x, int &y){
-
-    x = 1, y = 0; int xx = 0, yy = 1, q;
-
-    while (1){
-        q = m / n, m %= n;
-        if (!m){x = xx, y = yy; return n;}
-        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
-        q = n / m, n %= m;
-        if (!n) return m;
-        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
-    }
-}
-
-inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
-inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
-inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
-inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
-
-inline int pow(int a, LL b){
-    int c(1); while (b){
-        if (b&1) MUL(c, a);
-        MUL(a, a), b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, LL b){
-    T c(1); while (b){
-        if (b&1) c *= a;
-        a *= a, b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, int b){
-    return pow(a, (LL)b);
-}
-
-inline int _I(int b){
-    int a = MOD, x1 = 0, x2 = 1, q; while (1){
-        q = a / b, a %= b;
-        if (!a) return x2;
-        DEC(x1, pdt(q, x2));
-
-        q = b / a, b %= a;
-        if (!b) return x1;
-        DEC(x2, pdt(q, x1));
-    }
-}
-
-inline void DIV(int &a, int b){MUL(a, _I(b));}
-inline int qtt(int a, int b){return pdt(a, _I(b));}
-
-struct Int{
-    int val;
-
-    operator int() const{return val;}
-
-    Int(int _val = 0):val(_val){
-        val %= MOD; if (val < 0) val += MOD;
-    }
-    Int(LL _val):val(_val){
-        _val %= MOD; if (_val < 0) _val += MOD;
-        val = _val;
-    }
-
-    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
-    Int operator +(const int& rhs) const{return sum(val, rhs);}
-    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
-    Int operator -(const int& rhs) const{return dff(val, rhs);}
-    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
-    Int operator *(const int& rhs) const{return pdt(val, rhs);}
-    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
-    Int operator /(const int& rhs) const{return qtt(val, rhs);}
-    Int operator-()const{return MOD-*this;}
-};
-
-} using namespace NT;//}
-
 
 //}
 
@@ -433,7 +277,6 @@ template<class T> inline T& RDD(T &x){
 }
 inline DB& RF(DB &x){
     //scanf("%lf", &x);
-
     char c;while(g,c!='-'&&c!='.'&&!isdigit(c));
     if(c=='-')if(g=='.'){x=0;DB l=1;while(d)nn;x*=l;}
         else{x='0'-c;while(d)n;if(c=='.'){DB l=1;while(d)nn;x*=l;}}
@@ -455,58 +298,127 @@ inline char* RS(char *s){
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
-    printf("%lld\n", x);
+    //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
-    //printf("%d\n", x);
+    printf("%d\n", x);
     //cout << x << endl;
     //last_ans = x;
 }
 
 
-
 //}/* .................................................................................................................................. */
 
-const int N = int(5e4) + 9;
-VI adj[N]; bool vis[N];
-int f0[2][N], f1[2][N];
-int n, p;
+const int N = int(1e5) + 9;
+int a[N], l[N], r[N]; VI I;
+int n, z;
 
-int dfs(int u = 0, int p = -1) { // back to
-    int z = -1, is_circle_tail = 0; vis[u] = true;
-#define v (*it)
-    ECH(it, adj[u]) if (v != p) {
-        if (vis[v]) {
-            is_circle_tail = true;
-            z = v;
-        } else {
-            int t = dfs(v, u);
-            if (t ^ u) {
-                REP(i, 2) {
-                    f0[i][u] += f1[i][v];
-                    f1[i][u] += f0[i][v];
-                }
-                z = t;
-            } else {
-                REP(i, 2) {
-                    f0[i][u] += max(f1[1][v], f1[i][v]);
-                    f1[i][u] += f0[i][v];
-                }
+struct Dinitz {
+    const static int M = N*20;
+    int D[N], hd[N], suc[M], to[M], cap[M];
+    int n, m, s, t;
+    inline void ae(int x, int y, int c){
+        suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
+        suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = 0;
+    }
+#define v to[i]
+#define c cap[i]
+#define f cap[i^1]
+    bool bfs(){
+        static int Q[N]; int cz = 0, op = 1;
+        fill(D, D+n, 0); D[Q[0] = s] = 1; while (cz < op){
+            int u = Q[cz++]; REP_G(i, u) if (!D[v]&&c){
+                D[Q[op++]=v] = D[u]+1;
+                if (v==t) return 1;
             }
         }
+        return 0;
     }
 
-    if (is_circle_tail) {
-        f1[0][u] = -INF;
+    LL run(){
+        LL z=0; while (bfs()){
+            static int cur[N], pre[N];
+            int u=s;pre[s]=-1;cur[s]=hd[s];while (~u){
+#define i cur[u]
+                if (u==t){
+                    int d=INF;for(u=s;u!=t;u=v)checkMin(d,c);
+                    z+=d;for(u=s;u!=t;u=v)f+=d,c-=d;u=s;
+                }
+#undef i
+                int i;for(i=cur[u];i;i=suc[i])if(D[u]+1==D[v]&&c){cur[u]=i,cur[v]=hd[v],pre[v]=u,u=v;break;}
+                if (!i)D[u]=0,u=pre[u];
+            }
+        }
+        return z;
+    }
+#undef f
+#undef c
+#undef v
+    void init() {
+        RD(n); m=2,s=2*n+1,t=2*n+2;
+        REP_1(i, n) {
+            I.PB(RD(a[i])); int b, w; RD(b, w); z += b+w;
+            I.PB(RD(l[i])); I.PB(RD(r[i]));
+            ae(s,i,b); ae(i,t,w); ae(i,n+i,RD());
+        }
+        UNQ(I); REP_1(i, n) {
+            a[i]=LBD(I,a[i])+1;
+            l[i]=LBD(I,l[i])+1;
+            r[i]=LBD(I,r[i])+1;
+        }
+        ::n = n; n = t+1;
+    }
+} G;
+
+struct Presitent_Segment_Tree {
+    const static int N = ::N * 10;
+#define lx l[x]
+#define rx r[x]
+#define ml (ll + rr >> 1)
+#define mr (ml + 1)
+    int l[N], r[N], nn;
+    int n, s, t, a, b;
+
+    void add_edge(int x, int y) {
+        G.ae(G.t+x, G.t+y, INF);
     }
 
-    REP(i, 2) {
-        f1[i][u] += 1;
-        checkMax(f1[i][u], f0[i][u]);
+    inline int new_node(int y) {
+        int x = ++nn; G.n += 1;
+        if (y) {
+            lx = l[y]; rx = r[y];
+            add_edge(x, y);
+        }
+        return x;
     }
-
-    return z;
-}
+    int add(int y, int p, int t) {
+        int x = new_node(y), root = x, ll = 1, rr = n;
+        while (ll < rr) {
+            if (p < mr) {
+                add_edge(x, lx = new_node(lx));
+                x = lx; rr = ml;
+            } else {
+                add_edge(x, rx = new_node(rx));
+                x = rx; ll = mr;
+            }
+        }
+        add_edge(x, t);
+        return root;
+    }
+	void gao(int x,int ll,int rr) {
+		if (!x || b < ll || rr < a) return;
+		if (a <= ll && rr <= b) {
+			add_edge(s, x);
+			return;
+		}
+		gao(lx,ll,ml);
+		gao(rx,mr,rr);
+	}
+	void gao(int x, int a, int b, int s) {
+	    this->a = a; this->b = b; this->s = s;
+	    gao(x, 1, n);
+	}
+} T; int root[N];
 
 int main() {
 
@@ -515,12 +427,10 @@ int main() {
     //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n); Rush {
-        int x, y; RD(x, y); --x, --y;
-        adj[x].PB(y);
-        adj[y].PB(x);
-    }
+	G.init(); T.n = SZ(I); REP_1(i, n) {
+		T.gao(root[i-1],l[i],r[i],n+i-G.t);
+		root[i]=T.add(root[i-1],a[i],i-G.t);
+	}
 
-    dfs();
-    cout << f1[0][0] << endl;
+	printf("%d\n", z - G.run());
 }
