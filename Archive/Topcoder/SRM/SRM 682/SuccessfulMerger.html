@@ -1,0 +1,41 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>In the country of Byteland, there are N cities connected by N bidirectional roads (that is, the number of roads is the same as the number of cities).
+The cities are numbered from 0 to N-1.
+For each i from 0 to N-1, a bidirectional road connects city i and city <b>road</b>[i].
+(Note that sometimes a pair of cities can be connected by two distinct roads.)
+It is possible to travel between any pair of cities using the network of roads.
+<br></br><br></br>
+
+You are the prime minister of Byteland and you must choose one of the cities to be the capital city.
+The capital city must have the following property:
+whenever A and B are two distinct cities, it must be impossible to travel between A and B without visiting the capital.
+<br></br><br></br>
+
+If there is no valid location for the capital, you must create one.
+In order to do that, you may modify the road network by doing a sequence of mergers.
+A merger is an operation that merges two adjacent cities into a single new city.
+Formally, a merger is performed as follows:
+<ul>
+<li>You select two cities X and Y that are directly connected by a road. (They may even be connected by more than one direct road.)</li>
+<li>The two cities are merged together to create a new city Z.</li>
+<li>All direct roads between X and Y disappear. Each other road that connected X or Y to some other city now connects Z to that other city.</li>
+</ul>
+
+For example, suppose this is the network:
+<br></br><br></br>
+
+<img src="http://www.topcoder.com/contest/problem/SuccessfulMerger/MergerDiagram1.png"></img>
+<br></br><br></br>
+
+There is no valid location for the capital. However, by merging city 1 and city 2, we can create a valid location:
+<br></br><br></br>
+
+<img src="http://www.topcoder.com/contest/problem/SuccessfulMerger/MergerDiagram2.png"></img>
+<br></br><br></br>
+
+Now the newly-created city is a valid location for the capital.
+<br></br><br></br>
+
+You are given the description of the road network in the vector &lt;int&gt; <b>road</b>.
+Please find and return the minimum number of mergers necessary to create a valid location for the capital.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SuccessfulMerger</td></tr><tr><td>Method:</td><td>minimumMergers</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minimumMergers(vector &lt;int&gt; road)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 2 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>road</b> will contain N elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>road</b> will be between 0 and N-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>For each valid i, <b>road</b>[i] does not equal i.</td></tr><tr><td align="center" valign="top">-</td><td>It will be possible to travel from any city to any other city using the roads.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 2, 1, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">This test case corresponds to the example from the problem statement.
+In the given road network there is no valid location for the capital, so at least one merger is needed.
+The one merger shown above is therefore the optimal solution for this test case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3, 4, 5, 4, 5, 3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 0, 1, 0, 0, 0, 1, 0, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 2, 3, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{31, 19, 0, 15, 30, 32, 15, 24, 0, 20, 40, 1, 22, 21, 39, 28, 0, 23, 15, 5, 19, 22, 6, 32, 8, 38, 35, 30, 4, 28, 32, 18, 18, 9, 22, 41, 20, 18, 6, 25, 41, 34, 4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 25</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
