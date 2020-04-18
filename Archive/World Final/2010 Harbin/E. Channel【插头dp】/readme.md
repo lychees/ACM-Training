@@ -7,12 +7,12 @@ http://blog.csdn.net/gyarenas/article/details/9424337
 http://gerwang.lofter.com/post/1ccf9c78_4e68c15
 http://d.hatena.ne.jp/cos65535/20120417/1334691031
 
-²»¿¼ÂÇ¿ÕÏ¶¡£¡£¡£
-ĞèÒª×öµÄÊÂ¡£¡££¨¼Ó±ß½ç¡£¡£¸ÄÔì³ÉÒ»Ìõ»ØÂ·ÎÊÌâ¡£¡£
-¡££¨¼ÇÂ¼×ªÒÆÂ·¾¶¡¢ÒÔ¼°²Ù×÷·û¡£¡£´òÓ¡·½°¸¡£¡£
+ä¸è€ƒè™‘ç©ºéš™ã€‚ã€‚ã€‚
+éœ€è¦åšçš„äº‹ã€‚ã€‚ï¼ˆåŠ è¾¹ç•Œã€‚ã€‚æ”¹é€ æˆä¸€æ¡å›è·¯é—®é¢˜ã€‚ã€‚
+ã€‚ï¼ˆè®°å½•è½¬ç§»è·¯å¾„ã€ä»¥åŠæ“ä½œç¬¦ã€‚ã€‚æ‰“å°æ–¹æ¡ˆã€‚ã€‚
 
- https://github.com/lychees/ACM-Training/blob/master/World%20Final/2010%20Harbin/F1.cpp
+https://github.com/lychees/ACM-Training/blob/master/Archive/World%20Final/2010%20Harbin/E.%20Channel%E3%80%90%E6%8F%92%E5%A4%B4dp%E3%80%91/E1.cpp
 
-È»ºó¿¼ÂÇ¿ÕÏ¶¡£¡£¡£
-¼ÓÎ¬¡£¡£¼ÓÅĞ¶Ï¡£¡£
-https://github.com/lychees/ACM-Training/blob/master/World%20Final/2010%20Harbin/F2.cpp
+ç„¶åè€ƒè™‘ç©ºéš™ã€‚ã€‚ã€‚
+åŠ ç»´ã€‚ã€‚åŠ åˆ¤æ–­ã€‚ã€‚
+https://github.com/lychees/ACM-Training/blob/master/Archive/World%20Final/2010%20Harbin/E.%20Channel%E3%80%90%E6%8F%92%E5%A4%B4dp%E3%80%91/E2.cpp
