@@ -313,7 +313,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* Ä£ÊýÁ½±¶¸ÕºÃ³¬ int Ê±¡£
+/* Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÕºÃ³ï¿½ int Ê±ï¿½ï¿½
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -464,32 +464,119 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
 
-int a[N], b[N], c[N];
-int x, y, an, bn, cn;
+const int N = int(2e5) + 9;
+VI adj[N]; int dep[N], pre[N]; int n;
+int Q[N], cz, op; VI Path; int dd[N];
 
+int m0, m1;
+
+bool ok(int x){
+    m0 = SZ(Path)-1, m1 = 0;
+    //m0-i+dd[u]<=x
+    //i-m1+dd[u]<=x
+#define u Path[i]
+    REP(i, SZ(Path)){
+        int d = x-dd[u]; if (d < 0) return 0;
+        checkMin(m0, i + d); checkMax(m1, i - d);
+    }
+    
+    FOR(i, m0+1, m1){
+        if (min(i-m0, m1-i)+dd[u] > x) return 0;
+    }
+#undef u
+    if (m0 == m1){
+        if (m0) --m0; else ++m1;
+    }
+    m0 = Path[m0], m1 = Path[m1];
+    return 1;
+}
 
 int main(){
-
+    
 #ifndef ONLINE_JUDGE
-    //freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
 #endif
-
-    RD(x, y, an, bn, cn);
-    REP(i, an) RD(a[i]); a[an++] = INF; sort(a,a+an,greater<int>());
-    REP(i, bn) RD(b[i]); b[bn++] = INF; sort(b,b+bn,greater<int>());
-    REP(i, cn) RD(c[i]); sort(c,c+cn,greater<int>());
-
-    LL z = accumulate(a+1,a+x+1,0ll) + accumulate(b+1,b+y+1,0ll);
-    REP(i, cn) {
-        int ta = c[i] - a[x];
-        int tb = c[i] - b[y];
-        int d = max(ta, tb); if (d < 0) break;
-        z += d; if (d == ta) --x; else --y;
+    
+    Rush{
+        REP_1_C(i, RD(n)) adj[i].clear();
+        
+        DO(n-1){
+            int a, b; RD(a, b);
+            adj[a].PB(b);
+            adj[b].PB(a);
+        }
+        
+        RST(dep); cz = 0, op = 1; dep[Q[0] = 1] = 1;
+        int s0 = 1; while (cz < op){
+            int u = Q[cz++];
+            
+            if (dep[u] > dep[s0]){
+                s0 = u;
+            }
+            
+            for (auto v: adj[u]) {
+                if (!dep[v]){
+                    Q[op++] = v;
+                    dep[v] = dep[u] + 1;
+                }
+            }
+        }
+        
+        RST(dep); cz = 0, op = 1; dep[Q[0] = s0] = 1;
+        int t0 = 1; while (cz < op){
+            int u = Q[cz++];
+            
+            if (dep[u] > dep[t0]){
+                t0 = u;
+            }
+            
+            ECH(it, adj[u]){
+                int v = *it;
+                if (!dep[v]){
+                    Q[op++] = v;
+                    dep[v] = dep[u] + 1;
+                    pre[v] = u;
+                }
+            }
+        }
+        
+        RST(dep); CLR(Path); while (1){
+            Path.PB(t0); dep[t0] = 1;
+            if (t0 == s0) break;
+            t0 = pre[t0];
+        } while (t0 != s0);
+        
+        ECH(it, Path){
+            cz = 0, op = 1; dd[*it] = dep[Q[0] = *it] = 1; while (cz < op){
+                
+                int u = Q[cz++];
+                
+                if (dep[u] > dd[*it]){
+                    dd[*it] = dep[u];
+                }
+                
+                ECH(it, adj[u]){
+                    int v = *it;
+                    if (!dep[v]){
+                        Q[op++] = v;
+                        dep[v] = dep[u] + 1;
+                    }
+                }
+            }
+            
+            --dd[*it];
+        }
+        
+        
+        int l = 0, r = n; while (l < r){
+            int m = l + r >> 1;
+            if (ok(m)) r = m;
+            else l = m + 1;
+        }
+        
+        ok(l);
+        cout << l << " " << m0 << " " << m1 << endl;
     }
-
-
-    cout << z << endl;
 }
