@@ -307,7 +307,8 @@ inline int count_bits(LL x){return __builtin_popcountll(x);}
 
 // <<= '2. Number Theory .,//{
 namespace NT{
-#define gcd __gcd
+//#define gcd __gcd
+inline LL gcd(LL a, LL b){return b?gcd(b,a%b):a;}
 inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
