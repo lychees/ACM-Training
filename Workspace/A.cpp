@@ -465,118 +465,23 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}/* .................................................................................................................................. */
 
 
-const int N = int(2e5) + 9;
-VI adj[N]; int dep[N], pre[N]; int n;
-int Q[N], cz, op; VI Path; int dd[N];
-
-int m0, m1;
-
-bool ok(int x){
-    m0 = SZ(Path)-1, m1 = 0;
-    //m0-i+dd[u]<=x
-    //i-m1+dd[u]<=x
-#define u Path[i]
-    REP(i, SZ(Path)){
-        int d = x-dd[u]; if (d < 0) return 0;
-        checkMin(m0, i + d); checkMax(m1, i - d);
-    }
-    
-    FOR(i, m0+1, m1){
-        if (min(i-m0, m1-i)+dd[u] > x) return 0;
-    }
-#undef u
-    if (m0 == m1){
-        if (m0) --m0; else ++m1;
-    }
-    m0 = Path[m0], m1 = Path[m1];
-    return 1;
-}
+const int N = 10;
+LL c[N];
+LL n, z;
 
 int main(){
-    
+
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    
-    Rush{
-        REP_1_C(i, RD(n)) adj[i].clear();
-        
-        DO(n-1){
-            int a, b; RD(a, b);
-            adj[a].PB(b);
-            adj[b].PB(a);
-        }
-        
-        RST(dep); cz = 0, op = 1; dep[Q[0] = 1] = 1;
-        int s0 = 1; while (cz < op){
-            int u = Q[cz++];
-            
-            if (dep[u] > dep[s0]){
-                s0 = u;
-            }
-            
-            for (auto v: adj[u]) {
-                if (!dep[v]){
-                    Q[op++] = v;
-                    dep[v] = dep[u] + 1;
-                }
-            }
-        }
-        
-        RST(dep); cz = 0, op = 1; dep[Q[0] = s0] = 1;
-        int t0 = 1; while (cz < op){
-            int u = Q[cz++];
-            
-            if (dep[u] > dep[t0]){
-                t0 = u;
-            }
-            
-            ECH(it, adj[u]){
-                int v = *it;
-                if (!dep[v]){
-                    Q[op++] = v;
-                    dep[v] = dep[u] + 1;
-                    pre[v] = u;
-                }
-            }
-        }
-        
-        RST(dep); CLR(Path); while (1){
-            Path.PB(t0); dep[t0] = 1;
-            if (t0 == s0) break;
-            t0 = pre[t0];
-        } while (t0 != s0);
-        
-        ECH(it, Path){
-            cz = 0, op = 1; dd[*it] = dep[Q[0] = *it] = 1; while (cz < op){
-                
-                int u = Q[cz++];
-                
-                if (dep[u] > dd[*it]){
-                    dd[*it] = dep[u];
-                }
-                
-                ECH(it, adj[u]){
-                    int v = *it;
-                    if (!dep[v]){
-                        Q[op++] = v;
-                        dep[v] = dep[u] + 1;
-                    }
-                }
-            }
-            
-            --dd[*it];
-        }
-        
-        
-        int l = 0, r = n; while (l < r){
-            int m = l + r >> 1;
-            if (ok(m)) r = m;
-            else l = m + 1;
-        }
-        
-        ok(l);
-        cout << l << " " << m0 << " " << m1 << endl;
+
+    RD(n); REP(i, N) c[i] = 1; z = 1;
+    for (int i=0;z<n;++i) {
+        if (i == N) i = 0;
+        z /= c[i]; z *= ++c[i];
+    }
+    for (int i=0;i<N;++i) {
+        DO(c[i]) putchar("codeforces"[i]);
     }
 }
