@@ -3,6 +3,9 @@
 [https://codeforces.com/gym/100216](https://codeforces.com/gym/100216)
 [http://edward-mj.com/archives/1822](http://edward-mj.com/archives/1822)
 
+# Problem A. Generalized Assignment
+费用流裸题。
+
 # Problem B. Bandits
 海岛分金问题。
 
@@ -15,3 +18,11 @@
 一个强盗会反对投票，当且仅当他知道当前这个人被投死了以后，他一定会存活下来，并且获得至少和当前提案相当的金币。
 
 现在，请你回答第一个强盗最多能提案分配给自己多少钱而不被杀。如果无论如何都会被杀，输出-1。
+
+# Problem C. Matrix Game
+
+# Problem D. Paper Mosaic
+# Problem E. Shortest Path
+# Problem F. Cutting Puzzle
+问一个三边长分别为 \(a\times b\times c \) 的立方体，最少切多少刀，可以切成一堆 \(1\times 1\times 1\) 的单位矩形。
+只考虑一维的话，答案显然是 \( \lceil log_2{n} \rceil \)。每个维度分开讨论，加起来即可。
