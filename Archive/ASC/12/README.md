@@ -9,7 +9,16 @@
 斐波那契数列？
 
 # Problem C. Thermal Death of the Universe
-线段树裸题。
+线段树裸题。注意一下负数的 round 规则。 
+
+# Problem D. Equations System
+在多项式上跑扩展欧几里得。
+
+# Problem E. Fool’s Game
+Hall’s marriage theorem 
+
+# Problem F. Lottery
+直接组合 DP 就好。
 
 # Problem G. Two Pipelines
 简单几何。
