@@ -9,7 +9,7 @@
 非常 nice 的树形 DP。
 
 # Problem B. Darts
-？？？
+Darts 丢飞镖，最后剩 n 分，打印所有的可以合法的凑成 n 分的投掷方案，要求最后一步必须落在 double 的格子里。 因为要输出所有方案，所以直接 dfs() 即可。
 
 # Problem C. Domino in Casino
 给定一个 nxm 的矩阵，你可以往其中放置 k 枚多米诺骨牌，每块骨牌的得分是覆盖的两个格点的全值的乘积。
@@ -18,7 +18,7 @@
 k 比较大，状态压缩 DP 会爆，所以用费用流。
 
 # Problem D. Love Is...
-
+欧几里得平面里给定 n 个矩形障碍物，问是否存在一点可以看到给定的两点。
 
 # Problem E. Set Partitions
 
