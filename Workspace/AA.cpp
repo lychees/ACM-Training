@@ -1,148 +1,144 @@
-#include <cstdio>
-#include <cctype>
+/*
+    This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
+    Template Date: 2015.10.12
+    Note: ...
+*/
+
+#pragma comment(linker, "/STACK:36777216")
+//#pragma GCC optimize ("O2")
+#define LOCAL
+#include <functional>
 #include <algorithm>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <numeric>
+#include <cstring>
+#include <climits>
+#include <cassert>
+#include <complex>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <bitset>
+#include <queue>
+#include <stack>
+#include <cmath>
+#include <ctime>
+#include <list>
+#include <set>
+#include <map>
 
+
+#define fp(i,a,b) for(int i=a,I=b+1;i<I;++i)
+#define fd(i,a,b) for(int i=a,I=b-1;i>I;--i)
+#define go(u) for(int i=fi[u],v=e[i].to;i;v=e[i=e[i].nx].to)
+
+template<class T>inline bool cmax(T&a,const T&b){return a<b?a=b,1:0;}
+template<class T>inline bool cmin(T&a,const T&b){return a>b?a=b,1:0;}
 using namespace std;
-namespace Zeonfai
-{
-    inline int getInt()
-    {
-        int a = 0, sgn = 1; char c;
-        while(! isdigit(c = getchar())) if(c == '-') sgn *= -1;
-        while(isdigit(c)) a = a * 10 + c - '0', c = getchar();
-        return a * sgn;
-    }
+char ss[1<<17],*A=ss,*B=ss;
+inline char gc(){return A==B&&(B=(A=ss)+fread(ss,1,1<<17,stdin),A==B)?-1:*A++;}
+template<class T>inline void sd(T&x){
+    char c;T y=1;while(c=gc(),(c<48||57<c)&&c!=-1)if(c==45)y=-1;x=c-48;
+    while(c=gc(),47<c&&c<58)x=x*10+c-48;x*=y;
 }
-const int N = (int)1e5, M = (int)2e5, INF = (int)2e9, T = (int)1e5;
-int n, m;
-int ans[T + 1];
-struct edge
-{
-    int u, v, L, R;
-    inline int operator <(const edge &a) const {return L == a.L ? R < a.R : L < a.L;}
-}edg[M];
-struct linkCutTree
-{
-    int tp;
-    struct node
-    {
-        int pre, suc[2], isRoot, rev;
-        int w, mn, sz;
-        inline node() {pre = -1; for(int i = 0; i < 2; ++ i) suc[i] = -1; isRoot = 1; rev = 0; sz = 1;}
-    }nd[N + 1 + M];
-    inline void initialize()
-    {
-        for(int i = 1; i <= n; ++ i) nd[i].w = INF, nd[i].mn = i;
-        tp = n + 1;
+char sr[1<<21],z[20];int C=-1,Z;
+inline void Ot(){fwrite(sr,1,C+1,stdout),C=-1;}
+template<class T>inline void we(T x){
+    if(C>1<<20)Ot();if(x<0)sr[++C]=45,x=-x;
+    while(z[++Z]=x%10+48,x/=10);
+    while(sr[++C]=z[Z],--Z);sr[++C]='\n';
+}
+const int N=4e5+5;
+typedef int arr[N];
+typedef long long ll;
+struct eg{int nx,to;}e[N*2];
+int n,m,ce,fi[N];ll ans;
+struct LCT{
+    int fa[N],ch[N][2];ll s[N],val[N],vs[N];
+    #define lc(u) (ch[u][0])
+    #define rc(u) (ch[u][1])
+    inline bool gf(int u){return rc(fa[u])==u;}
+    inline bool ir(int u){return lc(fa[u])^u&&rc(fa[u])^u;}
+    inline void up(int u){s[u]=s[lc(u)]+s[rc(u)]+val[u]+vs[u];}
+    inline void rot(int u){
+        int p=fa[u],k=gf(u);
+        if(!ir(p))ch[fa[p]][gf(p)]=u;
+        if(ch[u][!k])fa[ch[u][!k]]=p;
+        ch[p][k]=ch[u][!k],ch[u][!k]=p;
+        fa[u]=fa[p],fa[p]=u,up(p);
     }
-    inline void pushDown(int u)
-    {
-        if(! nd[u].isRoot) pushDown(nd[u].pre);
-        if(nd[u].rev)
-        {
-            for(int i = 0; i < 2; ++ i) if(~ nd[u].suc[i])
-                swap(nd[nd[u].suc[i]].suc[0], nd[nd[u].suc[i]].suc[1]), nd[nd[u].suc[i]].rev ^= 1;
-            nd[u].rev = 0;
+    void splay(int u){
+        for(int f=fa[u];!ir(u);rot(u),f=fa[u])
+            if(!ir(f))rot(gf(f)==gf(u)?f:u);
+        up(u);
+    }
+    inline ll calc(int u,ll t,ll h){
+
+        h = max(h, val[u]);
+
+        return (h*2>t?(t-h)*2:t-1);
+
         }
-    }
-    inline int getRelation(int u) {return u == nd[nd[u].pre].suc[1];}
-    inline void update(int u)
-    {
-        nd[u].mn = u; nd[u].sz = 1;
-        for(int i = 0; i < 2; ++ i) if(~ nd[u].suc[i])
-        {
-            if(nd[nd[nd[u].suc[i]].mn].w < nd[nd[u].mn].w) nd[u].mn = nd[nd[u].suc[i]].mn;
-            nd[u].sz += nd[nd[u].suc[i]].sz;
-        }
-    }
-    inline void rotate(int u)
-    {
-        int pre = nd[u].pre, prepre = nd[pre].pre, k = getRelation(u);
-        nd[pre].suc[k] = nd[u].suc[k ^ 1]; if(~ nd[u].suc[k ^ 1]) nd[nd[u].suc[k ^ 1]].pre = pre;
-        nd[u].pre = prepre; if(! nd[pre].isRoot) nd[prepre].suc[getRelation(pre)] = u;
-        nd[pre].pre = u; nd[u].suc[k ^ 1] = pre;
-        if(nd[pre].isRoot) nd[pre].isRoot = 0, nd[u].isRoot = 1;
-        update(pre); update(u);
-    }
-    inline void splay(int u)
-    {
-        pushDown(u);
-        while(! nd[u].isRoot)
-        {
-            if(! nd[nd[u].pre].isRoot) rotate(getRelation(u) == getRelation(nd[u].pre) ? nd[u].pre : u);
-            rotate(u);
-        }
-    }
-    inline void access(int u)
-    {
-        splay(u);
-        if(~ nd[u].suc[1])
-        {
-            nd[nd[u].suc[1]].isRoot = 1;
-            nd[u].suc[1] = -1; update(u);
-        }
-        while(~ nd[u].pre)
-        {
-            int pre = nd[u].pre;
-            splay(pre);
-            if(~ nd[pre].suc[1])
-            {
-                nd[nd[pre].suc[1]].isRoot = 1;
-                nd[pre].suc[1] = -1; update(pre);
+    inline void mdy(int u,int w){
+        splay(u);int v;
+        ll t=s[u]-s[lc(u)],h=s[rc(u)];
+
+        //cout << " " <<  t << " " << h << " "<<  calc(u,t,h) <<" ";
+
+        ans-=calc(u,t,h);s[u]+=w,val[u]+=w,t+=w;
+        if(h*2<t+1)vs[u]+=h,rc(u)=0;
+        //up(u);
+         ans+=calc(u,t,h);
+
+        //out << " " <<  t << " " << h << " "<<  calc(u,t,h) <<" " << endl;
+
+        //access
+
+        for(u=fa[v=u];u;u=fa[v=u]){
+            splay(u);t=s[u]-s[lc(u)],h=s[rc(u)];
+            ans-=calc(u,t,h);s[u]+=w,vs[u]+=w,t+=w;
+            if(h*2<t+1) {
+                vs[u]+=h,rc(u)=0,h=0;
+
+                vs[u]-=s[v],rc(u)=v,h=s[v];
+
+                if(h*2<t+1) {
+                    vs[u]+=h,rc(u)=0,h=0;
+                }
             }
-            nd[pre].suc[1] = u; nd[u].isRoot = 0; update(pre);
-            splay(u);
+            //up(u);
+            ans+=calc(u,t,h);
         }
     }
-    inline void makeRoot(int u)
-    {
-        access(u); swap(nd[u].suc[0], nd[u].suc[1]); nd[u].rev ^= 1;
-    }
-    inline int get(int u)
-    {
-        access(u);
-        while(~ nd[u].suc[0]) u = nd[u].suc[0];
-        return u;
-    }
-    inline int newNode(int w) {nd[tp].w = w; nd[tp].mn = tp; return tp ++;}
-    inline void link(int id)
-    {
-        int u = edg[id].u, v = edg[id].v;
-        if(get(u) == get(v))
-        {
-            makeRoot(u); access(v);
-            int x = nd[v].mn;
-
-            cout << nd[x].w << endl;
-
-            if(nd[x].w > edg[id].L && nd[v].sz + 1 >> 1 & 1) for(int i = edg[id].L + 1; i <= min(nd[x].w, edg[id].R); ++ i) ans[i] = 1;
-
-
-
-            if(nd[x].w > edg[id].R) return;
-            access(x); nd[nd[x].suc[0]].pre = -1; nd[nd[x].suc[0]].isRoot = 1; nd[x].suc[0] = -1;
-            makeRoot(v); access(x); nd[nd[x].suc[0]].pre = -1; nd[nd[x].suc[0]].isRoot = 1; nd[x].suc[0] = -1;
+    void dfs(int u){
+        s[u]=val[u];int p=0;ll mx=val[u];
+        go(u)if(v^fa[u]){
+            fa[v]=u,dfs(v),s[u]+=s[v];
+            if(s[v]>mx)mx=s[p=v];
         }
-        makeRoot(u); makeRoot(v);
-        int x = newNode(edg[id].R); nd[x].pre = u; nd[v].pre = x;
-        return;
+        ans+=min(s[u]-1,(s[u]-mx)*2);
+        if(mx*2>=s[u]+1)rc(u)=p;
+        vs[u]=s[u]-val[u]-s[rc(u)];
     }
-}LCT;
-int main()
-{
-
+}t;
+inline void add(int u,int v){e[++ce]={fi[u],v},fi[u]=ce;}
+int main(){
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
 
-
-    using namespace Zeonfai;
-    n = getInt(), m = getInt(); int T = getInt();
-    LCT.initialize();
-    for(int i = 0; i < m; ++ i) edg[i].u = getInt(), edg[i].v = getInt(), edg[i].L = getInt(), edg[i].R = getInt();
-    sort(edg, edg + m);
-    for(int i = 0; i < m; ++ i) LCT.link(i);
-    for(int i = 1; i <= T; ++ i) puts(! ans[i] ? "Yes" : "No");
+    sd(n),sd(m);int u,v;
+    fp(i,1,n)sd(t.val[i]);
+    fp(i,2,n)sd(u),sd(v),add(u,v),add(v,u);
+    t.dfs(1);we(ans);
+    while(m--){
+        sd(u),sd(v);
+        t.mdy(u,v);
+        we(ans);
+    }
+return Ot(),0;
 }
