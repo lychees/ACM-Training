@@ -96,21 +96,21 @@ using namespace std;
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-  REP(i, n){		                            \
+  REP(i, n){                                    \
         REP(j, m-1) cout << A[i][j] << " ";     \
-        cout << A[i][m-1] << endl;		        \
-	}						                    \
+        cout << A[i][m-1] << endl;                \
+    }                                            \
 }
 #define Display_1(A, n, m) {                    \
-	REP_1(i, n){		                        \
+    REP_1(i, n){                                \
         REP_1(j, m-1) cout << A[i][j] << " ";   \
-        cout << A[i][m] << endl;		        \
-	}						                    \
+        cout << A[i][m] << endl;                \
+    }                                            \
 }
 
 typedef long long LL;
-//typedef long double DB;
-typedef double DB;
+typedef long double DB;
+//typedef double DB;
 typedef unsigned uint;
 typedef unsigned long long uLL;
 
@@ -219,7 +219,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
-const DB EPS = 1e-9;
+const DB EPS = 1e-8;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
@@ -432,6 +432,8 @@ template<class T> inline T& RDD(T &x){
     return x;
 }
 inline DB& RF(DB &x){
+    cin >> x;
+    return x;
     //scanf("%lf", &x);
     char c;while(g,c!='-'&&c!='.'&&!isdigit(c));
     if(c=='-')if(g=='.'){x=0;DB l=1;while(d)nn;x*=l;}
@@ -464,23 +466,83 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 //}/* .................................................................................................................................. */
+const int N = int(1e2) + 9;
+map<DB, DB> H; DB v[N], t[N];
+int n; DB V, T, vv, tt; bool is_colder;
 
-const int N = int(1e5) + 9;
+#define e(i) (v[i]*t[i])
 
-int n;
-
-int main(){
-
-#ifndef ONLINE_JUDGE
-    freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
-#endif
-
-    RD(n);
+void gao() {
+    RD(n); RF(V,T); H.clear(); REP(i, n) {
+        DB v, t; RF(v, t);
+        H[t] += v;
+    }
+    if (T < H.begin()->fi || H.rbegin()->fi < T) {
+        puts("IMPOSSIBLE");
+        return;
+    }
+    
+    
+    n = 0; ECH(it, H) {
+        t[n] = it->fi;
+        v[n] = it->se;
+        ++n;
+    }
+    
+    vv = 0; tt = 0;
+    
+    if (T == H.begin()->fi) {
+        printf("%.9Lf\n", V / H.begin()->se);
+        return;
+    }
+    if (T == H.rbegin()->fi) {
+        printf("%.9Lf\n", V / H.rbegin()->se);
+        return;
+    }
+    
+    REP(i, n) tt += e(i), vv += v[i];
+    tt /= vv;
+    if (!sgn(tt, T)) {
+        printf("%.9Lf\n", V / vv);
+        return;
+    }
+    is_colder = sgn(tt, T) < 0;
+    if (!is_colder) {
+        reverse(t, t+n);
+        reverse(v, v+n);
+    }
+/*
+    REP(i, n) {
+        cout << t[i] << " " << v[i] << endl;
+    }
+  */
+    REP(i, n) {
+        //cout << t[i] << " " << v[i] << endl;
+        tt *= vv;
+        tt -= e(i);
+        vv -= v[i];
+        tt /= vv;
+        if (is_colder ? sgn(tt, T) >= 0 : sgn(tt, T) <= 0){
+//             (x*t[i] + tt*vv) = (vv+x)*T;
+//             x(ti-T) + tt*vv = vv*T
+            if (sgn(tt, T)) {
+                DB x = (vv*T-tt*vv) / (t[i]-T);
+                tt *= vv; vv += x; tt += x*t[i]; tt /= vv;
+            }
+            printf("%.9Lf\n", V / vv);
+            return;
+        }
+    }
 }
 
-
-6 1
-
-6
+int main(){
+#ifndef ONLINE_JUDGE
+   // freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+#endif
+    int T; cin >> T; REP_1(i, T) {
+        printf("Case #%d: ", i);
+        gao();
+    }
+}
 

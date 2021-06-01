@@ -96,21 +96,21 @@ using namespace std;
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-  REP(i, n){		                            \
+  REP(i, n){                                    \
         REP(j, m-1) cout << A[i][j] << " ";     \
-        cout << A[i][m-1] << endl;		        \
-	}						                    \
+        cout << A[i][m-1] << endl;                \
+    }                                            \
 }
 #define Display_1(A, n, m) {                    \
-	REP_1(i, n){		                        \
+    REP_1(i, n){                                \
         REP_1(j, m-1) cout << A[i][j] << " ";   \
-        cout << A[i][m] << endl;		        \
-	}						                    \
+        cout << A[i][m] << endl;                \
+    }                                            \
 }
 
 typedef long long LL;
-//typedef long double DB;
-typedef double DB;
+typedef long double DB;
+//typedef double DB;
 typedef unsigned uint;
 typedef unsigned long long uLL;
 
@@ -219,7 +219,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
-const DB EPS = 1e-9;
+const DB EPS = 1e-8;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
@@ -432,6 +432,8 @@ template<class T> inline T& RDD(T &x){
     return x;
 }
 inline DB& RF(DB &x){
+    cin >> x;
+    return x;
     //scanf("%lf", &x);
     char c;while(g,c!='-'&&c!='.'&&!isdigit(c));
     if(c=='-')if(g=='.'){x=0;DB l=1;while(d)nn;x*=l;}
@@ -465,22 +467,89 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
-
-int n;
-
+const int N = 5009, M = 2 * 30009;
+ 
+//struct Network_Flow{
+ 
+int D[N], hd[N], suc[M], to[M], cap[M];
+int n, m, s, t;
+ 
+inline void ae(int x, int y, int c){
+    suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
+    suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = 0;
+}
+ 
+inline void aee(int x, int y, int c){
+    suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
+    suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = c;
+}
+ 
+#define v to[i]
+#define c cap[i]
+#define f cap[i^1]
+ 
+bool bfs(){
+    static int Q[N]; int cz = 0, op = 1;
+    fill(D, D+n, 0), D[Q[0] = s] = 1; while (cz < op){
+        int u = Q[cz++]; REP_G(i, u) if (!D[v]&&c){
+            D[Q[op++]=v] = D[u]+1;
+            if (v==t) return 1;
+        }
+    }
+    return 0;
+}
+ 
+LL Dinitz(){
+    LL z=0; while (bfs()){
+        static int cur[N], pre[N];
+        int u=s;pre[s]=-1;cur[s]=hd[s];while (~u){
+#define i cur[u]
+            if (u==t){
+                int d=INF;for(u=s;u!=t;u=v)checkMin(d,c);
+                z+=d;for(u=s;u!=t;u=v)f+=d,c-=d;u=s;
+            }
+#undef i
+            int i;for(i=cur[u];i;i=suc[i])if(D[u]+1==D[v]&&c){cur[u]=i,cur[v]=hd[v],pre[v]=u,u=v;break;}
+            if (!i)D[u]=0,u=pre[u];
+        }
+    }
+    return z;
+}
+#undef f
+#undef c
+#undef v
+//} G;
+ 
+void gao(){
+    RD(n), m = 2; s = 0, t = 1;
+    map<string, int> H;
+    REP(i, n) {
+        string s; getline(cin, s); istringstream iss(s);
+        while (iss >> s) {
+            if (!H[s]) H[s] = n+(2*(H.size()-1));
+            int u = H[s], v = u + 1;
+            //cout << u << " " << v << " " << i << endl;
+            ae(i,u,INF); ae(v,i,INF);
+        }
+    }
+    REP(i, H.size()) {
+        int u = n, v = u+1;
+        ae(u,v,1); n += 2;
+    }
+    OT(Dinitz());
+    fill(hd, hd+n, 0);
+}
+ 
 int main(){
-
+     
 #ifndef ONLINE_JUDGE
-    freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
+    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RD(n);
+    int T; cin >> T; REP_1(i, T) {
+        printf("Case #%d: ", i);
+        gao();
+    }
 }
-
-
-6 1
-
-6
 
