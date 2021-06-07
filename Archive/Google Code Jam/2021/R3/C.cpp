@@ -607,26 +607,6 @@ namespace CG{
     template<class T1, class T2> inline DB dist2(const T1& a, const T2& b){
         return dist2(b, a);
     }
-
-    DB getArea(const VP& P){DB z=0;FOR(i,1,SZ(P))z+=det(P[i-1],P[i]);return z;}
-    VP getCH(VP& P, int b=1){ //ƒÊ ±’Î£¨≤ª±£¡Ùπ≤œﬂ
-
-        int n=SZ(P); if(n<=3) return P.PB(P[0]),getArea(P)<0?RVS(P):P;
-
-        SRT(P); VP C; C.resize(2*n+9); int nn = -1; REP(i, n){ //#
-            while (nn > 0 && dett(C[nn-1], C[nn], P[i]) < b) --nn; //#
-            C[++nn] = P[i];
-        }
-
-        int _nn = nn; DWN(i, n-1, 0){
-            while (nn > _nn && dett(C[nn-1], C[nn], P[i]) < b) --nn; //#
-            C[++nn] = P[i];
-        }
-
-        C.resize(nn+1);
-        return C;
-    }
-
     
 } using namespace CG;//}
 
@@ -689,104 +669,47 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e2) + 9, M = int(1e4) + 9;
+const int N = int(1e6) + 9;
 
-struct Network_Flow{
- 
-    int D[N], hd[N], suc[M], to[M], cap[M];
-    int n, m, s, t;
-     
-    inline void ae(int x, int y, int c){
-        suc[m] = hd[x], hd[x] = m, to[m] = y, cap[m++] = c,
-        suc[m] = hd[y], hd[y] = m, to[m] = x, cap[m++] = 0;
-    }
-     
-    #define v to[i]
-    #define c cap[i]
-    #define f cap[i^1]
-     
-    bool bfs(){
-        static int Q[N]; int cz = 0, op = 1;
-        fill(D, D+n, 0), D[Q[0] = s] = 1; while (cz < op){
-            int u = Q[cz++]; REP_G(i, u) if (!D[v]&&c){
-                D[Q[op++]=v] = D[u]+1;
-                if (v==t) return 1;
-            }
-        }
-        return 0;
-    }
-     
-    LL Dinitz(){
-        LL z=0; while (bfs()){
-            static int cur[N], pre[N];
-            int u=s;pre[s]=-1;cur[s]=hd[s];while (~u){
-    #define i cur[u]
-                if (u==t){
-                    int d=INF;for(u=s;u!=t;u=v)checkMin(d,c);
-                    z+=d;for(u=s;u!=t;u=v)f+=d,c-=d;u=s;
-                }
-    #undef i
-                int i;for(i=cur[u];i;i=suc[i])if(D[u]+1==D[v]&&c){cur[u]=i,cur[v]=hd[v],pre[v]=u,u=v;break;}
-                if (!i)D[u]=0,u=pre[u];
-            }
-        }
-        return z;
-    }
-    #undef f
-    #undef c
-    #undef v
-    void init(int _n) {
-        n = _n; m = 2; s = n-2, t = n-1;
-        fill(hd, hd+n, 0);
-    }
-} G;
+Po P[N]; Seg S[N]; int l[N], r[N];
+int n, m;
 
-
-bool A[21][21];
-int n,m;
-
-bool bad(int x, int y, int d){
-    REP(i,d){
-        if(!A[x+d-i-1][y+i] || !A[x+2*d-i-1][y+d+i])return 0;
-        if(A[x+i][y+d+i] || A[x+i+d][y+i])return 0;
-    }
-    REP(i,d){
-        A[x+d-i-1][y+i]=A[x+2*d-i-1][y+d+i]=0;
-        A[x+i][y+d+i]=A[x+i+d][y+i]=1;
+bool ok(const Seg t, int a, int b) {
+    REP(i, m) {
+        if (a == l[i] && b == r[i]) return 0;
+        
+        //cout << t << " " << i << " " << t.sgn(S[i]) << endl;
+        
+        if (t.sgn(S[i]) == 1) return 0;
+        
+        
+        
+        //Po p = t*S[i];
+        //if (t.sgn(p) == 1 && S[i].sgn(p) == 1) return 0;
     }
     return 1;
 }
 
-bool findSquare() {
-    REP_2(i, j, n, m) {
-        for(int d=1;i+2*d-1<n&&j+2*d-1<m;d+=1) if(bad(i,j,d)) {
-            return 1;
+void gao() {
+    RD(n); m = 2;
+    REP(i, n) P[i].in();
+    REP(i, m) {
+        int a, b; RD(a, b); --a, --b;
+        if (a > b) swap(a, b);
+        S[i] = Seg(P[a], P[b]);
+        l[i] = a, r[i] = b;
+    }
+    REP(i, n) FOR(j, i+1, n) if (i != j){
+        Seg t = Seg(P[i], P[j]);
+        if (ok(t,i,j)) {
+            l[m] = i, r[m] = j;
+            S[m++] = t;
         }
     }
-    return 0;
-}
-
-bool gao() {
-    RD(n,m); RST(A); G.init(n+m+2);
-    int rs=0,cs=0;
-    REP(i,n) {
-        int v; RD(v); rs+=v;
-        G.ae(G.s,i,v);
+    cout << m-2 << endl;
+    FOR(i, 2, m) {
+        cout << l[i]+1 << " " << r[i]+1 << endl;
     }
-    REP(i,m) {
-        int v; RD(v); cs+=v;
-        G.ae(n+i,G.t,v);
-    }
-    if(rs!=cs)return 0;
-    REP_2(i, j, n, m) G.ae(i,n+j,1);
-    if (G.Dinitz()!=rs) return 0;
-    
-    for (int i=2;i<G.m;i+=2) if(G.to[i^1]<n&&G.to[i]>=n&&!G.cap[i]){
-        A[G.to[i^1]][G.to[i]-n]=1;
-    }
-    
-    while (findSquare());
-    return 1;
 }
 
 int main(){
@@ -798,13 +721,7 @@ int main(){
 
     int T; cin >> T; REP_1(i, T) {
         printf("Case #%d: ", i);
-        if (!gao()) puts("IMPOSSIBLE"); else {
-            puts("POSSIBLE");
-            REP(i,n) {
-                REP(j,m) putchar(A[i][j] ? '/' : '\\');
-                puts("");
-            }
-        }
+        gao();
     }
 }
 
