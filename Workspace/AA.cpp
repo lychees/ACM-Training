@@ -126,10 +126,6 @@ struct LCT{
 }t;
 inline void add(int u,int v){e[++ce]={fi[u],v},fi[u]=ce;}
 int main(){
-#ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
-#endif
 
     sd(n),sd(m);int u,v;
     fp(i,1,n)sd(t.val[i]);
