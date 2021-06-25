@@ -1,0 +1,64 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+As you probably know, Sudoku is a pen-and-paper puzzle in which your goal is to fill the cells in a 9x9 square.
+In the end, each cell must contain one of the digits 1 to 9 in such a way that:
+</p>
+<ul>
+<li>in each row each of the digits appears exactly once</li>
+<li>in each column each of the digits appears exactly once</li>
+<li>in each of the nine large 3x3 squares (as shown below) each of the digits appears exactly once</li>
+</ul>
+<p>
+Below is an example of a correctly solved Sudoku. You can verify that, for example, in the first row (861234957), in the second column (672513948) and in the bottom right 3x3 square (731825496) each of the digits 1-9 appears exactly once.
+</p>
+<pre>
++---+---+---+
+|861|234|957|
+|479|561|283|
+|325|978|164|
++---+---+---+
+|958|143|672|
+|712|856|349|
+|634|729|518|
++---+---+---+
+|596|482|731|
+|143|697|825|
+|287|315|496|
++---+---+---+
+</pre>
+<br></br>
+<p>
+Simon has just finished solving a Sudoku puzzle.
+You are given the vector &lt;int&gt; <b>digits</b> with the 81 digits written in Simon's solution.
+The digits are given in row major order - i.e., the first row left to right, then the second row left to right, and so on.
+</p>
+<br></br>
+<p>
+Sadly, Simon got careless and made exactly one mistake: he wrote an incorrect digit into one of the cells.
+Find the mistake and return the <i>correct</i> digit he should have written instead of the incorrect one.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>SudokuTypo</td></tr><tr><td>Method:</td><td>fix</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int fix(vector &lt;int&gt; digits)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>digits</b> will contain exactly 81 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>digits</b> will be one of the digits 1 to 9.</td></tr><tr><td align="center" valign="top">-</td><td><b>digits</b> will be exactly one mistake away from a solved Sudoku.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{8,6,1,2,3,4,9,5,3,
+ 4,7,9,5,6,1,2,8,3,
+ 3,2,5,9,7,8,1,6,4,
+ 9,5,8,1,4,3,6,7,2,
+ 7,1,2,8,5,6,3,4,9,
+ 6,3,4,7,2,9,5,1,8,
+ 5,9,6,4,8,2,7,3,1,
+ 1,4,3,6,9,7,8,2,5,
+ 2,8,7,3,1,5,4,9,6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2">The example Sudoku from the problem statement. The typo is in the top right corner where Simon wrote a 3 instead of a 7. (E.g., we can see two 3s on top of each other in the last column.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{8,6,1,2,3,4,9,5,7,
+ 4,7,9,5,6,1,2,8,3,
+ 3,2,5,9,7,8,1,6,4,
+ 9,5,8,1,4,3,6,7,2,
+ 7,1,2,8,1,6,3,4,9,
+ 6,3,4,7,2,9,5,1,8,
+ 5,9,6,4,8,2,7,3,1,
+ 1,4,3,6,9,7,8,2,5,
+ 2,8,7,3,1,5,4,9,6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 5</pre></td></tr><tr><td><table><tr><td colspan="2">This time the mistake is exactly in the middle of the grid: instead of the correct 5 Simon wrote a 1 there.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{5,3,4,6,7,8,9,1,2,
+ 6,7,2,1,9,5,3,4,8,
+ 1,9,8,3,4,2,5,6,7,
+ 8,5,9,7,6,1,4,2,3,
+ 4,2,6,8,5,3,7,9,1,
+ 7,1,3,9,2,4,8,5,6,
+ 9,6,1,5,3,7,2,8,4,
+ 2,8,7,4,1,9,1,3,5,
+ 3,4,5,2,8,6,1,7,9}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">The mistake here is in the second row from the bottom, third column from the right.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

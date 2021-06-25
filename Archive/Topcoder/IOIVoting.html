@@ -1,0 +1,89 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>The International Olympiad in Informatics (IOI) is currently in progress. To honor this competition, our problems for this round have IOI-flavored stories.</i></p><br></br>
+
+<p>
+When taking an informal vote to choose among <b>N</b> options (numbered from 0 to <b>N</b>-1), the General Assembly (GA) of the IOI sometimes uses a voting system that allows the voters to express preferences.
+</p>
+<p>
+First, the votes are collected. The output of these votes is an <b>N</b> times <b>N</b> matrix: for each pair of options (i, j) the number p[i,j] of people who prefer i over j.
+You are given the contents of this matrix in the vector &lt;int&gt; <b>votes</b>. More precisely, <b>votes</b>[i*<b>N</b>+j] = p[i,j] is the number of voters who like option i more than option j.
+</p>
+<p>
+Note that not everyone expressed their preferences on all options, so the values in <b>votes</b> can be arbitrary (except for the main diagonal which is guaranteed to contain zeros).
+In particular, the preferences of the voters are not necessarily transitive. 
+</p>
+<p>
+The results of the election are evaluated in a sequence of steps, as explained below.
+</p>
+
+<br></br>
+
+<p>
+We say that <i>voters prefer</i> option A over option B if p[A,B] &gt; p[B,A].
+</p>
+<p>
+We say that option A <i>can defeat</i> option B if there is a sequence C1 = A, C2, ..., C(k-1), Ck = B of options such that voters prefer C1 over C2, C2 over C3, ..., and C(k-1) over Ck.
+The sequence A = C1, C2, ..., Ck = B is called an <i>argument</i> that A can defeat B.
+The argument can be arbitrarily long.
+</p>
+<p>
+Note that sometimes one argument shows that A can defeat B but there can also be another argument that shows that B can defeat A.
+</p>
+<br></br>
+<p>
+The <i>strength of direct preference</i> of option A over option B is equal to p[A,B] - p[B,A]: the difference between the number of votes "A is better than B" and votes "B is better than A".
+</p>
+<p>
+The <i>strength of an argument</i> is the minimum strength of direct preferences along the sequence: that is, the minimum over all valid i of the strength of the direct preference of Ci over C(i+1).
+</p>
+<br></br>
+<p>
+For any two options A, B, let S(A,B) be the strength of the strongest argument that A can defeat B -- i.e., the maximum of strengths of all arguments that show that A can defeat B. If there are no such arguments, S(A,B) is defined to be zero.
+</p>
+<p>
+We say that option A <i>is at least as powerful as</i> option B if S(A,B) &gt;= S(B,A).
+</p>
+<p>
+We say that option A <i>is a potential winner</i> if A is at least as powerful as each of the other <b>N</b>-1 options.
+</p>
+
+<br></br>
+
+<p>
+Return a sequence of all potential winners.
+The sequence must be sorted in ascending order.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>IOIVoting</td></tr><tr><td>Method:</td><td>winners</td></tr><tr><td>Parameters:</td><td>int, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; winners(int N, vector &lt;int&gt; votes)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>votes</b> will have exactly <b>N</b>*<b>N</b> elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>votes</b> will be between 0 and 9,999, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>For each i, <b>votes</b>[i*<b>N</b>+i] will be 0.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{ 0, 20, 26, 30, 22,
+ 25,  0, 16, 33, 18,
+ 19, 29,  0, 17, 24,
+ 15, 12, 28,  0, 14,
+ 23, 27, 21, 31,  0 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: {4 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The voters prefer option 1 over option 0: we have p[1,0] = 25 which is greater than p[0,1] = 20.
+</p>
+<br></br>
+<p>
+Thus, option 1 can defeat option 0. One possible argument is simply the sequence {1, 0}. The strength of this argument is 25-20 = 5.
+</p>
+<p>
+However, option 0 can also defeat option 1. One possible argument is the sequence {0, 3, 2, 1}. Voters prefer option 0 over option 3 (30 votes against 15), they prefer option 3 over option 2 (28 votes vs. 17), and they prefer option 2 over option 1 (29 vs. 16). The strength of this argument is min( 30-15, 28-17, 29-16 ) = 11.
+</p>
+<br></br>
+<p>
+It can be shown that the arguments shown above are (not necessarily unique) strongest possible arguments for those pairs of options.
+Thus, S(1,0) = 5 and S(0,1) = 11.
+Already from these two values we see that option 1 <i>cannot be</i> a potential winner.
+</p>
+<br></br>
+<p>
+Here, the only potential winner is option 4: we have S(4,0) &gt;= S(0,4), S(4,1) &gt;= S(1,4), S(4,2) &gt;= S(2,4), and S(4,3) &gt;= S(3,4).
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{0, 1, 1, 1,
+ 1, 0, 1, 1,
+ 1, 1, 0, 1,
+ 1, 1, 1, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 2, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2">All options are tied. No option can be shown to defeat any other option. Hence, for each two options A, B we have S(A,B) = 0, and therefore each option is a potential winner.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>{0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0 }</pre></td></tr><tr><td><table><tr><td colspan="2">One option, no votes. The statement "option 0 is at least as powerful as each of the other zero options" is still vacuously true, so option 0 is a potential winner.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>{ 0, 10, 11, 12,
+ 13,  0, 14, 15,
+ 97, 98,  0, 99,
+ 16, 17, 18,  0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2 }</pre></td></tr><tr><td><table><tr><td colspan="2">One of the nice properties of this system is that if voters prefer an option X over each of the other options, option X is sure to be the only potential winner. But, as we saw in Example 0, sometimes there is no such option and the system still produces only one potential winner.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>5</pre></td></tr><tr><td><pre>{ 0,  0,  0,  0,  0,
+  3,  0,  3, 99,  3,
+  0,  0,  0,  0,  0,
+  4, 99,  5,  0,  6,
+  0,  0,  0,  0,  0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {1, 3 }</pre></td></tr><tr><td><table><tr><td colspan="2">Voters prefer each of the options 1 and 3 over each of the options 0, 2, 4, but other than that they have no preferences. In particular, they are indifferent between options 1 and 3, and both of those end being potential winners.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>{0, 1, 0,
+ 0, 0, 1,
+ 1, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: {0, 1, 2 }</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

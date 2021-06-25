@@ -1,0 +1,85 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>The International Olympiad in Informatics (IOI) is currently in progress. To honor this competition, our problems for this round have IOI-flavored stories.</i></p><br></br>
+<p>
+Sometimes an IOI task will use a different model of computation in order to bring the contestants out of their comfort zone.
+For example, in the IOI 2012 task "Odometer" the contestants were programming a simple robot on a grid to solve some algorithmic problems.
+This problem will also offer you such an experience.
+</p>
+<br></br>
+<p>
+In this problem, a <i>valid program</i> is a finite sequence of positive rational numbers.
+Let N and D be the sequence of their numerators and the sequence of their denominators, respectively.
+</p>
+<p>
+The <i>memory</i> of our program consists of a single positive integer M.
+</p>
+<p>
+When executing a program, each step looks as follows:
+</p>
+<ol>
+<li>Find the smallest i such that M * (N[i] / D[i]) is an integer.</li>
+<li>If such an i does not exist, the program terminates.</li>
+<li>Otherwise, the new value of M is M * (N[i] / D[i]).</li>
+</ol>
+<p>
+(Note: operations * and / used above are operations on reals. In the implementation of an interpreter we first multiply M by N[i] and then we divide the result by D[i].)
+</p>
+<br></br>
+<p>
+Example:
+</p>
+<p>
+Consider the program {1/8, 9/4, 3/2}. For this program we have N = {1, 9, 3} and D = {8, 4, 2}.
+</p>
+<p>
+Whenever we start this program with M = 2<sup>x</sup>, it will eventually terminate and the value of M at the end of the computation will be 3<sup>y</sup> where y = x mod 3.
+</p>
+<p>
+E.g., if we start with M = 2<sup>10</sup> = 1024, during the computation we will see the values M = 128, M = 16, M = 2, and finally M = 3. At this point the computation stops because none of 3/8, 27/4, and 9/2 is an integer.
+</p>
+<p>
+Note that the order of fractions matters. E.g., the program {9/4, 3/2, 1/8} converts 2<sup>x</sup> into 3<sup>x</sup> instead. 
+</p>
+<p>
+Other programs that also convert 2<sup>x</sup> into 3<sup>x mod 3</sup> include {1/8, 3/2}, {3/2, 1/27}, and {1/27, 3/2}.
+</p>
+<br></br>
+<p>
+------------------------------------------------------------------------
+</p>
+<br></br>
+<p>
+Given five numbers a, b, c, d, e, their median med(a,b,c,d,e) is the value that would be in the middle if we sorted them. For example, med(1,5,2,3,4) = 3, med(1,1,2,2,3) = 2, and med(1,2,7,2,10) = 2.
+</p>
+<p>
+Your task is to write a program that works as follows: 
+</p>
+<ul>
+<li>It is guaranteed that at the beginning of the program the value M has the form (2<sup>a</sup> * 3<sup>b</sup> * 5<sup>c</sup> * 7<sup>d</sup> * 11<sup>e</sup>) for some 0 &lt;= a,b,c,d,e &lt;= 100.</li>
+<li>Let m = med(a,b,c,d,e).</li>
+<li>Your program must eventually terminate, and when it does, the final value M must be equal to 47<sup>m</sup>.</li>
+</ul>
+<p>
+Your program must satisfy the following additional constraints:
+</p>
+<ul>
+<li>At most 99 instructions.</li>
+<li>At most 3,000 steps of execution for any valid starting value M.</li>
+<li>Each numerator and denominator must be a <i>positive</i> integer that fits into a signed 32-bit integer variable.</li>
+<li>The value of M must never exceed 10^2500.</li>
+</ul>
+<br></br>
+<p>
+As our backend does not support this weird model, your actual task is to write a program in an ordinary programming language that produces the program { N[0] / D[0], N[1] / D[1], ... } and returns the vector &lt;int&gt; { N[0], D[0], N[1], D[1], ... }.
+</p>
+<p>
+Your program is given a int <b>L</b>. The output of your actual program (i.e., the returned program for the weird model) will be tested on some tests where 0 &lt;= a,b,c,d,e &lt;= <b>L</b>.
+In particular, for <b>L</b> = 2 (the example case) it will be tested on exactly three tests that are listed in the example annotation.
+If your program correctly solves the sample, it means that it output a valid program that solves at least those three tests correctly.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>IOIWeirdModel1</td></tr><tr><td>Method:</td><td>program</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; program(int L)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>We recommend (but do not require) that in your program N[i] and D[i] should always be coprime to avoid confusion when thinking about "when is M * N[i] / D[i] an integer?".</td></tr><tr><td align="center" valign="top">-</td><td>Using N[i] and D[i] that are not coprime is never needed. Clearly, for any positive integer x, a program with N[i] = x*y and D[i] = x*z is equivalent to a program with N[i] = y and D[i] = z.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>L</b> will be between 1 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: {2209, 54450, 47, 7623, 1, 7 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The three tests used for <b>L</b> = 2 are {a,b,c,d,e} = {0,2,0,1,2}, {1,2,2,0,2}, and {0,0,0,1,0}.
+</p>
+<p>
+The example output is a program that solves these three inputs correctly by handling each of them as a separate special case.
+(This program does not solve all test cases with <b>L</b>=2 correctly, and it fails system tests.)
+</p>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
