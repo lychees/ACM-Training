@@ -465,137 +465,33 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const char O[4] = {'N', 'S', 'E', 'W'};
-const char o[4] = {'n', 's', 'e', 'w'};
+#include <unordered_map>
 
-struct Po{
-    int x, y;
-    friend bool operator ==(Po x, Po y){
-        return x.x==y.x && x.y==y.y;
-    }
-} human, box, destination;
+unordered_map<string, string> H;
+string st, ed;
 
-const int N = 22;
-char Map[N][N]; string Path[N][N];
-int n, m;
-
-int D[N][N][4], d[N][N][4];
-int pre[N][N][4]; string opt[N][N][4];
-
-
-struct state {
-    Po p; int i;
-    void relax(state u, int cz) {
-        if (D() > u.D() + 1 || D() == u.D() + 1 && d() > u.d() + Path[p.x-dx[i]*2][p.y-dy[i]*2].size()) {
-            ::pre[p.x][p.y][i] = cz; ::opt[p.x][p.y][i] = Path[p.x-dx[i]*2][p.y-dy[i]*2] + O[i];
-            ::D[p.x][p.y][i] = u.D() + 1;
-            ::d[p.x][p.y][i] = u.d() +  Path[p.x-dx[i]*2][p.y-dy[i]*2].size();
-        }
-    }
-    int D() {
-        return ::D[p.x][p.y][i];
-    }
-    int d() {
-        return ::d[p.x][p.y][i];
-    }
-    int pre() {
-        return ::pre[p.x][p.y][i];
-    }
-    string opt() {
-        return ::opt[p.x][p.y][i];
-    }
+const int op[3][8] = {
+    {7,6,5,4,3,2,1,0},
+    {3,0,1,2,5,6,7,4},
+    {0,6,1,3,4,2,5,7}
 };
 
-void init(){
-    char blank;
-    REP_2_1(i, j, n, m) {
-        RC(Map[i][j]);
-        if (Map[i][j] == 'T') destination.x = i, destination.y = j;
-        else if (Map[i][j] == 'B') box.x = i, box.y = j;
-        else if (Map[i][j] == 'S') human.x = i, human.y = j;
-    }
-
-    REP_1(i, n) {
-        Path[i][0] = Map[i][0] = '#';
-        Path[i][m+1] = Map[i][m+1] = '#';
-    }
-
-    REP_1(i, m) {
-        Path[0][i] = Map[0][i] = '#';
-        Path[n+1][i] = Map[n+1][i] = '#';
-    }
-}
-
-
-void bfs(Po human, Po box){
-
-    REP_2_1(i, j, n, m) Path[i][j] = '#';
-    static Po Q[N*N]; int cz = 0, op = 1;
-
-    Q[0] = human; Path[human.x][human.y].clear();
-    Map[human.x][human.y] = Map[box.x][box.y] = '#';
-
-    while (cz < op){
-        Po u = Q[cz++];
-        REP(i, 4) {
-            Po v; v.x = u.x + dx[i]; v.y = u.y + dy[i];
-            if (Map[v.x][v.y]!='#' && Path[v.x][v.y][0]=='#'){
-                Path[v.x][v.y] = Path[u.x][u.y] + o[i];
-                Q[op++] = v;
-            }
-        }
-    }
-
-    Map[human.x][human.y] = Map[box.x][box.y] = '.';
-}
-
-
-state Q[N*N*4];
-int cz, op;
-
-void print_path(int x) {
-    state u = Q[x]; if (~u.pre()) print_path(u.pre());
-    cout << u.opt();
-}
-
-void BFS() {
-
-    FLC(D, 0x3f); cz = op = 0;
-    bfs(human, box);
-
-    REP(i, 4) {
-        Po p; p.x = box.x - dx[i]; p.y = box.y - dy[i];
-        if (Path[p.x][p.y][0]=='#') continue;
-        state v; v.p = box; v.i = i;
-        opt[box.x][box.y][i] = Path[p.x][p.y]; pre[box.x][box.y][i] = -1;
-        D[box.x][box.y][i] = 0; d[box.x][box.y][i] = v.opt().size();
-        Q[op++] = v;
-    }
-
-    while (cz < op) {
-        state u = Q[cz];
-        if (u.p == destination) {
-            print_path(cz); puts("");
+void bfs() {
+    queue<string> Q; Q.push(st);
+    while (!Q.empty()) {
+        string u = Q.front(); Q.pop();
+        if (u == ed) {
+            cout << H[u].size() << endl;
+            cout << H[u] << endl;
             return;
         }
-
-        Po p; p.x = u.p.x-dx[u.i], p.y = u.p.y-dy[u.i];
-        bfs(p, u.p);
-
-        for (int i=0;i<4;i++) {
-            if (Path[u.p.x-dx[i]][u.p.y-dy[i]][0]=='#') continue;
-            Po p; p.x = u.p.x + dx[i]; p.y = u.p.y + dy[i];
-            if (Map[p.x][p.y]=='#') continue;
-            state v; v.p = p; v.i = i;
-            bool not_in_queue = v.D() == INF;
-            v.relax(u, cz);
-            if (not_in_queue && v.D() != INF) {
-                Q[op++] = v;
-            }
+        REP(i, 3) {
+            string v; REP(j, 8) v += u[op[i][j]];
+            if (CTN(H, v)) continue;
+            H[v] = H[u] + char('A'+i);
+            Q.push(v);
         }
-        ++cz;
     }
-    puts("Impossible.");
 }
 
 int main(){
@@ -603,8 +499,7 @@ int main(){
     freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    while (RD(n,m)) {
-        printf("Maze #%d\n", ++Case);
-        init(); BFS(); puts("");
-    }
+    REP_1(i, 8) st += char('0'+i);
+    DO(8) ed += RC();
+    bfs();
 }
