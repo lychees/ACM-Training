@@ -7,6 +7,7 @@
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
+#include <atcoder/all>
 #include <functional>
 #include <algorithm>
 #include <iostream>
@@ -309,39 +310,37 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-#include <unordered_set>
-
-const int N = int(1e5) + 9;
-vector<pair<int, int>> adj[N];
+const int N = int(1e2) + 9;
+int x[N], y[N];
 int n;
 
-unordered_set<int> bad[N];
-int D[N]; bool C[N];
-
-int Dijkstra() {
-    FLC(D, 0x3f); D[0] = 0;
-    DO(n) {
-        int u = 0; REP(i, n) if (!C[i] && (C[u] || D[i] < D[u])) u = i; C[u] = 1;
-        if (D[u] == INF || u == n-1) break; while (CTN(bad[u], D[u])) ++D[u];
-        for (auto &e: adj[u]) {
-            int v = e.fi, w = e.se;
-            if (!C[v] && D[u] + w < D[v]) D[v] = D[u] + w;
-        }
-    }
-    return D[n-1] == INF ? -1: D[n-1];
+int dist2(int a, int b) {
+    return sqr(x[a]-x[b]) + sqr(y[a]-y[b]);
 }
 
-int main(){
+bool ok(DB d2) {
+    atcoder::dsu d(n+2);
+    REP(i, n) FOR(j, i+1, n) if (dist2(i, j) < d2) {
+        d.merge(i, j);
+    }
+    int u = n, b = n+1;
+    REP(i, n) {
+        if (sqr(100 - y[i]) < d2) d.merge(i, u);
+        if (sqr(y[i] + 100) < d2) d.merge(i, b);
+    }
+    return !d.same(u,b);
+}
 
+int main() {
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    RD(n); Rush {
-        int x, y, w; RD(x, y, w); --x; --y;
-        adj[x].PB({y, w});
-        adj[y].PB({x, w});
+    RD(n); REP(i, n) RDD(x[i], y[i]);
+    int l = 0, r = 40000;
+    while (l < r) {
+        DB m = (l + r + 1) / 2;
+        if (ok(m)) l = m; else r = m - 1;
     }
-    REP(i, n) Rush bad[i].insert(RD());
-    cout << Dijkstra() << endl;
+    printf("%.4f\n", sqrt(l)/2);
 }
