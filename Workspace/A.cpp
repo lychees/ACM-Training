@@ -308,20 +308,40 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 //}/* .................................................................................................................................. */
-const int N = int(200);
 
+#include <unordered_set>
 
-int dp[N];
-int a[8] = {1,2,5,10,20,50,100,200};
+const int N = int(1e5) + 9;
+vector<pair<int, int>> adj[N];
+int n;
 
+unordered_set<int> bad[N];
+int D[N]; bool C[N];
+
+int Dijkstra() {
+    FLC(D, 0x3f); D[0] = 0;
+    DO(n) {
+        int u = 0; REP(i, n) if (!C[i] && (C[u] || D[i] < D[u])) u = i; C[u] = 1;
+        if (D[u] == INF || u == n-1) break; while (CTN(bad[u], D[u])) ++D[u];
+        for (auto &e: adj[u]) {
+            int v = e.fi, w = e.se;
+            if (!C[v] && D[u] + w < D[v]) D[v] = D[u] + w;
+        }
+    }
+    return D[n-1] == INF ? -1: D[n-1];
+}
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-
-    dp[0] = 1; REP(i, 8) FOR(j, a[i], 201) dp[j] += dp[j-a[i]];
-    cout << dp[200] << endl;
+    RD(n); Rush {
+        int x, y, w; RD(x, y, w); --x; --y;
+        adj[x].PB({y, w});
+        adj[y].PB({x, w});
+    }
+    REP(i, n) Rush bad[i].insert(RD());
+    cout << Dijkstra() << endl;
 }
