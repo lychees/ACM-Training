@@ -1,140 +1,143 @@
-/*
-    This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
-    Template Date: 2015.10.12
-    Note: ...
-*/
-
-#pragma comment(linker, "/STACK:36777216")
-//#pragma GCC optimize ("O2")
-#define LOCAL
-#include <functional>
-#include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-#include <numeric>
-#include <cstring>
-#include <climits>
-#include <cassert>
-#include <complex>
-#include <cstdio>
-#include <string>
-#include <vector>
-#include <bitset>
-#include <queue>
-#include <stack>
-#include <cmath>
-#include <ctime>
-#include <list>
-#include <set>
-#include <map>
-
-
-#define fp(i,a,b) for(int i=a,I=b+1;i<I;++i)
-#define fd(i,a,b) for(int i=a,I=b-1;i>I;--i)
-#define go(u) for(int i=fi[u],v=e[i].to;i;v=e[i=e[i].nx].to)
-
-template<class T>inline bool cmax(T&a,const T&b){return a<b?a=b,1:0;}
-template<class T>inline bool cmin(T&a,const T&b){return a>b?a=b,1:0;}
 using namespace std;
-char ss[1<<17],*A=ss,*B=ss;
-inline char gc(){return A==B&&(B=(A=ss)+fread(ss,1,1<<17,stdin),A==B)?-1:*A++;}
-template<class T>inline void sd(T&x){
-    char c;T y=1;while(c=gc(),(c<48||57<c)&&c!=-1)if(c==45)y=-1;x=c-48;
-    while(c=gc(),47<c&&c<58)x=x*10+c-48;x*=y;
+#include <bits/stdc++.h>
+#define N 100005
+#define fi first
+#define se second
+#define mp(x,y) make_pair(x,y)
+#define ll long long
+int n,Q;
+char str[N];
+int m,fa[N*2],id[N];
+vector<pair<int,int> > q[N];
+namespace SAM{
+	struct Node{
+		Node *c[26],*fail;
+		int len;
+	} d[N*2],*S,*T;
+	void insert(int ch){
+		Node *nw=&d[++m],*p;
+		nw->len=T->len+1;
+		for (p=T;p && !p->c[ch];p=p->fail)
+			p->c[ch]=nw;
+		if (!p)
+			nw->fail=S;
+		else{
+			Node *q=p->c[ch];
+			if (p->len+1==q->len)
+				nw->fail=q;
+			else{
+				Node *clone=&d[++m];
+				memcpy(clone,q,sizeof(Node));
+				clone->len=p->len+1;
+				for (;p && p->c[ch]==q;p=p->fail)
+					p->c[ch]=clone;
+				nw->fail=q->fail=clone;
+			}
+		}
+		T=nw;
+	}
+	void build(){
+		S=T=&d[++m];
+		for (int i=1;i<=n;++i)
+			insert(str[i]-'a'),id[i]=T-d;
+		for (int i=2;i<=m;++i)
+			fa[i]=d[i].fail-d;
+	}
 }
-char sr[1<<21],z[20];int C=-1,Z;
-inline void Ot(){fwrite(sr,1,C+1,stdout),C=-1;}
-template<class T>inline void we(T x){
-    if(C>1<<20)Ot();if(x<0)sr[++C]=45,x=-x;
-    while(z[++Z]=x%10+48,x/=10);
-    while(sr[++C]=z[Z],--Z);sr[++C]='\n';
+struct Node{
+	Node *fa,*c[2];
+	int isr;
+	bool getson(){return fa->c[0]!=this;}
+	void rotate(){
+		Node *y=fa,*z=y->fa;
+		if (y->isr!=-1)
+			isr=y->isr,y->isr=-1;
+		else
+			z->c[y->getson()]=this;
+		int k=getson();
+		fa=z;
+		y->c[k]=c[k^1],c[k^1]->fa=y;
+		c[k^1]=y,y->fa=this;
+	}
+	void splay(){
+		for (;isr==-1;rotate())
+			if (!fa->isr)
+				getson()!=fa->getson()?rotate():fa->rotate();
+	}
+} d[N*2],*null,*rt;
+namespace SGT{
+	int tag[N*4],mx[N*4];
+	void modify(int st,int en,int c,int k=1,int l=1,int r=n){
+		if (c<=tag[k])
+			return;
+		if (st<=l && r<=en){
+			tag[k]=c;
+			mx[k]=max(max(mx[k<<1],mx[k<<1|1]),tag[k]-l);
+			return;
+		}
+		int mid=l+r>>1;
+		if (st<=mid) modify(st,en,c,k<<1,l,mid);
+		if (mid<en) modify(st,en,c,k<<1|1,mid+1,r);
+		mx[k]=max(max(mx[k<<1],mx[k<<1|1]),tag[k]-l);
+	}
+	int query(int st,int en,int k=1,int l=1,int r=n){
+		if (st<=l && r<=en)
+			return mx[k];
+		int mid=l+r>>1,res=tag[k]-max(l,st);
+		if (st<=mid) res=max(res,query(st,en,k<<1,l,mid));
+		if (mid<en) res=max(res,query(st,en,k<<1|1,mid+1,r));
+		return res;
+	}
 }
-const int N=4e5+5;
-typedef int arr[N];
-typedef long long ll;
-struct eg{int nx,to;}e[N*2];
-int n,m,ce,fi[N];ll ans;
-struct LCT{
-    int fa[N],ch[N][2];ll s[N],val[N],vs[N];
-    #define lc(u) (ch[u][0])
-    #define rc(u) (ch[u][1])
-    inline bool gf(int u){return rc(fa[u])==u;}
-    inline bool ir(int u){return lc(fa[u])^u&&rc(fa[u])^u;}
-    inline void up(int u){s[u]=s[lc(u)]+s[rc(u)]+val[u]+vs[u];}
-    inline void rot(int u){
-        int p=fa[u],k=gf(u);
-        if(!ir(p))ch[fa[p]][gf(p)]=u;
-        if(ch[u][!k])fa[ch[u][!k]]=p;
-        ch[p][k]=ch[u][!k],ch[u][!k]=p;
-        fa[u]=fa[p],fa[p]=u,up(p);
-    }
-    void splay(int u){
-        for(int f=fa[u];!ir(u);rot(u),f=fa[u])
-            if(!ir(f))rot(gf(f)==gf(u)?f:u);
-        up(u);
-    }
-    inline ll calc(int u,ll t,ll h){
+void modify(int i){
+	Node *x=&d[id[i]],*y=null;
 
-        h = max(h, val[u]);
+	cout <<id[i] << endl;
 
-        return (h*2>t?(t-h)*2:t-1);
+	for (;x!=rt;y=x,x=x->fa){
+		x->splay();
+		if (x->isr){
+			int l=SAM::d[x->fa-d].len+1,r=SAM::d[x-d].len;
 
-        }
-    inline void mdy(int u,int w){
-        splay(u);int v;
-        ll t=s[u]-s[lc(u)],h=s[rc(u)];
-
-        //cout << " " <<  t << " " << h << " "<<  calc(u,t,h) <<" ";
-
-        ans-=calc(u,t,h);s[u]+=w,val[u]+=w,t+=w;
-        if(h*2<t+1)vs[u]+=h,rc(u)=0;
-        //up(u);
-         ans+=calc(u,t,h);
-
-        //out << " " <<  t << " " << h << " "<<  calc(u,t,h) <<" " << endl;
-
-        //access
-
-        for(u=fa[v=u];u;u=fa[v=u]){
-            splay(u);t=s[u]-s[lc(u)],h=s[rc(u)];
-            ans-=calc(u,t,h);s[u]+=w,vs[u]+=w,t+=w;
-            if(h*2<t+1) {
-                vs[u]+=h,rc(u)=0,h=0;
-
-                vs[u]-=s[v],rc(u)=v,h=s[v];
-
-                if(h*2<t+1) {
-                    vs[u]+=h,rc(u)=0,h=0;
-                }
-            }
-            //up(u);
-            ans+=calc(u,t,h);
-        }
-    }
-    void dfs(int u){
-        s[u]=val[u];int p=0;ll mx=val[u];
-        go(u)if(v^fa[u]){
-            fa[v]=u,dfs(v),s[u]+=s[v];
-            if(s[v]>mx)mx=s[p=v];
-        }
-        ans+=min(s[u]-1,(s[u]-mx)*2);
-        if(mx*2>=s[u]+1)rc(u)=p;
-        vs[u]=s[u]-val[u]-s[rc(u)];
-    }
-}t;
-inline void add(int u,int v){e[++ce]={fi[u],v},fi[u]=ce;}
+			cout << i << " "<< l <<" " << r <<endl;
+//			printf("%d %d %d\n",x->isr-r+1,x->isr-l+1,x->isr);
+			SGT::modify(x->isr-r+1,x->isr-l+1,x->isr+1);
+		}
+		x->c[1]->isr=x->isr;
+		x->c[1]=y;
+		y->isr=-1;
+		x->isr=i;
+	}
+}
+int ans[N];
 int main(){
 
-    sd(n),sd(m);int u,v;
-    fp(i,1,n)sd(t.val[i]);
-    fp(i,2,n)sd(u),sd(v),add(u,v),add(v,u);
-    t.dfs(1);we(ans);
-    while(m--){
-        sd(u),sd(v);
-        t.mdy(u,v);
-        we(ans);
-    }
-return Ot(),0;
+#ifndef ONLINE_JUDGE
+    freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
+#endif
+	scanf("%d%d",&n,&Q);
+	scanf("%s",str+1);
+	for (int i=1;i<=Q;++i){
+		int l,r;
+		scanf("%d%d",&l,&r);
+		q[r].push_back(mp(l,i));
+	}
+	SAM::build();
+	null=d;
+	*null={null,null,null,-1};
+	for (int i=1;i<=m;++i) {
+		d[i]={&d[fa[i]],null,null,0};
+	}
+	rt=&d[1];
+	for (int i=1;i<=n;++i){
+		modify(i);
+		for (int j=0;j<q[i].size();++j){
+			int l=q[i][j].fi;
+			ans[q[i][j].se]=i-l+1-max(SGT::query(l,i),0);
+		}
+	}
+	for (int i=1;i<=Q;++i)
+		printf("%d\n",ans[i]);
+	return 0;
 }

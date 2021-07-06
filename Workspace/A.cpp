@@ -7,7 +7,6 @@
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
-#include <atcoder/all>
 #include <functional>
 #include <algorithm>
 #include <iostream>
@@ -310,37 +309,176 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e2) + 9;
-int x[N], y[N];
-int n;
+const int N = int(2e5) + 9;
+int n,Q;
+int fa[N],id[N];
+vector<pair<int,int> > q[N];
 
-int dist2(int a, int b) {
-    return sqr(x[a]-x[b]) + sqr(y[a]-y[b]);
+
+namespace SAM{
+    const int Z = 26;
+    int trans[N][Z], par[N], len[N], cnt[N], tot, tail;
+
+#define v trans[u][c]
+#define p par[u]
+#define pp par[uu]
+
+    inline int new_node(){
+        RST(trans[tot]); //cnt[tot] = 0;
+        return tot++;
+    }
+
+    inline int new_node(int u){
+        CPY(trans[tot], trans[u]); par[tot] = par[u]; //cnt[tot] = cnt[u];
+        return tot++;
+    }
+
+    inline int h(int u){
+        return len[u] - len[p];
+    }
+
+    int Ext(int c){
+        int u = tail, uu = new_node(); len[uu] = len[u] + 1;
+        while (u && !v) v = uu, u = p; // 向上遍历没有 c-转移 的祖先 ..
+        if (!u && !v) v = uu, pp = 0;
+        else{
+            if (len[v] == len[u] + 1) pp = v;
+            else{
+                int _v = v, vv = new_node(_v); len[vv] = len[u] + 1; par[_v] = pp = vv;
+                while (u && v == _v) v = vv, u = p;
+                if (!u && v == _v) v = vv;
+            }
+        }
+        return tail = uu;
+    }
+
+
+
+
+#define c (s[i]-'a')
+
+
+    char s[N]; VI adj[N];
+    LL z;
+
+#undef v
+
+    void Init(){
+        n = strlen(s); tot = 0; id[0] = tail = new_node();
+        REP(i, n) id[i+1] = Ext(c)+1;
+        FOR(u, 1, tot) fa[u+1] = p + 1;
+
+        //cout << n << " " << tot << endl;
+
+    }
+
+#undef c
+#undef p
+#undef pp
+
 }
 
-bool ok(DB d2) {
-    atcoder::dsu d(n+2);
-    REP(i, n) FOR(j, i+1, n) if (dist2(i, j) < d2) {
-        d.merge(i, j);
-    }
-    int u = n, b = n+1;
-    REP(i, n) {
-        if (sqr(100 - y[i]) < d2) d.merge(i, u);
-        if (sqr(y[i] + 100) < d2) d.merge(i, b);
-    }
-    return !d.same(u,b);
-}
 
-int main() {
+struct Node{
+	Node *fa,*c[2];
+	int isr;
+	bool getson(){return fa->c[0]!=this;}
+	void rotate(){
+		Node *y=fa,*z=y->fa;
+		if (y->isr!=-1)
+			isr=y->isr,y->isr=-1;
+		else
+			z->c[y->getson()]=this;
+		int k=getson();
+		fa=z;
+		y->c[k]=c[k^1],c[k^1]->fa=y;
+		c[k^1]=y,y->fa=this;
+	}
+	void splay(){
+		for (;isr==-1;rotate())
+			if (!fa->isr)
+				getson()!=fa->getson()?rotate():fa->rotate();
+	}
+} d[N],*null,*rt;
+
+
+namespace SGT{
+	int tag[N*4],mx[N*4];
+	void modify(int st,int en,int c,int k=1,int l=1,int r=n){
+		if (c<=tag[k])
+			return;
+		if (st<=l && r<=en){
+			tag[k]=c;
+			mx[k]=max(max(mx[k<<1],mx[k<<1|1]),tag[k]-l);
+			return;
+		}
+		int mid=l+r>>1;
+		if (st<=mid) modify(st,en,c,k<<1,l,mid);
+		if (mid<en) modify(st,en,c,k<<1|1,mid+1,r);
+		mx[k]=max(max(mx[k<<1],mx[k<<1|1]),tag[k]-l);
+	}
+	int query(int st,int en,int k=1,int l=1,int r=n){
+		if (st<=l && r<=en)
+			return mx[k];
+		int mid=l+r>>1,res=tag[k]-max(l,st);
+		if (st<=mid) res=max(res,query(st,en,k<<1,l,mid));
+		if (mid<en) res=max(res,query(st,en,k<<1|1,mid+1,r));
+		return res;
+	}
+}
+void modify(int i){
+	Node *x=&d[id[i]],*y=null;
+
+	//cout <<id[i] << endl;
+
+	for (;x!=rt;y=x,x=x->fa){
+		x->splay();
+		if (x->isr){
+			int l=SAM::len[x->fa-d-1]+1,r=SAM::len[x-d-1];
+
+			//cout << i <<" " << l <<" " << r <<endl;
+
+//			printf("%d %d %d\n",x->isr-r+1,x->isr-l+1,x->isr);
+			SGT::modify(x->isr-r+1,x->isr-l+1,x->isr+1);
+		}
+		x->c[1]->isr=x->isr;
+		x->c[1]=y;
+		y->isr=-1;
+		x->isr=i;
+	}
+}
+int ans[N];
+int main(){
+
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
-    RD(n); REP(i, n) RDD(x[i], y[i]);
-    int l = 0, r = 40000;
-    while (l < r) {
-        DB m = (l + r + 1) / 2;
-        if (ok(m)) l = m; else r = m - 1;
-    }
-    printf("%.4f\n", sqrt(l)/2);
+
+	scanf("%d%d",&n,&Q);
+	scanf("%s",SAM::s);
+	for (int i=1;i<=Q;++i){
+		int l,r;
+		scanf("%d%d",&l,&r);
+		q[r].push_back({l,i});
+	}
+	SAM::Init();
+	null=d;
+	*null={null,null,null,-1};
+	for (int i=1;i<=SAM::tot;++i) {
+		d[i]={&d[fa[i]],null,null,0};
+		        //cout << i << " "<< fa[i] << endl;
+
+	}
+	rt=&d[1];
+	for (int i=1;i<=n;++i){
+		modify(i);
+		for (int j=0;j<q[i].size();++j){
+			int l=q[i][j].fi;
+			ans[q[i][j].se]=i-l+1-max(SGT::query(l,i),0);
+		}
+	}
+	for (int i=1;i<=Q;++i)
+		printf("%d\n",ans[i]);
+	return 0;
 }
