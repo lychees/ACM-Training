@@ -1,0 +1,122 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p><i>Time limit is 6 seconds.</i></p>
+<br></br>
+<p>
+Absurdistan is a rectangular country that is divided into a grid of <b>R</b> rows by <b>C</b> columns of unit squares.
+These have coordinates from (0, 0) to (<b>R</b>-1, <b>C</b>-1).
+</p>
+<br></br>
+<p>
+We are building broadcast towers.
+Each broadcast tower occupies one square of the grid.
+Additionally, in the future each broadcast tower will have to be anchored.
+The anchors for a tower must occupy <i>either</i> both squares that are horizontally adjacent to the tower, <i>or</i> both vertically-adjacent squares.
+</p>
+<p>
+Each square can only contain at most one object (i.e., either a tower, or the anchor of exactly one tower, or nothing).
+Anchors of a tower cannot be placed outside the grid.
+This limits how towers on the boundary of Absurdistan can be anchored.
+</p>
+<br></br>
+<p>
+Below is an example of several correctly anchored towers, using 'T' to denote towers and different numbers to denote anchors for different towers. Note that tower with anchors denoted '5' could have also been anchored vertically.
+</p>
+<pre>
+    +----------+
+    | 0       4|
+    | T1  5T5 T|
+    | 0T3T3   4|
+    |  12T2    |
+    +----------+
+</pre>
+<br></br>
+<p>
+You are given a sequence of 50,000 not necessarily distinct squares: (qr[0], qc[0]), ..., (qr[49999], qc[49999]). These are candidates for the places of towers in Absurdistan.
+</p>
+<p>
+The tower building committee processes these candidates in the given order, using the following algorithm:
+</p>
+<pre>
+
+    start with an empty set T of towers
+    for each i from 0 to 49999:
+        let S = (qr[i], qc[i]) be the current candidate square
+        if S is already in T:
+            ignore candidate number i (do nothing)
+        else:
+            let T' = T + {S}
+            if it is possible to build and correctly anchor all towers in T':
+                accept candidate number i and set T = T'
+            else:
+                reject candidate number i
+
+</pre>
+<p>
+You are given <b>X</b>.
+Return the number of the <b>X</b>-th (1-based index) rejected candidate, or -1 if there is no such candidate.
+</p>
+<p>
+<b>X</b> is usually small. Please read the exact constraints for <b>X</b> carefully.
+</p>
+<br></br>
+<p>--------------------</p>
+<br></br>
+<p>
+In order to keep the input small, the sequence of candidate squares is generated pseudorandomly.
+Please use the following pseudocode to generate it:
+</p>
+<pre>
+
+state = seed
+for i = 0 to 49999:
+    state = (state * 1103515245 + 12345) modulo 2^31
+    qr[i] = (state div 1000) mod R
+    state = (state * 1103515245 + 12345) modulo 2^31
+    qc[i] = (state div 1000) mod C
+</pre>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TowerPlacement</td></tr><tr><td>Method:</td><td>solve</td></tr><tr><td>Parameters:</td><td>int, int, int, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int solve(int R, int C, int seed, int X)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>6.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Candidates that are ignored do <i>not</i> count as rejected candidates.</td></tr><tr><td align="center" valign="top">-</td><td>It is possible that a rejected square shares coordinates with another, previously rejected square. Each of those still counts as a separate rejection.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> will be between 1 and 100,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>C</b> will be between 1 and 100,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>seed</b> will be between 0 and 2^31 - 1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>X</b> will be between 1 and 500, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Let N = min(50000, <b>R</b>*<b>C</b>). Then, <b>X</b>*N will not exceed 200,000.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>5</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2">The sequence has 50,000 copies of the cell (0, 0). Each of them gets rejected because Absurdistan is too small for the tower's anchors.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr><tr><td><pre>3</pre></td></tr><tr><td><pre>47</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The sequence of candidates begins as follows: (1,1) (2,0) (0,2) (0,0) (1,1) (1,0) (2,1) (2,0) (1,1) (0,1) (1,0) (0,1) ...
+</p>
+<p>
+The following happens:
+</p>
+<ul>
+<li>Candidate 0 is accepted. We have T = { (1,1) }.</li>
+<li>Candidates 1, 2, and 3 are rejected. We cannot ever anchor a tower built in a corner of Absurdistan.</li>
+<li>Candidate 4 is ignored, we already have it in T.</li>
+<li>Candidate 5 is accepted. It is possible to build towers at (1,1) and (1,0) and anchor both of them vertically. Now T = { (1,1), (1,0) }.</li>
+<li>Candidate 6 is rejected: if we build towers at (1,1), (1,0), and (2,1) it is not possible to anchor all three while keeping everything disjoint.</li>
+</ul>
+Candidate 6 was the fourth rejected candidate, so we return 6.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10000</pre></td></tr><tr><td><pre>14700</pre></td></tr><tr><td><pre>12345</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+Plenty of room for all the towers and their anchors, nothing gets rejected. (A few candidates do get ignored.)
+</p>
+<p>
+The first few candidates: (6932,7783) (9466,8783) (9335,7850) (3799,671) (1188,9750) (2930,3413) (9546,171) (5770,4508) (9212,12084) 
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>10</pre></td></tr><tr><td><pre>12</pre></td></tr><tr><td><pre>123456789</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 19</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+The first 20 candidates: (4,2) (5,2) (7,2) (9,5) (0,4) (9,7) (0,8) (6,6) (1,4) (6,3) (6,7) (3,6) (7,10) (2,0) (9,2) (0,6) (2,0) (5,10) (3,6) (7,7)
+</p>
+<ul>
+<li>Candidates 0-4 get accepted.</li>
+<li>Candidate 5 gets rejected. Towers at (9,5) and (9,7) both need to be anchored horizontally, as they are in the last row. However, they both want to use (9,6) for one of their anchors, which isn't allowed.</li>
+<li>Candidates 6-14 all get accepted.</li>
+<li>Candidate 15, the square (0,6), gets rejected. The issue is similar to the previous one.</li>
+<li>Candidate 16 gets ignored as a duplicate of an already accepted square.</li>
+<li>Candidate 17 gets accepted.</li>
+<li>Candidate 18 gets ignored.</li>
+<li>Candidate 19 gets rejected.</li>
+</ul>
+<p>
+The situation when processing candidate 19 is shown below: candidate 19 is '#', previously accepted candidates are '*' and empty squares are '.'.
+</p>
+<pre>
+....*...*...
+....*.......
+*...........
+......*.....
+..*.........
+..*.......*.
+...*..**....
+..*....#..*.
+............
+..*..*......
+</pre>
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

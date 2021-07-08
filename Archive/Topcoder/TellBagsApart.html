@@ -1,0 +1,111 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Lucy has two bags.
+The bags have numbers 1 and 2 on them.
+One of them (but we do not know which one) contains <b>four white and four black</b> marbles, the other contains <b>twenty white and twenty black</b> marbles.
+The bags are opaque, so we cannot see what's inside.
+</p>
+<p>
+We would like to determine which bag is which.
+</p>
+<br></br>
+<p>
+Consider the following experiment:
+</p>
+<ol>
+<li>We choose a bag.</li>
+<li>Lucy draws a random marble from the chosen bag.</li>
+<li>She shows us the marble.</li>
+<li>She returns the marble back into the bag.</li>
+</ol>
+<p>
+It should be clear that in terms of our goal the above experiment is useless: even if we are allowed to repeat it multiple times, we cannot use it to learn anything useful about the two bags.
+</p>
+<br></br>
+<p>
+Perhaps surprisingly, the situation changes completely once we modify the experiment slightly:
+</p>
+<ol>
+<li>We choose a bag.</li>
+<li>Lucy draws two random marbles from the chosen bag, one after another.</li>
+<li>She shows us the two marbles in the order in which she drew them.</li>
+<li>She returns both marbles back into the bag.</li>
+</ol>
+<br></br>
+<p>
+We have performed the two-marble version of the experiment <b>exactly 2500</b> times.
+For each round we recorded the number of the bag we chose (1 or 2) and the colors of the two marbles Lucy drew (WW, BW, WB, or BB).
+</p>
+<p>
+Note that while the marbles were always drawn at random (with all random choices being uniform and mutually independent), the bag from which Lucy drew in each round was chosen by us, and not necessarily uniformly at random.
+You do not know anything about how we selected the bag from which Lucy should draw in each round.
+In particular, you should <b>not</b> expect that each bag was chosen approximately 50 percent of the time.
+</p>
+<br></br>
+<p>
+There are eight possible records for a single experiment: 1WW, 1BW, 1WB, 1BB, 2WW, 2BW, 2WB, 2BB.
+As different draws are mutually independent and their order does not matter, we just kept a count for each record.
+</p>
+<p>
+You are given these counts: eight integers that correspond to the eight records in the order given above.
+Given this information, determine the number of the bag that contains the smaller number of marbles.
+</p>
+<br></br>
+<p>-----------------------------------</p>
+<br></br>
+<p>
+Each test case contains N independent queries.
+In the examples we have N = 4 and N = 20, in each other test case N = 100.
+In each query you are given the eight counts as described above, and your task is to determine which bag has the smaller number of marbles.
+</p>
+<p>
+The input is given as the vector &lt;int&gt; <b>records</b> with 8*N elements: the first 8 elements of <b>records</b> form the first query, the next 8 elements the second query, and so on.
+</p>
+<p>
+Return a string with N characters, each being '1' or '2': for each query, the number of the bag with the smaller number of marbles.
+</p>
+<br></br>
+<p>
+Your answer for a test case will be accepted <b>if and only if its accuracy is at least 94 percent</b>.
+</p>
+<p>
+(I.e., you need to get Example 0 completely correct, you can make up to 1 mistake in Example 1, and in each other test case you can make up to 6 mistakes.)
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TellBagsApart</td></tr><tr><td>Method:</td><td>whichBagIsSmaller</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string whichBagIsSmaller(vector &lt;int&gt; records)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>All tests for this problem were prepared before the round by actually simulating the process from the problem statement. More precisely, we prepared the generator, ran it exactly once and used the tests it generated.</td></tr><tr><td align="center" valign="top">-</td><td>Custom challenges for this problem will not be allowed, as we cannot guarantee that you generated them in a fair way.</td></tr><tr><td align="center" valign="top">-</td><td>During the challenge phase you can only use the example tests as possible challenge inputs.</td></tr><tr><td align="center" valign="top">-</td><td>There are exactly 20 test cases. (This includes the two examples.)</td></tr><tr><td align="center" valign="top">-</td><td>Under these conditions, the reference solution would pass system tests with probability significantly over 99.99 percent.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>In the test case in Example 0, <b>records</b> contains 4*8 elements.</td></tr><tr><td align="center" valign="top">-</td><td>In the test case in Example 1, <b>records</b> contains 20*8 elements.</td></tr><tr><td align="center" valign="top">-</td><td>In each other test case, <b>records</b> contains 100*8 elements.</td></tr><tr><td align="center" valign="top">-</td><td>All elements of <b>records</b> are non-negative.</td></tr><tr><td align="center" valign="top">-</td><td>If we break <b>records</b> into groups of 8, the sum of each such group is exactly 2500.</td></tr><tr><td align="center" valign="top">-</td><td>Each query in <b>records</b> was generated as described in the problem statement.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{262, 371, 340, 277, 303, 304, 333, 310,
+ 296, 326, 370, 275, 312, 329, 284, 308,
+ 265, 402, 372, 279, 279, 317, 307, 279,
+ 112, 160, 121, 102, 497, 497, 505, 506}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;1111&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+When generating this test case, we used the following strategies to select the bag for Lucy:
+</p>
+<ul>
+<li>Query 0: we first chose bag 1 exactly 1250 times and then bag 2 exactly 1250 times. (Note that 262+371+340+277 = 303+304+333+310 = 1250.)</li>
+<li>Query 1: in each round of the experiment we chose the bag at random.</li>
+<li>Query 2: we started by choosing bag 1, and each time Lucy drew two black marbles, we flipped to the other bag.</li>
+<li>Query 3: we were choosing the bags in the cyclic order 1,2,2,2,2.</li>
+</ul>
+<p>
+The return value is correct: in each query bag 1 was the one with fewer marbles.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{401, 405, 345, 358, 203, 295, 284, 209,
+ 348, 380, 396, 361, 221, 274, 307, 213,
+ 361, 347, 410, 347, 246, 287, 298, 204,
+ 301, 389, 412, 304, 253, 289, 280, 272,
+ 303, 450, 388, 290, 270, 286, 246, 267,
+ 328, 354, 326, 362, 254, 305, 309, 262,
+ 290, 362, 391, 296, 285, 282, 313, 281,
+ 338, 335, 345, 335, 220, 338, 335, 254,
+ 309, 356, 348, 323, 239, 344, 343, 238,
+ 264, 368, 365, 258, 301, 312, 328, 304,
+ 256, 368, 343, 295, 296, 323, 319, 300,
+ 275, 318, 383, 258, 320, 340, 306, 300,
+ 275, 301, 323, 309, 273, 372, 366, 281,
+ 263, 331, 290, 309, 277, 358, 395, 277,
+ 261, 310, 291, 259, 301, 407, 379, 292,
+ 256, 318, 297, 257, 325, 358, 366, 323,
+ 284, 287, 274, 286, 294, 406, 358, 311,
+ 266, 271, 282, 256, 282, 395, 429, 319,
+ 270, 274, 278, 268, 308, 396, 404, 302,
+ 203, 283, 299, 229, 368, 401, 377, 340}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;22211212211122212221&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+For each i from 0 to 19, inclusive, when generating query i we used the strategy that in each round bag 1 was chosen with probability (60-i) percent.
+</p>
+<p>
+The return value is correct for each of the 20 queries.
+</p></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
