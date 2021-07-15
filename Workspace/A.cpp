@@ -308,17 +308,8 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}/* .................................................................................................................................. */
 
 
-#include <atcoder/lazysegtree>
+#include <atcoder/twosat>
 using namespace atcoder;
-
-
-typedef pair<LL, int> S;
-
-S sum(S l, S r) {return {l.fi+r.fi, l.se+r.se};}
-S zero(){return {0,0};}
-S mapping(LL l, S r){return S{r.fi+l*r.se,r.se};}
-LL composition(LL l, LL r) {return l+r;}
-LL id(){return 0;}
 
 int main(){
 
@@ -327,17 +318,10 @@ int main(){
     //freopen("out.txt", "w", stdout);
 #endif
 
-    int n, m; RD(n, m); vector<S> a(n); REP(i, n) a[i] = {RDD(),1};
-    lazy_segtree<S, sum, zero, LL, mapping, composition, id> T(a);
-
-    DO(m) {
-        if (RC() == 'Q') {
-            int l, r; RD(l, r); --l;
-            cout << T.prod(l, r).fi << endl;
-        } else {
-            int l, r; LL d; RD(l, r); --l; RDD(d);
-            T.apply(l, r, d);
-
-        }
+    two_sat G(RD()); Rush {
+        int a1, a2, c1, c2; RD(a1, a2, c1, c2);
+        G.add_clause(a1, c1, a2, c2);
     }
+
+    puts(G.satisfiable() ? "YES" : "NO");
 }
