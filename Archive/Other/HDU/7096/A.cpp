@@ -465,25 +465,10 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
+const int N = int(3e3) + 9;
 
-VI adj[N]; int a[N], b[N];
-LL z = 0; int n;
-
-void dfs(int u = 1, int p = -1) {
-    LL d = 0;
-    ECH(it, adj[u]) {
-        int v = *it; if (v == p) continue;
-        dfs(v, u); d += min(a[u], a[v]);
-    }
-    checkMin(d, (LL)a[u]*b[u]);
-    a[u] -= max(0ll, d - (LL)a[u]*(b[u]-1));
-    z -= d;
-}
-
-// 10
-// 5 3 2
-
+LL s[N][N];
+LL fact[N], f0[N], f1[N];
 
 
 int main()
@@ -494,17 +479,17 @@ int main()
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    Rush {
-        RD(n); REP_1(i, n) adj[i].clear();
+    fact[0] = 1; FOR(i, 1, N) fact[i] = fact[i-1] * i % MOD;
+    s[1][1] = 1; FOR(i, 2, N) REP_1(j, i) s[i][j] = (s[i-1][j] * j + s[i-1][j-1]) % MOD;
+    FOR(i, 1, N) f0[i] = fact[i] * fact[i] % MOD, f1[i] = fact[i] * fact[i+1] % MOD;
 
-        DO(n-1) {
-            int x, y; RD(x, y);
-            adj[x].PB(y);
-            adj[y].PB(x);
-        }
-
-        z = 0; REP_1(i, n) RD(a[i], b[i]), z += a[i]; dfs();
-        cout <<z << endl;
+    Rush{
+        int n, m; RD(n, m); __int128 z = 0;
+        REP_1(i, min(n,m)) z += (__int128)f0[i]*s[n][i]*s[m][i]; z *= 2;
+        REP_1(i, min(n-1,m)) z += (__int128)f1[i]*s[n][i+1]*s[m][i];
+        REP_1(i, min(n,m-1)) z += (__int128)f1[i]*s[n][i]*s[m][i+1];
+        z %= MOD;
+        cout << (int)z << endl;
     }
 }
 
