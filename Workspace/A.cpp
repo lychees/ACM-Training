@@ -465,46 +465,59 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
+const int N = int(1e4) + 9, M = 63;
 
-VI adj[N]; int a[N], b[N];
-LL z = 0; int n;
+struct LinearBase {
+    LL b[M];
+    int n, rank;
 
-void dfs(int u = 1, int p = -1) {
-    LL d = 0;
-    ECH(it, adj[u]) {
-        int v = *it; if (v == p) continue;
-        dfs(v, u); d += min(a[u], a[v]);
+    void add(LL a) {
+        DWN(i, M, 0) if (_1(a, i)) {
+            if (!b[i]) {
+                b[i] = a;
+                ++rank;
+                return;
+            }
+            a ^= b[i];
+        }
     }
-    checkMin(d, (LL)a[u]*b[u]);
-    a[u] -= max(0ll, d - (LL)a[u]*(b[u]-1));
-    z -= d;
-}
 
-// 10
-// 5 3 2
+    void init() {
+        RST(b); rank = 0; RD(n); DO(n) add(RD());
+        REP(i, M) FOR(j, i+1, M) if (_1(b[j], i)) b[j] ^= b[i];
+    }
+
+    void gao() {
+
+        printf("Case #%d:\n", ++Case);
+        Rush {
+            LL k; RD(k);
+            if (rank != n) --k;
+            if (k >= _1(rank)) puts("-1"); else {
+                LL z = 0; int c = 0;
+                REP(i, M) if (b[i]){
+                    if (_1(k, c)) {
+                        k -= _1(c);
+                        z ^= b[i];
+                    }
+                    ++c;
+                }
+                printf("%lld\n", z);
+            }
+        }
+    }
+} B;
 
 
-
-int main()
-{
+int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
     Rush {
-        RD(n); REP_1(i, n) adj[i].clear();
-
-        DO(n-1) {
-            int x, y; RD(x, y);
-            adj[x].PB(y);
-            adj[y].PB(x);
-        }
-
-        z = 0; REP_1(i, n) RD(a[i], b[i]), z += a[i]; dfs();
-        cout <<z << endl;
+        B.init();
+        B.gao();
     }
 }
-
