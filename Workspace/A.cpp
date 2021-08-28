@@ -216,7 +216,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = int(1e9) + 7;;
+const int MOD = 998244353;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -465,59 +465,145 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e4) + 9, M = 63;
+#include <ext/rope>
+using namespace __gnu_cxx;
 
-struct LinearBase {
-    LL b[M];
-    int n, rank;
+const int N = int(4e5) + 9;
 
-    void add(LL a) {
-        DWN(i, M, 0) if (_1(a, i)) {
-            if (!b[i]) {
-                b[i] = a;
-                ++rank;
-                return;
-            }
-            a ^= b[i];
+Int Fact[N];
+
+Int Binom(int n, int m) {
+    return Fact[n] / (Fact[m] * Fact[n-m]);
+}
+
+int n;
+
+namespace SBT{
+    const int NN = N;
+    int c[2][NN], sz[NN], ky[NN], tot, root;
+#define lx l[x]
+#define rx r[x]
+#define l c[d]
+#define r c[!d]
+#define kx ky[x]
+#define sx sz[x]
+#define d 0
+    int new_node(int v = 0){
+        int x=++tot;lx=rx=0;
+        sx=1;kx=v;
+        return x;
+    }
+
+    void upd(int x){
+        sx=sz[lx]+1+sz[rx];
+    }
+#undef d
+    void rot(int &x,int d){
+        int y=rx;rx=l[y];l[y]=x;
+        upd(x),upd(y),x=y;
+    }
+
+    void fix(int &x,int d){
+        if (sz[l[lx]] > sz[rx]) rot(x,!d);
+        else{
+            if (sz[r[lx]] > sz[rx]) rot(lx,d),rot(x,!d);
+            else return;
+        }
+        d=0,fix(lx,0),fix(rx,1);
+        fix(x,0),fix(x,1);
+    }
+#define d 0
+    void Ins(int &x,int v){
+        if(!x) x = new_node(v);
+        else{
+            ++sz[x]; Ins(c[v>kx][x],v);
+            fix(x,v>=kx);
         }
     }
 
-    void init() {
-        RST(b); rank = 0; RD(n); DO(n) add(RD());
-        REP(i, M) FOR(j, i+1, M) if (_1(b[j], i)) b[j] ^= b[i];
+    int d_key; void Del(int &x,int v){
+        --sx;if(kx==v||(v<kx&&!lx)||(v>kx&&!rx)){
+            if(!lx||!rx) d_key = kx, x = lx | rx;
+            else Del(lx,v+1), kx = d_key;
+        }
+        else Del(c[v>kx][x],v);
     }
 
-    void gao() {
-
-        printf("Case #%d:\n", ++Case);
-        Rush {
-            LL k; RD(k);
-            if (rank != n) --k;
-            if (k >= _1(rank)) puts("-1"); else {
-                LL z = 0; int c = 0;
-                REP(i, M) if (b[i]){
-                    if (_1(k, c)) {
-                        k -= _1(c);
-                        z ^= b[i];
-                    }
-                    ++c;
-                }
-                printf("%lld\n", z);
+    int Rank(int x,int v){
+        int z=0;while(x){
+            if(kx<v){
+                z+=sz[lx]+1;
+                x=rx;
+            }
+            else{
+                x=lx;
             }
         }
+        return z;
     }
-} B;
+
+    bool Find(int x,int v){
+        if (!x) return 0;if (kx==v) return 1;
+        return Find(c[v>kx][x],v);
+    }
+
+    int kth(int x, int k) {
+        if (sz[lx] == k) return x;
+        if (sz[lx] < k) return kth(rx, k-sz[lx]-1);
+        return kth(lx, k);
+    }
+
+    void InsKth(int &x,int v){
+        if(!x) x = new_node(v);
+        else{
+            ++sz[x]; Ins(c[v>kx][x],v);
+            fix(x,v>=kx);
+        }
+    }
+
+    void Init(){
+        tot = 0; root = 0;
+        REP(i, n+1) Ins(root, 0);
+    }
+
+#undef d
+#undef l
+#undef r
+#undef lx
+#undef rx
+#undef sx
+#undef kx
+};
+using namespace SBT;
 
 
-int main() {
+int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
+    Fact[0] = 1; FOR(i, 1, N) Fact[i] = Fact[i-1] * i;
+
     Rush {
-        B.init();
-        B.gao();
+
+
+        RD(n); Init(); int m = 0; Rush {
+           int x, y; RD(x, y);
+            if (ky[kth(root, y)] == 0) {
+                ++m;
+                cout << kth(root, y) << " ?? " << " " << sz[root] << endl;
+
+                InsKth(root, y+1, 1);
+                //r.insert(y+1, 1);
+            } else {
+                //r.insert(y, 0);
+                InsKth(root, y, 0);
+            }
+            REP(i, n+1) cout << ky[kth(root, i)]; cout << endl;
+
+        }
+        cout << Binom(n+n-1-m, n) << endl;
     }
 }
