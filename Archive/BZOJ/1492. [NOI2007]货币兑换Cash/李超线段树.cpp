@@ -350,7 +350,7 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RD(n); RF(f[1]); REP_1(i, n) {
+    RD(n); RF(f[0]); REP(i, n) {
         RF(A[i], B[i], R[i]);
         P.PB(A[i]/B[i]);
     }
@@ -360,13 +360,13 @@ int main(){
 #define b(i) (f[i] / (R[i] * A[i] + B[i]))
 #define a(i) (R[i] * b(i))
 
-    Insert(root, Line(a(1), b(1)));
+    Insert(root, Line(a(0), b(0)));
 
-    FOR_1(i, 2, n) {
+    FOR_1(i, 1, n) {
         Line::x = LBD(P, A[i]/B[i]);
         f[i] = max(f[i-1], B[i]*Query(root));
         Insert(root, Line(a(i), b(i)));
     }
 
-    OT(f[n]);
+    OT(f[n-1]);
 }

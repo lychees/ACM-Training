@@ -304,8 +304,44 @@ int last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e5) + 9;
 
-DB f[N], A[N], B[N], R[N];
+DB f[N], A[N], B[N], R[N]; vector<DB> P;
 int n;
+
+struct Line {
+    static int x;
+    DB k, b;
+    Line(){
+    }
+    Line(DB k, DB b):k(k),b(b) {
+    }
+    DB y(int x = Line::x) const {
+        return k*P[x]+b;
+    }
+};
+
+namespace Segment_Tree {
+    #define lx (x<<1)
+    #define rx (lx|1)
+    #define ml ((l+r)>>1)
+    #define mr (ml+1)
+    #define lc lx, l, ml
+    #define rc rx, mr, r
+    #define root 1, 0, SZ(P)-1
+    Line T[N*4], t;
+
+    void Insert(int x, int l, int r, Line t) {
+        if (T[x].y(ml) < t.y(ml)) swap(T[x], t);
+        if (l == r || (t.y(l) <= T[x].y(l)) ^ (t.y(r) > T[x].y(r))) return;
+        Insert(lc, t);
+        Insert(rc, t);
+    }
+    DB Query(int x, int l, int r) {
+        if (l == r) return T[x].y();
+        return max(T[x].y(), Line::x < mr ? Query(lc) : Query(rc));
+    }
+} using namespace Segment_Tree;
+
+int Line::x = 0;
 
 int main(){
 
@@ -316,14 +352,20 @@ int main(){
 
     RD(n); RF(f[0]); REP(i, n) {
         RF(A[i], B[i], R[i]);
+        P.PB(A[i]/B[i]);
     }
+
+    UNQ(P);
 
 #define b(i) (f[i] / (R[i] * A[i] + B[i]))
 #define a(i) (R[i] * b(i))
 
-    FOR(i, 1, n) {
-        f[i] = f[i-1];
-        REP(j, i) checkMax(f[i], A[i]*a(j) + B[i]*b(j));
+    Insert(root, Line(a(0), b(0)));
+
+    FOR_1(i, 1, n) {
+        Line::x = LBD(P, A[i]/B[i]);
+        f[i] = max(f[i-1], B[i]*Query(root));
+        Insert(root, Line(a(i), b(i)));
     }
 
     OT(f[n-1]);
