@@ -1,9 +1,3 @@
-/*
-    This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
-    Template Date: 2015.10.12
-    Note: ...
-*/
-
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
@@ -96,16 +90,16 @@ using namespace std;
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-  REP(i, n){		                            \
+  REP(i, n){                                    \
         REP(j, m-1) cout << A[i][j] << " ";     \
-        cout << A[i][m-1] << endl;		        \
-	}						                    \
+        cout << A[i][m-1] << endl;                \
+    }                                            \
 }
 #define Display_1(A, n, m) {                    \
-	REP_1(i, n){		                        \
+    REP_1(i, n){                                \
         REP_1(j, m-1) cout << A[i][j] << " ";   \
-        cout << A[i][m] << endl;		        \
-	}						                    \
+        cout << A[i][m] << endl;                \
+    }                                            \
 }
 
 typedef long long LL;
@@ -216,7 +210,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = 998244353; // int(1e9) + 7;
+const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -253,210 +247,6 @@ inline DB sec(DB x){return 1./cos(x);};
 inline DB csc(DB x){return 1./sin(x);};
 
 //}
-
-// <<= '9. Comutational Geometry .,//{
-namespace CG{
-
-#define cPo const Po&
-#define cLine const Line&
-#define cSeg const Seg&
-
-    inline DB dist2(DB x,DB y){return sqr(x)+sqr(y);}
-
-    struct Po{
-        DB x,y;Po(DB x=0,DB y=0):x(x),y(y){}
-
-        void in(){RF(x,y);}void out(){printf("(%.2f,%.2f)",x,y);}
-        inline friend istream&operator>>(istream&i,Po&p){return i>>p.x>>p.y;}
-        inline friend ostream&operator<<(ostream&o,Po p){return o<<"("<<p.x<<", "<<p.y<< ")";}
-
-        Po operator-()const{return Po(-x,-y);}
-        Po&operator+=(cPo p){x+=p.x,y+=p.y;rTs;}Po&operator-=(cPo p){x-=p.x,y-=p.y;rTs;}
-        Po&operator*=(DB k){x*=k,y*=k;rTs;}Po&operator/=(DB k){x/=k,y/=k;rTs;}
-        Po&operator*=(cPo p){rTs=Ts*p;}Po&operator/=(cPo p){rTs=Ts/p;}
-        Po operator+(cPo p)const{return Po(x+p.x,y+p.y);}Po operator-(cPo p)const{return Po(x-p.x,y-p.y);}
-        Po operator*(DB k)const{return Po(x*k,y*k);}Po operator/(DB k)const{return Po(x/k,y/k);}
-        Po operator*(cPo p)const{return Po(x*p.x-y*p.y,y*p.x+x*p.y);}Po operator/(cPo p)const{return Po(x*p.x+y*p.y,y*p.x-x*p.y)/p.len2();}
-
-        bool operator==(cPo p)const{return!sgn(x,p.x)&&!sgn(y,p.y);};bool operator!=(cPo p)const{return sgn(x,p.x)||sgn(y,p.y);}
-        bool operator<(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<0;}bool operator<=(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<=0;}
-        bool operator>(cPo p)const{return!(Ts<=p);}bool operator >=(cPo p)const{return!(Ts<p);}
-
-        DB len2()const{return dist2(x,y);}DB len()const{return sqrt(len2());}DB arg()const{return atan2(y,x);}
-        Po&_1(){rTs/=len();}Po&conj(){y=-y;rTs;}Po&lt(){swap(x,y),x=-x;rTs;}Po&rt(){swap(x,y),y=-y;rTs;}
-        Po&rot(DB a,cPo o=Po()){Ts-=o;Ts*=Po(cos(a),sin(a));rTs+=o;}
-
-
-        // 求所在象限，大部分情况下只区分两个足够。
-        inline int q()const{
-            return (y > 0 || y == 0 && x >= 0) ? 0 : 1;
-            /*if (x > 0 && y >= 0) return 0;
-             if (x <= 0 && y > 0) return 1;
-             if (x < 0 && y <= 0) return 2;
-             return 3;*/
-        }
-    };
-
-    inline DB dot(DB x1,DB y1,DB x2,DB y2){return x1*x2+y1*y2;}
-    inline DB dot(cPo a,cPo b){return dot(a.x,a.y,b.x,b.y);}
-    inline DB dot(cPo p0,cPo p1,cPo p2){return dot(p1-p0,p2-p0);}
-    inline DB det(DB x1,DB y1,DB x2,DB y2){return x1*y2-x2*y1;}
-    inline DB det(cPo a,cPo b){return det(a.x,a.y,b.x,b.y);}
-    inline DB det(cPo p0,cPo p1,cPo p2){return det(p1-p0,p2-p0);}
-    inline DB ang(cPo p0,cPo p1){return acos(dot(p0,p1)/p0.len()/p1.len());}
-    inline DB ang(cPo p0,cPo p1,cPo p2){return ang(p1-p0,p2-p0);}
-    inline DB ang(cPo p0,cPo p1,cPo p2,cPo p3){return ang(p1-p0,p3-p2);}
-    inline DB dist2(const Po &a, const Po &b){return dist2(a.x-b.x, a.y-b.y);}
-    template<class T1, class T2> inline int dett(const T1 &x, const T2 &y){return sgn(det(x, y));}
-    template<class T1, class T2, class T3> inline int dett(const T1 &x, const T2 &y, const T3 &z){return sgn(det(x, y, z));}
-    template<class T1, class T2, class T3, class T4> inline int dett(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(det(x, y, z, w));}
-    template<class T1, class T2> inline int dott(const T1 &x, const T2 &y){return sgn(dot(x, y));}
-    template<class T1, class T2, class T3> inline int dott(const T1 &x, const T2 &y, const T3 &z){return sgn(dot(x, y, z));}
-    template<class T1, class T2, class T3, class T4> inline int dott(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(dot(x, y, z, w));}
-    template<class T1, class T2> inline DB arg(const T1 &x, const T2 &y){DB a=ang(x,y);return~dett(x,y)?a:2*PI-a;}
-    template<class T1, class T2, class T3> inline DB arg(const T1 &x, const T2 &y, const T3 &z){DB a=ang(x,y,z);return~dett(x,y,z)?a:2*PI-a;}
-    template<class T1, class T2, class T3, class T4> inline DB arg(const T1 &x, const T2 &y, const T3 &z, const T4 &w){DB a=ang(x,y,z,w);return~dett(x,y,z,w)?a:2*PI-a;}
-    template<class T1, class T2> inline DB dist(const T1 &x, const T2 &y){return sqrt(dist2(x, y));}
-    template<class T1, class T2, class T3> inline DB dist(const T1 &x, const T2 &y, const T3 &z){return sqrt(dist2(x, y, z));}
-    inline Po _1(Po p){return p._1();}inline Po conj(Po p){return p.conj();}
-    inline Po lt(Po p){return p.lt();}inline Po rt(Po p){return p.rt();}
-    inline Po rot(Po p,DB a,cPo o=Po()){return p.rot(a,o);}
-    inline Po operator *(DB k,cPo p){return p*k;}
-    inline Po operator /(DB k,cPo p){return conj(p)*k/p.len2();}
-
-    typedef vector<Po> VP;
-
-    struct Line{
-        Po a,b;Line(cPo a=Po(),cPo b=Po()):a(a),b(b){}
-        Line(DB x0,DB y0,DB x1,DB y1):a(Po(x0,y0)),b(Po(x1,y1)){}
-        Line(cLine l):a(l.a),b(l.b){}
-
-        //Ax+By+C=0
-        Line(DB A,DB B,DB C){
-            C=-C;if(!::sgn(A))a=Po(0,C/B),b=Po(1,C/B);
-            else if(!::sgn(B))a=Po(C/A,0),b=Po(C/A,1);
-            else a=Po(0,C/B),b=Po(1,(C-A)/B);
-        }
-
-        void in(){a.in(),b.in();}
-        inline friend istream&operator>>(istream&i,Line& p){return i>>p.a>>p.b;}
-        inline friend ostream&operator<<(ostream&o,Line p){return o<<p.a<<"-"<< p.b;}
-
-        Line operator+(cPo x)const{return Line(a+x,b+x);}
-        Line operator-(cPo x)const{return Line(a-x,b-x);}
-        Line operator*(DB k)const{return Line(a*k,b*k);}
-        Line operator/(DB k)const{return Line(a/k,b/k);}
-
-        Po operator*(cLine)const;
-        Po d()const{return b-a;}DB len2()const{return d().len2();}DB len()const{return d().len();}DB arg()const{return d().arg();}
-
-        int sgn(cPo p)const{return dett(a, b, p);}
-        int sgn(cLine)const;
-
-        bool sameSgn(cPo  p1,cPo  p2)const{return sgn(p1)==sgn(p2);}
-        void getEquation(DB&K,DB&B)const{
-            K = ::sgn(a.x, b.x) ? (b.y-a.y)/(b.x-a.x) : OO;
-            B = a.y - K*a.x;
-        }
-        void getEquation(DB&A,DB&B,DB&C)const{A=a.y-b.y,B=b.x-a.x,C=det(a, b);}
-
-        Line&push(DB r){ // 正数右手螺旋向里
-            Po v=d()._1().lt()*r;a+=v,b+=v; rTs;
-        }
-    };
-
-    inline DB dot(cLine l1,cLine l2){return dot(l1.d(),l2.d());}
-    inline DB dot(cLine l,cPo p){return dot(l.a,l.b,p);}
-    inline DB dot(cPo p,cLine l){return dot(p,l.a,l.b);}
-    inline DB det(cLine l1,cLine l2){return det(l1.d(),l2.d());}
-    inline DB det(cLine l,cPo p){return det(l.a,l.b,p);}
-    inline DB det(cPo p,cLine l){return det(p,l.a,l.b);}
-    inline DB ang(cLine l0,cLine l1){return ang(l0.d(),l1.d());}
-    inline DB ang(cLine l,cPo p){return ang(l.a,l.b,p);}
-    inline DB ang(cPo p,cLine l){return ang(p,l.a,l.b);}
-
-    inline int Line::sgn(cLine l)const{return dett(Ts, l);}
-    inline Po Line::operator*(cLine l)const{return a+d()*det(a,l)/det(Ts,l);}
-    inline Po operator&(cPo p,cLine l){return l*Line(p,p+l.d().lt());}
-    inline Po operator%(cPo p,cLine l){return p&l*2-p;}
-    inline Line push(Line l, DB r){return l.push(r);}
-
-
-    struct Seg: public Line{
-        Seg(cPo a=Po(),cPo b=Po()):Line(a,b){}
-        Seg(DB x0,DB y0,DB x1,DB y1):Line(x0,y0,x1,y1){}
-        Seg(cLine l):Line(l){}
-        Seg(const Po &a,DB alpha):Line(a,alpha){}
-        Seg(DB A,DB B,DB C):Line(A,B,C){}
-
-        inline int sgn(cPo p)const;
-        inline int sgn(cLine l)const;
-        inline bool qrt(cSeg l)const;
-        inline int sgn(cSeg l)const;
-    };
-
-    // -1不相交 0相交（不规范） 1相交（规范）
-
-    //inline int Seg::sgn(cPo p)const{return -dott(p,a,b);}
-
-    inline int Seg::sgn(cPo p)const{
-        if (dett(p, a, b)) return -1; // 有时会有精度误差。。
-        if (a == p || b == p) return 0;
-        return -dott(p,a,b);
-    }
-
-
-    inline int Seg::sgn(cLine l)const{return sgn(Ts*l);}
-
-    // quick_rejection_test
-    inline bool Seg::qrt(cSeg l)const{
-        return min(a.x,b.x)<=max(l.a.x,l.b.x)&&min(l.a.x,l.b.x)<=max(a.x,b.x)&&
-        min(a.y,b.y)<=max(l.a.y,l.b.y)&&min(l.a.y,l.b.y)<=max(a.y,b.y);
-    }
-
-
-    inline int Seg::sgn(cSeg l)const{
-        if (!qrt(l)) return -1;
-
-        /*return
-         (dett(a,b,l.a)*dett(a,b,l.b)<=0 &&
-         dett(l.a,l.b,a)*dett(l.a,l.b,b)<=0)?1:-1;*/
-
-        int d1=dett(a,b,l.a),d2=dett(a,b,l.b),d3=dett(l.a,l.b,a),d4=dett(l.a,l.b,b);
-        if ((d1^d2)==-2&&(d3^d4)==-2)return 1;
-        return ((!d1&&dott(l.a-a,l.a-b)<=0)||(!d2&&dott(l.b-a,l.b-b)<=0)||
-                (!d3&&dott(a-l.a,a-l.b)<=0)||(!d4&&dott(b-l.a,b-l.b)<=0))?0:-1;
-    }
-
-    //inline DB dist2(cLine l,cPo p){return sqr(fabs(dot(lt(l.d()), p-l.a)))/l.len2();}
-    inline DB dist2(cLine l,cPo p){return sqr(fabs(det(l.d(), p-l.a)))/l.len2();}
-
-    inline DB dist2(cLine l1,cLine l2){return dett(l1,l2)?0:dist2(l1,l2.a);}
-
-    inline DB dist2(cSeg l,cPo p){
-        Po pa = p - l.a, pb = p - l.b;
-        if (dott(l.d(), pa) <= 0) return pa.len2();
-        if (dott(l.d(), pb) >= 0) return pb.len2();
-        return dist2(Line(l), p);
-    }
-
-
-    inline DB dist2(cSeg s,cLine l){
-        Po v1=s.a-l.a,v2=s.b-l.a;DB d1=det(l.d(),v1),d2=det(l.d(),v2);
-        return sgn(d1)!=sgn(d2) ? 0 : sqr(min(fabs(d1), fabs(d2)))/l.len2();
-    }
-    inline DB dist2(cSeg l1,cSeg l2){
-        if (~l1.sgn(l2)) return 0;
-        else return min(dist2(l2,l1.a), dist2(l2,l1.b), dist2(l1,l2.a), dist2(l1,l2.b));
-    }
-    template<class T1, class T2> inline DB dist2(const T1& a, const T2& b){
-        return dist2(b, a);
-    }
-
-} using namespace CG;//}
-
-
-
 //}
 
 
@@ -499,12 +289,12 @@ inline char* RS(char *s){
     return s;
 }
 
-LL last_ans; int Case; template<class T> inline void OT(const T &x){
+int last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
-    //printf("%.9f\n", x);
-    printf("%d\n", x);
+    printf("%.3f\n", x);
+    //printf("%d\n", x);
     //cout << x << endl;
     //last_ans = x;
 }
@@ -513,136 +303,27 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}/* .................................................................................................................................. */
 
 
-const int M = int(2e5) + 9;
-const int N = M;
+const int N = 109;
+DB A[N], B[N], R[N], f[N];
+int n;
 
-int n,m;
-LL ans[M];
-
-Po QP[N];
-
-
-namespace Segment_Tree {
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml (l+r>>1)
-#define mr (ml+1)
-#define lc lx, l, ml
-#define rc rx, mr, r
-#define root 1, 1, n
-    const int NN = 4*N;
-    vector<Po> P[NN]; VI Q[NN];
-    Po C[N]; int a, b, n; Po p;
-
-    void Insert(int x, int l, int r) {
-        if (b < l || r < a) return;
-        if (a <= l && r <= b) {
-            P[x].PB(p);
-        } else {
-            Insert(lc);
-            Insert(rc);
-        }
-    }
-
-    void Insert_Query(int x, int l, int r) {
-        Q[x].PB(b);
-        if (l < r) {
-            if (a < mr) Insert_Query(lc);
-            else Insert_Query(rc);
-        }
-    }
-
-    void Run(int x, int l, int r) {
-
-//        SRT(P[x]);
-        int nn = -1; for (auto p: P[x]) {
-            while (nn > 0 && dett(C[nn-1], C[nn], p) >= 0) --nn;
-            C[++nn] = p;
-        }
-        ++nn;
-
-        if (nn) {
-            //FOR_1(i, l, r) if(Q[i]) {
-            for (auto t: Q[x]) {
-                //Update(id[i]);
-                Po q = ::QP[t];
-
-                int l = 0, r = nn-1;
-                while (l < r) {
-                    if (dott(C[mr]-C[ml], q) > 0) l = mr;
-                    else r = ml;
-                }
-
-                checkMax(ans[t], (LL)dot(C[l], q));
-                //REP(j, nn) checkMax(ans[t], (LL)dot(C[j], q));
-            }
-        }
-
-        if (l < r) {
-            Run(lc);
-            Run(rc);
-        }
-    }
-} // using namespace Segment_Tree;
-
-
-
-
-const int ADD = 1;
-const int DEL = 2;
-const int QUERY = 3;
-
-struct Query {
-    int t,l,r; Po p;
-    void in(int);
-    void Add() {
-        if (t == ADD) {
-            Segment_Tree::a = l;
-            Segment_Tree::b = r;
-            Segment_Tree::p = p;
-            Segment_Tree::Insert(root);
-        } else if (t == QUERY) {
-            Segment_Tree::a = l; Segment_Tree::b = r;
-            //cout << l << " " << t <<  " " << 1 << " " << n << endl;
-            Segment_Tree::Insert_Query(root);
-        }
-	}
-    bool operator<(const Query& rhs) const {
-        return p < rhs.p;
-    }
-} Q[N]; int A[N];
-int an, qn;
-
-void Query::in(int i) {
-    RD(t);
-    if (t == DEL) { // del
-        Q[A[RD()]].r = i;
-    } else {
-        p.in();
-        if (t == ADD) {
-            A[++an] = l = i; r = n;
-        } else {
-            l = i; QP[r = ++qn] = p;
-        }
-    }
-}
-
-
-signed main()
-{
-
+int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-	RD(n); REP_1(i, n) Q[i].in(i);
+    RD(n); RF(f[1]); REP_1(i, n) RF(A[i], B[i], R[i]);
 
-    sort(Q+1, Q+n+1);
-	REP_1(i, n) Q[i].Add();
-	Segment_Tree::Run(root);
+#define b(i) (f[i] / (R[i] * A[i] + B[i]))
+#define a(i) (R[i] * b(i))
 
-	for(int i=1;i<=qn;i++)
-		printf("%lld\n",ans[i]);
+    FOR_1(i, 2, n){
+        f[i] = f[i-1];
+        REP_1(j, i) checkMax(f[i], a(j)*A[i] + b(j)*B[i]);
+        cout << f[i] << endl;
+    }
+
+    OT(f[n]);
 }
