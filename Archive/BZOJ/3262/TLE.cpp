@@ -559,9 +559,7 @@ int last_ans; int Case; template<class T> inline void OT(const T &x){
 const int N = int(1e5) + 9;
 
 namespace BIT {
-    const int N = int(2e5) + 9;
     int C[N]; int n;
-
     void Add(int x, int d){
         for (;x<=n;x+=low_bit(x)) C[x] += d;
     }
@@ -571,7 +569,7 @@ namespace BIT {
     }
 } //using namespace BIT;
 
-int ans[N];
+int ans[N]; VI Z;
 
 struct rec{
     int x, y, z, c, f;
@@ -582,13 +580,13 @@ struct rec{
         return x == r.x && y == r.y && z == r.z;
     }
     void add() {
-        BIT::Add(z, c);
+        BIT::Add(UBD(Z, z), c);
     }
     void dec() {
-        BIT::Add(z, -c);
+        BIT::Add(UBD(Z, z), -c);
     }
     void upd() {
-        f += BIT::Sum(z);
+        f += BIT::Sum(UBD(Z, z));
     }
 } A[N]; int n;
 
@@ -604,19 +602,15 @@ void cdq(int l, int r) {
         int m = (l + r) / 2;
         cdq(l, m); cdq(m, r);
 
-        static rec AA[N]; int ll = l, rr = m;
-        FOR(i, l, r) {
-            if (rr == r || ll < m && A[ll].y <= A[rr].y) {
-                AA[i] = A[ll++];
-                AA[i].add();
-            } else {
-                AA[i] = A[rr++];
-                AA[i].upd();
-            }
+        FOR(i, l, m) Z.PB(A[i].z); UNQ(Z); BIT::n = SZ(Z);
+
+        int ll = l; FOR(i, m, r) {
+            while (ll < m && A[ll].y <= A[i].y) A[ll++].add();
+            A[i].upd();
         }
 
         while (ll > l) A[--ll].dec();
-        FOR(i, l, r) A[i] = AA[i];
+        sort(A+l, A+r, cmpY);
     }
 }
 
@@ -627,7 +621,7 @@ int main(){
     //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n, BIT::n); REP(i, n) A[i].in();
+    int _; RD(n, _); REP(i, n) A[i].in();
     sort(A, A+n, cmpX);
 
     int _n = n; n = 0; A[n].c = 1;
