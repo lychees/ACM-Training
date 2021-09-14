@@ -315,7 +315,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* æ¨¡æ�°ä¸¤å��å��å¥½è¶� int æ�¶ã��
+/* 模数两倍刚好超 int 时。
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -468,76 +468,39 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 
 const int N = int(1.2e6) + 9;
-int cw;
-const DB eps=1e-9,inf=1e30;
 
-struct point{
-	LL x, y;double k;
-	point(){}
-	point (LL x):x(x),y(0),k(0){}
-	point (LL x,LL y): x(x),y(y),k(0){}
-	point (LL x,LL y,DB k): x(x),y(y),k(k){}
+
+#define ll LL
+struct Line {
+	mutable ll k, m, p;
+	ll eval (ll x) { return k*x+m; }
+	bool operator<(const Line& o) const { return k > o.k; }
+	bool operator<(ll x) const { return p < x; }
 };
 
-typedef set<point>::iterator ite;
-bool operator<(const point &a,const point&b){
-	if(cw==0) return a.x<b.x; else return a.k<b.k;
-}
-
-inline double getk(ite a,ite b){return 1.*(b->y-a->y)/(b->x-a->x);}
-inline double getk(ite a,point b){ return 1.*(b.y-a->y)/(b.x-a->x);}
-
-struct hull{
-	set<point> hul;
+struct LC : multiset<Line,less<> > {
+	const ll inf = LLONG_MAX;
 	LL up;
-	void insert(LL x,LL y){
-	    y -= up;
-		cw=0;
-		point q=point(x,y);
-		ite pr,nt,ppr,nnt,Pr;
-		if (hul.size() && x>=hul.begin() -> x && x<=hul.rbegin()->x){
-			pr = hul.lower_bound(point(x));
-			if(pr->x==x){
-				if(pr->y>y){
-					LL &p = const_cast<LL&> (pr->y);
-					p=y;
-				}
-			}else{
-				--pr;
-				if (getk(pr,q)>=pr->k)return;
-				else pr=hul.insert(q).first;
-			}
-		}else pr=hul.insert(q).first;
-
-		Pr=pr;--pr;
-
-		if (Pr!=hul.begin())while(1){
-			if(pr==hul.begin())break;
-			--(ppr=pr);
-			if(getk(ppr,q)<=ppr->k) hul.erase(pr);else break;
-			pr=ppr;
-		}
-		nt=Pr;++nt;
-		if(nt!=hul.end())while(1){
-			++(nnt=nt);
-			if (nnt==hul.end())break;
-			if(getk(nnt,q)>=nt->k) hul.erase(nt); else break;
-			nt=nnt;
-		}
-		nnt=Pr;nt=nnt++;
-		double &p = const_cast<double&> (nt->k);
-		p = (nnt==hul.end()?inf:getk(nt,nnt));
-		ppr=nt;pr=ppr--;
-		if(pr!=hul.begin()){
-			double &p = const_cast<double&> (ppr->k);
-			p=getk(ppr,pr);
-		}
+	ll div(ll a, ll b) { return a/b - ((a^b) < 0 && a%b); }
+	ll bet(const Line& x, const Line& y) {
+		if (x.k == y.k) return x.m <= y.m ? inf : -inf;
+		return div(y.m-x.m, x.k-y.k);
 	}
-	LL query(LL k){
-		//if(hul.empty())return Inf;
-		cw=1;
-		ite pr=hul.lower_bound(point(0,0,-k));
-		return 1ll*k*pr->x+pr->y + up;
+	bool isect(iterator x, iterator y) {
+		if (y == end()) { x->p = inf; return 0; }
+		x->p = bet(*x,*y); return x->p >= y->p;
+	}
+	void add(ll k, ll m) {
+	    m -= up;
+		auto z = insert({k,m,0}), y = z++, x = y;
+		while (isect(y,z)) z = erase(z);
+		if (x != begin() && isect(--x, y)) isect(x, y=erase(y));
+		while ((y=x) != begin() && (--x)->p >= y->p) isect(x, erase(y));
+	}
+	ll query(ll x) {
+		assert(!empty());
+		auto l = *lower_bound(x);
+		return l.k*x+l.m + up;
 	}
 } H[N]; int HH[N];
 
@@ -545,6 +508,7 @@ const int NN = N * 20;
 int n;
 
 VI adj[N]; LL sw[N], dp[N]; int sz[N];
+
 
 #define hu H[HH[u]]
 #define hv H[HH[v]]
@@ -564,15 +528,15 @@ void dfs(int u,int p) {
         hu.up += s - dp[vv];
         for (auto v: adj[u]) if (v != p && v != vv) {
             hv.up += s - dp[v];
-            for (auto p: hv.hul) {
-                hu.insert(p.x, p.y + hv.up);
+            for (auto p: hv) {
+                hu.add(p.k, p.m + hv.up);
             }
         }
     } else {
         HH[u] = u;
     }
 
-    hu.insert(sw[u], s + sqr(sw[u]));
+    hu.add(sw[u], s + sqr(sw[u]));
     dp[u] = sqr(sw[p]) + hu.query(-2*sw[p]);
 }
 

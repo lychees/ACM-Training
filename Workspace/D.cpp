@@ -246,6 +246,7 @@ template<class T> inline T ceil(T x, T y){return (x - 1) / y + 1;}
 template<class T> T abs(T x){return x>0?x:-x;}
 inline int sgn(DB x){return x < -EPS ? -1 : x > EPS;}
 inline int sgn(DB x, DB y){return sgn(x - y);}
+inline int sgn(LL x) {return x < 0 ? -1 : x > 0;}
 
 inline DB cos(DB a, DB b, DB c){return (sqr(a)+sqr(b)-sqr(c))/(2*a*b);}
 inline DB cot(DB x){return 1./tan(x);};
@@ -253,6 +254,162 @@ inline DB sec(DB x){return 1./cos(x);};
 inline DB csc(DB x){return 1./sin(x);};
 
 //}
+// <<= '1. Bitwise Operation ., //{
+namespace BO{
+
+inline bool _1(int x, int i){return bool(x&1<<i);}
+inline bool _1(LL x, int i){return bool(x&1LL<<i);}
+inline LL _1(int i){return 1LL<<i;}
+inline LL _U(int i){return _1(i) - 1;};
+
+inline int reverse_bits(int x){
+    x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
+    x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
+    x = ((x >> 4) & 0x0f0f0f0f) | ((x << 4) & 0xf0f0f0f0);
+    x = ((x >> 8) & 0x00ff00ff) | ((x << 8) & 0xff00ff00);
+    x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
+    return x;
+}
+
+inline LL reverse_bits(LL x){
+    x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
+    x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
+    x = ((x >> 4) & 0x0f0f0f0f0f0f0f0fLL) | ((x << 4) & 0xf0f0f0f0f0f0f0f0LL);
+    x = ((x >> 8) & 0x00ff00ff00ff00ffLL) | ((x << 8) & 0xff00ff00ff00ff00LL);
+    x = ((x >>16) & 0x0000ffff0000ffffLL) | ((x <<16) & 0xffff0000ffff0000LL);
+    x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
+    return x;
+}
+
+template<class T> inline bool odd(T x){return x&1;}
+template<class T> inline bool even(T x){return !odd(x);}
+template<class T> inline T low_bit(T x) {return x & -x;}
+template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
+template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
+template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
+
+inline int clz(int x){return __builtin_clz(x);}
+inline int clz(LL x){return __builtin_clzll(x);}
+inline int ctz(int x){return __builtin_ctz(x);}
+inline int ctz(LL x){return __builtin_ctzll(x);}
+inline int lg2(int x){return !x ? -1 : 31 - clz(x);}
+inline int lg2(LL x){return !x ? -1 : 63 - clz(x);}
+inline int low_idx(int x){return !x ? -1 : ctz(x);}
+inline int low_idx(LL x){return !x ? -1 : ctz(x);}
+inline int high_idx(int x){return lg2(x);}
+inline int high_idx(LL x){return lg2(x);}
+inline int parity(int x){return __builtin_parity(x);}
+inline int parity(LL x){return __builtin_parityll(x);}
+inline int count_bits(int x){return __builtin_popcount(x);}
+inline int count_bits(LL x){return __builtin_popcountll(x);}
+
+} using namespace BO;//}
+
+
+// <<= '2. Number Theory .,//{
+namespace NT{
+//#define gcd __gcd
+inline LL gcd(LL a, LL b){return b?gcd(b,a%b):a;}
+inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
+
+inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
+inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
+
+/* 模数两倍刚好超 int 时。
+inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
+inline void INC(int &a, int b){a = sum(a, b);}
+*/
+
+inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
+inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
+inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
+//inline int pdt(int a, int b){return (LL)a * b % MOD;}
+inline int pdt(int x,int y) {
+    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
+    return ret;
+}
+
+
+inline int gcd(int m, int n, int &x, int &y){
+
+    x = 1, y = 0; int xx = 0, yy = 1, q;
+
+    while (1){
+        q = m / n, m %= n;
+        if (!m){x = xx, y = yy; return n;}
+        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
+        q = n / m, n %= m;
+        if (!n) return m;
+        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
+    }
+}
+
+inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
+inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
+inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
+inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
+
+inline int pow(int a, LL b){
+    int c(1); while (b){
+        if (b&1) MUL(c, a);
+        MUL(a, a), b >>= 1;
+    }
+    return c;
+}
+
+template<class T> inline T pow(T a, LL b){
+    T c(1); while (b){
+        if (b&1) c *= a;
+        a *= a, b >>= 1;
+    }
+    return c;
+}
+
+template<class T> inline T pow(T a, int b){
+    return pow(a, (LL)b);
+}
+
+inline int _I(int b){
+    int a = MOD, x1 = 0, x2 = 1, q; while (1){
+        q = a / b, a %= b;
+        if (!a) return x2;
+        DEC(x1, pdt(q, x2));
+
+        q = b / a, b %= a;
+        if (!b) return x1;
+        DEC(x2, pdt(q, x1));
+    }
+}
+
+inline void DIV(int &a, int b){MUL(a, _I(b));}
+inline int qtt(int a, int b){return pdt(a, _I(b));}
+
+struct Int{
+    int val;
+
+    operator int() const{return val;}
+
+    Int(int _val = 0):val(_val){
+        val %= MOD; if (val < 0) val += MOD;
+    }
+    Int(LL _val):val(_val){
+        _val %= MOD; if (_val < 0) _val += MOD;
+        val = _val;
+    }
+
+    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
+    Int operator +(const int& rhs) const{return sum(val, rhs);}
+    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
+    Int operator -(const int& rhs) const{return dff(val, rhs);}
+    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
+    Int operator *(const int& rhs) const{return pdt(val, rhs);}
+    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
+    Int operator /(const int& rhs) const{return qtt(val, rhs);}
+    Int operator-()const{return MOD-*this;}
+};
+
+} using namespace NT;//}
+
 
 //}
 
@@ -301,136 +458,64 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
-    printf("%d\n", x);
-    //cout << x << endl;
+    //printf("%d\n", x);
+    cout << x << endl;
     //last_ans = x;
 }
 
 
-//}/* .................................................................................................................................. */
+//}
 
 
-inline char read() {
-	static const int IN_LEN = 1000000;
-	static char buf[IN_LEN], *s, *t;
-	return (s == t ? t = (s = buf) + fread(buf, 1, IN_LEN, stdin), (s == t ? -1 : *s++) : *s++);
-}
-template<class T>
-inline void read(T &x) {
-	static bool iosig;
-	static char c;
-	for (iosig = false, c = read(); !isdigit(c); c = read()) {
-		if (c == '-') iosig = true;
-		if (c == -1) return;
-	}
-	for (x = 0; isdigit(c); c = read()) x = ((x + (x << 2)) << 1) + (c ^ '0');
-	if (iosig) x = -x;
-}
-const int OUT_LEN = 10000000;
-char obuf[OUT_LEN], *ooh = obuf;
-inline void print(char c) {
-	if (ooh == obuf + OUT_LEN) fwrite(obuf, 1, OUT_LEN, stdout), ooh = obuf;
-	*ooh++ = c;
-}
-template<class T>
-inline void print(T x) {
-	static int buf[30], cnt;
-	if (x == 0) print('0');
-	else {
-		if (x < 0) print('-'), x = -x;
-		for (cnt = 0; x; x /= 10) buf[++cnt] = x % 10 + 48;
-		while (cnt) print((char)buf[cnt--]);
-	}
-}
-inline void flush() { fwrite(obuf, 1, ooh - obuf, stdout); }
-const int N = 10005;
-int n, m, num=1, cnt, top, p, q, dep[N], stk[N], h[N], dfn[N], low[N], d[N<<1], siz[N<<1], dis[N<<1], e[N<<2], w[N<<2], pre[N<<2], f[15][N<<1];
-vector<pair<int,int>> E[N<<1];
-inline void add(int x, int y, int z){ e[++num]=y, w[num]=z, pre[num]=h[x], h[x]=num;}
+namespace BIT{
+    const int N = int(300*300) + 9;
+    int C[N], n;
+    int Sum(int x){
+        int z=0; for (;x;x^=low_bit(x)) z += C[x];
+        return z;
+    }
+    void Add(int x, int d){
+        for(;x<=n;x+=low_bit(x)) C[x] += d;
+    }
+    int Sum(int l, int r){
+        return Sum(r) - Sum(l-1);
+    }
+} //using namespace BIT;
 
-
-const int LV = 15;
-int fa[15][N*2];
-#define DWN(i, b, a) for (int i=b-1;i>=a;--i)
-#define dep d
-inline int move_up(int x, int t){
-    for (int lv=0;t;++lv,t>>=1)
-        if (t&1) x = fa[lv][x];
-    return x;
+int cmp(PII a,PII b) {
+	if(a.fi!=b.fi) return a.fi<b.fi;
+	else return a.se>b.se;
 }
+PII a[301*301];
+int n, m;
 
-inline int lca(int x, int y) {
-    if (dep[x]>dep[y]) swap(x,y); y=move_up(y, dep[y]-dep[x]); if (x==y) return x;
-    DWN(lv, LV, 0) if (fa[lv][x]!=fa[lv][y]) x = fa[lv][x], y = fa[lv][y];
-    return fa[0][x];
-}
-void getLCA(int x, int y, int &a, int &b, int &z) {
-    if (dep[x]>dep[y]) swap(x,y); y=move_up(y, dep[y]-dep[x]); if (x==y) {z = x; return;}
-    DWN(lv, LV, 0) if (fa[lv][x]!=fa[lv][y]) x = fa[lv][x], y = fa[lv][y];
-    a = x; b = y; z = fa[0][x];
-}
-#undef dep
-
-void tarjan(int u, int fa=0){
-	dfn[u]=low[u]=++cnt;
-	stk[++top]=u;
-	for(int i=h[u]; i; i=pre[i]) if(i!=fa)
-		if(!dfn[e[i]]){
-			dep[e[i]]=dep[u]+w[i], tarjan(e[i], i^1);
-			low[u]=min(low[u], low[e[i]]);
-			if(dfn[e[i]]==low[e[i]])
-				f[0][e[i]]=u, E[u].push_back(make_pair(e[i], w[i]));
-		}
-		else if(dfn[e[i]]<dfn[u]){
-			low[u]=min(low[u], dfn[e[i]]);
-			siz[++n]=dep[u]-dep[e[i]]+w[i];
-			f[0][n]=e[i], E[e[i]].push_back(make_pair(n, 0));
-			for(int j=top, v; (v=stk[j])!=e[i]; --j){
-                long long d = dep[v]-dep[e[i]];
-				f[0][v]=n, E[n].push_back(make_pair(v, min(d, siz[n]-d)));
-			}
-		}
-	--top;
-}
-void dfs(int u){
-	//if(f[0][u]>p) dis[u]=min(dis[u], siz[f[0][u]]+dis[f[0][u]]*2-dis[u]);
-	for(auto i:E[u]) {
-        fa[0][i.first] = u;
-		dis[i.first]=dis[u]+i.second, d[i.first]=d[u]+1, dfs(i.first);
-	}
-}
-
-int main() {
-
-
+int main()
+{
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    freopen("in.txt","r",stdin);
+    //freopen("out.txt","w",stdout);
 #endif
 
-
-	read(n), read(m), read(q), p=n;
-	for(int i=1; i<=m; ++i){
-		static int x, y, z;
-		read(x), read(y), read(z);
-		add(x, y, z), add(y, x, z);
-	}
-	tarjan(1), dfs(1);
-
-
-	REP_1(v, n) for (int lv=0;fa[lv+1][v]=fa[lv][fa[lv][v]];++lv);
-
-
-	while(q--){
-		static int x, y, lca, a, b;
-		read(x), read(y), getLCA(x, y, a, b, lca);
-		if(lca<=p) print(dis[x]+dis[y]-dis[lca]*2);
-		else{
-			int tmp=abs(dep[a]-dep[b]);
-			print(dis[x]+dis[y]-dis[a]-dis[b]+min(tmp, siz[lca]-tmp));
+    Rush {
+        RD(n, m); BIT::n = n*m+1;
+        REP_1(i, n*m) a[i] = MP(RD(), i);
+		fill(BIT::C, BIT::C+BIT::n+1, 0);
+		sort(a+1,a+1+n*m);
+		for(int i=1;i<=n*m;i+=m) {
+			sort(a+i,a+i+m,cmp);
 		}
-		print('\n');
+		LL z=0;
+		REP_1(i,n*m) {
+			int id=a[i].se;
+			z+=BIT::Sum(id);
+			BIT::Add(id,1);
+			if(i%m==0) {
+				for(int j=i;j>i-m;j--) {
+					BIT::Add(a[j].se,-1);
+				}
+			}
+		}
+		OT(z);
 	}
-	return flush(), 0;
 }

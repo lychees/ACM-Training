@@ -315,7 +315,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* æ¨¡æ�°ä¸¤å��å��å¥½è¶� int æ�¶ã��
+/* ģ�������պó� int ʱ��
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
@@ -454,11 +454,11 @@ inline char* RS(char *s){
 }
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
-    //printf("Case #%d: ", ++Case);
-    printf("%lld\n", x);
+    printf("Case #%d: ", ++Case);
+    //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
-    //printf("%d\n", x);
+    printf("%d\n", x);
     //cout << x << endl;
     //last_ans = x;
 }
@@ -466,128 +466,43 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
+const int N = int(2e5) + 9;
 
-const int N = int(1.2e6) + 9;
-int cw;
-const DB eps=1e-9,inf=1e30;
-
-struct point{
-	LL x, y;double k;
-	point(){}
-	point (LL x):x(x),y(0),k(0){}
-	point (LL x,LL y): x(x),y(y),k(0){}
-	point (LL x,LL y,DB k): x(x),y(y),k(k){}
-};
-
-typedef set<point>::iterator ite;
-bool operator<(const point &a,const point&b){
-	if(cw==0) return a.x<b.x; else return a.k<b.k;
-}
-
-inline double getk(ite a,ite b){return 1.*(b->y-a->y)/(b->x-a->x);}
-inline double getk(ite a,point b){ return 1.*(b.y-a->y)/(b.x-a->x);}
-
-struct hull{
-	set<point> hul;
-	LL up;
-	void insert(LL x,LL y){
-	    y -= up;
-		cw=0;
-		point q=point(x,y);
-		ite pr,nt,ppr,nnt,Pr;
-		if (hul.size() && x>=hul.begin() -> x && x<=hul.rbegin()->x){
-			pr = hul.lower_bound(point(x));
-			if(pr->x==x){
-				if(pr->y>y){
-					LL &p = const_cast<LL&> (pr->y);
-					p=y;
-				}
-			}else{
-				--pr;
-				if (getk(pr,q)>=pr->k)return;
-				else pr=hul.insert(q).first;
-			}
-		}else pr=hul.insert(q).first;
-
-		Pr=pr;--pr;
-
-		if (Pr!=hul.begin())while(1){
-			if(pr==hul.begin())break;
-			--(ppr=pr);
-			if(getk(ppr,q)<=ppr->k) hul.erase(pr);else break;
-			pr=ppr;
-		}
-		nt=Pr;++nt;
-		if(nt!=hul.end())while(1){
-			++(nnt=nt);
-			if (nnt==hul.end())break;
-			if(getk(nnt,q)>=nt->k) hul.erase(nt); else break;
-			nt=nnt;
-		}
-		nnt=Pr;nt=nnt++;
-		double &p = const_cast<double&> (nt->k);
-		p = (nnt==hul.end()?inf:getk(nt,nnt));
-		ppr=nt;pr=ppr--;
-		if(pr!=hul.begin()){
-			double &p = const_cast<double&> (ppr->k);
-			p=getk(ppr,pr);
-		}
-	}
-	LL query(LL k){
-		//if(hul.empty())return Inf;
-		cw=1;
-		ite pr=hul.lower_bound(point(0,0,-k));
-		return 1ll*k*pr->x+pr->y + up;
-	}
-} H[N]; int HH[N];
-
-const int NN = N * 20;
+LL D[N], fa[N], dp[N], p[N], q[N], limit[N];
+VI adj[N];
 int n;
 
-VI adj[N]; LL sw[N], dp[N]; int sz[N];
+void dfs(int u = 1, int p = 0) {
 
-#define hu H[HH[u]]
-#define hv H[HH[v]]
+    if (p) {
+        dp[u] = INFF;
+        do {
+            checkMin(dp[u], dp[p] + (D[u]-D[p])*::p[u] + q[u]);
+            p = fa[p];
+        } while (p && D[u]-D[p] <= limit[u]);
+        p = fa[u];
+    }
 
-void dfs(int u,int p) {
-    sw[u] += sw[p];
-    sz[u] = 1;
-    LL s = 0; int max_sz = 0, vv = 0;
     for (auto v: adj[u]) if (v != p) {
+        D[v] += D[u];
         dfs(v, u);
-        s += dp[v]; sz[u] += sz[v];
-        if (checkMax(max_sz, sz[v])) vv = v;
     }
-
-    if (max_sz) {
-        HH[u] = HH[vv];
-        hu.up += s - dp[vv];
-        for (auto v: adj[u]) if (v != p && v != vv) {
-            hv.up += s - dp[v];
-            for (auto p: hv.hul) {
-                hu.insert(p.x, p.y + hv.up);
-            }
-        }
-    } else {
-        HH[u] = u;
-    }
-
-    hu.insert(sw[u], s + sqr(sw[u]));
-    dp[u] = sqr(sw[p]) + hu.query(-2*sw[p]);
 }
 
 int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt","r",stdin);
+    //freopen("out.txt","w",stdout);
 #endif
 
-    RD(n); REP_1(i, n) RDD(sw[i]);
-    DO(n-1) {
-        int u, v; RD(u, v);
-        adj[u].PB(v);
-        adj[v].PB(u);
+    int t; RD(n, t); FOR_1(i, 2, n) {
+        adj[RD(fa[i])].PB(i); RD(D[i], p[i], q[i], limit[i]);
     }
-    dfs(1,0);
-    OT(dp[1]);
+
+    dfs();
+
+    FOR_1(i, 2, n) {
+        cout << dp[i] << endl;
+    }
 }
