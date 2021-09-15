@@ -1,0 +1,768 @@
+\contentsline {section}{\numberline {1}试题泛做1}{25}{section.1}
+\contentsline {subsection}{\numberline {1.1}Cdoefroces 263E Rhombus}{25}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}题意}{25}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}数据范围}{25}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}题解}{25}{subsubsection.1.1.3}
+\contentsline {subsubsection}{\numberline {1.1.4}时空复杂度}{26}{subsubsection.1.1.4}
+\contentsline {subsection}{\numberline {1.2}Codeforces 301E Yaroslav and Arrangements*}{26}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}题意}{26}{subsubsection.1.2.1}
+\contentsline {subsubsection}{\numberline {1.2.2}数据范围}{26}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}题解}{27}{subsubsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.4}时空复杂度}{27}{subsubsection.1.2.4}
+\contentsline {subsection}{\numberline {1.3}Codeforces 325D Reclamation}{27}{subsection.1.3}
+\contentsline {subsubsection}{\numberline {1.3.1}题意}{27}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.2}数据范围}{28}{subsubsection.1.3.2}
+\contentsline {subsubsection}{\numberline {1.3.3}题解}{28}{subsubsection.1.3.3}
+\contentsline {subsubsection}{\numberline {1.3.4}时空复杂度}{28}{subsubsection.1.3.4}
+\contentsline {subsection}{\numberline {1.4}Codeforces 274C The Last Hole!}{28}{subsection.1.4}
+\contentsline {subsubsection}{\numberline {1.4.1}题意}{28}{subsubsection.1.4.1}
+\contentsline {subsubsection}{\numberline {1.4.2}数据范围}{28}{subsubsection.1.4.2}
+\contentsline {subsubsection}{\numberline {1.4.3}题解}{29}{subsubsection.1.4.3}
+\contentsline {subsubsection}{\numberline {1.4.4}时空复杂度}{29}{subsubsection.1.4.4}
+\contentsline {subsection}{\numberline {1.5}USACO Open Contest 2008, Cow Neighborhoods}{29}{subsection.1.5}
+\contentsline {subsubsection}{\numberline {1.5.1}题意}{29}{subsubsection.1.5.1}
+\contentsline {subsubsection}{\numberline {1.5.2}数据范围}{29}{subsubsection.1.5.2}
+\contentsline {subsubsection}{\numberline {1.5.3}题解}{30}{subsubsection.1.5.3}
+\contentsline {subsubsection}{\numberline {1.5.4}时空复杂度}{30}{subsubsection.1.5.4}
+\contentsline {subsection}{\numberline {1.6}Codeforces 260E Dividing Kingdom}{30}{subsection.1.6}
+\contentsline {subsubsection}{\numberline {1.6.1}题意}{31}{subsubsection.1.6.1}
+\contentsline {subsubsection}{\numberline {1.6.2}数据范围}{31}{subsubsection.1.6.2}
+\contentsline {subsubsection}{\numberline {1.6.3}题解}{31}{subsubsection.1.6.3}
+\contentsline {subsubsection}{\numberline {1.6.4}时空复杂度}{32}{subsubsection.1.6.4}
+\contentsline {subsection}{\numberline {1.7}Codeforces 248E Piglet's Birthday}{32}{subsection.1.7}
+\contentsline {subsubsection}{\numberline {1.7.1}题意}{32}{subsubsection.1.7.1}
+\contentsline {subsubsection}{\numberline {1.7.2}数据范围}{32}{subsubsection.1.7.2}
+\contentsline {subsubsection}{\numberline {1.7.3}题解}{32}{subsubsection.1.7.3}
+\contentsline {subsubsection}{\numberline {1.7.4}时空复杂度}{33}{subsubsection.1.7.4}
+\contentsline {subsection}{\numberline {1.8}Codeforces 243C Colorado Potato Beetle}{33}{subsection.1.8}
+\contentsline {subsubsection}{\numberline {1.8.1}题意}{33}{subsubsection.1.8.1}
+\contentsline {subsubsection}{\numberline {1.8.2}数据范围}{33}{subsubsection.1.8.2}
+\contentsline {subsubsection}{\numberline {1.8.3}题解}{33}{subsubsection.1.8.3}
+\contentsline {subsubsection}{\numberline {1.8.4}时空复杂度}{34}{subsubsection.1.8.4}
+\contentsline {subsection}{\numberline {1.9}Codeforces 266D BerDonalds}{34}{subsection.1.9}
+\contentsline {subsubsection}{\numberline {1.9.1}题意}{34}{subsubsection.1.9.1}
+\contentsline {subsubsection}{\numberline {1.9.2}数据范围}{34}{subsubsection.1.9.2}
+\contentsline {subsubsection}{\numberline {1.9.3}题解}{34}{subsubsection.1.9.3}
+\contentsline {subsubsection}{\numberline {1.9.4}时空复杂度}{35}{subsubsection.1.9.4}
+\contentsline {subsection}{\numberline {1.10}Google Code Jam World Final 2011 B Rains Over Atlantis}{35}{subsection.1.10}
+\contentsline {subsubsection}{\numberline {1.10.1}题意}{35}{subsubsection.1.10.1}
+\contentsline {subsubsection}{\numberline {1.10.2}数据范围}{35}{subsubsection.1.10.2}
+\contentsline {subsubsection}{\numberline {1.10.3}题解}{35}{subsubsection.1.10.3}
+\contentsline {subsubsection}{\numberline {1.10.4}时空复杂度}{36}{subsubsection.1.10.4}
+\contentsline {subsection}{\numberline {1.11}Codeforces 243E Matrix*}{36}{subsection.1.11}
+\contentsline {subsubsection}{\numberline {1.11.1}题意}{36}{subsubsection.1.11.1}
+\contentsline {subsubsection}{\numberline {1.11.2}数据范围}{36}{subsubsection.1.11.2}
+\contentsline {subsubsection}{\numberline {1.11.3}题解}{36}{subsubsection.1.11.3}
+\contentsline {subsubsection}{\numberline {1.11.4}时空复杂度}{37}{subsubsection.1.11.4}
+\contentsline {subsection}{\numberline {1.12}Usaco November Contest 2008，toys*}{37}{subsection.1.12}
+\contentsline {subsubsection}{\numberline {1.12.1}题意}{37}{subsubsection.1.12.1}
+\contentsline {subsubsection}{\numberline {1.12.2}数据范围}{37}{subsubsection.1.12.2}
+\contentsline {subsubsection}{\numberline {1.12.3}题解}{37}{subsubsection.1.12.3}
+\contentsline {subsubsection}{\numberline {1.12.4}时空复杂度}{38}{subsubsection.1.12.4}
+\contentsline {subsection}{\numberline {1.13}Codefroces 266 E,More Queries to Array}{38}{subsection.1.13}
+\contentsline {subsubsection}{\numberline {1.13.1}题意}{38}{subsubsection.1.13.1}
+\contentsline {subsubsection}{\numberline {1.13.2}数据范围}{38}{subsubsection.1.13.2}
+\contentsline {subsubsection}{\numberline {1.13.3}题解}{39}{subsubsection.1.13.3}
+\contentsline {subsubsection}{\numberline {1.13.4}时空复杂度}{39}{subsubsection.1.13.4}
+\contentsline {subsection}{\numberline {1.14}Codeforces 338D GCD Table}{39}{subsection.1.14}
+\contentsline {subsubsection}{\numberline {1.14.1}题意}{39}{subsubsection.1.14.1}
+\contentsline {subsubsection}{\numberline {1.14.2}数据范围}{39}{subsubsection.1.14.2}
+\contentsline {subsubsection}{\numberline {1.14.3}题解}{39}{subsubsection.1.14.3}
+\contentsline {subsubsection}{\numberline {1.14.4}时空复杂度}{40}{subsubsection.1.14.4}
+\contentsline {subsection}{\numberline {1.15}Codeforces 280D k-Maximum Subsequence Sum*}{40}{subsection.1.15}
+\contentsline {subsubsection}{\numberline {1.15.1}题意}{40}{subsubsection.1.15.1}
+\contentsline {subsubsection}{\numberline {1.15.2}数据范围}{40}{subsubsection.1.15.2}
+\contentsline {subsubsection}{\numberline {1.15.3}题解}{40}{subsubsection.1.15.3}
+\contentsline {subsubsection}{\numberline {1.15.4}时空复杂度}{41}{subsubsection.1.15.4}
+\contentsline {section}{\numberline {2}试题泛做2}{42}{section.2}
+\contentsline {subsection}{\numberline {2.1}Google Code Jam World Final 2014 D Paradox Sort*}{42}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}题意}{42}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}数据范围}{42}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}题解}{42}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}时空复杂度}{42}{subsubsection.2.1.4}
+\contentsline {subsection}{\numberline {2.2}USACO December Contest 2012, Gangs of Istanbull/Cowstantinople}{43}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}题意}{43}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}数据范围}{43}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}题解}{43}{subsubsection.2.2.3}
+\contentsline {subsubsection}{\numberline {2.2.4}时空复杂度}{43}{subsubsection.2.2.4}
+\contentsline {subsection}{\numberline {2.3}Codeforces 311C The Great Julya Calendar*}{44}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}题意}{44}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}数据范围}{44}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}题解}{44}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.4}时空复杂度}{44}{subsubsection.2.3.4}
+\contentsline {subsection}{\numberline {2.4}Codeforces 268D Wall Bars}{45}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}题意}{45}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}数据范围}{45}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}题解}{46}{subsubsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.4}时空复杂度}{46}{subsubsection.2.4.4}
+\contentsline {subsection}{\numberline {2.5}Codeforces 286D tourist}{46}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}题意}{46}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}数据范围}{46}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.3}题解}{47}{subsubsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.4}时空复杂度}{47}{subsubsection.2.5.4}
+\contentsline {subsection}{\numberline {2.6}Codeforces 360D Levko and Sets}{47}{subsection.2.6}
+\contentsline {subsubsection}{\numberline {2.6.1}数据范围}{48}{subsubsection.2.6.1}
+\contentsline {subsubsection}{\numberline {2.6.2}题解}{48}{subsubsection.2.6.2}
+\contentsline {subsubsection}{\numberline {2.6.3}时空复杂度}{48}{subsubsection.2.6.3}
+\contentsline {subsection}{\numberline {2.7}Codeforces 316G3 Good Substrings}{48}{subsection.2.7}
+\contentsline {subsubsection}{\numberline {2.7.1}题意}{48}{subsubsection.2.7.1}
+\contentsline {subsubsection}{\numberline {2.7.2}数据范围}{49}{subsubsection.2.7.2}
+\contentsline {subsubsection}{\numberline {2.7.3}题解}{49}{subsubsection.2.7.3}
+\contentsline {subsubsection}{\numberline {2.7.4}时空复杂度}{49}{subsubsection.2.7.4}
+\contentsline {subsection}{\numberline {2.8}Google Code Jam World Final 2014 E Allergy Testing*}{49}{subsection.2.8}
+\contentsline {subsubsection}{\numberline {2.8.1}题意}{49}{subsubsection.2.8.1}
+\contentsline {subsubsection}{\numberline {2.8.2}数据范围}{50}{subsubsection.2.8.2}
+\contentsline {subsubsection}{\numberline {2.8.3}题解}{50}{subsubsection.2.8.3}
+\contentsline {subsubsection}{\numberline {2.8.4}时空复杂度}{51}{subsubsection.2.8.4}
+\contentsline {subsection}{\numberline {2.9}Codeforces 325C Monsters and Diamonds}{52}{subsection.2.9}
+\contentsline {subsubsection}{\numberline {2.9.1}题意}{52}{subsubsection.2.9.1}
+\contentsline {subsubsection}{\numberline {2.9.2}数据范围}{52}{subsubsection.2.9.2}
+\contentsline {subsubsection}{\numberline {2.9.3}题解}{52}{subsubsection.2.9.3}
+\contentsline {subsubsection}{\numberline {2.9.4}时空复杂度}{52}{subsubsection.2.9.4}
+\contentsline {subsection}{\numberline {2.10}USACO December Contest 2012, First!}{53}{subsection.2.10}
+\contentsline {subsubsection}{\numberline {2.10.1}题意}{53}{subsubsection.2.10.1}
+\contentsline {subsubsection}{\numberline {2.10.2}数据范围}{53}{subsubsection.2.10.2}
+\contentsline {subsubsection}{\numberline {2.10.3}题解}{53}{subsubsection.2.10.3}
+\contentsline {subsubsection}{\numberline {2.10.4}时空复杂度}{53}{subsubsection.2.10.4}
+\contentsline {subsection}{\numberline {2.11}Codeforces 269 E String Theory*}{53}{subsection.2.11}
+\contentsline {subsubsection}{\numberline {2.11.1}题意}{53}{subsubsection.2.11.1}
+\contentsline {subsubsection}{\numberline {2.11.2}数据范围}{54}{subsubsection.2.11.2}
+\contentsline {subsubsection}{\numberline {2.11.3}题解}{54}{subsubsection.2.11.3}
+\contentsline {subsubsection}{\numberline {2.11.4}时空复杂度}{55}{subsubsection.2.11.4}
+\contentsline {subsection}{\numberline {2.12}Codeforces 323C Two permutations}{56}{subsection.2.12}
+\contentsline {subsubsection}{\numberline {2.12.1}题意}{56}{subsubsection.2.12.1}
+\contentsline {subsubsection}{\numberline {2.12.2}数据范围}{56}{subsubsection.2.12.2}
+\contentsline {subsubsection}{\numberline {2.12.3}题解}{56}{subsubsection.2.12.3}
+\contentsline {subsubsection}{\numberline {2.12.4}时空复杂度}{56}{subsubsection.2.12.4}
+\contentsline {subsection}{\numberline {2.13}Codeforces 254D Rats}{56}{subsection.2.13}
+\contentsline {subsubsection}{\numberline {2.13.1}题意}{56}{subsubsection.2.13.1}
+\contentsline {subsubsection}{\numberline {2.13.2}数据范围}{57}{subsubsection.2.13.2}
+\contentsline {subsubsection}{\numberline {2.13.3}题解}{57}{subsubsection.2.13.3}
+\contentsline {subsubsection}{\numberline {2.13.4}时空复杂度}{58}{subsubsection.2.13.4}
+\contentsline {subsection}{\numberline {2.14}Codeforces 243D Cubes}{58}{subsection.2.14}
+\contentsline {subsubsection}{\numberline {2.14.1}题意}{58}{subsubsection.2.14.1}
+\contentsline {subsubsection}{\numberline {2.14.2}数据范围}{58}{subsubsection.2.14.2}
+\contentsline {subsubsection}{\numberline {2.14.3}题解}{58}{subsubsection.2.14.3}
+\contentsline {subsubsection}{\numberline {2.14.4}时空复杂度}{59}{subsubsection.2.14.4}
+\contentsline {subsection}{\numberline {2.15}Codeforces 283E Cow Tennis Tournament}{59}{subsection.2.15}
+\contentsline {subsubsection}{\numberline {2.15.1}题意}{59}{subsubsection.2.15.1}
+\contentsline {subsubsection}{\numberline {2.15.2}数据范围}{59}{subsubsection.2.15.2}
+\contentsline {subsubsection}{\numberline {2.15.3}题解}{59}{subsubsection.2.15.3}
+\contentsline {subsubsection}{\numberline {2.15.4}时空复杂度}{60}{subsubsection.2.15.4}
+\contentsline {section}{\numberline {3}试题泛做3}{61}{section.3}
+\contentsline {subsection}{\numberline {3.1}Codeforces 339E Three Swaps}{61}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}题意}{61}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}数据范围}{61}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}题解}{61}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}时空复杂度}{61}{subsubsection.3.1.4}
+\contentsline {subsection}{\numberline {3.2}Codeforces 309D Tennis Rackets}{61}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}题意}{61}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}数据范围}{62}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}题解}{62}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}时空复杂度}{62}{subsubsection.3.2.4}
+\contentsline {subsection}{\numberline {3.3}Codeforces 249D Donkey and Stars}{63}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}题意}{63}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}数据范围}{63}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}题解}{64}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.4}时空复杂度}{64}{subsubsection.3.3.4}
+\contentsline {subsection}{\numberline {3.4}Google Code Jam World Final 2009 F Lights}{64}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}题意}{64}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}数据范围}{64}{subsubsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.3}题解}{64}{subsubsection.3.4.3}
+\contentsline {subsubsection}{\numberline {3.4.4}时空复杂度}{65}{subsubsection.3.4.4}
+\contentsline {subsection}{\numberline {3.5}Codeforces 238E Meeting Her}{65}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}题意}{65}{subsubsection.3.5.1}
+\contentsline {subsubsection}{\numberline {3.5.2}数据范围}{65}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.3}题解}{65}{subsubsection.3.5.3}
+\contentsline {subsubsection}{\numberline {3.5.4}时空复杂度}{66}{subsubsection.3.5.4}
+\contentsline {subsection}{\numberline {3.6}USACO Open Contest 2014, Code Breaking}{66}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}题意}{66}{subsubsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.2}数据范围}{66}{subsubsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.3}题解}{66}{subsubsection.3.6.3}
+\contentsline {subsubsection}{\numberline {3.6.4}时空复杂度}{67}{subsubsection.3.6.4}
+\contentsline {subsection}{\numberline {3.7}Codeforces 280E Sequence Transformation*}{67}{subsection.3.7}
+\contentsline {subsubsection}{\numberline {3.7.1}题意}{67}{subsubsection.3.7.1}
+\contentsline {subsubsection}{\numberline {3.7.2}数据范围}{67}{subsubsection.3.7.2}
+\contentsline {subsubsection}{\numberline {3.7.3}题解}{67}{subsubsection.3.7.3}
+\contentsline {subsubsection}{\numberline {3.7.4}时空复杂度}{68}{subsubsection.3.7.4}
+\contentsline {subsection}{\numberline {3.8}Codeforces 329D The Evil Temple and the Moving Rocks}{69}{subsection.3.8}
+\contentsline {subsubsection}{\numberline {3.8.1}题意}{69}{subsubsection.3.8.1}
+\contentsline {subsubsection}{\numberline {3.8.2}数据范围}{69}{subsubsection.3.8.2}
+\contentsline {subsubsection}{\numberline {3.8.3}题解}{69}{subsubsection.3.8.3}
+\contentsline {subsubsection}{\numberline {3.8.4}时空复杂度}{70}{subsubsection.3.8.4}
+\contentsline {subsection}{\numberline {3.9}Codeforces 317E Princess and Her Shadow}{70}{subsection.3.9}
+\contentsline {subsubsection}{\numberline {3.9.1}题意}{70}{subsubsection.3.9.1}
+\contentsline {subsubsection}{\numberline {3.9.2}数据范围}{70}{subsubsection.3.9.2}
+\contentsline {subsubsection}{\numberline {3.9.3}题解}{71}{subsubsection.3.9.3}
+\contentsline {subsubsection}{\numberline {3.9.4}时空复杂度}{71}{subsubsection.3.9.4}
+\contentsline {subsection}{\numberline {3.10}Codeforces 269D Maximum Waterfall}{71}{subsection.3.10}
+\contentsline {subsubsection}{\numberline {3.10.1}题意}{71}{subsubsection.3.10.1}
+\contentsline {subsubsection}{\numberline {3.10.2}数据范围}{72}{subsubsection.3.10.2}
+\contentsline {subsubsection}{\numberline {3.10.3}题解}{72}{subsubsection.3.10.3}
+\contentsline {subsubsection}{\numberline {3.10.4}时空复杂度}{72}{subsubsection.3.10.4}
+\contentsline {subsection}{\numberline {3.11}USACO Open Contest 2009,Tower of Hay*}{73}{subsection.3.11}
+\contentsline {subsubsection}{\numberline {3.11.1}题意}{73}{subsubsection.3.11.1}
+\contentsline {subsubsection}{\numberline {3.11.2}数据范围}{73}{subsubsection.3.11.2}
+\contentsline {subsubsection}{\numberline {3.11.3}题解}{73}{subsubsection.3.11.3}
+\contentsline {subsubsection}{\numberline {3.11.4}时空复杂度}{74}{subsubsection.3.11.4}
+\contentsline {subsection}{\numberline {3.12}Google Code Jam 2011 World Finals C Program within a Program*}{74}{subsection.3.12}
+\contentsline {subsubsection}{\numberline {3.12.1}题意}{74}{subsubsection.3.12.1}
+\contentsline {subsubsection}{\numberline {3.12.2}数据范围}{75}{subsubsection.3.12.2}
+\contentsline {subsubsection}{\numberline {3.12.3}题解}{75}{subsubsection.3.12.3}
+\contentsline {subsubsection}{\numberline {3.12.4}时空复杂度}{76}{subsubsection.3.12.4}
+\contentsline {subsection}{\numberline {3.13}Google Code Jam World Final 2013 E Let Me Tell You a Story}{76}{subsection.3.13}
+\contentsline {subsubsection}{\numberline {3.13.1}题意}{76}{subsubsection.3.13.1}
+\contentsline {subsubsection}{\numberline {3.13.2}数据范围}{76}{subsubsection.3.13.2}
+\contentsline {subsubsection}{\numberline {3.13.3}题解}{76}{subsubsection.3.13.3}
+\contentsline {subsubsection}{\numberline {3.13.4}时空复杂度}{77}{subsubsection.3.13.4}
+\contentsline {subsection}{\numberline {3.14}Codeforces 264E Roadside Trees}{77}{subsection.3.14}
+\contentsline {subsubsection}{\numberline {3.14.1}题意}{77}{subsubsection.3.14.1}
+\contentsline {subsubsection}{\numberline {3.14.2}数据范围}{77}{subsubsection.3.14.2}
+\contentsline {subsubsection}{\numberline {3.14.3}题解}{78}{subsubsection.3.14.3}
+\contentsline {subsubsection}{\numberline {3.14.4}时空复杂度}{78}{subsubsection.3.14.4}
+\contentsline {section}{\numberline {4}试题泛做4}{79}{section.4}
+\contentsline {subsection}{\numberline {4.1}Codeforces 293E Close Vertices}{79}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}题意}{79}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}数据范围}{79}{subsubsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.3}题解}{79}{subsubsection.4.1.3}
+\contentsline {subsubsection}{\numberline {4.1.4}时空复杂度}{79}{subsubsection.4.1.4}
+\contentsline {subsection}{\numberline {4.2}Codeforces 306C White, Black and White Again}{79}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}题意}{79}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}数据范围}{80}{subsubsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.3}题解}{80}{subsubsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.4}时空复杂度}{80}{subsubsection.4.2.4}
+\contentsline {subsection}{\numberline {4.3}Codeforces 331E2 Deja Vu*}{80}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}题意}{80}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}数据范围}{81}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}题解}{81}{subsubsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.4}时空复杂度}{82}{subsubsection.4.3.4}
+\contentsline {subsection}{\numberline {4.4}Google Code Jam 2009 Final A Year of More Code Jam}{82}{subsection.4.4}
+\contentsline {subsubsection}{\numberline {4.4.1}题意}{82}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.2}数据范围}{82}{subsubsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.3}题解}{82}{subsubsection.4.4.3}
+\contentsline {subsubsection}{\numberline {4.4.4}时空复杂度}{83}{subsubsection.4.4.4}
+\contentsline {subsection}{\numberline {4.5}Codeforces 321D Ciel and Flipboard*}{83}{subsection.4.5}
+\contentsline {subsubsection}{\numberline {4.5.1}题意}{83}{subsubsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.2}数据范围}{83}{subsubsection.4.5.2}
+\contentsline {subsubsection}{\numberline {4.5.3}题解}{83}{subsubsection.4.5.3}
+\contentsline {subsubsection}{\numberline {4.5.4}时空复杂度}{85}{subsubsection.4.5.4}
+\contentsline {subsection}{\numberline {4.6}USACO December Contest 2010,Threatening Letter}{85}{subsection.4.6}
+\contentsline {subsubsection}{\numberline {4.6.1}题意}{85}{subsubsection.4.6.1}
+\contentsline {subsubsection}{\numberline {4.6.2}数据范围}{85}{subsubsection.4.6.2}
+\contentsline {subsubsection}{\numberline {4.6.3}题解}{85}{subsubsection.4.6.3}
+\contentsline {subsubsection}{\numberline {4.6.4}时空复杂度}{85}{subsubsection.4.6.4}
+\contentsline {subsection}{\numberline {4.7}Google Code Jam 2009 Final C Doubly-sorted Grid}{86}{subsection.4.7}
+\contentsline {subsubsection}{\numberline {4.7.1}题意}{86}{subsubsection.4.7.1}
+\contentsline {subsubsection}{\numberline {4.7.2}数据范围}{86}{subsubsection.4.7.2}
+\contentsline {subsubsection}{\numberline {4.7.3}题解}{86}{subsubsection.4.7.3}
+\contentsline {subsubsection}{\numberline {4.7.4}时空复杂度}{86}{subsubsection.4.7.4}
+\contentsline {subsection}{\numberline {4.8}USACO Open Contest 2007, Connect}{87}{subsection.4.8}
+\contentsline {subsubsection}{\numberline {4.8.1}题意}{87}{subsubsection.4.8.1}
+\contentsline {subsubsection}{\numberline {4.8.2}数据范围}{87}{subsubsection.4.8.2}
+\contentsline {subsubsection}{\numberline {4.8.3}题解}{87}{subsubsection.4.8.3}
+\contentsline {subsubsection}{\numberline {4.8.4}时空复杂度}{87}{subsubsection.4.8.4}
+\contentsline {subsection}{\numberline {4.9}Codeforces 261E Maxim and Calculator}{87}{subsection.4.9}
+\contentsline {subsubsection}{\numberline {4.9.1}题意}{87}{subsubsection.4.9.1}
+\contentsline {subsubsection}{\numberline {4.9.2}数据范围}{88}{subsubsection.4.9.2}
+\contentsline {subsubsection}{\numberline {4.9.3}题解}{88}{subsubsection.4.9.3}
+\contentsline {subsubsection}{\numberline {4.9.4}时空复杂度}{88}{subsubsection.4.9.4}
+\contentsline {subsection}{\numberline {4.10}Google Code Jam World Final 2009 E Marbles*}{88}{subsection.4.10}
+\contentsline {subsubsection}{\numberline {4.10.1}题意}{88}{subsubsection.4.10.1}
+\contentsline {subsubsection}{\numberline {4.10.2}数据范围}{89}{subsubsection.4.10.2}
+\contentsline {subsubsection}{\numberline {4.10.3}题解}{89}{subsubsection.4.10.3}
+\contentsline {subsubsection}{\numberline {4.10.4}时空复杂度}{89}{subsubsection.4.10.4}
+\contentsline {subsection}{\numberline {4.11}Codeforces 264D Colorful Stones}{90}{subsection.4.11}
+\contentsline {subsubsection}{\numberline {4.11.1}题意}{90}{subsubsection.4.11.1}
+\contentsline {subsubsection}{\numberline {4.11.2}数据范围}{90}{subsubsection.4.11.2}
+\contentsline {subsubsection}{\numberline {4.11.3}题解}{90}{subsubsection.4.11.3}
+\contentsline {subsubsection}{\numberline {4.11.4}时空复杂度}{90}{subsubsection.4.11.4}
+\contentsline {subsection}{\numberline {4.12}Google Code Jam World Final 2010 C Candy Store*}{90}{subsection.4.12}
+\contentsline {subsubsection}{\numberline {4.12.1}题意}{90}{subsubsection.4.12.1}
+\contentsline {subsubsection}{\numberline {4.12.2}数据范围}{91}{subsubsection.4.12.2}
+\contentsline {subsubsection}{\numberline {4.12.3}题解}{91}{subsubsection.4.12.3}
+\contentsline {subsubsection}{\numberline {4.12.4}时空复杂度}{91}{subsubsection.4.12.4}
+\contentsline {subsection}{\numberline {4.13}Codeforces 342D Xenia and Dominoes}{91}{subsection.4.13}
+\contentsline {subsubsection}{\numberline {4.13.1}题意}{91}{subsubsection.4.13.1}
+\contentsline {subsubsection}{\numberline {4.13.2}数据范围}{92}{subsubsection.4.13.2}
+\contentsline {subsubsection}{\numberline {4.13.3}题解}{92}{subsubsection.4.13.3}
+\contentsline {subsubsection}{\numberline {4.13.4}时空复杂度}{92}{subsubsection.4.13.4}
+\contentsline {subsection}{\numberline {4.14}Codeforces 273E Dima and Game}{92}{subsection.4.14}
+\contentsline {subsubsection}{\numberline {4.14.1}题意}{92}{subsubsection.4.14.1}
+\contentsline {subsubsection}{\numberline {4.14.2}数据范围}{92}{subsubsection.4.14.2}
+\contentsline {subsubsection}{\numberline {4.14.3}题解}{92}{subsubsection.4.14.3}
+\contentsline {subsubsection}{\numberline {4.14.4}时空复杂度}{93}{subsubsection.4.14.4}
+\contentsline {subsection}{\numberline {4.15}Codeforces 335E Counting Skyscrapers*}{93}{subsection.4.15}
+\contentsline {subsubsection}{\numberline {4.15.1}题意}{93}{subsubsection.4.15.1}
+\contentsline {subsubsection}{\numberline {4.15.2}数据范围}{94}{subsubsection.4.15.2}
+\contentsline {subsubsection}{\numberline {4.15.3}题解}{94}{subsubsection.4.15.3}
+\contentsline {subsubsection}{\numberline {4.15.4}时空复杂度}{95}{subsubsection.4.15.4}
+\contentsline {section}{\numberline {5}试题泛做5}{96}{section.5}
+\contentsline {subsection}{\numberline {5.1}Codeforces 351D Jeff and Removing Periods}{96}{subsection.5.1}
+\contentsline {subsubsection}{\numberline {5.1.1}题意}{96}{subsubsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.2}数据范围}{96}{subsubsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.3}题解}{96}{subsubsection.5.1.3}
+\contentsline {subsubsection}{\numberline {5.1.4}时空复杂度}{97}{subsubsection.5.1.4}
+\contentsline {subsection}{\numberline {5.2}Codeforces 241B Friends}{97}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}题意}{97}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}数据范围}{97}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}题解}{97}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}时空复杂度}{98}{subsubsection.5.2.4}
+\contentsline {subsection}{\numberline {5.3}Codeforces 323B Tournament-graph}{98}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}题意}{98}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}数据范围}{98}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}题解}{98}{subsubsection.5.3.3}
+\contentsline {subsubsection}{\numberline {5.3.4}时空复杂度}{98}{subsubsection.5.3.4}
+\contentsline {subsection}{\numberline {5.4}USACO March Contest 2008, Land Acquisition}{98}{subsection.5.4}
+\contentsline {subsubsection}{\numberline {5.4.1}题意}{98}{subsubsection.5.4.1}
+\contentsline {subsubsection}{\numberline {5.4.2}数据范围}{99}{subsubsection.5.4.2}
+\contentsline {subsubsection}{\numberline {5.4.3}题解}{99}{subsubsection.5.4.3}
+\contentsline {subsubsection}{\numberline {5.4.4}时空复杂度}{99}{subsubsection.5.4.4}
+\contentsline {subsection}{\numberline {5.5}Codeforces 305E Playing with String}{99}{subsection.5.5}
+\contentsline {subsubsection}{\numberline {5.5.1}题意}{99}{subsubsection.5.5.1}
+\contentsline {subsubsection}{\numberline {5.5.2}数据范围}{100}{subsubsection.5.5.2}
+\contentsline {subsubsection}{\numberline {5.5.3}题解}{100}{subsubsection.5.5.3}
+\contentsline {subsubsection}{\numberline {5.5.4}时空复杂度}{100}{subsubsection.5.5.4}
+\contentsline {subsection}{\numberline {5.6}Codeforces 319D Have You Ever Heard About the Word?}{100}{subsection.5.6}
+\contentsline {subsubsection}{\numberline {5.6.1}题意}{100}{subsubsection.5.6.1}
+\contentsline {subsubsection}{\numberline {5.6.2}数据范围}{101}{subsubsection.5.6.2}
+\contentsline {subsubsection}{\numberline {5.6.3}题解}{101}{subsubsection.5.6.3}
+\contentsline {subsubsection}{\numberline {5.6.4}时空复杂度}{101}{subsubsection.5.6.4}
+\contentsline {subsection}{\numberline {5.7}Codeforcces 277D Google Code Jam}{102}{subsection.5.7}
+\contentsline {subsubsection}{\numberline {5.7.1}题意}{102}{subsubsection.5.7.1}
+\contentsline {subsubsection}{\numberline {5.7.2}数据范围}{102}{subsubsection.5.7.2}
+\contentsline {subsubsection}{\numberline {5.7.3}题解}{102}{subsubsection.5.7.3}
+\contentsline {subsubsection}{\numberline {5.7.4}时空复杂度}{103}{subsubsection.5.7.4}
+\contentsline {subsection}{\numberline {5.8}Codeforces 314E Sereja and Squares}{103}{subsection.5.8}
+\contentsline {subsubsection}{\numberline {5.8.1}题意}{103}{subsubsection.5.8.1}
+\contentsline {subsubsection}{\numberline {5.8.2}数据范围}{103}{subsubsection.5.8.2}
+\contentsline {subsubsection}{\numberline {5.8.3}题解}{104}{subsubsection.5.8.3}
+\contentsline {subsubsection}{\numberline {5.8.4}时空复杂度}{104}{subsubsection.5.8.4}
+\contentsline {subsection}{\numberline {5.9}Codeforces 317C Balance}{104}{subsection.5.9}
+\contentsline {subsubsection}{\numberline {5.9.1}题意}{104}{subsubsection.5.9.1}
+\contentsline {subsubsection}{\numberline {5.9.2}数据范围}{104}{subsubsection.5.9.2}
+\contentsline {subsubsection}{\numberline {5.9.3}题解}{104}{subsubsection.5.9.3}
+\contentsline {subsubsection}{\numberline {5.9.4}时空复杂度}{105}{subsubsection.5.9.4}
+\contentsline {subsection}{\numberline {5.10}Codeforces 238D Tape Programming*}{105}{subsection.5.10}
+\contentsline {subsubsection}{\numberline {5.10.1}题意}{105}{subsubsection.5.10.1}
+\contentsline {subsubsection}{\numberline {5.10.2}数据范围}{105}{subsubsection.5.10.2}
+\contentsline {subsubsection}{\numberline {5.10.3}题解}{105}{subsubsection.5.10.3}
+\contentsline {subsubsection}{\numberline {5.10.4}时空复杂度}{106}{subsubsection.5.10.4}
+\contentsline {subsection}{\numberline {5.11}Codeforces 303D Rotatable Number}{106}{subsection.5.11}
+\contentsline {subsubsection}{\numberline {5.11.1}题意}{106}{subsubsection.5.11.1}
+\contentsline {subsubsection}{\numberline {5.11.2}数据范围}{106}{subsubsection.5.11.2}
+\contentsline {subsubsection}{\numberline {5.11.3}题解}{106}{subsubsection.5.11.3}
+\contentsline {subsubsection}{\numberline {5.11.4}时空复杂度}{106}{subsubsection.5.11.4}
+\contentsline {subsection}{\numberline {5.12}Codeforcces 235E Number Challenge*}{107}{subsection.5.12}
+\contentsline {subsubsection}{\numberline {5.12.1}题意}{107}{subsubsection.5.12.1}
+\contentsline {subsubsection}{\numberline {5.12.2}数据范围}{107}{subsubsection.5.12.2}
+\contentsline {subsubsection}{\numberline {5.12.3}题解}{107}{subsubsection.5.12.3}
+\contentsline {subsubsection}{\numberline {5.12.4}时空复杂度}{108}{subsubsection.5.12.4}
+\contentsline {subsection}{\numberline {5.13}Codeforces 301C Yaroslav and Algorithm*}{109}{subsection.5.13}
+\contentsline {subsubsection}{\numberline {5.13.1}题意}{109}{subsubsection.5.13.1}
+\contentsline {subsubsection}{\numberline {5.13.2}数据范围}{109}{subsubsection.5.13.2}
+\contentsline {subsubsection}{\numberline {5.13.3}题解}{109}{subsubsection.5.13.3}
+\contentsline {subsubsection}{\numberline {5.13.4}时空复杂度}{110}{subsubsection.5.13.4}
+\contentsline {section}{\numberline {6}试题泛做6}{111}{section.6}
+\contentsline {subsection}{\numberline {6.1}Codeforces 294D Shaass and Painter Robot}{111}{subsection.6.1}
+\contentsline {subsubsection}{\numberline {6.1.1}题意}{111}{subsubsection.6.1.1}
+\contentsline {subsubsection}{\numberline {6.1.2}数据范围}{111}{subsubsection.6.1.2}
+\contentsline {subsubsection}{\numberline {6.1.3}题解}{111}{subsubsection.6.1.3}
+\contentsline {subsubsection}{\numberline {6.1.4}时空复杂度}{111}{subsubsection.6.1.4}
+\contentsline {subsection}{\numberline {6.2}Codeforces 240F Torcoder}{111}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}题意}{111}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}数据范围}{112}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}题解}{112}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}时空复杂度}{112}{subsubsection.6.2.4}
+\contentsline {subsection}{\numberline {6.3}USACO Open Contest 2011, Soldering}{112}{subsection.6.3}
+\contentsline {subsubsection}{\numberline {6.3.1}题意}{112}{subsubsection.6.3.1}
+\contentsline {subsubsection}{\numberline {6.3.2}数据范围}{112}{subsubsection.6.3.2}
+\contentsline {subsubsection}{\numberline {6.3.3}题解}{112}{subsubsection.6.3.3}
+\contentsline {subsubsection}{\numberline {6.3.4}时空复杂度}{113}{subsubsection.6.3.4}
+\contentsline {subsection}{\numberline {6.4}Codeforces 332E Binary Key}{113}{subsection.6.4}
+\contentsline {subsubsection}{\numberline {6.4.1}题意}{113}{subsubsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.2}数据范围}{114}{subsubsection.6.4.2}
+\contentsline {subsubsection}{\numberline {6.4.3}题解}{114}{subsubsection.6.4.3}
+\contentsline {subsubsection}{\numberline {6.4.4}时空复杂度}{114}{subsubsection.6.4.4}
+\contentsline {subsection}{\numberline {6.5}Codeforces 293D Ksusha and Square}{114}{subsection.6.5}
+\contentsline {subsubsection}{\numberline {6.5.1}题意}{114}{subsubsection.6.5.1}
+\contentsline {subsubsection}{\numberline {6.5.2}数据范围}{114}{subsubsection.6.5.2}
+\contentsline {subsubsection}{\numberline {6.5.3}题解}{114}{subsubsection.6.5.3}
+\contentsline {subsubsection}{\numberline {6.5.4}时空复杂度}{115}{subsubsection.6.5.4}
+\contentsline {subsection}{\numberline {6.6}Codeforces 235C Cyclical Quest}{115}{subsection.6.6}
+\contentsline {subsubsection}{\numberline {6.6.1}题意}{115}{subsubsection.6.6.1}
+\contentsline {subsubsection}{\numberline {6.6.2}数据范围}{115}{subsubsection.6.6.2}
+\contentsline {subsubsection}{\numberline {6.6.3}题解}{115}{subsubsection.6.6.3}
+\contentsline {subsubsection}{\numberline {6.6.4}时空复杂度}{116}{subsubsection.6.6.4}
+\contentsline {subsection}{\numberline {6.7}USACO Open Contest 2013, Photo}{116}{subsection.6.7}
+\contentsline {subsubsection}{\numberline {6.7.1}题意}{116}{subsubsection.6.7.1}
+\contentsline {subsubsection}{\numberline {6.7.2}数据范围}{116}{subsubsection.6.7.2}
+\contentsline {subsubsection}{\numberline {6.7.3}题解}{116}{subsubsection.6.7.3}
+\contentsline {subsubsection}{\numberline {6.7.4}时空复杂度}{116}{subsubsection.6.7.4}
+\contentsline {subsection}{\numberline {6.8}Codeforces 338E Optimize!}{117}{subsection.6.8}
+\contentsline {subsubsection}{\numberline {6.8.1}题意}{117}{subsubsection.6.8.1}
+\contentsline {subsubsection}{\numberline {6.8.2}数据范围}{117}{subsubsection.6.8.2}
+\contentsline {subsubsection}{\numberline {6.8.3}题解}{117}{subsubsection.6.8.3}
+\contentsline {subsubsection}{\numberline {6.8.4}时空复杂度}{118}{subsubsection.6.8.4}
+\contentsline {subsection}{\numberline {6.9}USACO December Contest 2007, Best Cow Line}{118}{subsection.6.9}
+\contentsline {subsubsection}{\numberline {6.9.1}题意}{118}{subsubsection.6.9.1}
+\contentsline {subsubsection}{\numberline {6.9.2}数据范围}{118}{subsubsection.6.9.2}
+\contentsline {subsubsection}{\numberline {6.9.3}题解}{118}{subsubsection.6.9.3}
+\contentsline {subsubsection}{\numberline {6.9.4}时空复杂度}{119}{subsubsection.6.9.4}
+\contentsline {subsection}{\numberline {6.10}Google Code Jam World Final 2014 C Symmetric Trees}{119}{subsection.6.10}
+\contentsline {subsubsection}{\numberline {6.10.1}题意}{119}{subsubsection.6.10.1}
+\contentsline {subsubsection}{\numberline {6.10.2}数据范围}{119}{subsubsection.6.10.2}
+\contentsline {subsubsection}{\numberline {6.10.3}题解}{119}{subsubsection.6.10.3}
+\contentsline {subsubsection}{\numberline {6.10.4}时空复杂度}{120}{subsubsection.6.10.4}
+\contentsline {subsection}{\numberline {6.11}Codeforces 251E Tree and table}{120}{subsection.6.11}
+\contentsline {subsubsection}{\numberline {6.11.1}题意}{120}{subsubsection.6.11.1}
+\contentsline {subsubsection}{\numberline {6.11.2}数据范围}{120}{subsubsection.6.11.2}
+\contentsline {subsubsection}{\numberline {6.11.3}题解}{120}{subsubsection.6.11.3}
+\contentsline {subsubsection}{\numberline {6.11.4}时空复杂度}{121}{subsubsection.6.11.4}
+\contentsline {subsection}{\numberline {6.12}Codeforces 249E Endless Matrix}{121}{subsection.6.12}
+\contentsline {subsubsection}{\numberline {6.12.1}题意}{121}{subsubsection.6.12.1}
+\contentsline {subsubsection}{\numberline {6.12.2}数据范围}{121}{subsubsection.6.12.2}
+\contentsline {subsubsection}{\numberline {6.12.3}题解}{121}{subsubsection.6.12.3}
+\contentsline {subsubsection}{\numberline {6.12.4}时空复杂度}{122}{subsubsection.6.12.4}
+\contentsline {section}{\numberline {7}试题泛做7}{123}{section.7}
+\contentsline {subsection}{\numberline {7.1}USACO November Contest 2012, Balanced Trees}{123}{subsection.7.1}
+\contentsline {subsubsection}{\numberline {7.1.1}题意}{123}{subsubsection.7.1.1}
+\contentsline {subsubsection}{\numberline {7.1.2}数据范围}{123}{subsubsection.7.1.2}
+\contentsline {subsubsection}{\numberline {7.1.3}题解}{123}{subsubsection.7.1.3}
+\contentsline {subsubsection}{\numberline {7.1.4}时空复杂度}{123}{subsubsection.7.1.4}
+\contentsline {subsection}{\numberline {7.2}Codeforces 285E Positions in Permutations}{123}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}题意}{123}{subsubsection.7.2.1}
+\contentsline {subsubsection}{\numberline {7.2.2}数据范围}{124}{subsubsection.7.2.2}
+\contentsline {subsubsection}{\numberline {7.2.3}题解}{124}{subsubsection.7.2.3}
+\contentsline {subsubsection}{\numberline {7.2.4}时空复杂度}{124}{subsubsection.7.2.4}
+\contentsline {subsection}{\numberline {7.3}Codeforces 295D Greg and Caves}{124}{subsection.7.3}
+\contentsline {subsubsection}{\numberline {7.3.1}题意}{124}{subsubsection.7.3.1}
+\contentsline {subsubsection}{\numberline {7.3.2}数据范围}{125}{subsubsection.7.3.2}
+\contentsline {subsubsection}{\numberline {7.3.3}题解}{125}{subsubsection.7.3.3}
+\contentsline {subsubsection}{\numberline {7.3.4}时空复杂度}{125}{subsubsection.7.3.4}
+\contentsline {subsection}{\numberline {7.4}Google Code Jam World Final 2010 A Letter Stamper*}{125}{subsection.7.4}
+\contentsline {subsubsection}{\numberline {7.4.1}题意}{125}{subsubsection.7.4.1}
+\contentsline {subsubsection}{\numberline {7.4.2}数据范围}{126}{subsubsection.7.4.2}
+\contentsline {subsubsection}{\numberline {7.4.3}题解}{126}{subsubsection.7.4.3}
+\contentsline {subsubsection}{\numberline {7.4.4}时空复杂度}{126}{subsubsection.7.4.4}
+\contentsline {subsection}{\numberline {7.5}USACO January Contest 2009, Safe Travel}{126}{subsection.7.5}
+\contentsline {subsubsection}{\numberline {7.5.1}题意}{126}{subsubsection.7.5.1}
+\contentsline {subsubsection}{\numberline {7.5.2}数据范围}{126}{subsubsection.7.5.2}
+\contentsline {subsubsection}{\numberline {7.5.3}题解}{127}{subsubsection.7.5.3}
+\contentsline {subsubsection}{\numberline {7.5.4}时空复杂度}{127}{subsubsection.7.5.4}
+\contentsline {subsection}{\numberline {7.6}Codeforces 257E Greedy Elevator}{127}{subsection.7.6}
+\contentsline {subsubsection}{\numberline {7.6.1}题意}{127}{subsubsection.7.6.1}
+\contentsline {subsubsection}{\numberline {7.6.2}数据范围}{128}{subsubsection.7.6.2}
+\contentsline {subsubsection}{\numberline {7.6.3}题解}{128}{subsubsection.7.6.3}
+\contentsline {subsubsection}{\numberline {7.6.4}时空复杂度}{128}{subsubsection.7.6.4}
+\contentsline {subsection}{\numberline {7.7}Codeforces 316E3 Summer Homework}{128}{subsection.7.7}
+\contentsline {subsubsection}{\numberline {7.7.1}题意}{128}{subsubsection.7.7.1}
+\contentsline {subsubsection}{\numberline {7.7.2}数据范围}{128}{subsubsection.7.7.2}
+\contentsline {subsubsection}{\numberline {7.7.3}题解}{129}{subsubsection.7.7.3}
+\contentsline {subsubsection}{\numberline {7.7.4}时空复杂度}{129}{subsubsection.7.7.4}
+\contentsline {subsection}{\numberline {7.8}Codeforces 356E Xenia and String Problem}{129}{subsection.7.8}
+\contentsline {subsubsection}{\numberline {7.8.1}题意}{129}{subsubsection.7.8.1}
+\contentsline {subsubsection}{\numberline {7.8.2}数据范围}{129}{subsubsection.7.8.2}
+\contentsline {subsubsection}{\numberline {7.8.3}题解}{130}{subsubsection.7.8.3}
+\contentsline {subsubsection}{\numberline {7.8.4}时空复杂度}{130}{subsubsection.7.8.4}
+\contentsline {subsection}{\numberline {7.9}Codeforces 297E Mystic Carvings*}{130}{subsection.7.9}
+\contentsline {subsubsection}{\numberline {7.9.1}题意}{130}{subsubsection.7.9.1}
+\contentsline {subsubsection}{\numberline {7.9.2}数据范围}{130}{subsubsection.7.9.2}
+\contentsline {subsubsection}{\numberline {7.9.3}题解}{130}{subsubsection.7.9.3}
+\contentsline {subsubsection}{\numberline {7.9.4}时空复杂度}{131}{subsubsection.7.9.4}
+\contentsline {subsection}{\numberline {7.10}Codeforces 360E Levko and Game}{131}{subsection.7.10}
+\contentsline {subsubsection}{\numberline {7.10.1}题意}{131}{subsubsection.7.10.1}
+\contentsline {subsubsection}{\numberline {7.10.2}数据范围}{132}{subsubsection.7.10.2}
+\contentsline {subsubsection}{\numberline {7.10.3}题解}{132}{subsubsection.7.10.3}
+\contentsline {subsubsection}{\numberline {7.10.4}时空复杂度}{132}{subsubsection.7.10.4}
+\contentsline {subsection}{\numberline {7.11}USACO March Contest 2012, Cows in a Skyscrape}{132}{subsection.7.11}
+\contentsline {subsubsection}{\numberline {7.11.1}题意}{132}{subsubsection.7.11.1}
+\contentsline {subsubsection}{\numberline {7.11.2}数据范围}{132}{subsubsection.7.11.2}
+\contentsline {subsubsection}{\numberline {7.11.3}题解}{132}{subsubsection.7.11.3}
+\contentsline {subsubsection}{\numberline {7.11.4}时空复杂度}{133}{subsubsection.7.11.4}
+\contentsline {subsection}{\numberline {7.12}Codeforces 303E Random Ranking}{133}{subsection.7.12}
+\contentsline {subsubsection}{\numberline {7.12.1}题意}{133}{subsubsection.7.12.1}
+\contentsline {subsubsection}{\numberline {7.12.2}数据范围}{133}{subsubsection.7.12.2}
+\contentsline {subsubsection}{\numberline {7.12.3}题解}{133}{subsubsection.7.12.3}
+\contentsline {subsubsection}{\numberline {7.12.4}时空复杂度}{134}{subsubsection.7.12.4}
+\contentsline {section}{\numberline {8}试题泛做8}{135}{section.8}
+\contentsline {subsection}{\numberline {8.1}USACO December Contest 2005, Cow Patterns}{135}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}题意}{135}{subsubsection.8.1.1}
+\contentsline {subsubsection}{\numberline {8.1.2}数据范围}{135}{subsubsection.8.1.2}
+\contentsline {subsubsection}{\numberline {8.1.3}题解}{135}{subsubsection.8.1.3}
+\contentsline {subsubsection}{\numberline {8.1.4}时空复杂度}{135}{subsubsection.8.1.4}
+\contentsline {subsection}{\numberline {8.2}Codeforces 331D3 Escaping on Beaveractor}{135}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}题意}{135}{subsubsection.8.2.1}
+\contentsline {subsubsection}{\numberline {8.2.2}数据范围}{136}{subsubsection.8.2.2}
+\contentsline {subsubsection}{\numberline {8.2.3}题解}{136}{subsubsection.8.2.3}
+\contentsline {subsubsection}{\numberline {8.2.4}时空复杂度}{136}{subsubsection.8.2.4}
+\contentsline {subsection}{\numberline {8.3}Codeforces 293B Distinct Paths}{136}{subsection.8.3}
+\contentsline {subsubsection}{\numberline {8.3.1}题意}{136}{subsubsection.8.3.1}
+\contentsline {subsubsection}{\numberline {8.3.2}数据范围}{136}{subsubsection.8.3.2}
+\contentsline {subsubsection}{\numberline {8.3.3}题解}{137}{subsubsection.8.3.3}
+\contentsline {subsubsection}{\numberline {8.3.4}时空复杂度}{137}{subsubsection.8.3.4}
+\contentsline {subsection}{\numberline {8.4}USACO January Contest 2007, Cow Schul}{137}{subsection.8.4}
+\contentsline {subsubsection}{\numberline {8.4.1}数据范围}{137}{subsubsection.8.4.1}
+\contentsline {subsubsection}{\numberline {8.4.2}题解}{137}{subsubsection.8.4.2}
+\contentsline {subsubsection}{\numberline {8.4.3}时空复杂度}{138}{subsubsection.8.4.3}
+\contentsline {subsection}{\numberline {8.5}Codeforces 316F3 Suns and Rays}{138}{subsection.8.5}
+\contentsline {subsubsection}{\numberline {8.5.1}题意}{138}{subsubsection.8.5.1}
+\contentsline {subsubsection}{\numberline {8.5.2}数据范围}{138}{subsubsection.8.5.2}
+\contentsline {subsubsection}{\numberline {8.5.3}题解}{139}{subsubsection.8.5.3}
+\contentsline {subsubsection}{\numberline {8.5.4}时空复杂度}{139}{subsubsection.8.5.4}
+\contentsline {subsection}{\numberline {8.6}Codeforces 354D Transferring Pyramid}{139}{subsection.8.6}
+\contentsline {subsubsection}{\numberline {8.6.1}题意}{139}{subsubsection.8.6.1}
+\contentsline {subsubsection}{\numberline {8.6.2}数据范围}{140}{subsubsection.8.6.2}
+\contentsline {subsubsection}{\numberline {8.6.3}题解}{140}{subsubsection.8.6.3}
+\contentsline {subsubsection}{\numberline {8.6.4}时空复杂度}{140}{subsubsection.8.6.4}
+\contentsline {subsection}{\numberline {8.7}USACO March Contest 2013, Hill Walk}{140}{subsection.8.7}
+\contentsline {subsubsection}{\numberline {8.7.1}题意}{140}{subsubsection.8.7.1}
+\contentsline {subsubsection}{\numberline {8.7.2}数据范围}{140}{subsubsection.8.7.2}
+\contentsline {subsubsection}{\numberline {8.7.3}题解}{141}{subsubsection.8.7.3}
+\contentsline {subsubsection}{\numberline {8.7.4}时空复杂度}{141}{subsubsection.8.7.4}
+\contentsline {subsection}{\numberline {8.8}Codeforces 288E Polo the Penguin and Lucky Numbers}{141}{subsection.8.8}
+\contentsline {subsubsection}{\numberline {8.8.1}题意}{141}{subsubsection.8.8.1}
+\contentsline {subsubsection}{\numberline {8.8.2}数据范围}{141}{subsubsection.8.8.2}
+\contentsline {subsubsection}{\numberline {8.8.3}题解}{141}{subsubsection.8.8.3}
+\contentsline {subsubsection}{\numberline {8.8.4}时空复杂度}{142}{subsubsection.8.8.4}
+\contentsline {subsection}{\numberline {8.9}Codeforces 258D Little Elephant and Broken Sorting}{142}{subsection.8.9}
+\contentsline {subsubsection}{\numberline {8.9.1}题意}{142}{subsubsection.8.9.1}
+\contentsline {subsubsection}{\numberline {8.9.2}数据范围}{142}{subsubsection.8.9.2}
+\contentsline {subsubsection}{\numberline {8.9.3}题解}{142}{subsubsection.8.9.3}
+\contentsline {subsubsection}{\numberline {8.9.4}时空复杂度}{142}{subsubsection.8.9.4}
+\contentsline {subsection}{\numberline {8.10}USACO January Contest 2012,Cow Run}{143}{subsection.8.10}
+\contentsline {subsubsection}{\numberline {8.10.1}题意}{143}{subsubsection.8.10.1}
+\contentsline {subsubsection}{\numberline {8.10.2}数据范围}{143}{subsubsection.8.10.2}
+\contentsline {subsubsection}{\numberline {8.10.3}题解}{143}{subsubsection.8.10.3}
+\contentsline {subsubsection}{\numberline {8.10.4}时空复杂度}{143}{subsubsection.8.10.4}
+\contentsline {subsection}{\numberline {8.11}Codeforces 240E Road Repairs}{144}{subsection.8.11}
+\contentsline {subsubsection}{\numberline {8.11.1}题意}{144}{subsubsection.8.11.1}
+\contentsline {subsubsection}{\numberline {8.11.2}数据范围}{144}{subsubsection.8.11.2}
+\contentsline {subsubsection}{\numberline {8.11.3}题解}{144}{subsubsection.8.11.3}
+\contentsline {subsubsection}{\numberline {8.11.4}时空复杂度}{144}{subsubsection.8.11.4}
+\contentsline {subsection}{\numberline {8.12}Codeforces 335D Rectangle And Square}{144}{subsection.8.12}
+\contentsline {subsubsection}{\numberline {8.12.1}题意}{144}{subsubsection.8.12.1}
+\contentsline {subsubsection}{\numberline {8.12.2}数据范围}{144}{subsubsection.8.12.2}
+\contentsline {subsubsection}{\numberline {8.12.3}题解}{145}{subsubsection.8.12.3}
+\contentsline {subsubsection}{\numberline {8.12.4}时空复杂度}{145}{subsubsection.8.12.4}
+\contentsline {subsection}{\numberline {8.13}Codeforces 333C Lucky Tickets}{145}{subsection.8.13}
+\contentsline {subsubsection}{\numberline {8.13.1}题意}{145}{subsubsection.8.13.1}
+\contentsline {subsubsection}{\numberline {8.13.2}数据范围}{145}{subsubsection.8.13.2}
+\contentsline {subsubsection}{\numberline {8.13.3}题解}{145}{subsubsection.8.13.3}
+\contentsline {subsubsection}{\numberline {8.13.4}时空复杂度}{146}{subsubsection.8.13.4}
+\contentsline {subsection}{\numberline {8.14}Codeforces 311C Fetch the Treasure}{146}{subsection.8.14}
+\contentsline {subsubsection}{\numberline {8.14.1}题意}{146}{subsubsection.8.14.1}
+\contentsline {subsubsection}{\numberline {8.14.2}数据范围}{146}{subsubsection.8.14.2}
+\contentsline {subsubsection}{\numberline {8.14.3}题解}{146}{subsubsection.8.14.3}
+\contentsline {subsubsection}{\numberline {8.14.4}时空复杂度}{147}{subsubsection.8.14.4}
+\contentsline {subsection}{\numberline {8.15}Codeforces 309B Context Advertising}{147}{subsection.8.15}
+\contentsline {subsubsection}{\numberline {8.15.1}题意}{147}{subsubsection.8.15.1}
+\contentsline {subsubsection}{\numberline {8.15.2}数据范围}{147}{subsubsection.8.15.2}
+\contentsline {subsubsection}{\numberline {8.15.3}题解}{147}{subsubsection.8.15.3}
+\contentsline {subsubsection}{\numberline {8.15.4}时空复杂度}{147}{subsubsection.8.15.4}
+\contentsline {section}{\numberline {9}试题泛做9}{148}{section.9}
+\contentsline {subsection}{\numberline {9.1}USACO Open Contest 2013, Figure Eight}{148}{subsection.9.1}
+\contentsline {subsubsection}{\numberline {9.1.1}题意}{148}{subsubsection.9.1.1}
+\contentsline {subsubsection}{\numberline {9.1.2}数据范围}{148}{subsubsection.9.1.2}
+\contentsline {subsubsection}{\numberline {9.1.3}题解}{149}{subsubsection.9.1.3}
+\contentsline {subsubsection}{\numberline {9.1.4}时空复杂度}{149}{subsubsection.9.1.4}
+\contentsline {subsection}{\numberline {9.2}Codeforces 273D Dima and Figure}{149}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}题意}{149}{subsubsection.9.2.1}
+\contentsline {subsubsection}{\numberline {9.2.2}数据范围}{149}{subsubsection.9.2.2}
+\contentsline {subsubsection}{\numberline {9.2.3}题解}{150}{subsubsection.9.2.3}
+\contentsline {subsubsection}{\numberline {9.2.4}时空复杂度}{150}{subsubsection.9.2.4}
+\contentsline {subsection}{\numberline {9.3}Codeforces 241F Race}{150}{subsection.9.3}
+\contentsline {subsubsection}{\numberline {9.3.1}数据范围}{150}{subsubsection.9.3.1}
+\contentsline {subsubsection}{\numberline {9.3.2}题解}{150}{subsubsection.9.3.2}
+\contentsline {subsubsection}{\numberline {9.3.3}时空复杂度}{151}{subsubsection.9.3.3}
+\contentsline {subsection}{\numberline {9.4}Codeforces 311E Biologist}{151}{subsection.9.4}
+\contentsline {subsubsection}{\numberline {9.4.1}题意}{151}{subsubsection.9.4.1}
+\contentsline {subsubsection}{\numberline {9.4.2}数据范围}{151}{subsubsection.9.4.2}
+\contentsline {subsubsection}{\numberline {9.4.3}题解}{151}{subsubsection.9.4.3}
+\contentsline {subsubsection}{\numberline {9.4.4}时空复杂度}{152}{subsubsection.9.4.4}
+\contentsline {subsection}{\numberline {9.5}Google Code Jam World Final 2013 D Can't stop}{152}{subsection.9.5}
+\contentsline {subsubsection}{\numberline {9.5.1}题意}{152}{subsubsection.9.5.1}
+\contentsline {subsubsection}{\numberline {9.5.2}数据范围}{152}{subsubsection.9.5.2}
+\contentsline {subsubsection}{\numberline {9.5.3}题解}{152}{subsubsection.9.5.3}
+\contentsline {subsubsection}{\numberline {9.5.4}时空复杂度}{152}{subsubsection.9.5.4}
+\contentsline {subsection}{\numberline {9.6}Google Code Jam World Final 2008 E The Year of Code Jam}{153}{subsection.9.6}
+\contentsline {subsubsection}{\numberline {9.6.1}题意}{153}{subsubsection.9.6.1}
+\contentsline {subsubsection}{\numberline {9.6.2}数据范围}{153}{subsubsection.9.6.2}
+\contentsline {subsubsection}{\numberline {9.6.3}题解}{153}{subsubsection.9.6.3}
+\contentsline {subsubsection}{\numberline {9.6.4}时空复杂度}{153}{subsubsection.9.6.4}
+\contentsline {subsection}{\numberline {9.7}Codeforces 251D Two Sets}{153}{subsection.9.7}
+\contentsline {subsubsection}{\numberline {9.7.1}题意}{153}{subsubsection.9.7.1}
+\contentsline {subsubsection}{\numberline {9.7.2}数据范围}{154}{subsubsection.9.7.2}
+\contentsline {subsubsection}{\numberline {9.7.3}题解}{154}{subsubsection.9.7.3}
+\contentsline {subsubsection}{\numberline {9.7.4}时空复杂度}{154}{subsubsection.9.7.4}
+\contentsline {subsection}{\numberline {9.8}Codeforces 274E Mirror Room}{154}{subsection.9.8}
+\contentsline {subsubsection}{\numberline {9.8.1}题意}{154}{subsubsection.9.8.1}
+\contentsline {subsubsection}{\numberline {9.8.2}数据范围}{155}{subsubsection.9.8.2}
+\contentsline {subsubsection}{\numberline {9.8.3}题解}{155}{subsubsection.9.8.3}
+\contentsline {subsubsection}{\numberline {9.8.4}时空复杂度}{155}{subsubsection.9.8.4}
+\contentsline {subsection}{\numberline {9.9}USACO February Contest 2014, Airplane Boarding}{155}{subsection.9.9}
+\contentsline {subsubsection}{\numberline {9.9.1}题意}{155}{subsubsection.9.9.1}
+\contentsline {subsubsection}{\numberline {9.9.2}数据范围}{156}{subsubsection.9.9.2}
+\contentsline {subsubsection}{\numberline {9.9.3}题解}{156}{subsubsection.9.9.3}
+\contentsline {subsubsection}{\numberline {9.9.4}时空复杂度}{156}{subsubsection.9.9.4}
+\contentsline {subsection}{\numberline {9.10}USACO Open Contest 2010, Triangle Counting}{156}{subsection.9.10}
+\contentsline {subsubsection}{\numberline {9.10.1}题意}{156}{subsubsection.9.10.1}
+\contentsline {subsubsection}{\numberline {9.10.2}数据范围}{156}{subsubsection.9.10.2}
+\contentsline {subsubsection}{\numberline {9.10.3}题解}{157}{subsubsection.9.10.3}
+\contentsline {subsubsection}{\numberline {9.10.4}时空复杂度}{157}{subsubsection.9.10.4}
+\contentsline {subsection}{\numberline {9.11}Codeforces 332D Theft of Blueprints}{157}{subsection.9.11}
+\contentsline {subsubsection}{\numberline {9.11.1}题意}{157}{subsubsection.9.11.1}
+\contentsline {subsubsection}{\numberline {9.11.2}数据范围}{157}{subsubsection.9.11.2}
+\contentsline {subsubsection}{\numberline {9.11.3}题解}{157}{subsubsection.9.11.3}
+\contentsline {subsubsection}{\numberline {9.11.4}时空复杂度}{157}{subsubsection.9.11.4}
+\contentsline {subsection}{\numberline {9.12}Google Code Jam World Final 2014 F ARAM*}{158}{subsection.9.12}
+\contentsline {subsubsection}{\numberline {9.12.1}题意}{158}{subsubsection.9.12.1}
+\contentsline {subsubsection}{\numberline {9.12.2}数据范围}{158}{subsubsection.9.12.2}
+\contentsline {subsubsection}{\numberline {9.12.3}题解}{158}{subsubsection.9.12.3}
+\contentsline {subsubsection}{\numberline {9.12.4}时间复杂度}{160}{subsubsection.9.12.4}
+\contentsline {subsection}{\numberline {9.13}Codeforces 305D Olya and Graph}{160}{subsection.9.13}
+\contentsline {subsubsection}{\numberline {9.13.1}题意}{160}{subsubsection.9.13.1}
+\contentsline {subsubsection}{\numberline {9.13.2}数据范围}{160}{subsubsection.9.13.2}
+\contentsline {subsubsection}{\numberline {9.13.3}题解}{160}{subsubsection.9.13.3}
+\contentsline {subsubsection}{\numberline {9.13.4}时空复杂度}{161}{subsubsection.9.13.4}
+\contentsline {subsection}{\numberline {9.14}Codeforces 348E Pilgrims}{161}{subsection.9.14}
+\contentsline {subsubsection}{\numberline {9.14.1}题意}{161}{subsubsection.9.14.1}
+\contentsline {subsubsection}{\numberline {9.14.2}数据范围}{161}{subsubsection.9.14.2}
+\contentsline {subsubsection}{\numberline {9.14.3}题解}{161}{subsubsection.9.14.3}
+\contentsline {subsubsection}{\numberline {9.14.4}时空复杂度}{162}{subsubsection.9.14.4}
+\contentsline {subsection}{\numberline {9.15}Google Code Jam World Final 2013 C X Marks the Spot*}{162}{subsection.9.15}
+\contentsline {subsubsection}{\numberline {9.15.1}题意}{162}{subsubsection.9.15.1}
+\contentsline {subsubsection}{\numberline {9.15.2}数据范围}{162}{subsubsection.9.15.2}
+\contentsline {subsubsection}{\numberline {9.15.3}题解}{163}{subsubsection.9.15.3}
+\contentsline {subsubsection}{\numberline {9.15.4}时空复杂度}{163}{subsubsection.9.15.4}
+\contentsline {section}{\numberline {10}试题泛做10}{164}{section.10}
+\contentsline {subsection}{\numberline {10.1}Google Code Jam World Final 2012 D Twirling Towards Freedom*}{164}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {10.1.1}题意}{164}{subsubsection.10.1.1}
+\contentsline {subsubsection}{\numberline {10.1.2}数据范围}{164}{subsubsection.10.1.2}
+\contentsline {subsubsection}{\numberline {10.1.3}题解}{164}{subsubsection.10.1.3}
+\contentsline {subsubsection}{\numberline {10.1.4}时空复杂度}{165}{subsubsection.10.1.4}
+\contentsline {subsection}{\numberline {10.2}USACO March Contest 2010, StarCowraft}{165}{subsection.10.2}
+\contentsline {subsubsection}{\numberline {10.2.1}题意}{165}{subsubsection.10.2.1}
+\contentsline {subsubsection}{\numberline {10.2.2}数据范围}{165}{subsubsection.10.2.2}
+\contentsline {subsubsection}{\numberline {10.2.3}题解}{165}{subsubsection.10.2.3}
+\contentsline {subsubsection}{\numberline {10.2.4}时空复杂度}{165}{subsubsection.10.2.4}
+\contentsline {subsection}{\numberline {10.3}Codeforces 343E Pumping Stations}{165}{subsection.10.3}
+\contentsline {subsubsection}{\numberline {10.3.1}题意}{165}{subsubsection.10.3.1}
+\contentsline {subsubsection}{\numberline {10.3.2}数据范围}{166}{subsubsection.10.3.2}
+\contentsline {subsubsection}{\numberline {10.3.3}题解}{166}{subsubsection.10.3.3}
+\contentsline {subsubsection}{\numberline {10.3.4}时空复杂度}{166}{subsubsection.10.3.4}
+\contentsline {subsection}{\numberline {10.4}Codeforces 286E Ladies' Shop}{166}{subsection.10.4}
+\contentsline {subsubsection}{\numberline {10.4.1}题意}{166}{subsubsection.10.4.1}
+\contentsline {subsubsection}{\numberline {10.4.2}数据范围}{167}{subsubsection.10.4.2}
+\contentsline {subsubsection}{\numberline {10.4.3}题解}{167}{subsubsection.10.4.3}
+\contentsline {subsubsection}{\numberline {10.4.4}时空复杂度}{167}{subsubsection.10.4.4}
+\contentsline {subsection}{\numberline {10.5}Codeforces 341E Candies Game*}{167}{subsection.10.5}
+\contentsline {subsubsection}{\numberline {10.5.1}题意}{167}{subsubsection.10.5.1}
+\contentsline {subsubsection}{\numberline {10.5.2}数据范围}{167}{subsubsection.10.5.2}
+\contentsline {subsubsection}{\numberline {10.5.3}题解}{168}{subsubsection.10.5.3}
+\contentsline {subsubsection}{\numberline {10.5.4}时空复杂度}{168}{subsubsection.10.5.4}
+\contentsline {subsection}{\numberline {10.6}Codeforces 346E Doodle Jump*}{168}{subsection.10.6}
+\contentsline {subsubsection}{\numberline {10.6.1}题意}{168}{subsubsection.10.6.1}
+\contentsline {subsubsection}{\numberline {10.6.2}数据范围}{168}{subsubsection.10.6.2}
+\contentsline {subsubsection}{\numberline {10.6.3}题解}{169}{subsubsection.10.6.3}
+\contentsline {subsubsection}{\numberline {10.6.4}时空复杂度}{169}{subsubsection.10.6.4}
+\contentsline {subsection}{\numberline {10.7}Codeforces 256D Liars and Serge}{170}{subsection.10.7}
+\contentsline {subsubsection}{\numberline {10.7.1}题意}{170}{subsubsection.10.7.1}
+\contentsline {subsubsection}{\numberline {10.7.2}数据范围}{170}{subsubsection.10.7.2}
+\contentsline {subsubsection}{\numberline {10.7.3}题解}{170}{subsubsection.10.7.3}
+\contentsline {subsubsection}{\numberline {10.7.4}时空复杂度}{170}{subsubsection.10.7.4}
+\contentsline {subsection}{\numberline {10.8}Codeforces 325E The Red Button}{171}{subsection.10.8}
+\contentsline {subsubsection}{\numberline {10.8.1}题意}{171}{subsubsection.10.8.1}
+\contentsline {subsubsection}{\numberline {10.8.2}数据范围}{171}{subsubsection.10.8.2}
+\contentsline {subsubsection}{\numberline {10.8.3}题解}{171}{subsubsection.10.8.3}
+\contentsline {subsubsection}{\numberline {10.8.4}时空复杂度}{171}{subsubsection.10.8.4}
+\contentsline {subsection}{\numberline {10.9}Codeforces 309E Fence}{171}{subsection.10.9}
+\contentsline {subsubsection}{\numberline {10.9.1}题意}{171}{subsubsection.10.9.1}
+\contentsline {subsubsection}{\numberline {10.9.2}数据范围}{171}{subsubsection.10.9.2}
+\contentsline {subsubsection}{\numberline {10.9.3}题解}{172}{subsubsection.10.9.3}
+\contentsline {subsubsection}{\numberline {10.9.4}时空复杂度}{172}{subsubsection.10.9.4}
+\contentsline {subsection}{\numberline {10.10}USACO December Contest 2008,Fence}{172}{subsection.10.10}
+\contentsline {subsubsection}{\numberline {10.10.1}题意}{172}{subsubsection.10.10.1}
+\contentsline {subsubsection}{\numberline {10.10.2}数据范围}{172}{subsubsection.10.10.2}
+\contentsline {subsubsection}{\numberline {10.10.3}题解}{172}{subsubsection.10.10.3}
+\contentsline {subsubsection}{\numberline {10.10.4}时空复杂度}{173}{subsubsection.10.10.4}
+\contentsline {subsection}{\numberline {10.11}Codeforces 241E Flights}{173}{subsection.10.11}
+\contentsline {subsubsection}{\numberline {10.11.1}题意}{173}{subsubsection.10.11.1}
+\contentsline {subsubsection}{\numberline {10.11.2}数据范围}{173}{subsubsection.10.11.2}
+\contentsline {subsubsection}{\numberline {10.11.3}题解}{173}{subsubsection.10.11.3}
+\contentsline {subsubsection}{\numberline {10.11.4}时空复杂度}{173}{subsubsection.10.11.4}
+\contentsline {subsection}{\numberline {10.12}Google Code Jam World Final 2013 A Graduation Requirements}{174}{subsection.10.12}
+\contentsline {subsubsection}{\numberline {10.12.1}题意}{174}{subsubsection.10.12.1}
+\contentsline {subsubsection}{\numberline {10.12.2}数据范围}{174}{subsubsection.10.12.2}
+\contentsline {subsubsection}{\numberline {10.12.3}题解}{174}{subsubsection.10.12.3}
+\contentsline {subsubsection}{\numberline {10.12.4}时空复杂度}{174}{subsubsection.10.12.4}
+\contentsline {subsection}{\numberline {10.13}Google Code Jam World Final 2011 A Runs}{175}{subsection.10.13}
+\contentsline {subsubsection}{\numberline {10.13.1}题意}{175}{subsubsection.10.13.1}
+\contentsline {subsubsection}{\numberline {10.13.2}数据范围}{175}{subsubsection.10.13.2}
+\contentsline {subsubsection}{\numberline {10.13.3}题解}{175}{subsubsection.10.13.3}
+\contentsline {subsubsection}{\numberline {10.13.4}时空复杂度}{176}{subsubsection.10.13.4}
+\contentsline {subsection}{\numberline {10.14}USACO March Contest 2009, Cleaning Up}{176}{subsection.10.14}
+\contentsline {subsubsection}{\numberline {10.14.1}题意}{176}{subsubsection.10.14.1}
+\contentsline {subsubsection}{\numberline {10.14.2}数据范围}{176}{subsubsection.10.14.2}
+\contentsline {subsubsection}{\numberline {10.14.3}题解}{176}{subsubsection.10.14.3}
+\contentsline {subsubsection}{\numberline {10.14.4}时空复杂度}{176}{subsubsection.10.14.4}
+\contentsline {subsection}{\numberline {10.15}Codeforces 316D PE lesson}{176}{subsection.10.15}
+\contentsline {subsubsection}{\numberline {10.15.1}题意}{176}{subsubsection.10.15.1}
+\contentsline {subsubsection}{\numberline {10.15.2}数据范围}{177}{subsubsection.10.15.2}
+\contentsline {subsubsection}{\numberline {10.15.3}题解}{177}{subsubsection.10.15.3}
+\contentsline {subsubsection}{\numberline {10.15.4}时空复杂度}{177}{subsubsection.10.15.4}
+\contentsline {section}{\numberline {11}试题泛做11 $\sim $ 14}{178}{section.11}
+\contentsline {subsection}{\numberline {11.1}Codeforces 235D Graph Game}{178}{subsection.11.1}
+\contentsline {subsubsection}{\numberline {11.1.1}题意}{178}{subsubsection.11.1.1}
+\contentsline {subsubsection}{\numberline {11.1.2}数据范围}{178}{subsubsection.11.1.2}
+\contentsline {subsubsection}{\numberline {11.1.3}题解}{178}{subsubsection.11.1.3}
+\contentsline {subsubsection}{\numberline {11.1.4}时空复杂度}{179}{subsubsection.11.1.4}
+\contentsline {subsection}{\numberline {11.2}Google Code Jam World Final 2009 B Min Perimeter}{179}{subsection.11.2}
+\contentsline {subsubsection}{\numberline {11.2.1}题意}{179}{subsubsection.11.2.1}
+\contentsline {subsubsection}{\numberline {11.2.2}数据范围}{179}{subsubsection.11.2.2}
+\contentsline {subsubsection}{\numberline {11.2.3}题解}{179}{subsubsection.11.2.3}
+\contentsline {subsubsection}{\numberline {11.2.4}时空复杂度}{179}{subsubsection.11.2.4}
+\contentsline {subsection}{\numberline {11.3}Codeforces 267C Berland Traffic}{180}{subsection.11.3}
+\contentsline {subsubsection}{\numberline {11.3.1}题意}{180}{subsubsection.11.3.1}
+\contentsline {subsubsection}{\numberline {11.3.2}数据范围}{180}{subsubsection.11.3.2}
+\contentsline {subsubsection}{\numberline {11.3.3}题解}{180}{subsubsection.11.3.3}
+\contentsline {subsubsection}{\numberline {11.3.4}时空复杂度}{180}{subsubsection.11.3.4}
+\contentsline {subsection}{\numberline {11.4}Codeforces 261D Maxim and Increasing Subsequence}{181}{subsection.11.4}
+\contentsline {subsubsection}{\numberline {11.4.1}题意}{181}{subsubsection.11.4.1}
+\contentsline {subsubsection}{\numberline {11.4.2}数据范围}{181}{subsubsection.11.4.2}
+\contentsline {subsubsection}{\numberline {11.4.3}题解}{181}{subsubsection.11.4.3}
+\contentsline {subsubsection}{\numberline {11.4.4}时空复杂度}{181}{subsubsection.11.4.4}
+\contentsline {subsection}{\numberline {11.5}Codeforces 329E Evil}{181}{subsection.11.5}
+\contentsline {subsubsection}{\numberline {11.5.1}题意}{181}{subsubsection.11.5.1}
+\contentsline {subsubsection}{\numberline {11.5.2}数据范围}{182}{subsubsection.11.5.2}
+\contentsline {subsubsection}{\numberline {11.5.3}题解}{182}{subsubsection.11.5.3}
+\contentsline {subsubsection}{\numberline {11.5.4}时空复杂度}{182}{subsubsection.11.5.4}
+\contentsline {subsection}{\numberline {11.6}USACO January Contest 2011,Bottleneck}{182}{subsection.11.6}
+\contentsline {subsubsection}{\numberline {11.6.1}题意}{182}{subsubsection.11.6.1}
+\contentsline {subsubsection}{\numberline {11.6.2}数据范围}{182}{subsubsection.11.6.2}
+\contentsline {subsubsection}{\numberline {11.6.3}题解}{182}{subsubsection.11.6.3}
+\contentsline {subsubsection}{\numberline {11.6.4}时空复杂度}{183}{subsubsection.11.6.4}
+\contentsline {subsection}{\numberline {11.7}Codeforces 253E Printer}{183}{subsection.11.7}
+\contentsline {subsubsection}{\numberline {11.7.1}题意}{183}{subsubsection.11.7.1}
+\contentsline {subsubsection}{\numberline {11.7.2}数据范围}{183}{subsubsection.11.7.2}
+\contentsline {subsubsection}{\numberline {11.7.3}题解}{183}{subsubsection.11.7.3}
+\contentsline {subsubsection}{\numberline {11.7.4}时空复杂度}{185}{subsubsection.11.7.4}
+\contentsline {subsection}{\numberline {11.8}Google Code Jam World Final 2009 D Wi-fi Towers}{185}{subsection.11.8}
+\contentsline {subsubsection}{\numberline {11.8.1}题意}{185}{subsubsection.11.8.1}
+\contentsline {subsubsection}{\numberline {11.8.2}数据范围}{185}{subsubsection.11.8.2}
+\contentsline {subsubsection}{\numberline {11.8.3}题解}{185}{subsubsection.11.8.3}
+\contentsline {subsubsection}{\numberline {11.8.4}时空复杂度}{186}{subsubsection.11.8.4}
+\contentsline {subsection}{\numberline {11.9}Codeforces 241D Numbers}{186}{subsection.11.9}
+\contentsline {subsubsection}{\numberline {11.9.1}题意}{186}{subsubsection.11.9.1}
+\contentsline {subsubsection}{\numberline {11.9.2}数据范围}{186}{subsubsection.11.9.2}
+\contentsline {subsubsection}{\numberline {11.9.3}题解}{186}{subsubsection.11.9.3}
+\contentsline {subsubsection}{\numberline {11.9.4}时空复杂度}{187}{subsubsection.11.9.4}
+\contentsline {subsection}{\numberline {11.10}Codeforces 319E Ping-Pong}{187}{subsection.11.10}
+\contentsline {subsubsection}{\numberline {11.10.1}题意}{187}{subsubsection.11.10.1}
+\contentsline {subsubsection}{\numberline {11.10.2}数据范围}{187}{subsubsection.11.10.2}
+\contentsline {subsubsection}{\numberline {11.10.3}题解}{187}{subsubsection.11.10.3}
+\contentsline {subsubsection}{\numberline {11.10.4}时空复杂度}{187}{subsubsection.11.10.4}
+\contentsline {subsection}{\numberline {11.11}Codeforces 306D Polygon}{188}{subsection.11.11}
+\contentsline {subsubsection}{\numberline {11.11.1}题意}{188}{subsubsection.11.11.1}
+\contentsline {subsubsection}{\numberline {11.11.2}数据范围}{188}{subsubsection.11.11.2}
+\contentsline {subsubsection}{\numberline {11.11.3}题解}{188}{subsubsection.11.11.3}
+\contentsline {subsubsection}{\numberline {11.11.4}时空复杂度}{188}{subsubsection.11.11.4}

@@ -469,7 +469,6 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1.2e6) + 9;
 
-
 #define ll LL
 struct Line {
 	mutable ll k, m, p;
