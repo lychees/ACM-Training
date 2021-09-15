@@ -1,0 +1,162 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[slantfont, boldfont]{xeCJK}
+\usepackage{ulem}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{fancyvrb}
+\usepackage{multirow}
+\usepackage[top = 1.0in, bottom = 1.0in, left = 1.0in, right = 1.0in]{geometry}
+
+\setCJKmainfont{SimSun}
+\setCJKmonofont{SimSun}
+
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{2em}
+
+\title{Codeforces. Fetch the Treasure}
+\author{VFleaKing}
+
+\begin{document}
+\maketitle
+
+\section*{题目描述}
+Rainbow建造了$h$间密室排成一行，从左至右编号为$1$到$h$。这些密室中有$n$间密室里有宝藏。我们称这样的密室为``宝藏密室''。第$i$间（从$1$开始编号）宝藏密室编号为$a_i$，里面的宝藏价值$c_i$美元。
+
+Freda从第一间密室出发探险。每次她可以向前走$k$间密室或者回到第一间密室。也就是说Freda只能到达第$1, k+1, 2k+1, 3k+1 \dots$间密室。
+
+不过，Rainbow给了Freda $m$个操作。每个操作是下列三种类型之一：
+\begin{enumerate}
+  \item 增加技能$x$。即允许Freda每次前进$x$间密室。比如，初始时她只有一个技能$k$。如果某时刻她有技能$a_1, a_2, \dots, a_r$，那么她就可以到达所有密室编号能写成$1+\sum_{i=1}^{r}{v_i a_i}$的密室（其中对于每个$i$，$v_i$是某个非负整数）。
+  \item 让第$x$间宝藏密室的宝藏价值减少$y$美元。换句话说执行$c_x = c_x - y$。
+  \item 查询Freda能到达的密室中价值最大的宝藏并拿走。如果Freda不能到达任何一个宝藏密室那么就认为价值最大的宝藏的价值为$0$并不做任何事。否则拿走这个价值最大的宝藏。如果有多个宝藏密室里的宝藏的价值达到最大，那么取走宝藏密室编号最小的宝藏密室（不必是密室编号最小的）。之后宝藏密室的数量减少一个。
+\end{enumerate}
+
+作为一个程序员，Freda请你写一个程序来回答每次询问。
+
+\section*{输入格式}
+输入的第一行包含四个整数$h, n, m, k$，$(h, n, m, k \geq 1)$。
+
+接下来$n$行每行包含两个整数$a_i, c_i$，$(1 \leq a_i \leq h, 1 \leq c_i \leq 10^9)$，表示第$i$间宝藏密室是第$a_i$间密室，里面的宝藏价值$c_i$美元。所有的$a_i$互不相同
+。
+
+接下来$m$行每行是下面三种形式之一：
+\begin{itemize}
+  \item \texttt{1 x} --- 进行1号操作。$1 \leq x \leq h$。
+  \item \texttt{2 x y} --- 进行2号操作。$1 \leq x \leq n, 0 \leq y < c_x$。
+  \item \texttt{3} --- 进行3号操作。
+\end{itemize}
+
+最多只会有$20$个1号操作。保证任何时刻宝藏密室里的宝藏价值都是正数。保证所有的操作都是合法的（不会减少已被拿走宝藏的宝藏房间里的宝藏价值）。
+
+\section*{输出格式}
+对于每个操作3,输出一个整数表示Freda能到达的密室中价值最大的宝藏的价值（单位为美元）。
+
+\section*{样例}
+\begin{Verbatim}[frame=single, label=input]
+10 3 5 2
+5 50
+7 60
+8 100
+2 2 5
+3
+1 3
+3
+3
+
+\end{Verbatim}
+
+\begin{Verbatim}[frame=single, label=output]
+55
+100
+50
+
+\end{Verbatim}
+
+\section*{数据范围}
+\begin{center}
+\begin{tabular}{|c|p{70pt}|p{70pt}|p{70pt}|p{70pt}|}
+\hline
+\# & $h$                             & $n$                          & $m$                            & $k$                          \\
+\hline
+1  & \multirow{4}{*}{$\leq 100$}     & \multirow{4}{*}{$\leq 50$}   & \multirow{4}{*}{$\leq 100$}    & \multirow{4}{*}{$\leq 100$}  \\
+\cline{1-1}
+2  &                                 &                              &                                &                              \\
+\cline{1-1}
+3  &                                 &                              &                                &                              \\
+\cline{1-1}
+4  &                                 &                              &                                &                              \\
+\hline
+5  & \multirow{6}{*}{$\leq 10^{18}$} & \multirow{6}{*}{$\leq 10^5$} & \multirow{6}{*}{$\leq 10^5$}   & \multirow{6}{*}{$= 1$}       \\
+\cline{1-1}
+6  &                                 &                              &                                &                              \\
+\cline{1-1}
+7  &                                 &                              &                                &                              \\
+\cline{1-1}
+8  &                                 &                              &                                &                              \\
+\cline{1-1}
+9  &                                 &                              &                                &                              \\
+\cline{1-1}
+10 &                                 &                              &                                &                              \\
+\hline
+11 & \multirow{7}{*}{$\leq 10^{18}$} & \multirow{7}{*}{$\leq 100$}  & \multirow{7}{*}{$\leq 100$}    & \multirow{7}{*}{$\leq 10$}   \\
+\cline{1-1}
+12 &                                 &                              &                                &                              \\
+\cline{1-1}
+13 &                                 &                              &                                &                              \\
+\cline{1-1}
+14 &                                 &                              &                                &                              \\
+\cline{1-1}
+15 &                                 &                              &                                &                              \\
+\cline{1-1}
+16 &                                 &                              &                                &                              \\
+\cline{1-1}
+17 &                                 &                              &                                &                              \\
+\hline
+18 & \multirow{3}{*}{$\leq 10^{18}$} & \multirow{3}{*}{$\leq 10^5$} & \multirow{3}{*}{$\leq 10^5$}   & \multirow{3}{*}{$\leq 10^4$} \\
+\cline{1-1}
+19 &                                 &                              &                                &                              \\
+\cline{1-1}
+20 &                                 &                              &                                &                              \\
+\hline
+\end{tabular}
+\end{center}
+
+时间限制：$1\text{s}$
+
+空间限制：$256\text{MB}$
+
+\section*{题解}
+用字母$n_x$表示技能的个数。
+
+\subsection*{算法一}
+我们可以直接根据题意进行模拟。对于操作一增加一个技能之后暴力bfs求出可到达的密室，这一步是$O(n_x h)$的，对于操作二$O(1)$进行操作，对于操作三每次暴力$O(n)$找到最优解。
+
+总时间复杂度$O(nm + n_x^2 h)$。可以通过前4个测试点获得20分。
+
+\subsection*{算法二}
+对于5到10号点，$k = 1$，这意味着所有密室都是可达的。
+
+那么我们可以无视所有的操作一，关注操作二和操作三。我们发现可以很轻松的用堆解决问题。操作二即减小一个键，操作三即取出堆顶元素，这两步都是$O(\log n)$的。
+
+时间复杂度$O(m \log n)$，可以通过5到10号点获得30分。
+
+\subsection*{算法三}
+对于11号到17号点，$n, m, k$的范围都很小，特别是$k$最多为$10$。
+
+初始状态下模$k$余$1$的密室都是可达的。注意到一个显然的性质：若$p$可达，那么$p + k$必然可达。这意味着可不可达与模$k$的余数有密切关系，我们可以对于每一种余数$r$，记录下可达的密室中编号最小的，那么判定也就容易了。
+
+模$k$余$r$的可达密室中编号最小的求法显然我们可以用最短路解决。我们可以构一个结点数为$k$的图，结点编号从$0$到$k - 1$。对于每个技能$x$，我们对于所有结点$i$，连一条长度为$x$的边到结点$(i + x) \bmod k$。然后跑一遍最短路就行了。求最短路可以直接用$Floyd$。
+
+对于操作二和操作三可以使用暴力。
+
+时间复杂度为$O(nm + n_x (k n_x + k^3 + n))$。可以通过11号到17号点获得35分。
+
+\subsection*{算法四}
+把算法二和算法三结合起来。
+
+由于对于所有数据$k \leq 10^4$，所以我们不可以再Floyd了，用Dijkstra就好了。操作二三还是使用堆。
+
+时间复杂度为$O(m \log n + n_x(k n_x \log k + n))$。可以通过所有测试点获得100分。
+
+\end{document}
