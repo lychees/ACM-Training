@@ -96,16 +96,16 @@ using namespace std;
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
-  REP(i, n){		                            \
+  REP(i, n){                                    \
         REP(j, m-1) cout << A[i][j] << " ";     \
-        cout << A[i][m-1] << endl;		        \
-	}						                    \
+        cout << A[i][m-1] << endl;                \
+    }                                            \
 }
 #define Display_1(A, n, m) {                    \
-	REP_1(i, n){		                        \
+    REP_1(i, n){                                \
         REP_1(j, m-1) cout << A[i][j] << " ";   \
-        cout << A[i][m] << endl;		        \
-	}						                    \
+        cout << A[i][m] << endl;                \
+    }                                            \
 }
 
 typedef long long LL;
@@ -461,81 +461,40 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     cout << x << endl;
     //last_ans = x;
 }
-
-
 //}/* .................................................................................................................................. */
 
 
-const int N = int(3e3) + 9;
-int pred[N], succ[N], col[N];
-int pos[N];
-map<int,int> last;
+const int N = (1e2) + 9;
+int dp[N][N], v[N];
 int n;
 
-void del(int x) {
-    succ[pred[x]] = succ[x];
-    pred[succ[x]] = pred[x];
-}
 
-
-int main() {
-
+int main(){
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
-
-    Rush {
-        RD(n); REP_1(i, n) pred[i] = i-1, succ[i] = i+1, RD(col[i]); col[0] = -1;
-        succ[0] = 1; pred[n+1] = n;
-
-        int z = 0;
-
-        while (succ[succ[0]] != n+1) {
-
-            for (int i = succ[0];i != n+1; i = succ[i]) {
-                int ii = pred[i];
-                if (col[ii] == col[i]) {
-                    del(i);
-                }
-              //  cout << i << endl;
+    RD(n);
+    REP(i, n){
+        RD(v[i]);
+    }
+    for(int len = 2; len <= n; len++){
+        for(int i = 0; i < n; i++){
+            int j1 = i+len;
+            int j = (i+len)%n;
+            cout << i << ' ' << j << endl;
+            for(int k = i+1; k < j1 && k < n*2; k++){
+                dp[i][j] = max(dp[i][j], dp[i][k%n] + dp[k%n][j] + v[i]*v[k%n]*v[j]);
+                cout << dp[i][j] << ' ';
             }
-
-            last.clear();
-
-            int cur = INF, cl, cr, c = 0;
-
-            int ii = 0;
-
-            for (int i = succ[0];i != n+1; i = succ[i]) {
-                pos[i] = ii++;
-                    //cout << i << endl;
-                if (last[col[i]]) {
-                    if (pos[i] - pos[last[col[i]]] < cur ) {
-                        cur = i - last[col[i]];
-                        cl = last[col[i]];
-                        cr = i;
-                    }
-                }
-                last[col[i]] = i;
-            }
-
-
-
-            if (cur == INF) {
-                z += ii-1;
-                break;
-            } else {
-                z += pos[cr] - pos[cl] - 1;
-                for (int i=succ[cl];i!=cr;i=succ[i]) col[i] = col[cl];
-            }
-            //cout << z << " " << cur << " " << cl << " " << cr << endl;
+            cout << endl;
         }
 
-        cout << z << endl;
-
-
-
     }
-
+    int ans = -INF;
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            checkMax(ans, dp[i][j]);
+    cout << ans;
 }
+
