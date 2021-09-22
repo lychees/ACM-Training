@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
+  <meta http-equiv="content-style-type" content="text/css"/>
+  <meta http-equiv="content-script-type" content="text/javascript"/>
+
+  <meta name="author" content="tzik"/>
+  <meta name="copyright" content="© 2010 tzik"/>
+  <meta name="description" content="A Implementation of Shannon Switching Game in Javascript"/>
+  <meta name="keywords" content="Game,Browser Game,Shannon Switching Game,Javascript,SVG,Bridg-It,Gale"/>
+
+  <title>Description</title>
+  <link rel="stylesheet" type="text/css" href="css/default.css"/>
+</head>
+<body>
+
+<h1>Shannon Switching Game</h1>
+English/<a href="index.xhtml.ja">Japanese</a><br/>
+<a href="/DCP/index.en.html">back</a>
+<h2>Rules</h2>
+<ul>
+  <li>Shanonn Switching Game is a two-players game on an undirected graph with a pair of special vertices.</li>
+  <li>Each player (named <em>SHORT</em> or <em>CUT</em>) takes an edge alternately.</li>
+  <li><em>SHORT</em> contracts an edge in his turn. His goal is to glue the special vertices into a single vertex.</li>
+  <li><em>CUT</em> deletes an edge. His goal is to separate the special vertices.</li>
+</ul>
+
+<h2>Usage</h2>
+<ul>
+  <li>Double-click an edge to contract or delete it.</li>
+  <li>Drag a vertex with the mouse to move it.</li>
+  <li>Tree button: decompose the graph into maxmum disjoint tree pair.</li>
+  <li>Cheat button: decompose the graph into <em>fundamental decomposition:</em>
+    <ul>
+      <li>If there is a blue-colored path between the special vertices, <em>SHORT</em> has a winning strategy.</li>
+      <li>If there is a red-colored cutset separating the special vertices, <em>CUT</em> has a winning strategy.</li>
+      <li>Otherwise, the player who moves next has a winning strategy.</li>
+    </ul>
+  </li>
+  <li>Recommended button: show a winning strategy, if it exists.</li>
+</ul>
+
+<h2>Instances</h2>
+<h3>Short Mode</h3>
+
+<table>
+<tr>
+<td><a href="stage.xhtml?tutorial1#short"><img src="png/tutorial1.png"/></a></td>
+<!--<td><a href="stage.xhtml?tutorial2#short"><img src="png/tutorial2.png"/></a></td>-->
+<td><a href="stage.xhtml?tutorial3#short"><img src="png/tutorial3.png"/></a></td>
+<td><a href="stage.xhtml?tutorial4#short"><img src="png/tutorial4.png"/></a></td>
+<td><a href="stage.xhtml?tutorial5#short"><img src="png/tutorial5.png"/></a></td>
+<td><a href="stage.xhtml?easy1#short"><img src="png/easy1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?easy2#short"><img src="png/easy2.png"/></a></td>
+<td><a href="stage.xhtml?easy3#short"><img src="png/easy3.png"/></a></td>
+<td><a href="stage.xhtml?easy4#short"><img src="png/easy4.png"/></a></td>
+<td><a href="stage.xhtml?easy5#short"><img src="png/easy5.png"/></a></td>
+<td><a href="stage.xhtml?normal1#short"><img src="png/normal1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?normal2#short"><img src="png/normal2.png"/></a></td>
+<td><a href="stage.xhtml?normal3#short"><img src="png/normal3.png"/></a></td>
+<td><a href="stage.xhtml?normal4#short"><img src="png/normal4.png"/></a></td>
+<td><a href="stage.xhtml?normal5#short"><img src="png/normal5.png"/></a></td>
+<td><a href="stage.xhtml?hard1#short"><img src="png/hard1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?hard2#short"><img src="png/hard2.png"/></a></td>
+<td><a href="stage.xhtml?hard3#short"><img src="png/hard3.png"/></a></td>
+<td><a href="stage.xhtml?hard4#short"><img src="png/hard4.png"/></a></td>
+<td><a href="stage.xhtml?hard5#short"><img src="png/hard5.png"/></a></td>
+<td><a href="stage.xhtml?advanced1#short"><img src="png/advanced1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?advanced2#short"><img src="png/advanced2.png"/></a></td>
+<!--<td><a href="stage.xhtml?advanced3#short"><img src="png/advanced3.png"/></a></td>-->
+<!--<td><a href="stage.xhtml?advanced4#short"><img src="png/advanced4.png"/></a></td>-->
+<td><a href="stage.xhtml?advanced5#short"><img src="png/advanced5.png"/></a></td>
+</tr>
+</table>
+
+<h3>Cut Mode</h3>
+
+<table>
+<tr>
+<td><a href="stage.xhtml?tutorial1#cut"><img src="png/tutorial1.png"/></a></td>
+<!--<td><a href="stage.xhtml?tutorial2#cut"><img src="png/tutorial2.png"/></a></td>-->
+<td><a href="stage.xhtml?tutorial3#cut"><img src="png/tutorial3.png"/></a></td>
+<td><a href="stage.xhtml?tutorial4#cut"><img src="png/tutorial4.png"/></a></td>
+<td><a href="stage.xhtml?tutorial5#cut"><img src="png/tutorial5.png"/></a></td>
+<td><a href="stage.xhtml?easy1#cut"><img src="png/easy1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?easy2#cut"><img src="png/easy2.png"/></a></td>
+<td><a href="stage.xhtml?easy3#cut"><img src="png/easy3.png"/></a></td>
+<td><a href="stage.xhtml?easy4#cut"><img src="png/easy4.png"/></a></td>
+<td><a href="stage.xhtml?easy5#cut"><img src="png/easy5.png"/></a></td>
+<td><a href="stage.xhtml?normal1#cut"><img src="png/normal1.png"/></a></td>
+
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?normal2#cut"><img src="png/normal2.png"/></a></td>
+<td><a href="stage.xhtml?normal3#cut"><img src="png/normal3.png"/></a></td>
+<td><a href="stage.xhtml?normal4#cut"><img src="png/normal4.png"/></a></td>
+<td><a href="stage.xhtml?normal5#cut"><img src="png/normal5.png"/></a></td>
+<td><a href="stage.xhtml?hard1#cut"><img src="png/hard1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?hard2#cut"><img src="png/hard2.png"/></a></td>
+<td><a href="stage.xhtml?hard3#cut"><img src="png/hard3.png"/></a></td>
+<td><a href="stage.xhtml?hard4#cut"><img src="png/hard4.png"/></a></td>
+<td><a href="stage.xhtml?hard5#cut"><img src="png/hard5.png"/></a></td>
+<td><a href="stage.xhtml?advanced1#cut"><img src="png/advanced1.png"/></a></td>
+</tr>
+
+<tr>
+<td><a href="stage.xhtml?advanced2#cut"><img src="png/advanced2.png"/></a></td>
+<!--<td><a href="stage.xhtml?advanced3#cut"><img src="png/advanced3.png"/></a></td>-->
+<!--<td><a href="stage.xhtml?advanced4#cut"><img src="png/advanced4.png"/></a></td>-->
+<td><a href="stage.xhtml?advanced5#cut"><img src="png/advanced5.png"/></a></td>
+</tr>
+</table>
+
+<h2>Supported Rendering Engine/Browser</h2>
+<ul>
+<li>Gecko 1.9.2+ (Firefox 3.6+)</li>
+<li>WebKit 532.9+ (Chromium 5.0.307.7+)</li>
+<li>Presto 2.2.15+ (Opera 10.0+) </li>
+</ul>
+
+<h2>Libraries</h2>
+<ul>
+<li><a href="http://jquery.com/">jQuery</a> 1.4.2</li>
+<li><a href="http://raphaeljs.com/">Raphael</a> 1.3.1</li>
+</ul>
+
+<h2>Misc</h2>
+
+This software is licensed under <a href="LICENSE">GPL-2</a>.<br/>
+<a href="../shannon.tar.gz">Click here to download the source tarball.</a>
+
+<div style="text-align:right;">
+TSUIKI Taiju (立木 泰樹)<br/>
+email: <img class="mail" src="png/mail.png" style="height:1em;" alt="pj.kizt@vinu"/><br/>
+KAWASE Yasushi (河瀬 康志)<br/>
+email: <img class="mail" src="png/mail2.png" style="height:1em;" alt="pj.ca.oykot-u.t.tats@esawak"/>
+
+<script><![CDATA[
+document.addEventListener("DOMContentLoaded",function(){
+
+var ms = document.getElementsByClassName("mail");
+for(var i=ms.length-1;i>=0;--i)
+{
+  var m = ms.item(i);
+  var a = document.createElement("a");
+  a.setAttribute("href","mailto:"+(a.textContent=m.alt.split("").reverse().join("")));
+  m.parentNode.replaceChild(a,m);
+}
+
+},false);
+]]></script>
+</div>
+
+</body>
+</html>

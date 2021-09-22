@@ -1,0 +1,21 @@
+
+
+a{
+ text-decoration:none;
+}
+
+tr, td
+{
+  margin: 0px;
+  padding: 0px;
+}
+
+img
+{
+  border: thin solid black;
+}
+
+#mail img
+{
+  border: none;
+}

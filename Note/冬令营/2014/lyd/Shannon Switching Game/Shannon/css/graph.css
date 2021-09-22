@@ -1,0 +1,63 @@
+
+#field{
+  width: 640px;
+  height: 480px;
+  background-color: #ddf;
+  border: 1px black solid;
+}
+
+.bg-grid{
+  stroke: #bbf;
+}
+
+.vertex{fill: #0af;cursor:move;}
+.vertex:hover{fill: #03c;}
+.vertex.dragging{fill: none;cursor:move;}
+
+.vertex.terminal{fill:#f00;}
+.vertex.terminal:hover{fill:#f33;}
+
+.edge{cursor:crosshair;stroke:#ee0;stroke-width:10px;}
+.edge.shadow{stroke:#000;stroke-width:14px;}
+.edge:hover:not([class~="shadow"]){stroke:#e82;}
+.edge.special{visibility:hidden;}
+
+ul{
+  padding: 0;
+  margin: 0;
+}
+
+li{
+  list-style:none;
+  padding: 0.05ex 0.3em;
+  border-width:2px;
+  border-style:solid;
+}
+
+.phase li{
+  cursor: default;
+  text-align: left;
+  font-size: 2.5em;
+  width:3em;
+  background-color: #aaa;
+}
+
+#short.active{background-color: #55e;}
+#cut.active{background-color: #e55;}
+#auto.active{background-color: #ddd;}
+#edit{visibility:hidden;}
+.edit{visibility:hidden;}
+
+.command li{
+  text-align: center;
+  cursor: pointer;
+  float:left;
+  height: 1.15em;
+}
+
+.command li:active:not([class~="invalid"]){background-color: #555;}
+.command li:hover:not([class~="invalid"]){font-weight: bold;}
+.command li.invalid{cursor:default;color:#555;}
+
+.command.normal li{width:5.5em;}
+.command.cheat li{width:7.5em;}

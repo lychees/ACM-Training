@@ -1,0 +1,10 @@
+#!/bin/sh
+
+eval `keychain --eval`
+ssh-add -L || ssh-add
+
+#hg commit --addremove
+cd ..
+tar cvzf shannon.tar.gz shannon
+scp shannon.tar.gz misojiro:public_html
+ssh misojiro 'cd public_html;tar xvzf shannon.tar.gz'

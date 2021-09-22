@@ -1,0 +1,8 @@
+
+AddType "application/xhtml+xml; charset=UTF-8" xhtml
+AddType "text/javascript; charset=UTF-8" js
+
+RewriteEngine on
+RewriteCond %{HTTP_USER_AGENT} .*MSIE.*
+RewriteCond %{REQUEST_URI} \.xhtml.*$
+RewriteRule .* - "[T=text/html; charset=UTF-8]"

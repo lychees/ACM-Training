@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
+  <meta http-equiv="content-style-type" content="text/css"/>
+  <meta http-equiv="content-script-type" content="text/javascript"/>
+
+  <meta name="author" content="tzik"/>
+  <meta name="copyright" content="© 2010 tzik"/>
+  <meta name="robots" content="noindex,nofollow"/>
+
+  <title>Stage</title>
+  <link rel="stylesheet" type="text/css" href="css/graph.css"/>
+  <link rel="stylesheet" type="text/css" id="treeMode"/>
+  <link rel="stylesheet" type="text/css" id="cheatMode"/>
+  <link rel="stylesheet" type="text/css" id="recommendedMode"/>
+  <script type="text/javascript" src="js/lib/jquery.js"></script>
+  <script type="text/javascript" src="js/lib/raphael.js"></script>
+  <script type="text/javascript" src="js/util.js"></script>
+  <script type="text/javascript" src="js/algorithm.js"></script>
+  <script type="text/javascript" src="js/graph.ui.js"></script>
+  <script type="text/javascript" src="js/manager.js"></script>
+</head>
+<body>
+
+<table>
+<tr>
+  <td><div id="field"></div></td>
+  <td>
+    <ul class="phase">
+      <li id="short">short</li>
+      <li id="cut">cut</li>
+      <!--<li id="auto">auto</li>-->
+      <li id="edit" class="edit">edit</li>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td>
+    <ul class="command normal">
+      <li id="undo" class="invalid">undo</li>
+      <!--<li id="redo" class="invalid">redo</li>-->
+      <li id="restart">restart</li>
+      <!--<li id="return">back</li>-->
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td>
+    <ul class="command cheat">
+      <li id="tree">tree</li>
+      <li id="cheat">cheat</li>
+      <li id="recommended">recommended</li>
+    </ul>
+  </td>
+</tr>
+<!--<tr>
+  <td>
+    <ul class="command cheat">
+      <li id="simplify1">simplify Lv1</li>
+      <li id="simplify2">simplify Lv2</li>
+      <li id="simplify3">simplify Lv3</li>
+    </ul>
+  </td>
+</tr>-->
+</table>
+
+<!--
+<form method="post" action="cgi-bin/hoge.cgi">
+  <input name="filename" type="text" onclick="this.value=document.location.search.substring(1)"/><br/>
+  <textarea id="output" cols="50" rows="10" onclick="this.textContent=$('#field').html()"></textarea>
+  <input type="submit" value="post" />
+</form>
+
+<script type="text/javascript"><![CDATA[
+
+$(function(){setTimeout(function(){
+
+$.post("cgi-bin/hoge.cgi",{
+  filename:document.location.search.substring(1),
+  output:new XMLSerializer().serializeToString($("#field svg")[0])
+});
+
+},5000);});
+]]></script>
+-->
+
+</body>
+</html>
