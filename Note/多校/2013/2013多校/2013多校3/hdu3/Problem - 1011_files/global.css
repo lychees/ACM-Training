@@ -1,0 +1,69 @@
+body
+{
+	font-size:14px;
+	font-family:Times New Roman;
+	background: url(background.jpg);
+}
+
+a{ color:#1a5cc8; text-decoration:none }
+a:hover { color:orange; text-decoration:underline }
+textarea { border:#879BFF 1px dashed; background-color: F4FBFF }
+input { border:#879BFF 1px dashed; font-size:14px; background-color:transparent; vertical-align: middle }
+select { margin: -2px; background-color:F4FBFF }
+img { border: none}
+hr { height: 1px; border: 0; border-top: #1a5cc8 1px dashed }
+h1 { color: #1A5CC8; text-align: center }
+
+.text40{ width: 54px; height:22px }
+.text60{ width: 80px; height:22px }
+.text90{ width: 90px; height:22px }
+.button40{ width: 54px; height:24px; background-color:F4FBFF; font-family:Tahoma; font-size:12px }
+.footer_link{ font-family: Arial; font-size:12px; font-weight:bold; color:#1a5cc8 }
+.banner{ font-family: Arial; font-weight: bold; font-size: 18px; color: #FFFFFF }
+.hot {color:red }
+.pagerunstatus { font-family:Arial;font-size:11px;color:green}
+.table_header { font-family: Arial; font-weight: bold; font-size:12px; color: #ffffff; background-color:#1a5cc8; text-align:center }
+.table_text { font-family: Tahoma; font-size:12px}
+.code {word-wrap: break-word; word-break:break-all; background-color:#f4fbff; border:#b7cbff 1px dashed; font-size:12px; font-family: Courier New, Courier; text-align:left; padding:10px}
+.fixedsize { word-wrap:break-word; word-break:break-all }
+
+#contest_nav { word-wrap:break-word; width:980px; border:1px solid #1a5cc8; background-color:#1a5cc8; line-height:32px}
+#contest_nav a { font-family: Arial; font-weight: bold; font-size: 18px; color: #FFFFFF; margin: 15px }
+#contest_nav a:hover { font-family: Arial; font-weight: bold; font-size: 18px; color:orange; margin: 15px }
+#contest_footer { width:980px; height:70px; border:1px solid #1a5cc8; text-align:center; padding: 5px 0}
+#contest_footer div{ word-wrap:break-word }
+#rollword { word-wrap:break-word; width:980px; margin-top:10px}
+
+/* Panel对象的css */
+div.panel_content {
+	height: auto;
+	background: url(panel-content.png) repeat-y;
+	margin: 0;
+	padding: 0 20px;
+	font-size: 14px;
+	font-family: Times New Roman;
+	text-align: left
+}
+div.panel_title {
+	height: 38px;
+	background: transparent url(panel-title.png) left bottom no-repeat;
+	padding: 0 14px;
+	color: #7CA9ED;
+	font-size: 18px;
+	font-family: Arial;
+	font-weight: bold
+}
+div.panel_bottom {
+	height: auto;
+	margin: 0;
+	background: url(panel-bottom.png) left top no-repeat
+}
+div.panel_content pre {
+	margin: 0;
+	font-size: 14px
+}
+/* 高亮显示的项 */
+#highlight_item{
+	light:expression(onmouseover=function(){this.style.backgroundColor="#D7EBFF"},onmouseout=function(){this.style.backgroundColor="transparent"}) 
+}
+

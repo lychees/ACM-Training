@@ -1,0 +1,22 @@
+<h1 id="finding-string">Finding string</h1>
+<h2 id="description">Description</h2>
+<p>Richard is a smart data analyst in a famous company. One of his daily boring work is to find how many times does a pattern string occur in a very long string.</p>
+<p>Luckily, Richard notices that there are many consecutive repeated substrings in this very long string, so he uses the following compression algorithm to make the string shorter:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Find a <strong>non-compressed</strong> consecutive repeated substring of the original string, e.g. “ab” in “cabababd”.</p></li>
+<li><p>Replace the repeating part with the bracketed repetend, followed by the times the repetend appears in the original string. e.g. Write “cabababd” as “c[ab]3d”. Note she can also write it as “c[ab]1ababd” or “ca[ba]2bd” and so on, although these string are not compressed as well as the first one is.</p></li>
+<li><p>Repeat a) and b) several times until the string is short enough.</p></li>
+</ol>
+<p>However, Richard finds it still a bit hard for him to do his work after the compression. So he orders you to write a program to make his work easier. Can you help him?</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF. The number of test cases does not exceed 10000.</p>
+<p>Each test case contains two lines, denote the compressed text and pattern string. The decompressed text and pattern string contain lowercase letter only. The first line contains only lowercase letters (a-z), square brackets ([]) and numbers (0-9), and the second line contains only lowercase letters (a-z). The brackets must be followed with an integer <span class="math"><em>t</em></span>(<span class="math">1 ≤ <em>t</em> ≤ 2<sup>31</sup> − 1</span>) indicating the times the string in the brackets repeat. The brackets <strong>won't</strong> be nested.</p>
+<p>You can assume the length of the compressed string and pattern string won't exceed <span class="math">500</span>.</p>
+<p>Please note that for most test cases, the length of the pattern string is relatively very small.</p>
+<h2 id="output">Output</h2>
+<p>For each test case, print a single line containing the times this pattern string occurs in the very long string.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>[ab]10aaba
+ba</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>11</code></pre>

@@ -1,0 +1,48 @@
+
+<!-- saved from url=(0071)http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1006&cid=458 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><meta name="keywords" content="HDOJ ACM ICPC OJ C C++ Pascal Java"><script src="./Problem - 1006_files/global.js" type="text/javascript"></script><link rel="stylesheet" href="./Problem - 1006_files/global.css" type="text/css"><title>Problem - 1006</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name="top"></a><center>
+<div id="contest_nav" align="center">
+	<a href="http://acm.hdu.edu.cn/" style="margin:0"><img src="./Problem - 1006_files/banner.jpg" width="980" height="116"></a>
+	<a href="http://acm.hdu.edu.cn/" style="margin-left:3px">Home</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_list.php?cid=458" style="margin-left:3px">STD Contest</a>
+	<a href="http://acm.hdu.edu.cn/notification.php?cid=458" style="margin-left:3px">Notification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=458&page=1" style="margin-left:3px">Clarification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=458" style="margin-left:3px">Problems</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_ranklist.php?cid=458&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_status.php?cid=458" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=458" style="margin-left:3px">Statistics</a>-->
+	<a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1006&cid=458#" style="margin-left:3px"><font color="gray">Statistics</font></a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_print.php?cid=458" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div align="center" id="rollword"><marquee scrollamount="2" width="600" scrolldelay="30" onmouseover="javascript:this.stop();" onmouseout="javascript:this.start();"><b style="margin-right:20px"><a class="hot" href="http://acm.hdu.edu.cn/viewnotify.php?cid=458&id=2">1007题目描述稍作修改 加粗显示</a></b><a href="http://acm.hdu.edu.cn/notification.php?cid=458">More...</a></marquee></div><div style="width:980px;padding:0;margin:0"><h1 style="color:#1A5CC8;margin-top: 20px">Jinkeloid</h1><font face="Arial"><b><span style="font-size:12px;color:green">Time Limit: 8000/4000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>Total Submission(s): 0&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 0<br></span></b></font><br><br><div class="panel_title" align="left">Problem Description</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">     After listening several songs of Jinkeloid,I come up with this problem :).<br>     There is a string s only consist of first 20 lowercase English letters.<br>     And we have several queries,each time I have k letters c<sub>1</sub>, c<sub>2</sub>, ..., c<sub>k</sub>,and I wonder how many consecutive substring of string s that each c<sub>i</sub> has occur even times in it.<br>     Two substring with the same content but different position are considered different.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">     The first line contains integer T(1&lt;=T&lt;=5),denote the number of the test cases.<br>     For each test cases,the first line contains a string s(1&lt;= length of s &lt;= 10<sup>5</sup>),the second line contains a number Q (Q&lt;= 3 * 10<sup>4</sup>),denote the number of queries.<br>     Then Q lines follows,each lines start with a number k(1&lt;= k&lt;= 5),then contains k lowercase English letters c<sub>1</sub>, c<sub>2</sub>, ..., c<sub>k</sub>(There won't be duplicated c<sub>i</sub>).<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">For each query,print the answer in one line.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">1
+cacca
+5
+3 c a b
+2 c b
+2 a b
+3 c b a
+2 a b</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">2
+7
+6
+2
+6
+<div style="font-family:Times New Roman;font-size:14px;background-color:F4FBFF;border:#B7CBFF 1px dashed;padding:6px"><div style="font-family:Arial;font-weight:bold;color:#7CA9ED;border-bottom:#B7CBFF 1px dashed"><i>Hint</i></div>
+Remember 0 is also a even number,so occur zero times is ok.
+Thanks Jinkeloid for this problem :).
+</div></div></pre></div><div class="panel_bottom">&nbsp;</div><br><center style="font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8"><a href="http://acm.hdu.edu.cn/contests/contest_statistic.php?cid=458&pid=1006">Statistic</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_submit.php?cid=458&pid=1006">Submit</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=458">Clarifications</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=458">Back</a></center><br></div>
+<div id="contest_footer">
+	<div class="footer_link" style="width:15%;float:left;line-height:67px"><a href="http://acm.hdu.edu.cn/">Home</a> | <a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1006&cid=458#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &#169; 2005-2013 <a href="mailto:acm@hdu.edu.cn">HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="http://acm.hdu.edu.cn/about_us/developer.php">Designer &amp; Developer </a> : <a>Wang Rongtao</a>&nbsp;<a>Lin Le</a>&nbsp;<a href="mailto:gjavac@gmail.com">GaoJie</a>&nbsp;<a href="mailto:gl8997@gmail.com">GanLu</a><br>
+	<span class="pagerunstatus">Total 0.001598(s) query 0, Server time : 2013-07-30 12:14:30, Gzip enabled</span>	</div>
+	<div class="footer_link" style="width:15%;float:right;line-height:67px">
+		<a href="http://acm.hdu.edu.cn/admin">Administration</a>	
+	</div>
+</div></center>
+
+
+</body></html>

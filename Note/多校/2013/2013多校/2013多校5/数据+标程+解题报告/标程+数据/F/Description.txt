@@ -1,0 +1,30 @@
+Magic Pen
+Time Limit 1s
+Memory Limit 32M
+In HIT, many people have a magic pen. Lilu0355 has a magic pen, darkgt has a magic pen, discover has a magic pen. Recently, Timer also got a magic pen from seniors.
+
+At the end of this term, teacher gives Timer a job to deliver the list of N students who fail the course to dean's office. Most of these students are Timer's friends, and Timer doesn't want to see them fail the course. So, Timer decides to use his magic pen to scratch out consecutive names as much as possible. However, teacher has already calculated the sum of all students' scores module M. Then in order not to let the teacher find anything strange, Timer should keep the sum of the rest of students' scores module M the same.
+
+Plans can never keep pace with changes, Timer is too busy to do this job. Therefore, he turns to you. He needs you to program to "save" these students as much as possible.
+
+Input
+There are multiple test cases.
+The first line of each case contains two integer N and M, (0< N <= 100000, 0 < M < 10000),then followed by a line consists of N integers a1,a2,...an (-100000000 <= a1,a2,...an <= 100000000) denoting the score of each student.(Strange score? Yes, in great HIT, everything is possible)
+
+Output
+For each test case, output the largest number of students you can scratch out.
+
+Note: The magic pen can be used only once to scratch out consecutive students.
+
+Sample Input
+2 3
+1 6
+3 3
+2 3 6
+2 5
+1 3
+
+Sample Output
+1
+2
+0

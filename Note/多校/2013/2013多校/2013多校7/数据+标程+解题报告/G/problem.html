@@ -1,0 +1,24 @@
+<h1 id="present-day-present-time">Present Day, Present Time</h1>
+<h2 id="description">Description</h2>
+<p>Sangxin and Bicycle play games everyday, but no matter what they play, Sangxin always loses. Sangxin found that there is no chance to beat Bicycle even playing dice.</p>
+<p>One day, Sangxin came up with a brand new game with stones. In this game there are <span class="math"><em>n</em></span> piles of stones and <span class="math"><em>m</em></span> recycling centers, each pile of stones has <span class="math"><em>A</em><sub><em>i</em></sub></span> stones and each recycle center could process <strong><em>exactly</em></strong> <span class="math"><em>B</em><sub><em>i</em></sub></span> (which is pre-assigned) stones at a time. Sangxin and Bicycle operate by turns. Each turn the player must pick one piles of stones and recycle some stones. Note that they can use recycling centers <em>unlimited times</em> in one turn. The one couldn't do anything during his turn loses.</p>
+<p>After thinking a while Sangxin thought the game is too easy and appended a weird rule: <strong><em>After</em></strong> someone's turn if there are no way to completely recycle any pile of stones, he loses immediately.</p>
+<p>Now, given the initial state of the game, Sangxin wants to know that who will win. Assume they will play in optimal strategy. The players' name and who will play first is given.</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF. Most of test cases are rather small.</p>
+<p>Each case has 4 lines, the first line contains two integer <span class="math"><em>n</em></span>(<span class="math">1 ≤ <em>n</em> ≤ 100000</span>) and <span class="math"><em>m</em></span> (<span class="math">1 ≤ <em>m</em> ≤ 100</span>), which denotes the number of stone piles and recycling centers. The second line contains two string (length not greater than <span class="math">20</span> and contains only lowercase letters) indicating the players' name. The first player in that line plays first. The third line contains <span class="math"><em>n</em></span> integers, i-th denotes <span class="math"><em>A</em><sub><em>i</em></sub></span>(<span class="math">1 ≤ <em>A</em><sub><em>i</em></sub> ≤ 1000000000</span>) and next line contains <span class="math"><em>m</em></span> integer, i-th denotes <span class="math"><em>B</em><sub><em>i</em></sub></span>(<span class="math">1 ≤ <em>B</em><sub><em>i</em></sub> ≤ 100</span>).</p>
+<h2 id="output">Output</h2>
+<p>For each case output the winner's name on separate lines.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>2
+3 2
+sangxin bike
+1 2 3
+2 3
+3 1
+bike sangxin
+3 4 9
+1</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>bike
+bike</code></pre>

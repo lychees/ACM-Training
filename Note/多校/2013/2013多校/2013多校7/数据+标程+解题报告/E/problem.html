@@ -1,0 +1,23 @@
+<h1 id="cube-number-on-a-tree">Cube number on a tree</h1>
+<h2 id="problem-discription">Problem Discription</h2>
+<p>The country Tom living in is famous for traveling. Every Year, many tourists from all over the world have interests in traveling there.</p>
+<p>There are n provinces in the country. According to the experiences from the tourists came before, every province has its own preference value. A route’s preference value from one province to another is defined as the product of all the preference value of the provinces on the route. It’s guaranteed that for each two provinces in the country there is a unique route from one to another without passing any province twice or more.</p>
+<p>Tom is a boy crazy about cube number. A cube number is a positive integer whose cube root is also an integer. He is planning to travel from a province to another in the summer vacation and he will only choose the route with the cube number preference value. Now he want to know the number of routes that satisfies his strange requirement.</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF.</p>
+<p>Each case begins with a number <span class="math"><em>n</em></span>(<span class="math">1 ≤ <em>n</em> ≤ 50000</span>), the number of the provinces.</p>
+<p>The second line begins with a number <span class="math"><em>K</em></span>(<span class="math">1 ≤ <em>K</em> ≤ 30</span>), and <span class="math"><em>K</em></span> difference prime numbers follow. It’s guaranteed that all the preference number can be represented by the product of some of this <span class="math"><em>K</em></span> number(a number can appear multiple times).</p>
+<p>The third line consists of <span class="math"><em>n</em></span> integer numbers, the ith number indicating the preference value <span class="math"><em>P</em><sub><em>i</em></sub></span> of the ith province.</p>
+<p>Then <span class="math"><em>n</em> − 1</span> lines follow. Each line consists of two integers <span class="math"><em>x</em></span>, <span class="math"><em>y</em></span>, indicating there is a road connecting province <span class="math"><em>x</em></span> and province <span class="math"><em>y</em></span>.</p>
+<h2 id="output">Output</h2>
+<p>For each test case, print a number indicating the number of routes that satisfies the requirement.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>5
+3 2 3 5
+2500 200 9 270000 27
+4 2
+3 5
+2 5
+4 1</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>1</code></pre>

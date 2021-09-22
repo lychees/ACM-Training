@@ -1,0 +1,41 @@
+
+<!-- saved from url=(0071)http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1005&cid=473 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><meta name="keywords" content="HDOJ ACM ICPC OJ C C++ Pascal Java"><script src="./Problem - 1005_files/global.js" type="text/javascript"></script><link rel="stylesheet" href="./Problem - 1005_files/global.css" type="text/css"><title>Problem - 1005</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name="top"></a><center>
+<div id="contest_nav" align="center">
+	<a href="http://acm.hdu.edu.cn/" style="margin:0"><img src="./Problem - 1005_files/banner.jpg" width="980" height="116"></a>
+	<a href="http://acm.hdu.edu.cn/" style="margin-left:3px">Home</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_list.php?cid=473" style="margin-left:3px">STD Contest</a>
+	<a href="http://acm.hdu.edu.cn/notification.php?cid=473" style="margin-left:3px">Notification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=473&page=1" style="margin-left:3px">Clarification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=473" style="margin-left:3px">Problems</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_ranklist.php?cid=473&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_status.php?cid=473" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=473" style="margin-left:3px">Statistics</a>-->
+	<a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1005&cid=473#" style="margin-left:3px"><font color="gray">Statistics</font></a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_print.php?cid=473" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div style="width:980px;padding:0;margin:0"><h1 style="color:#1A5CC8;margin-top: 20px">Deque</h1><font face="Arial"><b><span style="font-size:12px;color:green">Time Limit: 4000/2000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>Total Submission(s): 0&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 0<br></span></b></font><br><br><div class="panel_title" align="left">Problem Description</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">Today, the teacher gave Alice extra homework for the girl weren't attentive in his class. It's hard, and Alice is going to turn to you for help.<br>The teacher gave Alice a sequence of number(named A) and a deque. The sequence exactly contains N integers. A deque is such a queue, that one is able to push or pop the element at its front end or rear end. Alice was asked to take out the elements from the sequence in order(from A_1 to A_N), and decide to push it to the front or rear of the deque, or drop it directly. At any moment, Alice is allowed to pop the elements on the both ends of the deque. The only limit is, that the elements in the deque should be non-decreasing.<br>Alice's task is to find a way to push as many elements as possible into the deque. You, the greatest programmer, are required to reclaim the little girl from despair.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">The first line is an integer T(1≤T≤10) indicating the number of test cases.<br>For each case, the first line is the length of sequence N(1≤N≤100000).<br>The following line contains N integers A<sub>1</sub>,A<sub>2</sub>,…,A<sub>N</sub>.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">For each test case, output one integer indicating the maximum length of the deque.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">3
+7
+1 2 3 4 5 6 7
+5
+4 3 2 1 5
+5
+5 4 1 2 3</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">7
+5
+3</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Source</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">2013 Multi-University Training Contest 1</div></pre></div><div class="panel_bottom">&nbsp;</div><br><center style="font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8"><a href="http://acm.hdu.edu.cn/contests/contest_statistic.php?cid=473&pid=1005">Statistic</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_submit.php?cid=473&pid=1005">Submit</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=473">Clarifications</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=473">Back</a></center><br></div>
+<div id="contest_footer">
+	<div class="footer_link" style="width:15%;float:left;line-height:67px"><a href="http://acm.hdu.edu.cn/">Home</a> | <a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1005&cid=473#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &#169; 2005-2013 <a href="mailto:acm@hdu.edu.cn">HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="http://acm.hdu.edu.cn/about_us/developer.php">Designer &amp; Developer </a> : <a>Wang Rongtao</a>&nbsp;<a>Lin Le</a>&nbsp;<a href="mailto:gjavac@gmail.com">GaoJie</a>&nbsp;<a href="mailto:gl8997@gmail.com">GanLu</a><br>
+	<span class="pagerunstatus">Total 0.001074(s) query 0, Server time : 2013-07-23 12:12:55, Gzip enabled</span>	</div>
+	<div class="footer_link" style="width:15%;float:right;line-height:67px">
+		<a href="http://acm.hdu.edu.cn/admin">Administration</a>	
+	</div>
+</div></center>
+
+
+</body></html>

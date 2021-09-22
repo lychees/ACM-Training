@@ -1,0 +1,33 @@
+<h1 id="hyperspace">Hyperspace</h1>
+<h2 id="description">Description</h2>
+<p>The great Mr.Smith has invented a hyperspace particle generator. The device is very powerful. The device can generate a hyperspace. In the hyperspace, particle may appear and disappear randomly. At the same time a great amount of energy.</p>
+<p>However, the device is in test phase, often in a unstable state. Mr.Smith worried that it may cause an explosion when testing it. The energy of the device is related to the maximum manhattan distance between particle.</p>
+<p>Particle may appear and disappear any time. Mr.Smith wants to know the maxmium manhattan distance between particle when particle appears or disappears.</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF.</p>
+<p>In each case: In the first line, there are two integer <span class="math"><em>q</em></span>(number of particle appear and disappear event) and <span class="math"><em>k</em></span>(dimensions of the hyperspace that the hyperspace the device generated). Then follows <span class="math"><em>q</em></span> lines. In each line, the first integer '<span class="math"><em>o</em><em>d</em></span>' represents the event: <span class="math"><em>o</em><em>d</em> = 0</span> means this is an appear event. Then follows <span class="math"><em>k</em></span> integer(with absolute value less then <span class="math">4 × 10<sup>7</sup></span>). <span class="math"><em>o</em><em>d</em> = 1</span> means this is an disappear event. Follows a integer <span class="math"><em>p</em></span> represents the disappeared particle appeared in the pth event.</p>
+<h2 id="output">Output</h2>
+<p>Each test case should contains <code>q</code> lines. Each line contains a integer represents the maximum manhattan distance between particle.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>10 2
+0 208 403
+0 371 -180
+1 2
+0 1069 -192
+0 418 -525
+1 5
+1 1
+0 2754 635
+0 -2491 961
+0 2954 -2516</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>0
+746
+0
+1456
+1456
+1456
+0
+2512
+5571
+8922</code></pre>

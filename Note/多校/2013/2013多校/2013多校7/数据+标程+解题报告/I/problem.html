@@ -1,0 +1,38 @@
+<h1 id="trip-advisor">Trip Advisor</h1>
+<h2 id="description">Description</h2>
+<p>There is a strange country somewhere which its transportation network was built following some weird rules: Consider the transportation network as a connected undirected graph G with N nodes and M edges(nodes indicate cities,and people can travel from cities to cities by roads connecting them),the condition that every node in G is in at most one simple cycle holds.</p>
+<p>One day Q people of the country want to make a travel, i_th people is located at city Ui, wants to move to city Vi(Ui can be equal to Vi),and he especially loves city Pi,so he wonders if there is a path that:</p>
+<ol style="list-style-type: decimal">
+<li>starts at Ui;</li>
+<li>ends at Vi;</li>
+<li>for every pair of adjacent cities in path,there is a road connecting them.</li>
+<li>visits every city at most once.</li>
+<li><strong><em>visits city Pi;</em></strong></li>
+</ol>
+<p>As a trip advisor,your task is to tell everybody whether there is a path satsifying all his requirements.</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF. Most of test cases are rather small.</p>
+<p>Each testcase contains <span class="math"><em>M</em> + <em>Q</em> + 2</span> lines, first line contains two integers <span class="math"><em>N</em></span>, <span class="math"><em>M</em></span> (<span class="math">1 ≤ <em>N</em>, <em>M</em> ≤ 200000</span>), the number of cities and roads; next <span class="math"><em>M</em></span> lines each contains two integer <span class="math"><em>b</em></span>, <span class="math"><em>e</em></span> indicates that there is a bidrictional-road connecting city b and city e;next line an integer <span class="math"><em>Q</em></span>(<span class="math">1 ≤ <em>Q</em> ≤ 100000</span>) indicating number of people in that country that want to make a travel, next <span class="math"><em>Q</em></span> lines each contains three integers <span class="math"><em>U</em><sub><em>i</em></sub></span>, <span class="math"><em>V</em><sub><em>i</em></sub></span>, <span class="math"><em>P</em><sub><em>i</em></sub></span>, denotes the query as we mentioned above.</p>
+<h2 id="output">Output</h2>
+<p>For each test case output <span class="math"><em>Q</em></span> lines, for i-th query, if there exists such path, output one line &quot;Yes&quot; without quotes, otherwise output one line &quot;No&quot; without quotes.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>6 7
+1 2
+1 2
+3 4
+2 4
+5 6
+5 6
+4 5
+5
+1 6 3
+1 6 4
+1 2 5
+2 2 2
+2 2 3</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>No
+Yes
+No
+Yes
+No</code></pre>

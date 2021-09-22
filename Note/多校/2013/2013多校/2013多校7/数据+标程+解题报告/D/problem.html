@@ -1,0 +1,16 @@
+<h1 id="mutiples-on-a-circle">Mutiples on a circle</h1>
+<h2 id="problem-discription">Problem Discription</h2>
+<p>Tom has a necklace with <span class="math"><em>n</em></span> jewels. There is a number on each jewel. Now Tom wants to selesct a wonderful chain from the necklace. A chain will be regarded wonderful if the wonderful value of the chain is a multiple of a key number <span class="math"><em>K</em></span>. Tom gets the wonderful value using this way：He writes down the number on the chain in clockwise order and concatenate them together. In this way, he gets a decimal number which is defined as the wonderful value.</p>
+<p>For example, consider a necklace with 5 jewels and corresponding numbers on the jewels are 9 6 4 2 8 (9 and 8 are in neighborhood). Assume we take <span class="math"><em>K</em> = 7</span>, then we can find that only five chains can be multiples of <span class="math"><em>K</em></span>. They are 42, 28, 896, 42896 and 89642.</p>
+<p>Now Tom wants to know that how many ways he can follow to select a wonderful chain from his necklace.</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF.</p>
+<p>Each case begins with two integers <span class="math"><em>n</em></span> (<span class="math">1 ≤ <em>n</em> ≤ 50000</span>), <span class="math"><em>K</em></span> (<span class="math">1 ≤ <em>K</em> ≤ 200</span>), the length of the necklace and the key number.</p>
+<p>The second line consists of <span class="math"><em>n</em></span> integer numbers, the ith number <span class="math"><em>a</em><sub><em>i</em></sub></span> (<span class="math">1 ≤ <em>a</em><sub><em>i</em></sub> ≤ 10000</span>)indicating the number on the ith jewel. It’s given in clockwise order.</p>
+<h2 id="output">Output</h2>
+<p>For each test case, print a number indicating how many ways Tom can follow to select a wonderful chain.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>5 7
+9 6 4 2 8</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>5</code></pre>

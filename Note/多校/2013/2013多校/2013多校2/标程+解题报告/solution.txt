@@ -1,0 +1,29 @@
+A.Balls Rearrangement
+  模拟+数学
+  连续的一段可直接统计，需要算一下gcd，不难
+B.Warm up
+  图论
+  根据桥建成一棵树，找最长路，也可以找桥顺便找最长路。
+C.Points
+  几何+kmp
+  按照点的中心，对各个点排序，然后每个到上一个的偏移的角度还有到中心的比例，得到一个串，相当于一个循环串是否包含另一个，用kmp即可。目测是原题，组题人表示不清楚情况。
+D.Vases and Flowers
+  线段树
+  裸题
+E.Play with Sequence
+  出题人不见了。好像是基于某种结论的，有兴趣的可以google graph+2switch。据说有论文。
+F.Game
+  图论+dp
+  树dp。数据太水，有个从每个点开始碰到C个就停就水过了。
+G.Weapon
+  几何
+  基础3维几何
+H.Palindrome Sub-Array
+  乱搞
+  方法很多吧，不说了
+I.Warm up 2
+  贪心或二分图匹配都行
+J.Fruit Ninja Extreme
+  搜索，状态其实不多的。
+
+

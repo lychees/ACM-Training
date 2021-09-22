@@ -1,0 +1,50 @@
+#include <iostream>
+#include<stdio.h>
+#include<string.h>
+#include<algorithm>
+using namespace std;
+typedef struct node{
+    int x,y,ai,bi;
+}node;
+node a[100];
+double t0,t1,t2;
+int t;
+bool cmp(node o,node p)
+{
+    int d=(o.x+o.ai*t)*(p.y+p.ai*t)-(p.x+p.ai*t)*(o.y+o.ai*t);
+    if(d>0) return 1;
+    return 0;
+}
+void muilt(node m,node n)
+{
+    t0+=m.x*n.y-n.x*m.y;
+    t1+=m.x*n.bi+m.ai*n.y-m.y*n.ai-n.x*m.bi;
+    t2+=m.ai*n.bi-n.ai*m.bi;
+}
+int main()
+{
+    int n;
+    int i;
+    double sum;
+//    freopen("12","r",stdin);
+    while(scanf("%d%d",&n,&t)!=EOF)
+    {
+        for(i=1;i<=n;i++)
+        {
+            scanf("%d%d%d%d",&a[i].x,&a[i].y,&a[i].ai,&a[i].bi);
+        }
+        a[i].x=a[1].x;
+        a[i].y=a[1].y;
+        sort(a+1,a+n+1,cmp);
+        t0=t1=t2=0;
+        for(i=1;i<=n;i++)
+        {
+            muilt(a[i],a[i+1]);
+        }
+        sum=(t0*t+t1*t*t/2+t2*t*t*t/3)/t;
+        sum/=2;
+        printf("%.10lf\n",sum);
+    }
+    return 0;
+}
+

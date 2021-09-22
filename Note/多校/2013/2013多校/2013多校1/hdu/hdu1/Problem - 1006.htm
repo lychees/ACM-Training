@@ -1,0 +1,43 @@
+
+<!-- saved from url=(0071)http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1006&cid=473 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><meta name="keywords" content="HDOJ ACM ICPC OJ C C++ Pascal Java"><script src="./Problem - 1006_files/global.js" type="text/javascript"></script><link rel="stylesheet" href="./Problem - 1006_files/global.css" type="text/css"><title>Problem - 1006</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name="top"></a><center>
+<div id="contest_nav" align="center">
+	<a href="http://acm.hdu.edu.cn/" style="margin:0"><img src="./Problem - 1006_files/banner.jpg" width="980" height="116"></a>
+	<a href="http://acm.hdu.edu.cn/" style="margin-left:3px">Home</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_list.php?cid=473" style="margin-left:3px">STD Contest</a>
+	<a href="http://acm.hdu.edu.cn/notification.php?cid=473" style="margin-left:3px">Notification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=473&page=1" style="margin-left:3px">Clarification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=473" style="margin-left:3px">Problems</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_ranklist.php?cid=473&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_status.php?cid=473" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=473" style="margin-left:3px">Statistics</a>-->
+	<a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1006&cid=473#" style="margin-left:3px"><font color="gray">Statistics</font></a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_print.php?cid=473" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div style="width:980px;padding:0;margin:0"><h1 style="color:#1A5CC8;margin-top: 20px">Magic Ball Game</h1><font face="Arial"><b><span style="font-size:12px;color:green">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 65536/65536 K (Java/Others)<br>Total Submission(s): 0&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 0<br></span></b></font><br><br><div class="panel_title" align="left">Problem Description</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">When the magic ball game turns up, Kimi immediately falls in it. The interesting game is made up of N balls, each with a weight of w[i]. These N balls form a rooted tree, with the 1st ball as the root. Any ball in the game has either 0 or 2 children ball. If a node has 2 children balls, we may define one as the left child and the other as the right child.<br>The rules are simple: when Kimi decides to drop a magic ball with a weight of X, the ball goes down through the tree from the root. When the magic ball arrives at a node in the tree, there's a possibility to be catched and stop rolling, or continue to roll down left or right. The game ends when the ball stops, and the final score of the game depends on the node at which it stops.<br>After a long-time playing, Kimi now find out the key of the game. When the magic ball arrives at node u weighting w[u], it follows the laws below:<br><strong>1</strong>&nbsp;&nbsp;If X=w[u] or node u has no children balls, the magic ball stops.<br><strong>2</strong>&nbsp;&nbsp;If X&lt;w[u], there's a possibility of 1/2 for the magic ball to roll down either left or right.<br><strong>3</strong>&nbsp;&nbsp;If X&gt;w[u], the magic ball will roll down to its left child in a possibility of 1/8, while the possibility of rolling down right is 7/8.<br>In order to choose the right magic ball and achieve the goal, Kimi wonders what's the possibility for a magic ball with a weight of X to go past node v. No matter how the magic ball rolls down, it counts if node v exists on the path that the magic ball goes along.<br>Manual calculating is fun, but programmers have their ways to reach the answer. Now given the tree in the game and all Kimi's queries, you're required to answer the possibility he wonders.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">The input contains several test cases. An integer T(T≤15) will exist in the first line of input, indicating the number of test cases.<br>Each test case begins with an integer N(1≤N≤10<sup>5</sup>), indicating the number of nodes in the tree. The following line contains N integers w[i], indicating the weight of each node in the tree. (1 ≤ i ≤ N, 1 ≤ w[i] ≤ 10<sup>9</sup>, N is odd)<br>The following line contains the number of relationships M. The next M lines, each with three integers u,a and b(1≤u,a,b≤N), denotes that node a and b are respectively the left child and right child of node u. You may assume the tree contains exactly N nodes and (N-1) edges.<br>The next line gives the number of queries Q(1≤Q≤10<sup>5</sup>). The following Q lines, each with two integers v and X(1≤v≤N,1≤X≤10<sup>9</sup>), describe all the queries.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">If the magic ball is impossible to arrive at node v, output a single 0. Otherwise, you may easily find that the answer will be in the format of 7<sup>x</sup>/2<sup>y</sup> . You're only required to output the x and y for each query, separated by a blank. Each answer should be put down in one line.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">1
+3
+2 3 1
+1
+1 2 3
+3
+3 2
+1 1
+3 4</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">0
+0 0
+1 3</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Source</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">2013 Multi-University Training Contest 1</div></pre></div><div class="panel_bottom">&nbsp;</div><br><center style="font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8"><a href="http://acm.hdu.edu.cn/contests/contest_statistic.php?cid=473&pid=1006">Statistic</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_submit.php?cid=473&pid=1006">Submit</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=473">Clarifications</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=473">Back</a></center><br></div>
+<div id="contest_footer">
+	<div class="footer_link" style="width:15%;float:left;line-height:67px"><a href="http://acm.hdu.edu.cn/">Home</a> | <a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1006&cid=473#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &#169; 2005-2013 <a href="mailto:acm@hdu.edu.cn">HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="http://acm.hdu.edu.cn/about_us/developer.php">Designer &amp; Developer </a> : <a>Wang Rongtao</a>&nbsp;<a>Lin Le</a>&nbsp;<a href="mailto:gjavac@gmail.com">GaoJie</a>&nbsp;<a href="mailto:gl8997@gmail.com">GanLu</a><br>
+	<span class="pagerunstatus">Total 0.001568(s) query 0, Server time : 2013-07-23 12:13:56, Gzip enabled</span>	</div>
+	<div class="footer_link" style="width:15%;float:right;line-height:67px">
+		<a href="http://acm.hdu.edu.cn/admin">Administration</a>	
+	</div>
+</div></center>
+
+
+</body></html>

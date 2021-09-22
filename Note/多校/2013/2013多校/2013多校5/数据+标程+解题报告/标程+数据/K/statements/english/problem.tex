@@ -1,0 +1,29 @@
+\begin{problem}{k-th point}{stdin}{stdout}{2 seconds}{64 megabytes}
+
+Consider $n$ data points uniformly distributed in a $p$-dimensional unit ball centered at the origin. What is the expected distance of the $k$-th farthest point? (Here $k$ start from 0 to $n$-1, and 0-th is the farthest point, ($n$-1)-th is the nearest point.)
+
+\InputFile
+The first line contains a number $T$($T \leq 100$), which is the number of the case number.
+The next $T$ lines, each line contains a number $p$, $n$ and $k$($1\leq p$, $n \leq 10^4$,$0 \leq k \leq n-1$) you need to consider.
+
+\OutputFile
+For each $p$, $n$ and $k$, output the expected distance in a single line.
+
+\Examples
+
+\begin{example}
+\exmp{5
+2 1 0
+2 2 0
+3 2 0
+3 2 1
+4 10 5
+}{0.666666667
+0.800000000
+0.857142857
+0.642857143
+0.812559023
+}%
+\end{example}
+
+\end{problem}

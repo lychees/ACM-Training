@@ -1,0 +1,46 @@
+<h1 id="gcd-of-sequence">GCD of Sequence</h1>
+<h2 id="description">Description</h2>
+<p>Alice is playing a game with Bob.</p>
+<p>Alice shows <span class="math"><em>N</em></span> integers <span class="math"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>N</em></sub></span>, and <span class="math"><em>M</em></span>, <span class="math"><em>K</em></span>. She says each integers <span class="math">1 ≤ <em>a</em><sub><em>i</em></sub> ≤ <em>M</em></span>.</p>
+<p>And now Alice wants to ask for each d = 1 to M, how many different sequences <span class="math"><em>b</em><sub>1</sub>, <em>b</em><sub>2</sub>, …, <em>b</em><sub><em>N</em></sub></span>. which satisfies :</p>
+<ol style="list-style-type: decimal">
+<li>For each <span class="math"><em>i</em> = 1…<em>N</em></span>, <span class="math">1 ≤ <em>b</em>[<em>i</em>] ≤ <em>M</em></span></li>
+<li><span class="math">gcd(<em>b</em><sub>1</sub>, <em>b</em><sub>2</sub>, …, <em>b</em><sub><em>N</em></sub>) = <em>d</em></span></li>
+<li>The number of difference between <span class="math"><em>a</em><sub><em>n</em></sub></span> and <span class="math"><em>b</em><sub><em>n</em></sub></span> will be exactly <span class="math"><em>K</em></span></li>
+</ol>
+<p>Alice thinks that the answer will be too large. In order not to annoy Bob, she only wants to know the answer modulo 1000000007.</p>
+<p>Bob can not solve the problem. Now he asks you for HELP!</p>
+<p><strong><em>Notes</em></strong>: <span class="math">gcd(<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span>) is the greatest common divisor of <span class="math"><em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, …, <em>x</em><sub><em>n</em></sub></span></p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF.</p>
+<p>The first line of each test contains three integers <span class="math"><em>N</em></span>, <span class="math"><em>M</em></span>, <span class="math"><em>K</em></span>. (<span class="math">1 ≤ <em>N</em>, <em>M</em> ≤ 300000, 1 ≤ <em>K</em> ≤ <em>N</em></span>)</p>
+<p>The second line contains <span class="math"><em>N</em></span> integers: <span class="math"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>N</em></sub></span>, (<span class="math">1 ≤ <em>a</em><sub><em>i</em></sub> ≤ <em>M</em></span>) which is regional sequence.</p>
+<h2 id="output">Output</h2>
+<p>For each test contains 1 lines :</p>
+<p>The line contains M integer, the i-th integer is the answer shows above when d is the i-th number.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>2
+3 3 3
+3 3 3
+3 5 3
+1 2 3</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>7 1 0
+59 3 0 1 1</code></pre>
+<h2 id="hint">Hint</h2>
+<p>In the first test case :</p>
+<p>when d = 1, {b} can be :</p>
+<ol style="list-style-type: decimal">
+<li>(1, 1, 1)</li>
+<li>(1, 1, 2)</li>
+<li>(1, 2, 1)</li>
+<li>(1, 2, 2)</li>
+<li>(2, 1, 1)</li>
+<li>(2, 1, 2)</li>
+<li>(2, 2, 1)</li>
+</ol>
+<p>when d = 2, {b} can be :</p>
+<ol style="list-style-type: decimal">
+<li>(2, 2, 2)</li>
+</ol>
+<p>And because {b} must have exactly K number(s) different from {a}, so {b} can't be (3, 3, 3), so Answer = 0</p>

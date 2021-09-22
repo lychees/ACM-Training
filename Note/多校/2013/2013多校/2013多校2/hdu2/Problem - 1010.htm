@@ -1,0 +1,39 @@
+
+<!-- saved from url=(0071)http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1010&cid=456 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><meta name="keywords" content="HDOJ ACM ICPC OJ C C++ Pascal Java"><script src="./Problem - 1010_files/global.js" type="text/javascript"></script><link rel="stylesheet" href="./Problem - 1010_files/global.css" type="text/css"><title>Problem - 1010</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name="top"></a><center>
+<div id="contest_nav" align="center">
+	<a href="http://acm.hdu.edu.cn/" style="margin:0"><img src="./Problem - 1010_files/banner.jpg" width="980" height="116"></a>
+	<a href="http://acm.hdu.edu.cn/" style="margin-left:3px">Home</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_list.php?cid=456" style="margin-left:3px">STD Contest</a>
+	<a href="http://acm.hdu.edu.cn/notification.php?cid=456" style="margin-left:3px">Notification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=456&page=1" style="margin-left:3px">Clarification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=456" style="margin-left:3px">Problems</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_ranklist.php?cid=456&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_status.php?cid=456" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=456" style="margin-left:3px">Statistics</a>-->
+	<a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1010&cid=456#" style="margin-left:3px"><font color="gray">Statistics</font></a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_print.php?cid=456" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div style="width:980px;padding:0;margin:0"><h1 style="color:#1A5CC8;margin-top: 20px">Fruit Ninja Extreme</h1><font face="Arial"><b><span style="font-size:12px;color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>Total Submission(s): 0&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 0<br><font color="red">Special Judge</font></span></b></font><br><br><div class="panel_title" align="left">Problem Description</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">　　Cut or not to cut, it is a question.<br>　　In Fruit Ninja, comprising three or more fruit in one cut gains extra bonuses. This kind of cuts are called bonus cuts.<br>　　Also, performing the bonus cuts in a short time are considered continual, iff. when all the bonus cuts are sorted, the time difference between every adjacent cuts is no more than a given period length of W.<br>　　As a fruit master, you have predicted the times of potential bonus cuts though the whole game. Now, your task is to determine how to cut the fruits in order to gain the most bonuses, namely, the largest number of continual bonus cuts.<br>　　Obviously, each fruit is allowed to cut at most once. i.e. After previous cut, a fruit will be regarded as invisible and won't be cut any more. <br>　　In addition, you must cut all the fruit altogether in one potential cut. i.e. If your potential cut contains 6 fruits, 2 of which have been cut previously, the 4 left fruits have to be cut altogether.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">　　There are multiple test cases. <br>　　The first line contains an integer, the number of test cases.<br>　　In each test case, there are three integer in the first line: N(N&lt;=30), the number of predicted cuts, M(M&lt;=200), the number of fruits, W(W&lt;=100), the time window.<br>　　N lines follows.<br>　　In each line, the first integer Ci(Ci&lt;=10) indicates the number of fruits in the i-th cuts. <br>　　The second integer Ti(Ti&lt;=2000) indicate the time of this cut. It is guaranteed that every time is unique among all the cuts.<br>　　Then follow Ci numbers, ranging from 0 to M-1, representing the identifier of each fruit. If two identifiers in different cuts are the same, it means they represent the same fruit.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">　　For each test case, the first line contains one integer A, the largest number of continual bonus cuts.<br>　　In the second line, there are A integers, K1, K2, ..., K_A, ranging from 1 to N, indicating the (Ki)-th cuts are included in the answer. The integers are in ascending order and each separated by one space. &amp;nbsp;If there are multiple best solutions, any one is accepted.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">1
+4 10 4
+3 1 1 2 3
+4 3 3 4 6 5
+3 7 7 8 9
+3 5 9 5 4</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">3
+1 2 3</div></pre></div><div class="panel_bottom">&nbsp;</div><br><center style="font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8"><a href="http://acm.hdu.edu.cn/contests/contest_statistic.php?cid=456&pid=1010">Statistic</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_submit.php?cid=456&pid=1010">Submit</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=456">Clarifications</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=456">Back</a></center><br></div>
+<div id="contest_footer">
+	<div class="footer_link" style="width:15%;float:left;line-height:67px"><a href="http://acm.hdu.edu.cn/">Home</a> | <a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1010&cid=456#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &#169; 2005-2013 <a href="mailto:acm@hdu.edu.cn">HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="http://acm.hdu.edu.cn/about_us/developer.php">Designer &amp; Developer </a> : <a>Wang Rongtao</a>&nbsp;<a>Lin Le</a>&nbsp;<a href="mailto:gjavac@gmail.com">GaoJie</a>&nbsp;<a href="mailto:gl8997@gmail.com">GanLu</a><br>
+	<span class="pagerunstatus">Total 0.001213(s) query 0, Server time : 2013-07-25 12:14:03, Gzip enabled</span>	</div>
+	<div class="footer_link" style="width:15%;float:right;line-height:67px">
+		<a href="http://acm.hdu.edu.cn/admin">Administration</a>	
+	</div>
+</div></center>
+
+
+</body></html>

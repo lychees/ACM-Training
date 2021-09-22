@@ -1,0 +1,34 @@
+\begin{problem}{Another Graph Game}{stdin}{stdout}{2 seconds}{64 megabytes}
+
+Alice and Bob are playing a game on an undirected graph with $n$ ($n$ is even) nodes and $m$  edges. Every node $i$ has its own weight $W_v$, and every edge e has its own weight $W_e$.
+
+They take turns to do the following operations. During each operation, either Alice or Bob can take one of the nodes from the graph that haven't been taken before. Alice goes first.
+
+The scoring rule is:
+One person can get the bonus attached to a node if he/she have choosen that node before.
+One person can get the bonus attached to a edge if he/she have choosen both node that induced by the edge before.
+
+You can assume Alice and Bob are intelligent enough and do operations optimally, both Alice and Bob's target is maximize their score - opponent's.
+
+What is the final result for Alice - Bob.
+
+\InputFile
+Multicases. The first line have two numbers $n$ and $m$.($1\leq n, m \leq 10^5$)
+The next line have $n$ numbers from $W_1$ to $W_n$ which $W_i$ is the weight of node $i$.($|W_i| <= 10^9$)
+
+The next $m$ lines, each line have three numbers $u$, $v$, $w$,($1 \leq u, v \leq n$, $|w| <= 10^9$)
+the first 2 numbers is the two nodes on the edge, and the last one is the weight on the edge. 
+
+\OutputFile
+One line the final result.
+
+\Examples
+
+\begin{example}
+\exmp{4 0
+9 8 6 5
+}{2
+}%
+\end{example}
+
+\end{problem}

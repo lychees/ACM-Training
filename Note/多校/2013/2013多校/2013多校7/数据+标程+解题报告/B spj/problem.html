@@ -1,0 +1,20 @@
+<h1 id="building-fence">Building Fence</h1>
+<h2 id="description">Description</h2>
+<p>Long long ago, there is a famous farmer named John. He owns a big farm and many cows. There are two kinds of cows on his farm, one is Friesian, and another one is Ayrshire. Each cow has its own territory. In detail, the territory of Friesian is a circle, and of Ayrshire is a triangle. It is obvious that each cow doesn't want their territory violated by others, so the territories won't intersect.</p>
+<p>Since the winter is falling, FJ has to build a fence to protect all his cows from hungry wolves, making the territory of cows in the fence. Due to the financial crisis, FJ is currently lack of money, he wants the total length of the fence minimized. So he comes to you, the greatest programmer ever for help. Please note that the part of fence don't have to be a straight line, it can be a curve if necessary.</p>
+<h2 id="input">Input</h2>
+<p>The input contains several test cases, terminated by EOF. The number of test cases does not exceed 20.</p>
+<p>Each test case begins with two integers <span class="math"><em>N</em></span> and <span class="math"><em>M</em></span>(<span class="math">0 ≤ <em>N</em>, <em>M</em> ≤ 20</span>, <span class="math"><em>N</em> + <em>M</em> &gt; 0</span>), which denotes the number of the Friesian and Ayrshire respectively. Then follows <span class="math"><em>N</em> + <em>M</em></span> lines, each line representing the territory of the cow. Each of the first <span class="math"><em>N</em></span> lines contains three integers <span class="math"><em>X</em><sub><em>i</em></sub></span>, <span class="math"><em>Y</em><sub><em>i</em></sub></span>, <span class="math"><em>R</em><sub><em>i</em></sub></span>(<span class="math">1 ≤ <em>R</em><sub><em>i</em></sub> ≤ 500</span>), denotes the coordinates of the circle's centre and radius. Then each of the remaining <span class="math"><em>M</em></span> lines contains six integers <span class="math"><em>X</em>1<sub><em>i</em></sub></span>, <span class="math"><em>Y</em>1<sub><em>i</em></sub></span>, <span class="math"><em>X</em>2<sub><em>i</em></sub></span>, <span class="math"><em>Y</em>2<sub><em>i</em></sub></span>, <span class="math"><em>X</em>3<sub><em>i</em></sub></span>, <span class="math"><em>Y</em>3<sub><em>i</em></sub></span>, denotes the coordinates of the triangle vertices. The absolute value of the coordinates won't exceed <span class="math">10000</span>.</p>
+<h2 id="output">Output</h2>
+<p>For each test case, print a single line containing the minimal fence length. Your output should have an absolute or relative error of at most <span class="math">1<em>e</em> − 3</span>.</p>
+<h2 id="sample-input">Sample Input</h2>
+<pre><code>1 1
+4 4 1
+0 0 0 2 2 0</code></pre>
+<h2 id="sample-output">Sample Output</h2>
+<pre><code>15.66667</code></pre>
+<h2 id="hint">Hint</h2>
+<p>Please see the sample picture for more details, the fence is highlighted with red.</p>
+<div class="figure">
+<img src="pic.png" />
+</div>

@@ -1,0 +1,40 @@
+
+<!-- saved from url=(0071)http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1001&cid=457 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><meta name="keywords" content="HDOJ ACM ICPC OJ C C++ Pascal Java"><script src="./Problem - 1001_files/global.js" type="text/javascript"></script><link rel="stylesheet" href="./Problem - 1001_files/global.css" type="text/css"><title>Problem - 1001</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name="top"></a><center>
+<div id="contest_nav" align="center">
+	<a href="http://acm.hdu.edu.cn/" style="margin:0"><img src="./Problem - 1001_files/banner.jpg" width="980" height="116"></a>
+	<a href="http://acm.hdu.edu.cn/" style="margin-left:3px">Home</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_list.php?cid=457" style="margin-left:3px">STD Contest</a>
+	<a href="http://acm.hdu.edu.cn/notification.php?cid=457" style="margin-left:3px">Notification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=457&page=1" style="margin-left:3px">Clarification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=457" style="margin-left:3px">Problems</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_ranklist.php?cid=457&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_status.php?cid=457" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=457" style="margin-left:3px">Statistics</a>-->
+	<a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1001&cid=457#" style="margin-left:3px"><font color="gray">Statistics</font></a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_print.php?cid=457" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div style="width:980px;padding:0;margin:0"><h1 style="color:#1A5CC8;margin-top: 20px">Palindrome subsequence</h1><font face="Arial"><b><span style="font-size:12px;color:green">Time Limit: 2000/1000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 131072/65535 K (Java/Others)<br>Total Submission(s): 0&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 0<br></span></b></font><br><br><div class="panel_title" align="left">Problem Description</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">In mathematics, a subsequence is a sequence that can be derived from another sequence by deleting some elements without changing the order of the remaining elements. For example, the sequence &lt;A, B, D&gt; is a subsequence of &lt;A, B, C, D, E, F&gt;.<br>(http://en.wikipedia.org/wiki/Subsequence)<br><br>Given a string S, your task is to find out how many different subsequence of S is palindrome. Note that for any two subsequence X = &lt;S<sub>x1</sub>, S<sub>x2</sub>, ..., S<sub>xk</sub>&gt; and Y = &lt;S<sub>y1</sub>, S<sub>y2</sub>, ..., S<sub>yk</sub>&gt; , if there exist an integer i (1&lt;=i&lt;=k) such that xi != yi, the subsequence X and Y should be consider different even if S<sub>xi</sub> = S<sub>yi</sub>. Also two subsequences with different length should be considered different.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">The first line contains only one integer T (T&lt;=50), which is the number of test cases. Each test case contains a string S, the length of S is not greater than 1000 and only contains lowercase letters.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">For each test case, output the case number first, then output the number of different subsequence of the given string, the answer should be module 10007.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">4
+a
+aaaaa
+goodafternooneveryone
+welcometoooxxourproblems</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">Case 1: 1
+Case 2: 31
+Case 3: 421
+Case 4: 960</div></pre></div><div class="panel_bottom">&nbsp;</div><br><center style="font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8"><a href="http://acm.hdu.edu.cn/contests/contest_statistic.php?cid=457&pid=1001">Statistic</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_submit.php?cid=457&pid=1001">Submit</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=457">Clarifications</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=457">Back</a></center><br></div>
+<div id="contest_footer">
+	<div class="footer_link" style="width:15%;float:left;line-height:67px"><a href="http://acm.hdu.edu.cn/">Home</a> | <a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1001&cid=457#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &#169; 2005-2013 <a href="mailto:acm@hdu.edu.cn">HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="http://acm.hdu.edu.cn/about_us/developer.php">Designer &amp; Developer </a> : <a>Wang Rongtao</a>&nbsp;<a>Lin Le</a>&nbsp;<a href="mailto:gjavac@gmail.com">GaoJie</a>&nbsp;<a href="mailto:gl8997@gmail.com">GanLu</a><br>
+	<span class="pagerunstatus">Total 0.001042(s) query 0, Server time : 2013-08-01 12:03:01, Gzip enabled</span>	</div>
+	<div class="footer_link" style="width:15%;float:right;line-height:67px">
+		<a href="http://acm.hdu.edu.cn/admin">Administration</a>	
+	</div>
+</div></center>
+
+
+</body></html>

@@ -1,0 +1,57 @@
+
+<!-- saved from url=(0071)http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1007&cid=473 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK"><meta name="keywords" content="HDOJ ACM ICPC OJ C C++ Pascal Java"><script src="./Problem - 1007_files/global.js" type="text/javascript"></script><link rel="stylesheet" href="./Problem - 1007_files/global.css" type="text/css"><title>Problem - 1007</title></head>
+<!--Added a "STD Contest" button by zhengfeng  2010-08-09-->
+<body><a name="top"></a><center>
+<div id="contest_nav" align="center">
+	<a href="http://acm.hdu.edu.cn/" style="margin:0"><img src="./Problem - 1007_files/banner.jpg" width="980" height="116"></a>
+	<a href="http://acm.hdu.edu.cn/" style="margin-left:3px">Home</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_list.php?cid=473" style="margin-left:3px">STD Contest</a>
+	<a href="http://acm.hdu.edu.cn/notification.php?cid=473" style="margin-left:3px">Notification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=473&page=1" style="margin-left:3px">Clarification</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=473" style="margin-left:3px">Problems</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_ranklist.php?cid=473&page=1" style="margin-left:3px">Ranklist</a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_status.php?cid=473" style="margin-left:3px">Status</a>
+	<!--<a href="/contests/contest_statistic.php?cid=473" style="margin-left:3px">Statistics</a>-->
+	<a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1007&cid=473#" style="margin-left:3px"><font color="gray">Statistics</font></a>
+	<a href="http://acm.hdu.edu.cn/contests/contest_print.php?cid=473" style="margin-left:3px;margin-right:0px">Print</a>
+</div>
+<div style="width:980px;padding:0;margin:0"><h1 style="color:#1A5CC8;margin-top: 20px">Occupy Cities</h1><font face="Arial"><b><span style="font-size:12px;color:green">Time Limit: 10000/5000 MS (Java/Others)&nbsp;&nbsp;&nbsp;&nbsp;Memory Limit: 32768/32768 K (Java/Others)<br>Total Submission(s): 0&nbsp;&nbsp;&nbsp;&nbsp;Accepted Submission(s): 0<br></span></b></font><br><br><div class="panel_title" align="left">Problem Description</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">The Star Wars is coming to an end as the Apple Planet is beaten by the Banana Planet. Captain Chen, the glorious leader of the Army of Banana Planet, has drawn up a plan to occupy all the cities on the Apple Planet. The Army of Banana Planet totally has P soldiers, and thus, Captain Chen can only conduct at most P soldiers to occupy the cities.<br>The cities on the planet can be regarded as points on a 2D plane. What's more, there are some barriers on the planet, which can be seen as segments on the plane. When a soldier moves from city to city, he's not allowed to cross or touch the barriers. However, the soldiers are smart enough to go along the shortest paths between cities.<br>But these soldiers are just soldiers, whereupon they also need food to replenish their energy. A soldier needs one unit of food to move one unit of distance forward. Fortunately, all the cities have sufficient food supplies. When a soldier steps in a city, he will fill up his food bag. Invaders as they are, the soldiers will burn up all the food after filling his bag. And thus, each city can supply only one soldier.<br>When a soldier steps in a city, this city is occupied by the Army of Banana Planet immediately. Soldiers can also just pass by a city but not step in. In this case, this city is not occupied yet, and the food in the city would not be burned.<br>Captain Chen has an occupying schedule for his soldiers. If city A is arranged before city B on the schedule, city A must be occupied before city B. All the soldiers will strictly follow this schedule. During the occupying process, soldiers can be air-dropped to any positions on the plane as needed. After a soldier lands on the ground, he can only move on foot, and replenish his energy by the food in his bag. Note that their bags are full of food initially, and all bags have the same volume for soldiers.<br>You, the logistics minister of the army, are required to help the Captain to cut down the cost and determine the minimal volume of all P soldiers' food bags to finish occupying. All the requirements above should be fulfilled for sure.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">The first line contains an integer T(T≤50), indictaing the number of test cases.<br>Each test case begins with three integers n(0&lt;n≤100), m(0≤m≤100) and p(0&lt;p≤100), which respectively denotes the number of cities, barriers and soldiers.<br>The following n lines describe the cities' coordinates (x_i,y_i).<br>The next m lines, each with two pairs of integers (sx<sub>i</sub>,sy<sub>i</sub>) and (ex<sub>i</sub>,ey<sub>i</sub>), describe the two endpoints of each barrier.<br>The last line of each test case consists of n integers, describing the occupying schedule in order.<br>All the coordinates range from -10000 to 10000, and cities are labeled from 1 to n. You may assume that any two barriers will not have common points and cities will not be built on barriers.<br></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">For each test case, output the minimal volume of soldiers' food bag, in accuracy of two decimal places. The answers should be printed one per line.</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Input</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">2
+
+2 1 1
+0 0
+2 0
+1 1 1 -1
+2 1
+
+4 2 2
+0 1
+5 1
+8 0
+1 -1
+0 0 2 0
+6 0 6 3
+1 2 3 4</div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Sample Output</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">2.83
+3.41
+<div style="font-family:Times New Roman;font-size:14px;background-color:F4FBFF;border:#B7CBFF 1px dashed;padding:6px"><div style="font-family:Arial;font-weight:bold;color:#7CA9ED;border-bottom:#B7CBFF 1px dashed"><i>Hint</i></div>
+For the second sample case, the best strategy is:
+step 1: air-drop soldier 1 to city 1, city 1 occupied;
+step 2: air-drop soldier 2 to city 2, city 2 occupied;
+step 3: soldier 2 moves from city 2 to city 3, city 3 occupied, and 3.41 units of food needed;
+step 4: soldier 1 moves from city 1 to city 4, city 4 occupied, and 2.41 units food needed.
+Therefore, the minimal volume of bags is 3.41.
+</div></div></pre></div><div class="panel_bottom">&nbsp;</div><br><div class="panel_title" align="left">Source</div><div class="panel_content"><pre><div style="word-wrap:break-word;White-space:Pre-wrap; width:940px;font-family:Courier New,Courier,monospace;">2013 Multi-University Training Contest 1</div></pre></div><div class="panel_bottom">&nbsp;</div><br><center style="font-size:15px;font-family:Arial;font-weight:bold;color:#1A5CC8"><a href="http://acm.hdu.edu.cn/contests/contest_statistic.php?cid=473&pid=1007">Statistic</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_submit.php?cid=473&pid=1007">Submit</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_listtopic.php?cid=473">Clarifications</a>&nbsp;|&nbsp;<a href="http://acm.hdu.edu.cn/contests/contest_show.php?cid=473">Back</a></center><br></div>
+<div id="contest_footer">
+	<div class="footer_link" style="width:15%;float:left;line-height:67px"><a href="http://acm.hdu.edu.cn/">Home</a> | <a href="http://acm.hdu.edu.cn/contests/contest_showproblem.php?pid=1007&cid=473#top">Top</a></div>
+	<div style="width:68%;float:left">
+	Hangzhou Dianzi University Online Judge 3.0<br>
+	Copyright &#169; 2005-2013 <a href="mailto:acm@hdu.edu.cn">HDU ACM Team</a>. All Rights Reserved.<br>
+	<a href="http://acm.hdu.edu.cn/about_us/developer.php">Designer &amp; Developer </a> : <a>Wang Rongtao</a>&nbsp;<a>Lin Le</a>&nbsp;<a href="mailto:gjavac@gmail.com">GaoJie</a>&nbsp;<a href="mailto:gl8997@gmail.com">GanLu</a><br>
+	<span class="pagerunstatus">Total 0.001345(s) query 0, Server time : 2013-07-23 12:14:17, Gzip enabled</span>	</div>
+	<div class="footer_link" style="width:15%;float:right;line-height:67px">
+		<a href="http://acm.hdu.edu.cn/admin">Administration</a>	
+	</div>
+</div></center>
+
+
+</body></html>

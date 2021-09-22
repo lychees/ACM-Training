@@ -1,0 +1,36 @@
+Professor Tian
+Time Limit 2S
+Memory Limit 256M
+Description
+Timer took the Probability and Mathematical Statistics course in the 2012, But his bad attendance angered Professor Tian who is in charge of the course. Therefore, Professor Tian decided to let Timer face a hard probability problem, and announced that if he fail to slove the problem there would be no way for Timer to pass the final exam. 
+As a result , Timer passed. 
+Now, you, the bad guy, also angered the Professor Tian when September Ends. You have to faced the problem too.  The problem comes that there is an expression and you should calculate the excepted value of it. And the operators it may contains are '&' (and),'|'(or) and '^'(xor) which are all bit operators.  For example: 7&3=3, 5&2=0, 2|5=7, 4|10=14, 6^5=3, 3^4=7.
+Professor Tian declares that each operator Oi with its coming number A_{i+1} may disappear, and the probability that it happens is Pi (0<i<=n). 
+
+Input
+The input contains several test cases. For each test case, there is a integer n (0<n<=200) in the first line.In the second line, there are n+1 integers, stand for {Ai}. The next line contains n operators ,stand for {Oi}. The forth line contains {Pi}. Note :  Ai will be less than 2^20, 0<=Pi<=1.
+
+Output
+For each text case, you should print the number of text case in the first line.Then output the excepted value of the expression, round to 6 decimal places.
+
+Sample Input
+2
+1 2 3
+^ ^
+0.1 0.2
+2
+8 9 10
+^ ^
+0.5 0.78
+1
+1 2
+&
+0.5
+
+Sample Output
+Case 1:
+0.720000
+Case 2:
+4.940000
+Case 3:
+0.500000
