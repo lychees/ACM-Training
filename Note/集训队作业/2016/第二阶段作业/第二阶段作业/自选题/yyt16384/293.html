@@ -1,0 +1,69 @@
+                               <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/ab2p.common.css"></link><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/acm.sgu.ru/ab2p.css"></link>
+<title>Saratov State University :: Online Contester</title>
+<META content="text/html; charset=windows-1251" http-equiv=Content-Type>
+<META NAME="keywords" CONTENT="???">
+<META NAME="description" CONTENT="???">
+<meta name="google-site-verification" content="YvG5TvZLtlRLnK2EX22Dz815tDU7UKdDeXE_yJQp3cQ" />
+<meta name="verify-v1" content="MCzwwWrZt7qOC1A2HZusdjMbXjHR+zXtTCKpx2CRSEU=" />
+
+  <link rel="stylesheet" href="/templates.css" type="text/css">
+  <link rel="stylesheet" href="/js/ui.datepicker.css" type="text/css">
+  <script type="text/javascript" language="javascript" src="/js/jquery.js"></script>
+  <script type="text/javascript" language="javascript" src="/js/jquery.example.js"></script>
+  <script type="text/javascript" language="javascript" src="/js/ui.datepicker.js"></script>
+
+  <link rel="stylesheet" href="templates.css" type="text/css">
+  <link rel="stylesheet" href="js/ui.datepicker.css" type="text/css">
+  <script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" language="javascript" src="js/jquery.example.js"></script>
+  <script type="text/javascript" language="javascript" src="js/ui.datepicker.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript"> 
+    /*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+    var IE6UPDATE_OPTIONS = {
+        icons_path: "http://static.ie6update.com/hosted/ie6update/images/"
+    }
+</script>
+<script type="text/javascript" src="http://static.ie6update.com/hosted/ie6update/ie6update.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="style-1024.css" type="text/css">
+</head>      <body bgcolor=#F3F6F9 style = 'font-size : 9pt;' text=#000000 link=#336699 vlink=#336699 alink=#336699><div align="center">
+    <div align=center><h4>293. Game with Q an C
+</h4></div><div align=center>time limit per test: 0.25 
+ sec.<br>memory limit per test: 65536
+ KB</div><div align=center>input: standard<br>output: standard</div><br><br><br><div align = left>Qc and He play the following game.
+<br>Each turn He writes one of the two letters "Q" or "C" on the fence. The new letter is added to the end of the string formed by the previous letters. Players move alternately and on his turn Qc can either swap two already written letters, or do nothing (pass). On his first turn Qc obviously passes.
+<br>Qc's goal is to play in such way that in each his odd turn (1,3,5,7,...) letters on the fence form a palindrome (word that is reading the same in either direction). Occasionally Qc knows the sequence of letters that He is going to say and now Qc wants to know whether his goal is achievable.
+<br>Help Qc to find an appropriate sequence of turns or say that such sequence does not exist.
+</div><div align = left><br><b>Input</b></div><div align = left>The first line of the input file contains n (1 &lt;= n &lt;= 2005), n means that He will write 2n-1 letters on the fence. The second line contains the sequence of 2n - 1 letters that He is going to say. Each letter is only "Q" or "C".
+</div><div align = left><br><b>Output</b></div><div align = left>On the first line of the output print word "Qc" if the Qc's goal is achievable, otherwise print "He". If the first line is "Qc" then the following lines of the output should each contain two numbers separated by one space. Here "0 0" indicates the doing nothing and "q c" indicates the swapping of letters at positions q and c.
+<br>If there are more than one solutions print any one.
+<br>
+</div><div align = left><br><b>Sample test(s)</b></div><div align = left><br>Input</div><div align = left><font face='Courier New'></div><div align = left><pre></div><div align = left>Test #1
+<br>4
+<br>QCCQCQQ
+<br>
+<br>Test #2
+<br>1
+<br>Q
+<br>
+</div><div align = left></pre></div><div align = left></font></div><div align = left><br>Output</div><div align = left><font face='Courier New'></div><div align = left><pre></div><div align = left>Test #1
+<br>Qc
+<br>0 0
+<br>0 0
+<br>1 2
+<br>3 4
+<br>3 4
+<br>0 0
+<br>1 4
+<br>
+<br>Test #2
+<br>Qc
+<br>0 0
+<br>
+</div><div align = left></pre></div><div align = left></font></div><div align = left><div align = right> <a href = 'submit.php?problem=293'>[submit]</a> </div></div><div align = left><div align = right> <a href = 'forum.php?contest=0&problem=293'>[forum]</a> </div></div><div align = left><hr></div><table align=left cellspacing=7><tr><td>Author:</td><td>Anton Golubev, Petrazavodsk SU
+</td></tr><tr><td>Resource:</td><td>Anton Golubev (Hedgehog)'s Contest #2 from Annual Summer Russian Teams Meeting in Petrozavodsk State University
+</td></tr><tr><td>Date:</td><td>August 26, 2005
+</td></tr></table><br><br><br><br><br><br><br><br><br><br><br><table width=100% class=tb cellpadding=0 cellspacing=0><tr><td><table width=100% cellspacing=1 ><tr><td bgcolor=#FFFFFF> <table width=100% cellpadding=0 cellspacing=0 border=0><tr style='background-color : #FFFFFF;'><td align=left>Server time: 2016-04-24 12:57:23</td><td align=right><a target=_top href='mailto:acm@sgu.ru'>Online Contester</a> Team &copy; 2002 - 2016. All rights reserved.</td></tr></table></td></tr></table></td></tr></table></div></body></html> 

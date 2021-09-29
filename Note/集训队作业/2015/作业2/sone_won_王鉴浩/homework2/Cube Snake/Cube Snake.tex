@@ -1,0 +1,96 @@
+\documentclass{noiassignment}
+\usepackage[all]{xy}
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Cube Snake 解题报告}
+\author{绍兴市第一中学~~王鉴浩}
+
+\maketitle
+
+\section{试题来源}
+
+\href{http://codeforces.com/contest/198/problem/D}{CF~198D}
+
+\section{试题大意}
+
+设立方体边长为~$n$，编号有以下要求：
+\begin{enumerate}
+  \item 每个~$1\cdot 1\cdot 1$~的单位立方体有一个编号，每个单位立方体的编号都不同。
+  \item 编号相邻的两个单位立方体必须是~6~方向相邻的。
+  \item 对于~$1\le i< n$，至少有两个不同的子立方体~$i\cdot i\cdot i$，使得内部的所有编号排序后是连续的：$x,x+1,...,x+i^3-1$。
+\end{enumerate}
+
+要求你构造出一种合法的立方体编号，输出任意一种方案。
+
+数据范围：$1\le n\le 50$
+
+时限：$2s$
+
+\section{算法介绍}
+
+对于一个长度为~$x$，宽度为~$y$，高度为~$z$~的长方体，我们用~$x\cdot y\cdot z$~来表示。
+
+对于此题中的第三个要求，我们构造的流程如下：
+\begin{itemize}
+  \item 在~$n\cdot n\cdot n$~的两个侧面~$n\cdot n$~放最小的数字，将其变成~$(n-1)\cdot (n-1)\cdot n$。
+  \item 在底层~$(n-1)\cdot (n-1)$~中放最小的数字；
+  \item 顶层~$(n-1)\cdot (n-1)$~放最大的数字；
+  \item 中间~$(n-1)\cdot (n-1)\cdot (n-2)$~乱放；
+  \item 就可以满足有两个不同的子立方体~$(n-1)\cdot (n-1)\cdot (n-1)$，内部的所有编号排序后是连续的。
+  \item 现在考虑中间的长方体~$(n-1)\cdot (n-1)\cdot (n-2)$。
+  \item 通过旋转，我们把~$(n-1)\cdot (n-1)\cdot (n-2)$~转成~$(n-1)\cdot (n-2)\cdot (n-1)$。
+  \item 在侧面~$(n-1)\cdot (n-1)$~放最小的数字，我们可以得到~$(n-2)\cdot (n-2)\cdot (n-1)$。
+  \item 于是，我们就可以递归子问题来解决此题了。
+\end{itemize}
+
+~
+
+上述构造解决了第三个要求，我们还需要通过一些实现技巧来满足第二个要求：
+
+对于~$(n-1)\cdot (n-1)\cdot n$~的形式，我们把最小的和最大的如下图放置，$L$~表示最小的数，$R$~表示最大的数：
+
+%$$\xymatrix@!0{
+%& \save [].[dd].[ddrr].[rr]*[F-]\frm{}="back"
+%\restore
+%& &
+%\\
+%\save [].[dd].[ddrr].[rr]*[F-]\frm{}
+%	\ar@{-} +UL;"back"+UL
+%	\ar@{-} +UR;"back"+UR
+%	\ar@{-} +DL;"back"+DL
+%	\ar@{-} +DR;"back"+DR
+%\restore
+%& &
+%\\
+%&
+%& &
+%\\
+%& &
+%}
+%$$
+\begin{center}
+\includegraphics[height=4cm]{figure/cube1.png}
+\end{center}
+
+然后把上下两层各遍历一遍，保证上下同步操作，这样使得消完上下两层后，$L$~和~$R$~相对位置还是保持一致的。
+于是我们可以把图转成原来的位置，只是边长不同，具体如下图所示：
+
+\begin{center}
+\includegraphics[height=4cm]{figure/cube2.png}
+\end{center}
+
+如果要递归原问题，需要使得把它消成~$(n-2)\cdot (n-2)\cdot (n-1)$~的形式，且要保证~$L$~和~$R$~的相对位置不变。
+我们可以把上图中最前的那一面消掉，这面为~$(n-2)\cdot (n-1)$，由于长宽不同，就说明~$L$~一定能遍历那一面并到达右上角~(使得~$L$~和~$R$~的相对位置不变)，具体操作只需要根据~$n$~的奇偶分情况讨论就可以了。
+
+现在我们的操作就是~6~方向移动和旋转立方体，这个可以经过直接模拟来解决。
+
+于是上述解法的时间复杂度为~$O(n^3)$，空间复杂度为~$O(n^3)$。
+
+%% 解题报告结束
+
+\end{document}

@@ -1,0 +1,40 @@
+http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=56
+
+uva
+	816 - Abbott's Revenge		2700	21.19%	366	72.13%
+	817 - According to Bartjens	1212	16.42%	251	61.75%
+	818 - Cutting Chains		620	34.52%	200	73.00%
+	819 - Gifts Large and Small	906	12.58%	139	45.32%
+	820 - Internet Bandwidth	15793	32.63%	2989	86.28%
+	821 - Page Hopping		5593	53.48%	2377	93.69%
+	822 - Queue and A		408	26.47%	104	66.35%
+	823 - Stopper Stumper		409	20.54%	113	53.98%
+
+00
+	A	3514
+	B	3596
+	C	3623
+	D	3794
+	E	3508
+	F	3626
+	G	3607
+	H	4032
+
+[A]Abbott’s Revenge
+	bfs
+[B]According to Bartjens
+	直接搜。
+[C]Cutting Chains
+	n较小，枚举哪些打开，剩下的必须为链，统计链的数量，判断能否用拆开的合并。
+[D]Gifts Large and Small
+	求凸包
+	最小：最小矩形覆盖，暴力/旋转卡壳
+	最大：枚举边界卡住的一点，三分角度，找其余三个卡住的地方。O(n^2logn)
+[E]Internet Bandwidth
+	最大流
+[F]Page Hopping
+	floyd
+[G]Queue and A
+	模拟
+[H]Stopper Stumper
+	搜索对应方式，上下情况（最多一个下），然后线段平移求交得到三个圆心，判断。

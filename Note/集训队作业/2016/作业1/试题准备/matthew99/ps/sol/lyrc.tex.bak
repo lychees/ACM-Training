@@ -1,0 +1,77 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass[CJK]{ctexart}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{CJK}
+\pagestyle{fancy}
+\lhead{Music $\&$ Lyrics题解}
+\rhead{}
+\begin{document}
+\begin{CJK}{GBK}{kai}
+\title{Music $\&$ Lyrics题解}
+\author{雅礼中学 毛啸}
+\maketitle
+\newpage
+\section*{PROBLEM}
+给定一个字典D，有W个单词。
+给定一个N个字符串的句子集合S，求出每个单词在句子集合中的出现次数。
+\section*{EXPLANATION}
+这是一个经典的多字符串匹配问题。
+
+如果只有一个单词，用KMP即可，属于线性时间复杂度。可是如果在这题上用KMP需要单词个数乘上句子总长度的时间，这在时限之内难以通过。
+
+标准的解答需要使用到AC自动机。技巧就是在O(单词总长度)的复杂度内建立关于整个单词集合的一个数据结构。这样搜索字典中所有词的所有出现次数会更容易一些。
+
+这本身是KMP算法的一个扩展，这里引入了后缀链接，使你能够在失配的时候快速转移。
+
+维基百科上的文章提供了很多信息并且提供了很多额外链接来帮助你时限这个数据结构，包括C 语言的程序。
+
+直接使用AC自动机的总时间复杂度是O(单词总长度)+O(句子总长度)+(单词总出现次数)。
+
+单词总出现次数非常大。
+\subsection*{count the frequency of words}
+因此，我们不能对于每一个匹配都直接把对应的单词加一，我们可以在AC自动机上做一个DP。
+
+理解后缀链接的含义对理解接下来的讨论会是非常重要的。
+
+AC自动机遍历所有匹配的方式是在数据结构中使用\textbf{字典后缀链接}回溯。因为他们指向\textbf{被匹配的单词}，所以完整的回溯过程将会访问到所有匹配。
+
+这个数据结构中的后缀链接一起形成了一棵树。因为我们不想访问所有匹配，所以我们的处理方法是：
+\begin{enumerate}
+\item{记录这个树中每个点被访问的次数。}
+\item{用懒标记将出现次数沿着字典后缀链接上传。}
+\item{最后，打印每个对应单词的点的出现次数。}
+\end{enumerate}
+
+\section*{example}
+
+比如现在有两个单词
+
+\begin{enumerate}
+\item{ab}
+\item{cab}
+\end{enumerate}
+
+AC自动机会是这样：
+
+\includegraphics[width=3in]{LYRC.jpg}
+
+后缀链接在图中已经给出。
+
+有一个字典后缀链接用绿色表示。
+
+假如我们要处理串acabbab。我们处理完前四个字符后，标准算法应该会访问cab，并由字典后缀链接访问ab。
+
+可是，我们只在当前所在的b节点记录访问次数。我们不遍历字典后缀链接。我们继续处理，在后面处理完ab 的时候我们在另一个b节点记录一次访问。
+
+接着我们顺着逆dfs序，将访问cab时记录在cab 所对应的b节点的那一次访问沿着字典后缀链接次数加到ab所对应的b节点加到ab 对应的后缀链接去即可。
+
+\section*{EDITORIAL ON CODECHEF}
+\href{https://discuss.codechef.com/questions/20343/lyrc-editorial}{CC 上的题解}
+\end{CJK}
+\end{document}

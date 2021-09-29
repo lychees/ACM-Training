@@ -1,0 +1,76 @@
+\documentclass{noiassignment}
+\usepackage{longtable}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{《strakf》解题报告}
+\author{佛山石中李子豪}
+
+\maketitle
+
+\section{试题来源}
+
+2016国家集训队互测
+
+\section{试题大意}
+
+    给了一个长度为$N$的仅由小写字母组成的初始字符串$S$.
+    
+    之后有$M$次操作，操作分为三类：
+
+    $1 \quad A$:将原串$S$的所有等于$A$的子串权值$+1$；
+
+    $2 \quad l \quad r$:将原串$S$的所有等于$S[l,r]$的子串权值$+1$；
+
+    $3 \quad a \quad b$:询问原串$S$所有子串$S[l,r]$满足$a \le l \le r \le b$的权值和。
+
+
+\section{数据范围}
+  %  \begin{table}[!hbp]
+    \begin{longtable}{|c|c|c|c|}
+    \hline
+    数据点编号 & $N,M$ & 操作类型 & 数据特点 \\
+    \hline
+    1 & 5 & 2,3 & 无 \\
+    \hline
+    2 & 10 & 2,3 & 无 \\
+    \hline
+    3 & 100 & 2,3 & 无 \\
+    \hline
+    4 & $2*10^5$ & 1,2 & 无 \\
+    \hline
+    5 & $2*10^4$ & 1,3 & 所有的3操作a=1 \\
+    \hline
+    6 & $2*10^4$ & 1,3 & 所有的3操作b=N \\
+    \hline
+    7-8 & $2*10^4$ & 1,3 & 所有的1操作的字符串长度为不下降序列 \\
+    \hline
+    9-10 & $6*10^6$ & 2,3 & 无 \\
+    \hline
+    11-12 & $2*10^4$ & 2,3 & 所有的3操作b=N \\
+    \hline
+    13-15 & $2*10^4$ & 2,3 & 所有的2操作的字符串长度为不下降序列 \\
+    \hline
+    16-20 & $2*10^4$ & 2,3 & 无 \\
+    \hline
+    \end{longtable}
+  %  \end{table}
+
+\section{试题考点}
+
+    字符串、数据结构、分块
+
+\section{算法介绍}
+\subsection{小节标题}
+
+\section{总结}
+    
+    这道题主要考虑对题目性质的挖掘以及转化为简单问题的解决方法。
+    
+    总的来说，难度与NOI第二题接近。预计一半左右选手能拿到70分以上，所有选手均能拿到40分或以上。
+
+%% 解题报告结束
+
+\end{document}

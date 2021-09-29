@@ -1,0 +1,14 @@
+\section{280D k-Maximum Subsequence Sum}
+\subsection*{试题大意}
+一个序列a[1..n]，两种操作。
+
+1.修改一个数ai
+
+2.询问一段区间内的最大k段和。
+
+$n\leq 10^5,k\leq 20$
+\subsection*{算法}
+有一种算法就是根据费用流做的：将a序列建成线段树，询问的时候像费用流一样取k次最大值然后点权反一下就好了。
+
+另一种算法就是直接建线段树，维护取$0\sim 20$段的最大值，发现合并两段区间时的dp全是单调的，复杂度同第一种算法相同。
+\subsection*{时间复杂度：$O(nklogn)$，空间复杂度：$O(nlogn~~or~~nklogn)$}

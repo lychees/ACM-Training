@@ -1,0 +1,93 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Fortune Telling 2 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    \href{http://cms.ioi-jp.org/open-2014/index.html}{JOI Open Contest 2013/2014 Day 1}
+
+\section{试题大意}
+    有$N$张牌，每张牌有两面，分别写着$A_i$和$B_i$，一开始所有牌$A_i$朝上放置。
+
+    有$K$个操作，每个操作有一个参数$T_j$，这次操作会将所有朝上面点数不超过$T_j$的牌都翻面。
+
+    求经过所有$K$次操作后，所有牌朝上面的点数之和。
+
+\subsection{数据规模与约定}
+    $1\leq N,K\leq 200000$
+
+    $1\leq A_i,B_i,T_j\leq 10^9$
+
+    \begin{itemize}
+        \item subtask1~[4points]: $1\leq N,K\leq 1000$
+        \item subtask2~[31points]: $1\leq N,K\leq 40000$
+        \item subtask3~[65points]: 没有额外的限制
+    \end{itemize}
+
+    时间限制 2s，空间限制 256MB
+
+\section{算法介绍}
+\subsection{算法一}
+    根据题意可以采取两种朴素实现手段：
+    \begin{itemize}
+        \item 对于每个操作，枚举每张牌判断是否需要翻转。
+        \item 对于每张牌，依次枚举每个操作判断是否需要翻转。
+    \end{itemize}
+
+    这两种实现的时间复杂度均为$O(NK)$，可以通过subtask1。
+
+    由于牌的顺序并没有实际的意义，所以选择采取第二种实现来优化。
+
+\subsection{算法二}
+    考虑将每$S$个操作分为一块，计算每张牌经过这$S$个操作后是否翻转。
+
+    一张牌是否翻转只和牌的两面点数$A_i,B_i$与这$S$个操作参数$T_j$的相对大小关系有关，权值将会被这$S$张牌划分为$O(S)$段区间，所以本质不同的牌总共有$O(S^2)$种。
+
+    对于每个块，可以枚举这$O(S^2)$种情况，预处理出每一种牌经过这个块后的翻转情况，每个块的时间复杂度为$O(S^3)$，块的个数为$O(\frac{K}{S})$，所以这一部分的复杂度为$O(KS^2)$。
+
+    对于每张牌，需要依次经过这$O(\frac{K}{S})$个块，得到它的翻转情况。为了确定这张牌的两面点数属于这个块的哪一类，就需要得到$A_i,B_i$与块中$T_j$的相对关系。
+
+    如果选用二分来确定，那么每一块的复杂度为$O(N\log S)$。
+
+    可以预先将$A_i$和$B_i$分别排序，那么每个块就可以利用递增关系来做到$O(N+S)$确定相对关系，这一部分的复杂度为$O(N\log N+\frac{NK}{S}+K)$。
+
+    整理一下，总时间复杂度即为$O(N\log N+\frac{NK}{S}+KS^2)$，所以$\frac{NK}{S}=KS^2$即$S=N^{\frac{1}{3}}$时较优。
+
+    时间复杂度$O(N\log N+N^{\frac{2}{3}}K)$，空间复杂度$O(N+K)$，可以通过subtask2。
+
+\subsection{算法三}
+    对于一张牌$A_i,B_i$，对它来说本质不同的操作只有三种：
+    $$T_a~<~min(A_i,B_i)~\leq~T_b~<~max(A_i,B_i)~\leq~T_c$$
+
+    这三种操作对这张牌的影响如下：
+    \begin{itemize}
+        \item $T_a$：两面都大于$T_a$，可以直接忽略这个操作。
+        \item $T_b$：只有当前面是较小面的时候需要被翻面。
+        \item $T_c$：两面都不超过$T_c$，不管现在的状态怎样都一定会翻面。
+    \end{itemize}
+
+    容易发现，经过一个$T_b$类操作后，这张牌一定是较大面朝上。
+
+    不妨对每张牌求出最后一个$T_b$类操作，经过这个操作后，这张牌一定翻到了较大面，在那之后只要统计一下$T_c$类操作的数量就能确定最终状态。
+
+    那么，剩下两个子问题：
+    \begin{itemize}
+        \item 找到最后一个$T_j\in[min(A_i,B_i),max(A_i,B_i))$的操作，设为$last$。
+        \item 统计有多少$j\in(last,K]$满足$T_j\geq max(A_i,B_i)$。
+    \end{itemize}
+
+    将$T_j$离散化后，第一个子问题就等同于对一段权值区间求最大值，可以用线段树维护。第二个子问题是一个矩形二维数点问题，可以将询问按照$last$排序扫描，用线段树维护。
+
+    时间复杂度$O((N+K)\log K)$，空间复杂度$O(N+K)$。
+
+%% 解题报告结束
+
+\end{document}

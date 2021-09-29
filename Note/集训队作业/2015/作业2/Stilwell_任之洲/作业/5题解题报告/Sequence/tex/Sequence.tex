@@ -1,0 +1,72 @@
+\documentclass{noiassignment}
+
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{sequence 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    Baltic Olympiad in Informatics 2014
+
+    \href{http://www.lydsy.com/JudgeOnline/problem.php?id=3917}{BZOJ 3917}\qquad\href{https://github.com/boi-2014/tasks}{GitHub boi-2014}
+
+\section{试题大意}
+    设数列$A$为一个从$N$开始的连续$K$个数按顺序构成的数列。
+
+    设数列$B$为将$A$中每个数只保留一个数字后得到的数列。
+
+    给定$K$和$B$，求可能的最小的$N$使得$N$确定的数列$A$能得到数列$B$。
+
+    数据范围：$K\leq 10^5$，$0\leq B_i\leq 9$
+
+\section{算法介绍}
+    对于$N$的粗糙上界，可以构造得出，当$N=102345678900000$时，数据范围内的$B$数列都可以得到。
+
+    在解决这个问题之前，可以先把这个问题一般化，求解数列$A$满足：
+    \begin{itemize}
+        \item 数列$A$为连续的整数，即$A_i=A_{i-1}+1$。
+        \item 构成$A_i$的数字集合中必须包含集合$B_i$。
+    \end{itemize}
+
+    原问题中需要求解的即为集合$B_i$等于输入序列的情况。
+
+    设$A_0=N=(X)y$，其中$y=N\mod 10$，$X=\lfloor\frac{N}{10}\rfloor$，那么数列$A$就可以这样表示：
+    $$(X)y~~...~~(X)_8~~(X)_9~~(X+1)_0~~(X+1)_1~~...~~(X+1)_9~~(X+2)_0~~...$$
+
+    这里$y$的值可以通过枚举来确定，当确定$y$后，可以定义新数列$A'=\{X,X+1,X+2,...\}$，每个${A'}_i$对应数字集合${B'}_i$。
+
+    考虑$X$对应的必须数字集合$B_X$，易得$$B_X=\bigcup_{i=0}^{9-y}({B_i-\{y_i\}})$$
+
+    对于其它位的必须数字集合也可以类似得出。
+
+    设数列$A$的长度为$K$，枚举$y$后得到的数列$A'$的长度$K'$不会超过$\lceil\frac{K}{10}\rceil+1$，问题规模缩小到原先的$\frac{1}{10}$。由于枚举了末位$y$，所以整层状态的数列长度和仍为$O(K)$。
+
+    当$y$枚举$O(\lg K)$次后，数列长度$K'$将会不超过$2$，接下来的问题可以通过讨论构造得到：
+    \begin{itemize}
+        \item 当$K'=2$时，再枚举一次末位$y$。
+        \begin{itemize}
+            \item 当$y<9$时，子问题缩减到$K'=1$。
+            \item 当$y=9$时，子问题中$K'$仍等于$2$，但下一次枚举$9$就变得没有意义，可以直接强制下一次枚举中$y<9$。
+        \end{itemize}
+        \item 当$K'=1$时，考虑直接构造
+        \begin{itemize}
+            \item 当数字$0$不需要存在时，贪心将较小的数字放高位。
+            \item 当数字$0$必须存在时，$0$一定放第$2$高位。
+        \end{itemize}
+        \item 当构造出现前导$0$时，用$10$代替。
+    \end{itemize}
+
+    递归层数为$O(\lg K)$，每层数列长度和为$O(K)$，时间复杂度$O(K\lg K)$。
+
+    具体实现时，需要记录数列每位的数字集合，空间复杂度$O(K\lg K)$，实际使用仅为$O(K)$。
+
+%% 解题报告结束
+
+\end{document}

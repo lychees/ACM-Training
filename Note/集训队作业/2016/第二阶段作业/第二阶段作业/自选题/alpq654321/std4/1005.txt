@@ -1,0 +1,174 @@
+#include<iostream>
+#include<algorithm>
+#include<cstdio>
+#include<cstring>
+#include<cmath>
+#include<cstdlib>
+using namespace std;
+typedef long long ll;
+typedef long double ld;
+typedef pair<int,int> pr;
+const double pi=acos(-1);
+#define rep(i,a,n) for(int i=a;i<=n;i++)
+#define per(i,n,a) for(int i=n;i>=a;i--)
+#define Rep(i,u) for(int i=head[u];i;i=Next[i])
+#define clr(a) memset(a,0,sizeof a)
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define sc second
+ld eps=1e-9;
+ll pp=1000000007;
+ll mo(ll a,ll pp){if(a>=0 && a<pp)return a;a%=pp;if(a<0)a+=pp;return a;}
+ll powmod(ll a,ll b,ll pp){ll ans=1;for(;b;b>>=1,a=mo(a*a,pp))if(b&1)ans=mo(ans*a,pp);return ans;}
+ll read(){
+	ll ans=0;
+	char last=' ',ch=getchar();
+	while(ch<'0' || ch>'9')last=ch,ch=getchar();
+	while(ch>='0' && ch<='9')ans=ans*10+ch-'0',ch=getchar();
+	if(last=='-')ans=-ans;
+	return ans;
+}
+//head
+#define N 51000
+int head[N],v[N*2],cost[N*2],Next[N*2],fa[N],sum[N],Max[N],q[N*2];
+ll rec[N*2][17][2];
+int len[N],Len[N][17],gen1[N][17],gen2[N][17],dep[N],s[N*2][17][2];
+bool p[N];
+int n,nn,num,a[N];
+void add(int x,int y,int z){
+	v[++num]=y;Next[num]=head[x];head[x]=num;cost[num]=z;
+}
+int get(int u){
+	int t=0,w=1;q[1]=u;fa[u]=0;
+	while(t<w){
+		u=q[++t];
+		sum[u]=1;
+		Max[u]=0;
+		for(int i=head[u];i;i=Next[i])
+			if(!p[v[i]] && v[i]!=fa[u]){
+				q[++w]=v[i];
+				fa[v[i]]=u;
+			}
+	}
+	per(i,w,2){
+		u=q[i];
+		sum[fa[u]]+=sum[u];
+		Max[fa[u]]=max(Max[fa[u]],sum[u]);
+	}
+	rep(i,2,w){
+		u=q[i];
+		Max[u]=max(Max[u],sum[q[1]]-sum[u]);
+	}
+	int ans=q[1];
+	rep(i,2,w)
+		if(Max[q[i]]<Max[ans])ans=q[i];
+	return ans;
+}
+void Add(int n,int u){
+	rep(i,0,14){
+		rec[n][i][(a[u]>>i)&1]+=len[u];
+		s[n][i][(a[u]>>i)&1]++;
+	}
+}
+void dfs(int u,int D,int nn){
+	Add(nn,u);
+	gen2[u][D]=nn;
+	for(int i=head[u];i;i=Next[i])
+		if(!p[v[i]] && fa[v[i]]==u)dfs(v[i],D,nn);
+}
+void bfs(int u,int D){
+	int root=u;
+	int t=0,w=1;q[1]=u;fa[u]=0;len[u]=0;
+	while(t<w){
+		u=q[++t];
+		Len[u][D]=len[u];
+		dep[u]=D;
+		for(int i=head[u];i;i=Next[i])
+			if(!p[v[i]] && v[i]!=fa[u]){
+				q[++w]=v[i];
+				fa[v[i]]=u;
+				len[v[i]]=len[u]+cost[i];
+			}
+	}
+	++nn;
+	rep(i,1,w){
+		gen1[q[i]][D]=nn;
+		Add(nn,q[i]);
+		}
+	for(int i=head[root];i;i=Next[i])
+		if(!p[v[i]])
+			dfs(v[i],D,++nn);
+}
+void build(int u,int D){
+	u=get(u);
+	bfs(u,D);
+	p[u]=1;
+	for(int i=head[u];i;i=Next[i])
+		if(!p[v[i]])build(v[i],D+1);
+}
+ll query(int u){
+	ll ans=0;
+	rep(i,0,dep[u])
+		rep(j,0,14){
+			int t=(a[u]>>j)&1;
+			ans+=rec[gen1[u][i]][j][t^1]<<j;
+			ans+=(1LL*s[gen1[u][i]][j][t^1]*Len[u][i])<<j;
+			if(i<dep[u]){
+				ans-=rec[gen2[u][i]][j][t^1]<<j;
+				ans-=(1LL*s[gen2[u][i]][j][t^1]*Len[u][i])<<j;
+				}
+		}
+	return ans;
+}
+void change(int u,int x){
+	rep(i,0,14)
+		if(((a[u]>>i)&1)!=((x>>i)&1))
+			rep(j,0,dep[u]){
+				int t=(a[u]>>i)&1,t1=gen1[u][j],t2=gen2[u][j];
+				rec[t1][i][t]-=Len[u][j];
+				s[t1][i][t]--;
+				rec[t1][i][t^1]+=Len[u][j];
+				s[t1][i][t^1]++;
+				if(t2){
+					rec[t2][i][t]-=Len[u][j];
+					s[t2][i][t]--;
+					rec[t2][i][t^1]+=Len[u][j];
+					s[t2][i][t^1]++;
+				}
+			}
+	a[u]=x;
+}
+int main(){
+	//freopen("large.in","r",stdin);
+	//freopen("large.out","w",stdout);
+	while(~scanf("%d",&n)){
+		clr(head);
+		clr(dep);
+		clr(rec);
+		clr(gen1);
+		clr(gen2);
+		clr(s);
+		clr(p);
+		num=1;nn=0;
+		rep(i,1,n)a[i]=read();
+		rep(i,2,n){
+			int x=read(),y=read(),z=read();
+			add(x,y,z);
+			add(y,x,z);
+		}
+		build(1,0);
+		int T=read();
+		ll ans=0;
+		rep(i,1,n)ans+=query(i);
+		ans/=2;
+		while(T--){
+			int x=read(),y=read();
+			ans-=query(x);
+			change(x,y);
+			ans+=query(x);
+			printf("%I64d\n",ans);
+		}
+	}
+	return 0;
+}

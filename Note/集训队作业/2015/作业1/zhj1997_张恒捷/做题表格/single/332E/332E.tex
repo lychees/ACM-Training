@@ -1,0 +1,38 @@
+\section{332E Binary Key}
+\subsection*{试题大意}
+假设有p和q两个长度为正整数的字符串，我们分别叫它们为匣子和钥匙。
+
+其中，钥匙串q只包含字符0和1。
+
+下面给出一段简单的算法用以描述如何从匣子串p中提取出信息串s
+
+{\ttfamily\wuhao
+
+i = 0;
+
+j = 0;
+
+s = <>;
+
+while i is less than the length of the string p
+
+\{
+
+    if q[j] == 1, then add to the right of string s character p[i];
+    
+    increase variables i, j by one;
+
+    if the value of the variable j equals the length of the string q, then j = 0;
+    
+\}
+}
+
+我们知道这个算法实现起来非常简单，所以你的任务会稍微复杂一些。你需要构造一个字典序最小的长度为k的钥匙串。使该钥匙串用于以上算法时，从给定的匣子串p中获得给定的信息串s
+
+$|p|\leq 10^6~,~|s|\leq 200~,~k\leq 2000$
+\subsection*{算法}
+q中1的个数，可以用s的长度与k推出最多只可能有2种可能。
+
+假设知道了q中1的个数后，事情就变得很简单：s的间隔与p的间隔都知道了，s从头到尾匹配一下就行了。
+
+\subsection*{时间复杂度：$O(|p|)$，空间复杂度：$O(|p|)$}

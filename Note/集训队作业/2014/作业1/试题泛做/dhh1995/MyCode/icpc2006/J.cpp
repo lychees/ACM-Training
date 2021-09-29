@@ -1,0 +1,26 @@
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+#define rep(i,n) for (int i=1;i<=n;++i)
+const int N=105;
+int Case,n,m,h,t,x,y,z,d[N][N],a[N][N],f[N*N*N],g[N*N*N]; bool b[N][N];
+void upd(int x,int y,int z){if (z<a[x][y]){a[x][y]=z; if (!b[x][y]) b[x][y]=1,f[++t]=x,g[t]=y;}}
+int main()
+{
+	while (scanf("%d%d",&n,&m),n||m){
+		rep(i,n) rep(j,n) d[i][j]=(i!=j)<<25;
+		rep(i,m) scanf("%d%d",&x,&y),d[x][y]=x!=y;
+		rep(k,n) rep(i,n) rep(j,n) if (d[i][k]+d[k][j]<d[i][j]) d[i][j]=d[i][k]+d[k][j];
+		h=0,t=f[1]=g[1]=1; rep(i,n) rep(j,n) a[i][j]=1<<25; a[1][1]=1;
+		while (h<t){
+			x=f[++h],y=g[h]; b[x][y]=0; if ((z=a[x][y])>=a[2][2]) continue;
+			rep(i,n) if (i!=x && i!=y) upd(i,y,z+d[x][i]),upd(x,i,z+d[i][y]);
+			if (x!=y) upd(y,x,z+d[x][y]-1),upd(y,y,z+d[x][y]-1),upd(x,x,z+d[x][y]-1); 
+		}
+		printf("Network %d\n",++Case);
+		if (a[2][2]<1<<20) printf("Minimum number of nodes = %d\n\n",a[2][2]);
+		else puts("Impossible\n");
+	}
+	return 0;
+}

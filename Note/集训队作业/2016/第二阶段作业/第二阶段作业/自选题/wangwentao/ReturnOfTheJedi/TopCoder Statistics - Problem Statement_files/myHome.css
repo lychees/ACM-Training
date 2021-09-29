@@ -1,0 +1,806 @@
+/* my topcoder global */
+table.mainContent {
+    width: 1007px;
+    margin: 30px auto;
+}
+
+section.navigation {
+    width: 185px;
+}
+
+.bodyColumn,
+.cardCell {
+    text-align: left;
+    padding-left: 85px;
+    vertical-align: top;
+}
+
+.maxWidthBody,
+.myTCBody,
+.fixedWidthBody {
+    float: left;
+    width: 651px;
+}
+
+.navigation-wrapper {
+    width: 185px;
+    vertical-align: top;
+}
+
+h2 {
+    font-size: 24px !important;
+    color: #333333 !important;
+    line-height: 43px !important;
+    border-bottom: 1px solid #e7e7e7 !important;
+    font-weight: normal !important;
+    margin-bottom: 12px !important;
+}
+
+.headerR,
+.valueR {
+    text-align: right;
+}
+
+.headerC, .valueC {
+    text-align: center;
+}
+
+.header, .headerR, .headerC, .stat .title {
+    font-size: 15px;
+    font-weight: normal;
+    height: 22px;
+    padding: 10px 20px;
+    vertical-align: middle;
+    background-color: #f7f7f7;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    color: #666666;
+}
+
+.value, .valueR {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+/* popup
+----------------*/
+
+.popup-wrapper {
+    display: none;
+    position: fixed;
+    z-index: 100010;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.popup-wrapper .overlay {
+    behavior: url(/css/reskin/PIE.htc);
+    -pie-background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.popup {
+    behavior: url(/css/reskin/PIE.htc);
+    -pie-background: rgba(0, 0, 0, 0.2);
+    display: none;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    padding: 10px;
+    z-index: 1;
+    font-size: 16px;
+    width: 546px;
+    left: 50%;
+    top: 50%;
+    margin-left: -278px;
+}
+
+.popup .close {
+    display: block;
+    background: url(/i/reskin/popup-close.png) no-repeat 2px 2px;
+    position: absolute;
+    right: 20px;
+    top: 17px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.popup .close:hover {
+    background-position: 2px -18px;
+}
+
+.popup .content {
+    behavior: url(/css/reskin/PIE.htc);
+    background: #ffffff;
+    padding: 30px 30px 30px 25px;
+    border-radius: 4px;
+}
+
+.popup h1 {
+    font-size: 30px;
+    color: #333333;
+    line-height: 40px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.popup p {
+    color: #666666;
+    line-height: 24px;
+    margin: 20px 0;
+}
+
+.popup .caption {
+    display: inline-block;
+    width: 135px;
+}
+
+.popup input {
+    border: 1px solid #e1e1e1;
+    background: #fafafa;
+    width: 335px;
+}
+
+.popup .controls {
+    text-align: center;
+    margin: 30px 0 5px;
+}
+
+.popup .controls .btn {
+    margin: 0 4px;
+}
+
+#secondary-email {
+    margin-top: -160px;
+}
+
+#remove-photo {
+    margin-top: -160px;
+}
+
+#remove-photo .memberPhoto {
+    float: left;
+    display: block;
+    margin: 15px;
+}
+
+#remove-photo .controls {
+    margin-left: 180px;
+    padding: 0 30px 25px 0;
+}
+
+#remove-photo p {
+    font-weight: 300;
+}
+
+.stat,
+.links {
+    width: 100% !important;
+    border: 1px solid #e7e7e7;
+    margin-bottom: 10px;
+    color: #666666;
+}
+
+#my-home .stat td,
+#my-home .links td {
+    padding: 10px 20px;
+}
+
+#my-home .stat tr {
+    height: 30px;
+}
+
+#my-home .stat .first td {
+    padding-top: 15px;
+}
+
+#my-home .stat .last {
+    height: auto;
+}
+
+#my-home .stat .last td {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+#my-home .stat td.valueC {
+    width: 184px;
+    padding: 10px 0 15px;
+    text-align: center;
+    vertical-align: top;
+    font-size: 18px;
+    line-height: 24px;
+    border-right: 1px solid #e7e7e7;
+}
+
+#my-home .memberPhoto,
+#remove-photo .memberPhoto {
+    behavior: url(/css/reskin/PIE.htc);
+    border-radius: 68px;
+    display: block;
+    width: 118px;
+    border: 3px solid #d2d2d2;
+}
+
+#my-home .memberPhoto img,
+#remove-photo .memberPhoto img {
+    behavior: url(/css/reskin/PIE.htc);
+    border-radius: 68px;
+    display: block;
+    width: 118px;
+}
+
+#my-home .memberPhoto {
+    margin: 0 auto 10px;
+}
+
+#my-home a.coderTextBlue {
+    display: inline-block;
+    line-height: 32px;
+    color: #3399cc;
+    font-size: 18px;
+}
+
+#my-home a.coderTextBlue:hover {
+    text-decoration: underline;
+}
+
+#my-home strong {
+    font-size: 13px;
+    color: #999999;
+    font-weight: normal;
+    position: relative;
+    top: 4px;
+}
+
+#my-home .stat .field {
+    padding: 0 0 0 30px;
+    width: 145px;
+}
+
+#my-home .stat .value {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 30px;
+}
+
+.stat .grayedOut {
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    color: #c2c2c2;
+}
+
+.links .value {
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.links .value p {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 8px 0;
+}
+
+/* privacy
+--------------*/
+
+#privacy .value {
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 24px;
+}
+
+#privacy .value:first-child {
+    width: 100%;
+}
+
+#privacy .value {
+    white-space: nowrap;
+}
+
+#privacy .first td {
+    padding-top: 15px;
+}
+
+#privacy .last td {
+    padding-bottom: 15px;
+}
+
+#privacy .value label {
+    display: inline-block;
+    width: 70px;
+}
+
+#privacy .value label span {
+    vertical-align: middle;
+}
+
+#privacy .value input {
+    vertical-align: middle;
+    width: 18px;
+    margin: 3px;
+}
+
+/* email notifications
+--------------*/
+#email-notifications .header {
+    border: 0;
+    background: 0;
+    padding-top: 12px;
+    padding-bottom: 0;
+    line-height: 35px;
+    color: #000000;
+}
+
+#email-notifications .stat {
+    border: 0;
+}
+
+#email-notifications .stat .title {
+    border-top: 0;
+}
+
+#email-notifications form {
+    border: 1px solid #e7e7e7;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+#email-notifications .value {
+    padding: 0 0 0 40px;
+    line-height: 30px;
+    font-size: 15px;
+}
+
+#email-notifications .value span {
+    vertical-align: middle;
+}
+
+#email-notifications .value input {
+    width: 16px;
+    margin: 0 8px 0 16px;
+    vertical-align: middle;
+}
+
+.controls {
+    margin: auto;
+}
+
+.controls td {
+    padding: 0 4px;
+}
+
+/* cards & badges
+--------------------*/
+
+#card-body, .cardBody {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #666666;
+    width: 651px;
+}
+
+#card-body p {
+    padding-bottom: 20px;
+}
+
+#card-body p > h3 {
+    margin-top: -5px;
+}
+
+#card-body a img {
+    float: right;
+    margin: 0 5px 80px 25px;
+}
+
+#card-body .subtitle {
+    display: block;
+    font-size: 24px;
+    color: #333333;
+    text-align: center;
+    font-weight: normal;
+    line-height: 60px;
+}
+
+#card-body h3 {
+    font-size: 15px;
+    line-height: 43px;
+}
+
+#card-body p a,
+#referrals p a,
+#referrals_v2 p a {
+    background-image: url(/i/reskin/arrow-right.png);
+    background-position: right 7px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    font-weight: 300;
+    line-height: 14px;
+    padding-top: 4px;
+    padding-right: 14px;
+}
+
+/* payments
+---------------*/
+#payments {
+    width: 651px;
+    color: #666666;
+}
+
+#payments .navigation {
+    color: #999999;
+    float: left;
+}
+
+#payments .navigation span {
+    color: #666666;
+    margin: 0 3px;
+}
+
+#payments .navigation a {
+    display: inline-block;
+    margin: 0 3px;
+}
+
+#payments .page-count {
+    float: right;
+}
+
+#payments .page-count,
+#payments .navigation {
+    height: 20px;
+    line-height: 20px;
+    padding: 16px 0;
+}
+
+#payments .page-count select {
+    margin: 0 10px 0 15px;
+}
+
+#payments input[type=checkbox] {
+    margin: 0;
+}
+
+#payments .header, #payments .headerC,
+#payments .headerR {
+    padding: 0 10px;
+    line-height: 42px;
+    background: #f1f1f1;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+#payments .headerType {
+    width: 110px;
+}
+
+.dark {
+    background: #f7f7f7;
+}
+
+#payments td {
+    border-bottom: 1px solid #e7e7e7;
+    font-weight: normal;
+}
+
+#payments .stat {
+    border: 0;
+    margin-bottom: 0;
+}
+
+#payments .value, #payments .valueC,
+#payments .valueR {
+    font-size: 14px;
+    line-height: 17px;
+    padding: 19px 10px 15px;
+}
+
+#payments .date-created,
+#payments .date-release,
+#payments .date-paid {
+    display: block;
+    white-space: nowrap;
+}
+
+#payments .status {
+    font-weight: bold;
+    color: #EA005D;
+}
+
+#payments .Owed {
+    color: #ff9900 !important;
+}
+
+#payments span.Paid {
+    color: #009900 !important;
+}
+
+#payments span.Entered {
+    color: #01A8E9 !important;
+}
+
+
+#payments .controls {
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 6px solid #e7e7e7;
+    padding: 10px 8px 11px;
+    text-align: right;
+}
+
+#payments .total-amount {
+    color: #333333;
+    font-size: 23px;
+    font-weight: 300;
+    line-height: 36px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 20px;
+}
+
+#payments .headerRow td {
+    line-height: 18px;
+}
+
+#payMe {
+    font-weight: bold;
+}
+
+#xls {
+    float: left;
+    background: url(/i/reskin/excel.png) 10px center no-repeat;
+    height: 18px;
+    line-height: 18px;
+    padding: 14px 0 14px 50px;
+}
+
+#payments .pagingBox {
+    margin-top: 25px;
+}
+
+#payments.summary .value,
+#payments.summary .valueR {
+    padding: 20px 10px 20px 13px;
+    height: 18px;
+}
+
+#payments.summary .total {
+    font-size: 23px;
+    padding: 10px;
+    color: #333333;
+    line-height: 35px;
+    text-align: right;
+    border-bottom: 6px solid #e7e7e7;
+    font-weight: 300;
+}
+
+/* payments paging
+-----------------------*/
+.paging {
+    float: right;
+    padding: 15px 10px;
+}
+
+.paging li {
+    color: #666666;
+    float: left;
+    width: 20px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+}
+
+.paging li a {
+    display: inline-block;
+    height: 20px;
+}
+
+.paging .page-first,
+.paging .page-prev,
+.paging .page-next,
+.paging .page-last {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(/i/reskin/paging-arrows.png) no-repeat;
+}
+
+.paging a.page-first {
+    background-position: 0 2px;
+}
+
+.paging a.page-prev {
+    background-position: -16px 2px;
+}
+
+.paging a.page-next {
+    background-position: -32px 2px;
+}
+
+.paging a.page-last {
+    background-position: -48px 2px;
+}
+
+.paging .page-first {
+    background-position: -64px 2px;
+}
+
+.paging .page-prev {
+    background-position: -80px 2px;
+}
+
+.paging .page-next {
+    background-position: -96px 2px;
+}
+
+.paging .page-last {
+    background-position: -112px 2px;
+}
+
+/* visa letters */
+
+#visa-letters h2 {
+    margin-bottom: 0;
+}
+
+#visa-letters .how-to-request {
+    float: right;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-top: 10px;
+}
+
+#visa-letters .subtitle {
+    display: block;
+    line-height: 36px;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #666666;
+    text-align: center;
+}
+
+#visa-letters table {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 300;
+
+}
+
+#visa-letters td,
+#referrals td,
+#referrals_v2 td {
+    color: #666666;
+    padding: 10px 20px;
+    height: 22px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+#visa-letters .letter span {
+    display: inline-block;
+    line-height: 22px;
+    padding-left: 25px;
+    background: url(/i/reskin/visa-letter-status.png) no-repeat;
+}
+
+#visa-letters .send .letter span {
+    background-position: 0 4px;
+}
+
+#visa-letters .progress .letter span,
+#visa-letters .denied .letter span
+{
+    background-position: 0 -38px;
+}
+
+#visa-letters .send .status {
+    color: #009900;
+}
+
+#visa-letters .progress .status {
+    color: #FF0000;
+}
+
+#visa-letters .date {
+    padding-right: 25px;
+    text-align: right;
+}
+
+/* referrals
+---------------------------*/
+#referrals {
+    color: #666666;
+}
+
+#referrals p {
+    font-weight: 300;
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#referrals table {
+    width: 300px;
+    margin: 35px auto 20px;
+}
+
+#referrals .valueR {
+    text-align: right;
+}
+
+#referrals .header,
+#referrals .headerR {
+    background: #f1f1f1;
+}
+
+/* referrals_v2
+---------------------------*/
+#referrals_v2 {
+    color: #666666;
+}
+
+#referrals_v2 .description {
+    border: 1px solid #e7e7e7;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+#referrals_v2 h2 {
+    font-size: 15px;
+    color: #666666;
+    background: #f7f7f7;
+    height: 22px;
+    line-height: 22px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+#referrals_v2 p {
+    font-weight: 300;
+    padding: 9px 20px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#referrals_v2 table {
+    width: 100%;
+}
+
+#referrals_v2 .header,
+#referrals_v2 .headerR {
+    background: #f1f1f1;
+}
+
+.myHome .pageTitleTable {
+    display: none;
+}
+
+#my-home .stat .dark {
+    background: none;
+}
+
+p.note {
+    font-size: 12px;
+    text-align: left;
+    padding-bottom: 10px;
+    color: #666666
+}
+
+td.valueC {
+    text-align: center;
+}

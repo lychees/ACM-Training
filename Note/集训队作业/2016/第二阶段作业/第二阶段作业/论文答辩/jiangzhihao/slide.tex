@@ -1,0 +1,288 @@
+\documentclass{beamer}
+\usepackage{ctex}
+\usepackage{amssymb}
+\usepackage{animate}
+\usepackage{CJKspace}
+\usepackage{verbatim}
+%\usepackage[dvipsnames]{xcolor}
+%\usetheme{Pittsburgh}
+\usetheme{Singapore}
+
+\newcommand{\kai}{\CJKfamily{kai}}      % 楷体
+\def\kaishu{\kai}
+
+\begin{document}
+
+\title{网络流的一些建模方法}
+\author{姜志豪}
+\institute{东营市胜利第一中学}
+\date{2016\ 年\ 5\ 月\ 3\ 日}
+
+\begin{frame}
+
+\titlepage
+
+\end{frame}
+
+%\section{论文内容}
+
+\begin{frame}{论文内容}
+
+    网络流在信息学竞赛中很常见。网络流问题的巧妙之处往往不在于算法实现过程，而在于网络流的建模方法。论文对一些比较常用的网络流建模方法进行了总结，分为以下四部分。
+
+    \begin{itemize}
+
+        \item 从最大流角度建模
+
+        \item 从最小割角度建模
+
+        \item 从费用流角度建模
+
+        \item 流量平衡思想
+
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{论文内容}
+
+    网络流在信息学竞赛中很常见。网络流问题的巧妙之处往往不在于算法实现过程，而在于网络流的建模方法。论文对一些比较常用的网络流建模方法进行了总结，分为以下四部分。
+
+    \begin{itemize}
+
+        \item \textcolor{red}{从最大流角度建模}
+
+        \item 从最小割角度建模
+
+        \item 从费用流角度建模
+
+        \item 流量平衡思想
+
+    \end{itemize}
+
+\end{frame}
+
+%\section{从最大流角度建模}
+
+\begin{frame}{从最大流角度建模}
+
+    一般来说，从最大流角度进行建模最直观。往往是用一条从源点~$S$~到汇点~$T$~的流来表示一种方案。
+    \pause
+    
+    例如用最大流求二分图的最大匹配时，一条~$S\rightarrow T$~的流就表示一个匹配。
+    
+    \includegraphics[width=70mm]{4.png}
+
+\end{frame}
+
+\begin{frame}{Collector's Problem}
+
+    Bob和他的朋友从糖果包装里收集贴纸。Bob和他的朋友总共~$n$~人。共有~$m$~种不同的贴纸。
+
+    每人手里都有一些（可能有重复的）贴纸，并且只跟别人交换他所没有的贴纸。贴纸总是一对一交换。
+
+    Bob比这些朋友更聪明，因为他意识到只跟别人交换自己没有的贴纸并不总是最优的。在某些情况下，换来一张重复贴纸更划算。
+
+    假设Bob的朋友只和Bob交换（他们之间不交换），并且这些朋友只会出让手里的重复贴纸来交换他们没有的不同贴纸。你的任务是帮助Bob算出他最终可以得到的不同贴纸的最大数量。
+
+    ~$ 2\leq n\leq 10, 5\leq m\leq 25 $~
+
+\end{frame}
+
+\begin{frame}{Collector's Problem}
+
+    Bob的朋友只会出让手里的重复贴纸来交换他们没有的不同贴纸。所以，对于Bob的某个朋友Friend，Bob只能把一种Friend没有的贴纸给他，并且一种最多给一次。Friend只会把他手里重复的贴纸给Bob，如果Friend有~$i\ (i\geq 2)$~张某种贴纸，他至多给Bob\ ~$(i-1)$~张。
+    \pause
+    
+    那么，Bob的朋友的作用是，将Bob手中的贴纸~$X$~变成另一种贴纸~$Y$~。并且对每一种~$X$~有数量限制，对每一种~$Y$~也有数量限制。
+
+\end{frame}
+
+\begin{frame}{Collector's Problem}
+
+    可以这样来建图：
+    \pause
+    
+    \begin{kai}
+
+    对每种贴纸~$i$~建立点~$A_i$~。源点~$S$~向~$A_i$~连边，容量为Bob拥有的贴纸~$i$~的数量。~$A_i$~向汇点~$T$~ 连边，容量为1。
+    \pause
+
+    对Bob的每个朋友~$j$~建立点~$B_j$~。若朋友~$j$~没有贴纸~$i$~，就从~$A_i$~向~$B_j$~连边，容量为1。若朋友~$j$~有~$k\ (k\geq 2)$~张贴纸~$i$~，就从~$B_j$~向~$A_i$~连边，容量为~$k-1$~。
+
+    \end{kai}
+
+\end{frame}
+
+\begin{frame}{Collector's Problem}
+
+    \includegraphics[width=100mm]{1.png}
+    \pause
+    
+    左图中，流从~$S$~出发，到2，再到~$T$~。表示Bob有第2种贴纸，并且不参与交换。
+    \pause
+    
+    右图中，流从~$S$~出发，到1，再到~$A$~，再到3，再到~$B$~，再到4，最后到~$T$~。表示Bob有第1种贴纸，和~$A$~交换，换成第3种贴纸，再和~$B$~交换，换成第4种贴纸。
+
+\end{frame}
+
+\begin{frame}{Collector's Problem}
+
+    我们用~$A$~表示点~$A_i$~的集合，用~$B$~表示点~$B_i$~的集合。
+    \pause
+
+    一条~$S\rightarrow T$~的流，是先从~$S$~到~$A$~，表示Bob最初拥有的某种贴纸。然后经过若干次（可能是0次）到~$B$~再到~$A$~的过程，表示的是和朋友进行了交换。最后从~$A$~到~$T$~，表示交换结束后Bob手中的贴纸的种类。
+    \pause
+    
+    求最大流，就是Bob最终可以得到的不同贴纸的最大数量。
+
+\end{frame}
+
+\begin{frame}{从最大流角度建模}
+
+    最大流构图的特点是直观容易理解。~$S\rightarrow T$~的流，有着实际的意义，表示方案或操作方式。
+    \pause
+
+    不过，最大流问题的变化也非常多。有些时候，需要认真分析问题，发现问题的实质，将问题简化或转化，才能够得出网络流模型。
+
+\end{frame}
+
+%\section{从最小割角度建模}
+
+%\begin{frame}{happiness}
+%
+%    高一一班的座位表是个~$n\times m$~的矩阵，经过一个学期的相处，每个同学和前后左右相邻的同学互相成为了好朋友。
+%
+%    这学期要分文理科了，每个同学选择理科的喜悦值是~$p_i$~，选择文科的喜悦值是~$q_i$~。
+%
+%    一对好朋友如果同时选理科，他们又将共同获得喜悦值~$v_{i1}$~。一对好朋友如果同时选文科，他们又将共同获得喜悦值~$v_{i2}$~。
+%
+%    如何分配可以使得全班的喜悦值总和最大。
+%
+%    ~$ 1\leq n, m\leq 100 $~
+%
+%\end{frame}
+%
+%\begin{frame}{happiness}
+%
+%    对每个同学建立一个点~$x$~，点~$x$~向源点~$S$~连一条边，向汇点~$T$~连一条边，分别表示选择文科或理科。
+%    \pause
+%
+%    \includegraphics[width=60mm]{2.png}
+%
+%\end{frame}
+%
+%\begin{frame}{happiness}
+%
+%    每个同学选择文理科的收益可以最后再加进来，所以暂且不考虑。
+%    \pause
+%
+%    若两个同学~$x$~、~$y$~相邻，并且他们没有选择相同的科类，就会少获得收益，或者认为是有损失。我们可以在~$x$~、~$y$~之间连边，来表示这种损失。
+%    \pause
+%
+%    \includegraphics[width=60mm]{3.png}
+%
+%\end{frame}
+%
+%\begin{frame}{happiness}
+%
+%    我们假设保留与~$S$~相连的边表示理科，保留与~$T$~相连的边表示文科。用~$v_1$~表示~$x$~、~$y$~同时选择理科的收益，用~$v_2$~表示~$x$~、~$y$~同时选择文科的收益。那么，~$x$~、~$y$~的选择共有四种情况。
+%    \pause
+%
+%    \begin{kai}
+%    \begin{align*}
+%    a + b &= v_1 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \text{(~$x$~、~$y$~都选择文科)} \tag{1} \\
+%    c + d &= v_2 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \text{(~$x$~、~$y$~都选择理科)} \tag{2} \\
+%    a + d + e &= v_1 + v_2 \ \ \ \ \ \ \ \ \text{(~$x$~选择文科，~$y$~选择理科)} \tag{3} \\
+%    b + c + e &= v_1 + v_2 \ \ \ \ \ \ \ \ \text{(~$x$~选择理科，~$y$~选择文科)} \tag{4}
+%    \end{align*}
+%    \end{kai}
+%
+%\end{frame}
+%
+%\begin{frame}{happiness}
+%
+%    \begin{kai}
+%    \begin{align*}
+%    (3) + (4) - (1) - (2) &= 2\cdot e = v_1 + v_2 \\
+%    \therefore e &= \frac{v_1 + v_2}{2} \\
+%    a &= b = \frac{v_1}{2} \\
+%    c &= d = \frac{v_2}{2}
+%    \end{align*}
+%    \end{kai}
+%    \pause
+%
+%    解出边的容量后，再考虑上每个同学选择文理科的收益，可以进行建图。
+%
+%\end{frame}
+%
+%\begin{frame}{happiness}
+%
+%    \begin{kai}
+%
+%    对于每个同学，建立一个点。从~$S$~向这个点连一条边，容量是这个同学选理科的收益，再加上他与所有相邻同学都选理科的共同收益和的一半。从这个点向~$T$~ 连一条边，容量是这个同学选文科的收益，再加上他与所有相邻同学都选文科的共同收益和的一半。
+%    \pause
+%
+%    对于相邻两个同学~$x$~、~$y$~，在~$x$~、~$y$~之间连一条双向边，容量是他们都选文科的共同收益与他们都选理科的共同收益的平均数。
+%    \pause
+%
+%    \end{kai}
+%
+%    所有收益的和减去最小割就是最大喜悦值之和。
+%    \pause
+%
+%    这个问题中，收益至多涉及两个人。可以先考虑两个人之间的关系，然后把所有关系综合起来，进行建图。
+%
+%\end{frame}
+%
+%\begin{frame}{从最小割角度建模}
+%
+%    最小割可以解决一些存在收益冲突的收益最大化问题。
+%    \pause
+%
+%    在网络流图中，任何一条~$S\rightarrow T$~的路径上，都需要割掉至少一条边。
+%    \pause
+%
+%    利用这个性质，可以使收益的冲突在网络流模型中得到体现。
+%
+%\end{frame}
+
+\begin{frame}{感谢}
+    
+    感谢父母养育之恩。
+    
+    感谢CCF提供这个学习交流的平台。
+    
+    感谢李云军老师、孔祥丽老师、刘雪老师给予的关心和指导。
+    
+    感谢在学习生活中给予我帮助的老师同学们。
+    
+    感谢你们。
+
+\end{frame}
+
+\begin{frame}{参考文献}
+
+    \begin{enumerate}
+
+        \item 刘汝佳、陈锋，《算法竞赛入门经典——训练指南》，清华大学出版社
+
+        \item 胡伯涛，《最小割模型在信息学竞赛中的应用》
+
+    \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+
+    \begin{center}
+    \begin{LARGE}
+
+        \texttt{\emph{\textcolor{purple}{Questions are welcome}}}
+
+    \end{LARGE}
+    \end{center}
+
+\end{frame}
+
+\end{document}

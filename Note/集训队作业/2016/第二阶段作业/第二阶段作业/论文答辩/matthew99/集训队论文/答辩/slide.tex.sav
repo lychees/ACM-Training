@@ -1,0 +1,159 @@
+\documentclass[CJK]{beamer}
+\usetheme{Warsaw}
+\usepackage{CJK}
+\usepackage{amsfonts}
+\usepackage{xypic}
+\begin{document}
+\begin{CJK}{GBK}{kai}
+\title{再探快速傅里叶变换}
+\author{毛啸}
+\institute{长沙市雅礼中学}
+\begin{frame}
+\titlepage
+\end{frame}
+\section{Contents}
+\begin{frame}
+\frametitle{Contents}
+\begin{itemize}[<+->]
+\item 我的论文前两部分是FFT的基本介绍，FFT的基本应用，最后一部分介绍了一个不是很普及的技巧，其中引入了一个仅用4次实数DFT实现$10 ^ 9$级别的任意模数下的卷积的技巧。
+\item 限于时间关系这里只介绍最后一部分。
+\end{itemize}
+\end{frame}
+\section{Introduction}
+\begin{frame}
+\frametitle{Introduction}
+FFT在当今的应用越来越广泛。
+$$\xymatrix@C=0.5cm{
+& 卷积 & 分治
+}$$
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 我们考虑对长度为$n$的实多项式$A(x)$, $B(x)$进行DFT，假设$n$已经调整为$2$的整数次幂。
+\item
+我们定义：
+\begin{eqnarray}
+P(x) & = & A(x) + i B(x)\\
+Q(x) & = & A(x) - i B(x)
+\end{eqnarray}
+
+\item 这里$i$指$\sqrt{-1}$，设$F_p[k], F_q[k]$分别表示对$P$和$Q$进行DFT之后得到序列的第$k$项，即$F_p[k] = P(\omega ^ k), F_q[k] = Q(\omega ^ k)$，$\omega$是$n$次单位根。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 接下来我们进行一系列推导：
+\item 由于排版问题我们用$X$代替$\frac{2 \pi jk}{2L}$这个式子，每个$X$所对应的$j, k$的含义在上下文中可以看出。$\text{conj}(x)$表示$x$的共轭复数。
+\begin{align*}
+F_{p}[k] &= A(\omega_{2L}^{k}) + i B(\omega_{2L}^{k}) \\
+& = \sum_{j=0}^{2L-1} A_{j} \omega_{2L}^{jk} + i B_{j} \omega_{2L}^{jk} \\
+& = \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \left(\cos X + i \sin X\right)
+\end{align*}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\scriptsize
+\begin{align*}
+F_{q}[k] &= A(\omega_{2L}^{k}) - i B(\omega_{2L}^{k}) \\
+& = \sum_{j=0}^{2L-1} A_{j} \omega_{2L}^{jk} - i B_{j} \omega_{2L}^{jk} \\
+& = \sum_{j=0}^{2L-1} (A_{j} - i B_{j}) \left(\cos X + i \sin X\right) \\
+& = \sum_{j=0}^{2L-1} \left(A_{j} \cos X + B_{j} \sin X\right) + i \left(A_{j} \sin X - B_{j} \cos X\right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} \left(A_{j} \cos X + B_{j} \sin X\right) - i \left(A_{j} \sin X - B_{j} \cos X\right) \right) \\
+\end{align*}
+\end{frame}
+\begin{frame}
+\scriptsize
+\begin{align*}
+& = \text{conj} \left( \sum_{j=0}^{2L-1} \left(A_{j} \cos \left(-X\right) - B_{j} \sin \left(-X\right)\right) + i \left(A_{j} \sin \left(-X\right) + B_{j} \cos \left(-X\right)\right) \right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \left(\cos \left(-X\right) + i \sin \left(-X\right)\right)\right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{-jk} \right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{(2L-k)j} \right) \\
+& = \text{conj} (F_{p}[2L-k])
+\end{align*}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 于是我们仅用1次DFT就可以算出$F_p$和$F_q$。
+\item
+令$DFT(P[k])$表示对$P(x)$进行DFT之后得到的序列的第$k$项，我们发现：
+\begin{eqnarray}
+DFT(A[k]) & = & \frac{F_p[k] + F_q[k]}{2}\label{i}\\
+DFT(B[k]) & = & i\frac{F_p[k] - F_q[k]}{2}\label{j}
+\end{eqnarray}
+\item 于是我们将2次DFT合并为了1次，可以减少1次DFT。
+\end{itemize}
+\end{frame}
+\section{Optimization}
+\begin{frame}
+\frametitle{Optimization}
+\begin{itemize}[<+->]
+\item 我们能不能将2次DFT继续往下优化呢？当然能！
+\item 我们设$A_0(x)$是$A(x)$的偶次项的和，$A_1(x)$是奇次项的和，那么$A(x) = A_0(x ^ 2) + xA_1(x ^ 2)$。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\scriptsize
+假设我们要求$A(x)$与$B(x)$的乘积，且两个多项式的次数均为$n - 1$（假设$n$为2的整数次幂），则有：
+\begin{eqnarray*}
+A(x)B(x) & = & (A_0(x ^ 2) + xA_0(x ^ 2))(B_0(x ^ 2) + xB_0(x ^ 2))\\
+& = & A_0(x ^ 2)B_0(x ^ 2) + xA_0(x ^ 2)B_1(x ^ 2) + xA_1(x ^ 2)B_0(x ^2) + x ^ 2A_1(x ^ 2)B_1(x ^ 2)\\
+& = & A_0(x ^ 2)B_0(x ^ 2) + x(A_0(x ^ 2)B_1(x ^ 2) + A_1(x ^ 2)B_0(x ^2)) + x ^ 2A_1(x ^ 2)B_1(x ^ 2)
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+\scriptsize
+所以我们要求的式子是：
+\begin{align}
+A_0(x ^ 2)B_0(x ^ 2) + x(A_0(x ^ 2)B_1(x ^ 2) + A_1(x ^ 2)B_0(x ^ 2)) + x ^ 2A_1(x ^ 2)B_1(x ^ 2) \label{s}
+\end{align}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 我们需要做4次多项式乘法，但是如果把譬如$A(x ^ 2)$这种式子看作关于$x ^ 2$的多项式，那么结果多项式的次数均不超过$n - 1$。
+\item 所以，我们需要做4次长度为$n$的DFT，两两合并可以优化为2次。
+\item 考虑IDFT，看似需要3次IDFT，其实不然，考虑($\ref{s}$)式右边的第一项和第三项，它们依然只有偶数项有系数，而第二项只有奇数项有系数。所以我们考虑合并第一项和第三项。
+\item 合并第一项和第三项我们显然也可以看成关于$x ^ 2$的多项式，于是我们要做的就是根据$A(x)$的DFT求$xA(x)$的DFT，容易发现，$xA(x)$的DFT就是将$A(x)$的DFT的第$k$项乘上$\omega ^ k$。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 于是我们只需要2次长度为$n$的IDFT，如果我们能两两合并可以优化为1次。
+\item 我们考虑所有需要IDFT的序列，它们并不一定所有项都是实数，初看是难以合并的。
+\item 但是我们注意到一点，它们IDFT之后的结果是实数！注意到无论序列是否是纯实数，IDFT都是DFT的逆，我们考虑(\ref{i})(\ref{j})二式，我们知道右边能求左边，知道左边我们也能恢复右边，我们只需要对所有$k$恢复出所有的$F_p[k]$(或者$F_q[k])$，然后复原$P(x)$(或者$Q(x)$)，再根据IDFT的结果是实数，我们可以直接取实部和虚部来得到IDFT的结果。这样，IDFT的次数被减少到了1次，大功告成。
+\item 所以我们只需要做3次长度为$n$即单倍长度的DFT，而前面的方法需要2次两倍长度的DFT，如果我们仍然以两倍长度来衡量的话我们甚至可以用“1.5 次DFT”来形容刚才介绍的优化方法。
+\end{itemize}
+\end{frame}
+\section{Convolution taking modulo by arbitrary numbers}
+\begin{frame}
+\frametitle{Convolution taking modulo by arbitrary numbers}
+\begin{itemize}[<+->]
+\item 假设我们的模数是$M$，$M$是${10} ^ 9$级别。
+\item 我们设$M_0 = \lceil \sqrt{M} \rceil$，根据带余除法我们可以将所有整数$x$表示为$x = k[x]M_0 + b[x]$，其中$k[x]$和$b[x]$都是整数。
+\item 我们假设多项式$A(x)$的系数序列为$a_i$，多项式$B(x)$的系数序列为$b_i$，那么我们把$k[a_i], b[a_i], k[b_i], b[b_i]$形成的四个序列两两做1次卷积，卷积的结果中每个数的大小在$10 ^ {14}$级别，使用精度较高的浮点数以及注意用精度较高的预处理单位复根方法即可接受，做完卷积之后，对每个卷积的结果乘上相应的系数并贡献到答案中去，我们可以预处理这四个序列的DFT，然后对于对应的系数相同的两个卷积我们直接合并，于是我们需要做7次DFT。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 我们能不能把做DFT的次数继续减少呢，当然能！
+\item 我们考虑前面所述的过程，第一步是对4个数列分别做DFT，我们发现用前面所述的合并DFT技巧DFT是可以两两合并的，这样我们将DFT次数减少到了5次。
+\item IDFT我们需要做3次，两两合并我们可以减少到2次。
+\item 于是DFT次数被成功的减少到了4次，大功告成。
+\item 同样的，前面介绍的将普通卷积优化到3次单倍长度DFT的方法，显然也可以应用到任意模数卷积下，即实现所谓的“3.5次DFT”做任意模数卷积，但是式子太复杂且优化效果并不显著，这里不再赘述。
+\end{itemize}
+\end{frame}
+\section{Acknowledgements}
+\begin{frame}
+\frametitle{Acknowledgements}
+感谢中国计算机学会提供学习和交流的平台。
+
+感谢雅礼中学的汪星明老师多年来给予的关心和指导。
+
+感谢大家的聆听。
+\end{frame}
+\section{Questions}
+\begin{frame}
+\frametitle{Questions}
+欢迎提问。
+\end{frame}
+\end{CJK}
+\end{document}

@@ -1,0 +1,5 @@
+\section{USACO Mar 12 CowsinaSkyscrape}
+\subsection*{试题大意}
+n个物品，每个物品重ai。袋子能盛重m的物品。
+\subsection*{算法}
+\subsection*{时间复杂度：$O()$，空间复杂度：$O()$}

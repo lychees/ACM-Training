@@ -1,0 +1,77 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=black, anchorcolor=black, citecolor=black, urlcolor=black]{hyperref}
+\theoremstyle{theorem}
+\newtheorem{ex}{例题}
+\numberwithin{equation}{section}
+\usepackage{tikz}
+
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Gerald and Path解题报告}
+\author{雅礼中学\ 毛啸}
+
+\maketitle
+\section{试题来源}
+Codeforces Round \#313 (Div. 1) Problem E
+
+\url{http://codeforces.com/contest/559/problem/E}
+\section{试题大意}
+一条线段上有$n$个灯，每个灯有一个位置，位置两两不同，每个灯有一个照射距离，每个灯只能往右照或者往左照，求最大化被照到的区域的总长度。
+\section{数据范围}
+$n \le 100$。
+\section{算法简介}
+我们考虑一个问题：给定每盏灯的照射方式，怎么求长度。
+
+这是一个经典问题，做法的第一步就是排序。
+
+我们继续考虑排序，这道题里面排序完以后有一个情况非常讨厌：区间包含情况，怎么处理呢。
+
+陈启峰学长在之前的集训队论文中提到过一个很好的思路：约制与放宽。
+
+放宽：对于每盏灯，我们新建一种方案——既不向左照也不向右照，这样答案肯定不会变。
+
+约制：对于一盏灯，如果它选择了往左照或者往右照，但是这个区域被另外一盏灯的照射区域完全覆盖，那么这个方案不合法。
+
+这样就没有了区间包含情况，我们考虑DP。
+
+继续考虑我们给定每盏灯的照射方式且满足上述条件，怎么求长度，如果我们按区间右端点排序，我们要记录上一个区间的位置以及当前区间是哪一个。
+
+所以我们对于本题，我们先按照所有灯往右能照到的最远处排序，我们DP的状态也要设两个：考虑到了哪一盏灯以及前一个区间(是哪一个灯往哪一边)。
+
+我们考虑枚举下一个区间(是哪一个灯往哪一边)：
+
+如果下一个区间往左，那么首先根约制条件它不能覆盖前一个区间，其次所有在它覆盖范围内的灯都不能往左照：如果往左照能照到的最远点比当前区间左端点要更靠左边，那么当前枚举的区间的就不是下一个区间，如果没有比当前区间左端点要更靠左边，那么违背了约制条件，因此第一种情况我们直接枚举下一个区间是哪一个，然后把它覆盖了的灯全部确定方向，然后接下来要考虑的灯就是我们当前枚举的灯右边的第一盏灯。
+
+如果下一个区间往右，那么很好办，直接考虑它右边下一盏灯即可。
+
+由于记录了前一个区间所以答案很好更新。
+
+进一步的我们只要记录前一个区间的右端点，然后左端点当做负无穷，因为如果我们枚举区间往左的时候覆盖了前一个区间，那么一定会导致记录的答案比该方案的实际答案小，所以不会有什么关系。
+
+如果在第一种转移“把它覆盖了的灯全部确定方向”的时候直接暴力则时间复杂度为$O(n ^ 4)$，很容易加上一定的优化使得时间复杂度做到$O(n ^ 3)$，但是两种时间复杂度都可以通过本题。
+
+%% 解题报告结束
+
+\end{document}

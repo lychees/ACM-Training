@@ -1,0 +1,74 @@
+\documentclass{noiassignment}
+\usepackage{amsmath}
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Devus and their voting system 解题报告}
+\author{绍兴市第一中学~~王鉴浩}
+
+\maketitle
+
+\section{试题来源}
+
+\href{http://www.codechef.com/APRIL15/problems/DEVVOTE}{DEVVOTE}
+
+\section{试题大意}
+
+有~$n$~个房子，每个房子里有一个选民。房子按~$1,2,3,...,n$~的顺序沿一条直线以此排列，也就是说~1~是~2~的邻居，2~是~1~和~3~的邻居，以此类推。
+
+现在要竞选总统，每个人都可以成为总统，每个人能给这~$n$~中的一人投票（可以投自己），最后票数最高的人当总统，如果有多人同时得到最高票数，那么这些人同时被选中当总统。
+
+有一个奇怪的规则：每个人不能和其邻居投的人相同。
+
+现在问期望有多少人当总统，答案保留~6~位小数。
+
+数据范围：$1\le n\le 36$
+
+时限：$2s$
+
+\section{算法介绍}
+
+我们考虑用动态规划来解决此题。
+
+由于是计算期望，所以我们需要计算出有~$x$~个总统的方案数。
+
+先考虑没有奇怪的规则的情况。我们可以用~$f[i][j][k][u]$~来表示枚举了第~$i$~个选民，已经有~$j$~个选民投了票，前~$i$~个选民中得票数最多为~$k$~票，其中得到了~$k$~ 票的人有~$u$~人。现在，我们枚举第~$i+1$~人得到的票数~$x$，转移如下：
+\begin{itemize}
+  \item 当~$x<k$~时，$f[i][j][k][u]\xrightarrow{~\binom{j+x}{x}~} f[i+1][j+x][k][u]$
+  \item 当~$x=k$~时，$f[i][j][k][u]\xrightarrow{~\binom{j+x}{x}~} f[i+1][j+x][k][u+1]$
+  \item 当~$x>k$~时，$f[i][j][k][u]\xrightarrow{~\binom{j+x}{x}~} f[i+1][j+x][x][1]$
+\end{itemize}
+
+由于满足~$k\cdot u\le j$，所以上述动态规划的时间复杂度为~$O(n^4\log n)$。
+
+在上述动态规划状态中的转移，我们可以理解为有~$j+1$~个位置，新加的~$x$~个人要加进这~$j+1$~个位置中。
+现在我们来考虑奇怪的规则。
+而对于这个限制，我们可以理解为本来有~$j+1$~个位置，因为最终相邻的两个选民选的人不能相同，所以有~$r$~个位置最终是不能是空的。
+于是，我们就可以加一维来表示状态：$g[i][j][k][u][r]$。
+现在，我们除了枚举第~$i+1$~人得到的票数~$x$~之外，还需要枚举这~$x$~个人加进了~$w$~个位置中，其中在~$r$~个位置中选了~$e$~个，转移如下：
+\begin{itemize}
+  \item 设~$y=\binom{x-1}{w-1}\cdot \binom{r}{e}\cdot \binom{j+1-r}{w-e},~z=r-e+(x-w)$
+  \item 当~$x<k$~时，$g[i][j][k][u][r]\xrightarrow{~y~} g[i+1][j+x][k][u][z]$
+  \item 当~$x=k$~时，$g[i][j][k][u][r]\xrightarrow{~y~} g[i+1][j+x][k][u+1][z]$
+  \item 当~$x>k$~时，$g[i][j][k][u][r]\xrightarrow{~y~} g[i+1][j+x][x][1][z]$
+\end{itemize}
+
+那么上述动态规划的时间复杂度为~$O(n^7\log n)$。这样的时间复杂度太高了，我们需要进行优化。
+
+经过分析之后，我们可以发现：在转移中计算~$y$~和~$z$~时，是和~$i,k,u$~无关的。于是，可以针对~$j,r,x,w,e$~预处理转移。
+那么在最终转移的时候，我们只需要枚举~$i,j,k,u,r,z$~就行了。
+
+于是，我们就可以在时间复杂度为~$O(n^5\log n)$~解决此题。
+
+我们可以发现预处理转移数组的空间复杂度是~$O(n^4)$~的，而对于最终转移数组，我们可以运用滚动数组把~$i$~这一维消掉。
+于是，上述解法的空间复杂度为~$O(n^4)$。
+因为枚举并不满，上述做法是可以在~$1s$~内跑出解的。另外，我们可以对每个~$n$~进行打表预处理。
+这样做的时间复杂度为~$O(1)$。
+
+%% 解题报告结束
+
+\end{document}

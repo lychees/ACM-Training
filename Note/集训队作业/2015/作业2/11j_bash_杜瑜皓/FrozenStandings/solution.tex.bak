@@ -1,0 +1,43 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=red, anchorcolor=red, citecolor=red, urlcolor=red]{hyperref}
+
+\begin{document}
+
+\title{FrozenStandings 解题报告}
+\author{浙江省镇海中学~~杜瑜皓}
+
+\maketitle
+
+\section{试题来源}
+
+Topcoder Open 2014 Finals \href{http://community.topcoder.com/stat?c=problem_statement&pm=13460}{1100分题} by rng\_58
+
+\section{试题大意}
+
+一场比赛有$n$道题，最后一个小时封板，封板前每个人通过了$x_i$个题，封板后每个人至多通过一个题，所以最后可能通过的题数为$x_i$或$x_i+1$。
+
+问最后有多少种不同的排名。如果题数相同按编号排序。
+
+规定$n\leq 5*10^5$。
+
+\section{算法介绍}
+
+首先它是个双关键字排序，可以将每个人的成绩加权为$-x_i*w+i$，$w$是一个很大的整数，那么双关键字排序变成一个关键字。每个人对应的分数即为$r_i$，那么它最后可能得到的分数为$r_i$或者$r_i-w$，记$l_i=r_i-w$。
+
+为了方便，可以将$l_i$排序，也就是保证$l_1<l_2<\cdots<l_n$。
+
+接着考虑如何求不同的排名。每个人选$r_i$或者$l_i$，那么有两种选择，总共有$2^n$种选择。那么要去掉其中重复的排名。
+
+如果有两种选择方案，存在一个人选择$l_i$和$r_i$，并且$l_i$和$r_i$之间没有一个数字被选择，那么这两种方案是一样的，在总方案中要减掉其中一种。
+
+如果一个人对应的$l_i,r_i$这段中没有一个数字被选择，那么对于$j$满足$l_i<l_j<r_i$或$l_i<r_j<r_i$，必须选择左边的或者右边的。
+
+因为区间的长度全都相同，那么这样的$j$也构成了一个区间，即为$[L_i,R_i]$。
+
+
+
+\section{总结}
+
+%% 解题报告结束
+
+\end{document}

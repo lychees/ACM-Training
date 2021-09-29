@@ -1,0 +1,416 @@
+\documentclass{beamer}
+\usepackage{ctex}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{hyperref}
+\usepackage{ulem}
+\usepackage{longtable}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usetheme{Madrid}
+
+\newcommand{\link}[1]{ \ \hyperlink{#1}{\beamergotobutton{go}}}
+\newenvironment{slide}[1]
+{\begin{frame}\frametitle{#1}\pause}
+{\end{frame}}
+\newenvironment{Mat}
+{\left[\begin{matrix}}
+{\end{matrix}\right]}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{\textbf{《strakf》命题报告}}
+\institute{佛山石中李子豪}
+\date{\today}
+\logo{}
+\begin{frame}[t]
+\titlepage
+\end{frame}
+
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{前言}}] \ \end{description}
+\end{frame}
+\begin{slide}{前言}
+    本文主要写了两道字符串与数据结构结合的题目，以及KD-tree的一些调参。
+\end{slide}
+
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{试题大意}}] \ \end{description}
+\end{frame}
+
+\begin{slide}{试题大意}
+    给了一个长度为$N$的仅由小写字母组成的初始字符串$S$. \pause
+
+    之后有$M$次操作，操作分为三类：   \pause
+
+    $1 \quad A$:将原串$S$的所有等于$A$的子串权值$+1$；    \pause
+
+    $2 \quad l \quad r$:将原串$S$的所有等于$S[l,r]$的子串权值$+1$；   \pause
+
+    $3 \quad a \quad b$:询问原串$S$所有子串$S[l,r]$满足$a \le l \le r \le b$的权值和。 \pause
+\end{slide}
+
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{数据规模}}] \ \end{description}
+\end{frame}
+
+\begin{slide}{数据规模}
+    \begin{table}
+    \small
+     \begin{tabular}{|c|c|c|c|}
+    \hline
+    数据点编号 & $N,M$ & 操作类型 & 数据特点 \\
+    \hline
+    1 & 5 & 2,3 & 无 \\
+    \hline
+    2 & 10 & 2,3 & 无 \\
+    \hline
+    3 & 100 & 2,3 & 无 \\
+    \hline
+    4 & $2*10^5$ & 1,2 & 无 \\
+    \hline
+    5 & $2*10^4$ & 1,3 & 所有的3操作a=1 \\
+    \hline
+    6 & $2*10^4$ & 1,3 & 所有的3操作b=N \\
+    \hline
+    7-8 & $2*10^4$ & 1,3 & 所有的1操作的字符串长度为不下降序列 \\
+    \hline
+    9-10 & $6*10^3$ & 2,3 & 无 \\
+    \hline
+    11-12 & $2*10^4$ & 2,3 & 所有的3操作b=N \\
+    \hline
+    13-15 & $2*10^4$ & 2,3 & 所有的2操作的字符串长度为不下降序列 \\
+    \hline
+    16-20 & $2*10^4$ & 2,3 & 无 \\
+    \hline
+    \end{tabular}
+    \end{table} \pause
+
+    输入文件大小不超过0.3M。
+\end{slide}
+
+\begin{slide}{出题想法来源}
+    一道题目：   \pause
+    \newline
+    
+    给了一个长度为$N$的仅有小写字母组成的字符串$S$.
+
+    定义$S[l][r]$为$S$从$l$到$r$的子串。 \pause
+
+    有$q$次询问，每次对一个区间$[l_{i},r_{i}]$进行询问，询问最大的$x$满足$S[l][l+x-1]=S[r-x+1][r]$. \pause
+
+    $N,q \leq 2*10^5 $  
+\end{slide}
+
+\begin{slide}{题解}
+    这道题，假设对于一个询问区间$[l,r]$,那么我们实际上就是求一个最小的$x$满足以$l$开始的后缀以及与$x$开始的后缀的最长公共前缀$>r-x$.
+
+    因此，我们可以从小到大逐一枚举$x$,然后离线按顺序处理所有的询问。  \pause
+
+    我们对询问以左端点进行排序，然后若当前枚举到$i$,那么则把左端点$<i$的询问插入，然后就删去所有满足答案可以为$i$的询问。那么，就可以解决了。 
+
+    因此，我们现在的问题就是要去维护一个可以求出满足答案可以为$i$的询问。    
+\end{slide}
+\begin{slide}{题解}
+    而根据上面所说，我们有这么一条式子：$i+len-1 \geq r,len$是最长公共前缀，即$i \geq r-len+1$.
+
+    因此，我们只需要有办法维护$r-len+1$的值，并从小到大取出即可。 \pause
+    
+    对于这个问题，我们可以先进行后缀数组并求出$height$数组。    
+\end{slide}
+\begin{slide}{题解}
+    然后，根据$height$，我们可以构造出一棵树。大概就是这样：    \pause
+
+    假设字符串为$ababcba$,那么$height$数组为：\\            \pause
+
+    \qquad    0 a
+
+    \qquad    1 ababcba
+
+    \qquad    2 abcba
+
+    \qquad    0 ba
+
+    \qquad    2 babcba
+
+    \qquad    1 bcba        
+\end{slide}
+\begin{slide}{题解}
+    然后构造的树为：
+    \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.35\textwidth]{1.jpg}
+    \end{figure}
+
+    感受一下大概就懂了。      
+\end{slide}
+\begin{slide}{题解}
+
+    之后，我们对于一个询问$[l,r]$的插入，则先找出$l$所对应的节点，然后从这个点不断往根，对于路径上每个节点插入一个pair为$(r-len,num)$,len为这个节点能表示的最长串。  \pause
+
+    然后，对于处理$x$为$i$的询问，则从$x$对应的节点，不断往根走，对于路径上每个节点询问比$i$小的所有pair，然后更新对应答案，删除对应询问即可。     \pause
+
+    然后，这个问题，我们可以用树链剖分和dfs序来解决。      \pause
+
+    我们大概可以分为三类询问：       \pause
+    
+    1.询问子树的最小值； \pause
+
+    2.询问重链上节点的最小值； \pause   
+
+    3.询问重链上节点的非重儿子的所有儿子的最小值。   
+\end{slide}
+\begin{slide}{题解}
+
+    然后，对于这三类问题，则可以分别通过整棵树的dfs序、轻重链、轻儿子dfs序来解决。  \pause
+
+    因此，就可以通过$O((N+M)log_{2}^{2}N)$解决了。
+\end{slide}
+\begin{slide}{小结}
+    这一题比较好的结合了字符串和数据结构的问题。比较考验选手代码能力。
+\end{slide}
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{回到原题}}] \ \end{description}
+\end{frame}
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{算法介绍}}] \ \end{description}
+\end{frame}
+\begin{slide}{第1-3个数据点}
+    采取$brute force$的方法。
+
+    对于每一个修改操作，则把所有符合的子串的权值+1.
+
+    对于每一个询问操作，则直接询问范围内的所有子串的权值和。 \pause
+
+    时间复杂度为$O(n^3)$,预计得分15分。
+\end{slide}
+
+\begin{slide}{第4个数据点}
+    注意到这个数据点并没有操作3，因此直接结束即可。    \pause
+
+    算上前面的15分，预计得分20分。
+\end{slide}
+
+\begin{slide}{第5-8个数据点}
+    这一类数据点的特点在于只有操作1的修改，而没有操作2的修改。  \pause
+    
+    分析数据特点: \pause
+        
+    由于输入保证不超过0.3M,可以得到插入总长度不超过$3*10^5$。
+
+    因此，我们可以得到一个结论：插入字符串的长度最多只有$O(\sqrt{N})$种。   \pause
+
+    证明： \pause
+
+    \quad 假设长度恰好为$1$到$\sqrt{N}$各一个，那么总长度已达到$O(N)$级别。
+
+    \quad 证毕。  
+\end{slide}
+\begin{slide}{第5-8个数据点}
+
+    因此，我们对于询问操作，可以对于各个不同长度的询问分开处理。  \pause
+
+    那么，问题变成要维护各个不同长度的左端点在某一区间范围的方案数。    \pause
+
+    而对于插入操作，我们可以得出：插入操作所能影响的左端点的后缀排名处于某一个区间范围内。 \pause
+
+    因此，我们可以对于每一个左端点记录一个二元组(a,b)表示左端点位置在a，对应后缀排名为b。  \pause
+
+    然后插入则是对于所有$b \in [l,r]$的二元组进行权值+1.询问则是对于所有$a \in [l,r]$的二元组询问权值和。
+
+    我们可以采取分块来解决这个问题。   
+\end{slide}
+\begin{slide}{第5-8个数据点}
+
+    假设我们按照位置序列来分块，块长为$L$.   \pause
+
+    那么我们可以对于每一块记录块内权值和以及按照b排序的块内端点排名从而记录对于每一个给定的$r$得到的最大的$k$满足
+    $b_{k} \leq r$. \pause
+
+    然后，再对前i块记录权值和$sum_{i}$. \pause
+
+    对于修改操作，我们直接求出对于每一块的贡献以及对于前i块的贡献值，修改对应的块内权值和以及$sum_{i}$.并且对于每一块记录一个修改标记。    \pause
+
+    对于询问操作，则先利用求好的$sum_{i}$求出整块的权值和，然后对于非整块部分，则直接打算标记，暴力询问即可。   \pause
+
+    分析复杂度，修改操作复杂度为$O(\frac{N}{L})$,询问操作复杂度为$O(L\sqrt{N})$.
+    当$L=N^{0.25}$时，有最小复杂度为$O(N^{0.75})$.    
+\end{slide}
+\begin{slide}{第5-8个数据点}
+    因此，整个算法复杂度为$O(N^{1.75})$.预计得分20分。   \pause
+
+    算上上面其余部分的分数，预计得分40分。
+    
+\end{slide}
+
+\begin{slide}{第9-10个数据点}
+    对于这一类数据，同样的，我们可以先构造一个后缀数组。
+
+    然后，我们对于每一个位置维护一个结构，维护以该点为左端点的所有修改长度。    \pause
+
+    对于修改操作，我们可以通过二分求出包含这一子串的后缀排名区间。我们可以对于排名区间里面对应的每个位置，在其对应的结构里面插入当前的修改长度。    \pause
+
+    然后，对于询问操作，则对操作区间内的所有点分别询问其结构里面长度不超过某一个值的修改个数。   \pause
+
+    因此，我们需要一个可以维护动态插入以及询问比某个值小的值的个数，可以使用线段树或者平衡树，也可以采用pb\uline{ }ds库里面的黑科技。 \pause  
+
+    时间复杂度为$O(NMlog_{2}N)$.预计得分10分。  \pause
+
+    算上上面其余部分的分数，预计得分50分。 
+\end{slide}
+\begin{slide}{第11-12个数据点}
+    这一类数据的特点在于右端点固定为N，即不存在右端点越界的情况。因此，我们不需要分开不同长度来处理。   \pause
+
+    因此，我们可以采取类似第5-8个数据点的解决方法：   \pause
+
+    对于每一个左端点记录一个二元组(a,b)表示左端点位置在a，对应后缀排名为b。
+
+    然后插入则是对于所有$b \in [l,r]$的二元组进行权值+1.询问则是对于所有$a \in [l,r]$的二元组询问权值和。   \pause
+
+    我们上面原本使用的是分块，但其实这里也是可以采用KD-tree来解决的。使用KD-tree可以减少一定的代码量以及运行速度上也会有一定的提升。  \pause
+
+    可以证明，对于坐标两两不相同的情况，KD-tree可以保证最坏$O(\sqrt{N})$的复杂度完成二维区间内的问题。 \pause
+\end{slide}
+\begin{slide}{第11-12个数据点}
+    这一点，我们可以分两步来证明(开始凑页数了...)：
+\end{slide}
+\begin{slide}{对于其中一维区间为全集的情况}
+    首先，比较容易可以知道另一维区间为任意区间[L,r]实际上可以等价于[1,r]区间的解决。   \pause
+
+    这个可以简单证明得到:假设线段树中mid为使得L,r处于两个不同区间的节点，那么下一步问题变成了等价于[L,n]以及[1,r]的问题。
+
+    然后，对于[1,r]的情况，如果当前是以全集区间的那维分两边，那么显然两边节点都要遍历，而如果是以[1,r]区间的那维的话，那么必然有一边要么完全不覆盖，要么完全覆盖，都可以一步解决，因此，实际需要往下的只有一个节点。  \pause
+
+    然后，总层数为$log_{2}N$层，然后只有$\frac{log_{2}N}{2}$层需要遍历两边，因此复杂度为$O(2^{\frac{log_{2}N}{2}})=O(\sqrt{N})$.
+\end{slide}
+\begin{slide}{一般情况}
+    首先，同样容易证明其中一维的任意区间[L,r]可以等价于[1,r]。 \pause
+
+    然后当当前是以这一维分两边的话，那么必然有一边这一维要么完全不覆盖，要么完全覆盖。最坏情况是完全覆盖那一种，那么这一部分我们已经证明是$O(\sqrt{N})$级别的了。而另一边，则是等价的问题。    \pause
+
+    因此，我们有$F(N)=F(N/2)+O(\sqrt{N})$,根据等比数列我们可以得到$F(N)=O(\sqrt{N})$. \pause
+
+    证毕。
+\end{slide}
+\begin{slide}{第11-12个数据点}
+    于是，我们可以通过$O(M\sqrt{N})$的复杂度解决。预计得分10分。
+
+    算上上面其余部分的分数，预计得分60分。
+\end{slide}
+\begin{slide}{第13-15个数据点}
+    这一类数据点，保证了插入长度不下降。这个提示我们可以往长度方向想。 \pause
+
+    考虑当前询问区间为[L,r]，我们设[1,L-1]为A区间，[L,r]为B区间，[r+1,N]为C区间。    \pause
+    然后设(x,y)意义为左端点在x区间，右端点在y区间的权值和。例如(A,B)表示左端点在A区间，右端点在B区间。我们求解的是(B,B)的值。
+    \pause
+
+    那么，对于[1,r]区间的询问，我们得出了(A,A)+(A,B)+(B,B)。那么，如果我们有办法求解(A,A)+(A,B)就可以解决了。因为我们已经知道其中一个端点在边界的解法了。   \pause
+
+    然后我们可以求[1,N]区间的询问，从而得出(A,A)+(A,B)+(A,C)+(B,B)+(B,C)+(C,C).  \pause
+
+    然后又由(B,B)+(B,C)+(C,C)为[L,N]区间的询问，可以得到。  
+\end{slide}
+\begin{slide}{第13-15个数据点}
+
+    因此，现在唯一的问题就是(A,C)问题的求解了。但这一类问题似乎没有什么好的解决方法。 \pause
+
+    这时，我们回过来看长度的提示。然后我们可以得到一个突破点：如果保证长度不超过$r-l+1$的话，那么不存在(A,C)这个问题。 \pause
+
+    因此，我们可以根据长度来维护一个可持久化KD-tree，维护只包含长度不超过某个值的答案。   \pause
+
+    那么，对于询问操作，我们只需要先二分出对应最大长度对应的KD-tree，然后在这棵KD-tree进行询问即可。 \pause
+
+    时间复杂度为$O(M\sqrt{N})$,预计得分15分。   \pause
+
+    算上上面其余部分的分数，预计得分75分。    
+\end{slide}
+\begin{slide}{第16-20个数据点}
+    最后这一类数据点，实际上只需要对第13-15个数据点的解决方法进行少量修改即可。    \pause
+
+    我们观察到这一题允许离线，并且操作独立，因此，我们只需要在外面套上一个cdq分治，然后就能保证插入长度单调，从而就能直接利用第13-15个数据点的解决方法解决了。  \pause
+
+    由于多套了个cdq分治，时间复杂度为$O(M\sqrt{N}log_{2}M)$.   \pause
+
+    进行少量修改，可以通过全部数据。预计得分100分。
+\end{slide}
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{对于KD-tree的调参(继续凑...)}}] \ \end{description}
+\end{frame}
+\begin{slide}{对于KD-tree的调参}
+
+    对于前面的第5-8个数据点的分块方法，实际上也可以用KD-tree来解决。   \pause
+
+    现在问题就是对于某一维询问区间、另一维询问全集的情况，可以根据不同的情况得到不同的复杂度。   \pause
+
+    其实，这个似乎很好搞，假设我们要求第一维为区间的复杂度为$N^a$,第二维为区间的复杂度为$N^{1-a}$的话。   \pause
+
+    那么，我们只需要选择以第二维为分离标准的层数设为$alog_{2}N$即可。  \pause
+
+    但是，要注意安排层的顺序，不然有可能复杂度会多乘了一个$O(log_{2}N)$。  
+\end{slide}
+\begin{slide}{对于KD-tree的调参}
+    而一种比较好的安排方法，就是假设$a<1-a$,那么先把多出来的$(1-2a)log_{2}N$层先进行分离，之后剩余层数正常的轮流分即可。  \pause
+
+    用KD-tree来调参的话，相较于分块，应该可以减少一定的空间和常数。
+\end{slide}
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{总结}}] \ \end{description}
+\end{frame}
+\begin{slide}{总结}
+
+    总的来说，这道题难度与NOI第二题接近。
+
+   主要考察对题目性质的挖掘以及转化为简单问题的解决方法。旨在将字符串类型题目和数据结构类型的题目联系起来。
+\end{slide}
+\begin{frame}
+\ \newline \newline
+\begin{description}\item[\huge{\textbf{感谢}}] \ \end{description}
+\end{frame}
+\begin{slide}{感谢}
+    
+    感谢中国计算机学会提供学习和交流的机会。
+
+    感谢佛山石中的江涛老师、梁冠健老师多年来给予的关怀与指导。
+
+    感谢国家集训队教练余林韵和陈许旻的指导。
+
+    感谢佛山石中的龙耀为、麦景、杨嘉宏等同学对我的帮助和启发。
+
+    感谢绍兴一中王鉴浩学长以及雅礼中学匡正非学长提供的模板。
+
+    感谢其他对我有过帮助和启发的老师和同学。
+
+    感谢父母对我的关心和照顾。
+\end{slide}
+\begin{frame}
+    \begin{centering}\begin{description}\item[\Huge{\textbf{谢谢！}}]{} \end{description}\end{centering}
+\end{frame}
+\begin{slide}{参考文献}
+\begin{enumerate}[\lbrack 1\rbrack]
+\item 于纪平：《C++的的pb\uline{ }ds库在OI中的应用》
+\item 任之洲：《k-d tree在传统OI数据结构题中的应用》
+\item 罗穗骞《后缀数组——处理字符串的有力工具》
+\item 陈立杰《后缀自动机》
+\item 罗剑桥 《浅谈分块思想在一类数据处理问题中的应用》
+\item 陈丹琦《从《Cash》谈一类分治算法的应用》
+\item 刘汝佳, 黄亮, 《算法艺术与信息学竞赛》, 清华大学出版社。
+\item 刘汝佳, 《算法竞赛入门经典》, 清华大学出版社。
+\end{enumerate}
+\end{slide}
+
+%% 解题报告结束
+
+\end{document}

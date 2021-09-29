@@ -1,0 +1,9 @@
+Case 1: still live after 100 transitions
+Places with tokens: 1 (1)
+
+Case 2: dead after 9 transitions
+Places with tokens: 2 (1)
+
+Case 3: still live after 1 transitions
+Places with tokens: 2 (1) 3 (1)
+

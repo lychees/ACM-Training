@@ -1,0 +1,110 @@
+Case 1: robot's hand is at (-8.549,0.000,8.549)
+Case 2: robot's hand is at (15.587,-11.087,0.000)
+Case 3: robot's hand is at (14.650,0.000,0.000)
+Case 4: robot's hand is at (23.408,-0.460,22.608)
+Case 5: robot's hand is at (4.080,8.926,26.337)
+Case 6: robot's hand is at (0.000,0.000,23.150)
+Case 7: robot's hand is at (16.206,-8.846,0.000)
+Case 8: robot's hand is at (0.404,13.263,21.435)
+Case 9: robot's hand is at (23.955,0.000,18.335)
+Case 10: robot's hand is at (10.608,52.045,16.627)
+Case 11: servo 5 attempts to move arm below floor
+Case 12: servo 8 attempts to move arm below floor
+Case 13: robot's hand is at (4.080,0.000,4.080)
+Case 14: robot's hand is at (-27.376,20.930,35.460)
+Case 15: servo 3 attempts to move arm below floor
+Case 16: robot's hand is at (2.660,0.000,0.000)
+Case 17: robot's hand is at (21.932,0.000,1.952)
+Case 18: robot's hand is at (1.725,0.000,1.725)
+Case 19: robot's hand is at (-19.691,0.969,38.710)
+Case 20: servo 3 attempts to move arm below floor
+Case 21: robot's hand is at (-28.825,10.595,5.374)
+Case 22: servo 6 attempts to move arm below floor
+Case 23: robot's hand is at (-4.334,13.794,30.197)
+Case 24: robot's hand is at (35.903,-30.571,24.941)
+Case 25: servo 7 attempts to move arm below floor
+Case 26: robot's hand is at (-6.505,0.000,6.505)
+Case 27: robot's hand is at (-9.896,-7.640,9.126)
+Case 28: robot's hand is at (-6.780,0.000,0.000)
+Case 29: robot's hand is at (11.500,12.495,17.232)
+Case 30: robot's hand is at (-22.254,-12.750,10.104)
+Case 31: servo 3 attempts to move arm below floor
+Case 32: robot's hand is at (9.078,-18.675,0.546)
+Case 33: servo 4 attempts to move arm below floor
+Case 34: robot's hand is at (24.118,-20.699,54.790)
+Case 35: robot's hand is at (-23.180,17.640,51.440)
+Case 36: robot's hand is at (-5.324,-8.850,6.624)
+Case 37: robot's hand is at (-10.904,-36.480,10.904)
+Case 38: robot's hand is at (0.000,0.000,13.120)
+Case 39: robot's hand is at (-19.801,7.309,11.901)
+Case 40: robot's hand is at (34.495,14.786,18.904)
+Case 41: robot's hand is at (6.939,-3.780,25.583)
+Case 42: robot's hand is at (18.250,6.230,28.030)
+Case 43: servo 3 attempts to move arm below floor
+Case 44: robot's hand is at (-11.137,0.000,23.667)
+Case 45: robot's hand is at (11.107,-2.664,19.533)
+Case 46: robot's hand is at (-14.220,0.000,14.220)
+Case 47: servo 3 attempts to move arm below floor
+Case 48: robot's hand is at (-34.804,10.418,33.989)
+Case 49: robot's hand is at (61.448,4.247,22.080)
+Case 50: robot's hand is at (8.470,-39.760,27.580)
+Case 51: robot's hand is at (0.550,0.000,0.000)
+Case 52: servo 6 attempts to move arm below floor
+Case 53: robot's hand is at (-24.150,-30.060,26.470)
+Case 54: servo 3 attempts to move arm below floor
+Case 55: robot's hand is at (39.734,22.994,45.450)
+Case 56: servo 3 attempts to move arm below floor
+Case 57: robot's hand is at (-2.157,19.030,1.259)
+Case 58: robot's hand is at (8.834,12.213,18.006)
+Case 59: robot's hand is at (13.838,-16.080,27.358)
+Case 60: robot's hand is at (15.525,-31.659,15.667)
+Case 61: servo 6 attempts to move arm below floor
+Case 62: servo 4 attempts to move arm below floor
+Case 63: robot's hand is at (15.110,6.790,0.000)
+Case 64: robot's hand is at (-6.986,0.000,6.986)
+Case 65: robot's hand is at (-35.817,-14.548,16.592)
+Case 66: robot's hand is at (-3.971,23.281,0.000)
+Case 67: robot's hand is at (-5.630,13.435,19.048)
+Case 68: robot's hand is at (4.144,0.000,4.144)
+Case 69: robot's hand is at (16.132,11.872,0.000)
+Case 70: robot's hand is at (0.000,2.930,19.580)
+Case 71: servo 6 attempts to move arm below floor
+Case 72: robot's hand is at (-11.070,-6.576,15.236)
+Case 73: robot's hand is at (0.000,0.000,3.970)
+Case 74: servo 3 attempts to move arm below floor
+Case 75: servo 5 attempts to move arm below floor
+Case 76: servo 3 attempts to move arm below floor
+Case 77: servo 3 attempts to move arm below floor
+Case 78: robot's hand is at (13.195,-37.317,43.207)
+Case 79: robot's hand is at (5.508,-15.330,5.508)
+Case 80: servo 3 attempts to move arm below floor
+Case 81: robot's hand is at (-2.754,0.064,0.000)
+Case 82: robot's hand is at (12.792,44.631,12.792)
+Case 83: robot's hand is at (-48.840,0.000,0.000)
+Case 84: robot's hand is at (-32.340,0.000,0.000)
+Case 85: robot's hand is at (17.321,0.077,44.522)
+Case 86: robot's hand is at (12.183,19.481,16.512)
+Case 87: robot's hand is at (-39.788,-8.149,19.522)
+Case 88: robot's hand is at (-14.294,2.065,14.294)
+Case 89: robot's hand is at (-21.250,15.455,32.621)
+Case 90: robot's hand is at (16.073,9.271,9.383)
+Case 91: robot's hand is at (-31.010,0.000,0.000)
+Case 92: servo 5 attempts to move arm below floor
+Case 93: robot's hand is at (0.000,0.000,9.070)
+Case 94: robot's hand is at (9.909,-8.578,27.613)
+Case 95: servo 4 attempts to move arm below floor
+Case 96: servo 3 attempts to move arm below floor
+Case 97: robot's hand is at (-15.337,4.419,17.911)
+Case 98: servo 3 attempts to move arm below floor
+Case 99: robot's hand is at (43.317,10.567,17.920)
+Case 100: servo 3 attempts to move arm below floor
+Case 101: robot's hand is at (54.803,17.480,10.087)
+Case 102: robot's hand is at (45.158,36.535,6.265)
+Case 103: servo 8 causes link collision
+Case 104: robot's hand is at (-5.276,14.324,25.148)
+Case 105: servo 4 attempts to move arm below floor
+Case 106: servo 7 causes link collision
+Case 107: servo 6 causes link collision
+Case 108: robot's hand is at (36.324,9.130,18.564)
+Case 109: servo 6 attempts to move arm below floor
+Case 110: servo 4 attempts to move arm below floor

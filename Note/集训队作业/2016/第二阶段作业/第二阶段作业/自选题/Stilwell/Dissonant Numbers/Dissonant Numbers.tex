@@ -1,0 +1,112 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Dissonant Numbers 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    \href{https://projecteuler.net/problem=515}{Project Euler 515}
+
+\section{试题大意}
+    设$d(p,n,0)$的值为$n$在模$p$域下的乘法逆元。
+
+    对于$k\geq 1$，设$$d(p,n,k)=\sum_{i=1}^nd(p,i,k-1)$$
+
+    设$$D(a,b,k)=\sum_{
+        \mbox{\scriptsize
+        $\begin{array}{c}
+          a\leq p < a+b\\
+          p\text{为质数}
+        \end{array}$
+        }}
+        (d(p,p-1,k)~mod~p)$$
+
+    求$D(10^9,10^5,10^5)$。
+
+\section{算法介绍}
+    为了方便说明，后文中所有“$=$”均表示在对应模域下同余。
+
+\subsection{算法一}
+    考虑$d(p,n,k)$的递归计算过程，递归到$k=0$时贡献$n^{p-2}$的值，贡献次数为到达那个位置的方案数。
+
+    考虑$n^{p-2}$对$d(p,p-1,k)$的贡献次数，即选取递归$k$层的$d(p,n',k')$的方案数，可以用组合数计算，相当于把$k-1$个物品放置到$p-n$ 个位置中，即
+    $$\binom{p-n-2+k}{k-1}=\frac{(p-n-2+k)!}{(p-n-1)!(k-1)!}$$
+
+    那么，总贡献即为
+    \begin{eqnarray*}
+      n^{p-2}\binom{p-n-2+k}{k-1} &=& \frac{(p-n-2+k)!}{(p-n-1)!(k-1)!n} \\
+      ~ &=& -\frac{(p-n-2+k)!}{(p-n-1)!(k-1)!(p-n)} \\
+      ~ &=& -\frac{(p-n-2+k)!}{(p-n)!(k-1)!} \\
+      ~ &=& -\frac{1}{(k-1)!}\prod_{i=1}^{k-1}(p-n+i)
+    \end{eqnarray*}
+
+    那么，可得
+    \begin{eqnarray*}
+      \sum_{n=1}^{p-1}n^{p-2}\binom{p-n-2+k}{k-1} &=& \sum_{n=1}^{p-1}\frac{(p-n-2+k)!}{(p-n-1)!(k-1)!n} \\
+      ~ &=& ~ -\frac{1}{(k-1)!}\sum_{n=1}^{p-1}\prod_{i=1}^{k-2}(p-n+i)
+    \end{eqnarray*}
+
+    其中$\prod_{i=1}^{k-2}(p-n+i)$是一个关于$n$的$k-2$阶多项式，设这个多项式为$\sum_{i=0}^{k-2}a_in^i$，那么
+    \begin{eqnarray*}
+      \sum_{n=1}^{p-1}n^{p-2}\binom{p-n-2+k}{k-1} &=& -\frac{1}{(k-1)!}\sum_{n=1}^{p-1}\prod_{i=1}^{k-2}(p-n+i) \\
+      ~ &=& ~ -\frac{1}{(k-1)!}\sum_{n=1}^{p-1}\sum_{i=0}^{k-2}a_in^i \\
+      ~ &=& ~ -\frac{1}{(k-1)!}\sum_{i=0}^{k-2}a_i\sum_{n=1}^{p-1}n^i
+    \end{eqnarray*}
+
+    其中$\sum_{n=1}^{m}n^i$是一个关于$m$的$i+1$阶多项式，所以这个式子是一个$k-1$阶多项式，即设
+    $$F(x)=-\frac{1}{(k-1)!}\sum_{i=0}^{k-2}a_i\sum_{n=1}^xn^i$$
+
+    需要求的就是$F(p-1)$，$F(x)$是一个$k-1$阶多项式。
+
+    可以利用Lagrange插值法进行计算，其中插值公式为
+    $$F(x)=\sum_{j=1}^ky_j\prod_{i=0,i\neq j}^k\frac{x-x_i}{x_j-x_i}$$
+
+    上式中的$x_i,y_i$对应的是已知的点值，为了计算计算方便，$x_i$可以取$1\sim k$，这样分母中的$x_j-x_i$可以转化为阶乘，分子也可以类似计算，完成$O(k)$插值。
+
+    不考虑质数判断部分的复杂度，时间复杂度$O(bk)$，空间复杂度$O(k)$，作为一道PE题已经能够在线下得到答案。
+
+\subsection{算法二}
+    在算法一中，我们需要计算的式子为
+    \begin{eqnarray*}
+    % \nonumber to remove numbering (before each equation)
+        \sum_{n=1}^{p-1}n^{p-2}\binom{p-n-2+k}{k-1}
+        &=& -\sum_{n=1}^{p-1}\frac{(p-n-2+k)!}{(p-n)!(k-1)!} \\
+        &=& -\frac{1}{k-1}\sum_{n=1}^{p-1}\binom{p-n-2+k}{k-2} \\
+        &=& -\frac{1}{k-1}\sum_{n=1}^{p-1}\binom{n+k-2}{k-2}
+    \end{eqnarray*}
+
+    有组合恒等式
+    $$\sum_{i=0}^n\binom{i+m}{m}=\binom{n+m+1}{m+1}$$
+    
+    这个恒等式的直观意义为：
+    \begin{itemize}
+        \item 等式左边：$0\sim n$个物品与$m$个另外物品排列组合的方案数。
+        \item 等式右边：$n$个物品与$m+1$个另外物品排列组合的方案数。
+        \item 在等式右边，$n+m+1$个位置中选出了$m+1$个，将最后一个被选出位置作为确定等式左侧$i$的值的分割线。
+    \end{itemize}
+    
+    所以
+    $$\sum_{n=1}^{p-1}\binom{n+k-2}{k-2}=\binom{p+k-2}{k-1}-1$$
+
+    由Lucas定理得
+    $$\binom{p+k-2}{k-1}~=~\binom{p}{0}\binom{k-2}{k-1}~=~0$$
+
+    所以
+    \begin{eqnarray*}
+    % \nonumber to remove numbering (before each equation)
+      d(p,p-1,k) &=& \sum_{n=1}^{p-1}n^{p-2}\binom{p-n-2+k}{k-1} \\
+                 &=& \frac{1}{k-1}
+    \end{eqnarray*}
+
+    同样不考虑质数判断部分的复杂度，时间复杂度$O(b\log(a+b))$，空间复杂度$O(1)$。
+
+%% 解题报告结束
+
+\end{document}

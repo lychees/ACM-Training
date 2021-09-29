@@ -1,0 +1,113 @@
+Case 1: 1A 2M
+Case 2: 1M 2A 1M
+Case 3: impossible
+Case 4: empty
+Case 5: 25A 6M
+Case 6: 6A 1M 2A 1M 11A 1M 5A 1M 3A 1M 4A 1M 7A
+Case 7: 15A 1M 2A 1M 3A 2M 6A 1M 7A
+Case 8: 767A 1M 1A 1M 1A 1M 2A 1M 1A 1M 7A
+Case 9: 8743A 3M 6A
+Case 10: 1M 17A 1M 2A 1M 1A 1M 19A 1M 2A 1M 6A
+Case 11: 41A 2M 1A 1M 13A 1M 8A 1M 1A
+Case 12: 4A 1M 6A 1M 14A 1M 5A 1M 10A 1M 6A 1M 5A
+Case 13: 5117A 1M 5A 1M 6A 1M 1A 1M 4A 1M 5A
+Case 14: 38A 1M 5A 1M 4A 1M 10A 1M 9A 1M 9A
+Case 15: 14649246A 1M 1A
+Case 16: 12845A 1M 9A 1M 7A 1M 5A
+Case 17: 48A 1M 7A 1M 7A 1M 3A 1M 1A 1M 1A 1M 6A
+Case 18: 101A 1M 9A 1M 8A 1M 22A 1M 21A
+Case 19: 16317A 2M 2A 2M 2A 1M
+Case 20: 4A 1M
+Case 21: 9A 1M
+Case 22: 87A 4M
+Case 23: 18A 3M
+Case 24: 13A 3M
+Case 25: 3M
+Case 26: 4M
+Case 27: 2A 1M 1A 4M
+Case 28: 2M
+Case 29: 1A 6M
+Case 30: impossible
+Case 31: 31A 1M
+Case 32: 3A
+Case 33: impossible
+Case 34: 4M
+Case 35: 999999999A
+Case 36: 1M
+Case 37: empty
+Case 38: empty
+Case 39: 2A 1M 1A 2M 1A 1M 1A 1M 1A 3M 1A 1M 1A 2M 1A 2M 1A 1M 1A 3M 1A 2M 1A 9M
+Case 40: 1M
+Case 41: 999999998A
+Case 42: impossible
+Case 43: 1A 28M
+Case 44: 1A 28M
+Case 45: empty
+Case 46: 1A
+Case 47: 1A
+Case 48: 1A 1M
+Case 49: empty
+Case 50: impossible
+Case 51: empty
+Case 52: 1A
+Case 53: empty
+Case 54: 28M
+Case 55: 1A 28M 1A
+Case 56: 2A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A 1M 1A
+Case 57: 1M 499999999A
+Case 58: 1A 1M
+Case 59: 31620A 1M 31621A
+Case 60: 2M
+Case 61: 1M 22359A 1M 22359A
+Case 62: 1A 2M
+Case 63: 998A 1M 999A 1M 999A
+Case 64: 3M
+Case 65: 1M 792A 1M 792A 1M 792A
+Case 66: 1A 3M
+Case 67: 175A 1M 176A 1M 176A 1M 176A
+Case 68: 4M
+Case 69: 1M 148A 1M 148A 1M 148A 1M 148A
+Case 70: 1A 4M
+Case 71: 142A 1M 6A
+Case 72: impossible
+Case 73: 9000A
+Case 74: 4000A 1M
+Case 75: 3A 2M 1A 1M 1A 2M
+Case 76: 2A 1M 1A 10M
+Case 77: 1M 1016A
+Case 78: 2A 2M 9A 2M 16A 1M 6A 1M 7A
+Case 79: 1M 7A 2M 14A 1M 15A 1M 15A 1M 14A
+Case 80: 1A 2M 1A 1M 1A 3M 1A 1M 1A 3M 1A 1M 1A 2M 1A 1M 1A 10M 1A
+Case 81: 3A 1M 1A 16M
+Case 82: 100A 1M 17A 2M
+Case 83: 36A 2M 2A 3M 2A 1M 2A 2M 2A 2M 1A 1M 2A 1M 1A
+Case 84: 1A 2M 1A 2M 1A 6M 1A 4M 1A 2M 1A 1M 1A 1M 1A 2M 1A 2M 1A 1M 1A 2M 1A
+Case 85: 20A 1M 1A 1M 2A 1M 1A 1M 2A 1M 1A 3M 2A 1M 1A 1M 2A 1M 2A 2M 2A 1M 2A
+Case 86: 29M
+Case 87: 29M
+Case 88: impossible
+Case 89: 7A
+Case 90: 1M 3A
+Case 91: 2A 1M
+Case 92: 9A
+Case 93: 1M 3A
+Case 94: 1M
+Case 95: 79A
+Case 96: impossible
+Case 97: 100A
+Case 98: 15A 2M
+Case 99: 7A 1M
+Case 100: 8A 3M
+Case 101: impossible
+Case 102: 70A 1M
+Case 103: 9183A
+Case 104: 1M
+Case 105: 84A 1M
+Case 106: 2M
+Case 107: 10336A 2M
+Case 108: impossible
+Case 109: impossible
+Case 110: 1A
+Case 111: empty
+Case 112: empty
+Case 113: impossible

@@ -1,0 +1,44 @@
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <cstring>
+#include <map>
+#include <set>
+#include <vector>
+using namespace std;
+//void add(int a,int b,int c) {e[a]=c;next[a]=head[b];head[b]=a;}
+const int MOD=1000000007;
+int f[100005],F[100005],n,m,K,Q,A,B,C,D,i,T;
+int quick(int a,int b)
+{
+    int ans=1;
+    while (b) {if (b&1) ans=1ll*ans*a%MOD; a=1ll*a*a%MOD; b>>=1;}
+    return ans;
+}
+int getf(int k) {return f[k]==k?f[k]:f[k]=getf(f[k]);}
+int GETF(int k) {return F[k]==k?F[k]:F[k]=GETF(F[k]);}
+int main()
+{
+    scanf("%d",&T);
+    while (T--)
+    {
+        scanf("%d%d%d%d",&n,&m,&K,&Q);
+        for (i=1; i<=n+1; i++) f[i]=i;
+        for (i=1; i<=m+1; i++) F[i]=i;
+        for (i=1; i<=K; i++)
+        {
+            scanf("%d%d",&A,&B);
+            if (f[A]==A) f[A]=getf(A+1);
+            if (F[B]==B) F[B]=GETF(B+1);
+        }
+        while (Q--)
+        {
+            scanf("%d%d%d%d",&A,&B,&C,&D);
+            if (getf(A)>C || GETF(B)>D) puts("Yes"); else puts("No");
+        }
+    }
+    return 0;
+}

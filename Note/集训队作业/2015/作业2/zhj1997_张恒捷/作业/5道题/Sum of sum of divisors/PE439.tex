@@ -1,0 +1,59 @@
+\documentclass{noiassignment}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\newtheorem*{theorem*}{定理}
+\begin{document}
+
+%% 解题报告开始
+
+\title{Sum of sum of divisors 解题报告}
+\author{绍兴一中~~张恒捷}
+
+\maketitle
+
+\section{试题来源}
+PE 439
+
+\section{试题大意}
+另~$d(k)$~为所有k的约数之和。
+
+我们定义~$S(N)=\sum_{i=1}^N \sum_{j=1}^N d(i\cdot j)$~。
+
+求~$S(10^{11})~mod~10^9$~
+\newpage
+\section{算法介绍}
+$$S(N)=\sum_{i=1}^N \sum_{j=1}^N \sum_{k|i\cdot j} k$$
+
+~$k$~可以唯一被表示成~$u\cdot v$~的形式，其中~$u|i,v|j,gcd(\frac{i}{u},v)=1$~。
+
+\begin{align*}
+    S(N)=&\sum_{i=1}^N \sum_{j=1}^N \sum_{u|i} \sum_{v|j,gcd(\frac{i}{u},v)=1} uv\\
+    =&\sum_{i=1}^N \sum_{j=1}^N \sum_{u|i} \sum_{v|j} uv \sum_{d|gcd(\frac{i}{u},v)} \mu(d)\\
+    =&\sum_{d} \mu(d) \sum_{u,v} \left\lfloor\frac{n}{du} \right\rfloor \left\lfloor\frac{n}{dv} \right\rfloor uvd\\
+    =&\sum_{d}\mu(d)d \cdot F\left(\left\lfloor\frac{n}{d} \right\rfloor\right)^2\\\\
+    F(N)=&\sum_{i=1}^N i\cdot \left\lfloor\frac{N}{i} \right\rfloor
+\end{align*}
+
+为了防止出现对~$\mu(d)$~的计算，我们需要做一些转化。考虑下列等式：
+
+$$f(n) = \sum_{k=1}^n k \cdot \mu(k) \cdot g\left(\left\lfloor \frac{n}{k} \right\rfloor\right) \Leftrightarrow g(n) = \sum_{k=1}^n k \cdot f\left(\left\lfloor \frac{n}{k} \right\rfloor\right)$$
+
+证明：
+
+\begin{align*}
+ &\sum_{k=1}^n k \cdot f\left(\left\lfloor \frac{n}{k} \right\rfloor \right)\\
+     = &\sum_{k=1}^n k  \sum_{i=1}^{\left\lfloor \frac{n}{k} \right\rfloor} i\cdot \mu(i)\cdot g\left(\left\lfloor \frac{n}{ki} \right\rfloor \right)\\
+     = &\sum_{j=1}^n g\left(\left\lfloor \frac{n}{j} \right\rfloor \right) \sum_{i|j}\mu(i)i\cdot \frac{j}{i}\\
+     = &g(n)
+\end{align*}
+
+重新整理一下，我们可以得到：
+
+$$S(N) = F(N)^2 - \sum_{k=2}^N k \cdot S\left(\left\lfloor \frac{N}{k} \right\rfloor\right)$$
+
+于是递归计算~$S$~。~$F$~可由经典方法算出，总时间复杂度为~$O(N^{\frac{3}{4}})$~。
+%% 解题报告结束
+
+\end{document}

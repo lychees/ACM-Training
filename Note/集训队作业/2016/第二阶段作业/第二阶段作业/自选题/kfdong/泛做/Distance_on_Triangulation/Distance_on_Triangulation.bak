@@ -1,0 +1,61 @@
+\documentclass{noiassignment}
+\usepackage{url}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{neerc2015 解题报告}
+\author{福建省福州第一中学~~董克凡}
+
+\maketitle
+
+\section{试题来源}
+\par
+    题目链接：\url{https://neerc.ifmo.ru/information/neerc-2015.pdf}
+\par
+    这里是完整的信息，包括测试数据及题解：\url{https://neerc.ifmo.ru/information/index.html}
+\par
+    这是一场ACM-ICPC比赛，在这里我选择其中的几道有趣的题目给出我的做法。
+
+\section{Binary vs Decimal}
+\subsection{题目大意}
+\par
+    定义一个十进制数$p$为bindecimal的，当且仅当$p$的十进制表示是其二进制表示的一个后缀，求第$n$大的为bindecimal的数。
+\par
+    $n\le 10^4$
+\subsection{算法介绍}
+\par
+    首先一个显然的结论为，这个十进制数的每一位只能是0或者1。
+\par
+    考虑一个十进制数$\overline{a_na_{n-1}\dots a_{0}}$，这个数就等于$\sum_{i=0}^{n}10^ia_i$。那么整个树的二进制表示就等于每一位（$10^ia_i$）的二进制表示之和。那么由于$10^i=2^i*5^i$，也就是说$10^ia_i$的二进制表示的后$i-1$位都是0，即$a_i$能够影响到的二进制最低位为第$i$位。
+\par
+    不妨假设我们已经知道了前$i-1$位的值，以及这个$i-1$位数的二进制表示$\overline{b_tb_{t-1}\cdots b_{0}}$，若$a_i=0$，那么$10^ia_i$的二进制表示的第$i$位就为0，若$a_i=1$，那么$10^ia_i$的二进制表示的第$i$位就为1，故当且仅当$b_i=0$的时候，这个数才可以继续扩展下去，否则不论$a_i$是0还是1，都不能满足$a_i=b'_i$。另一方面，若$b_i=0$，那么不论$a_i$是0还是1，那么都有$a_i=b'_i$。也就是说，这样定义的一个$i-1$位的可扩展数在第$i$位时一定会产生一个为bindecimal的数。
+\par
+    所以我们用一个队列来维护可扩展数，然后每次暴力添加一位。那么这样维护的总的队列大小不会超过$2n$。
+\par
+    当然这题要写高精度。
+
+\section{Distance on Triangulation}
+\subsection{题目大意}
+\par
+    给出一个正$n$边形以及这个$n$边形的一个三角剖分，需要处理$q$组询问，每组询问给出两个数$s_i,t_i$，询问$s_i$到$t_i$的最短路。
+\par
+    $n\le 5*10^4,q\le 10^5$
+\subsection{算法讨论}
+\par
+    首先观察一下凸多边形三角剖分的性质。首先，如果有一条边$(x,y)$将这个多边形分为了两个部分（如下图的实线部分与虚线部分）
+\par \begin{center}
+    \includegraphics[height=100pt]{graph1.png} \end{center}
+\par
+    那么假设$u,v$属于不同的部分，那么由于三角剖分的对角线不会相交，所以$u,v$之间的路径必然需要经过$x,y$ 之中的至少一个节点。所以$dist(u,v)=\min\{dist(u,x)+dist(x,v),dist(u,y)+dist(y,v)\}$。这就启发我们此题可能可以使用分治的方法解决。
+\par
+    那么要使用分治，就需要找到一条对角线将整个多边形分为两个部分，而且要求这两个部分中较大的一个部分的大小不能太大。事实上，可以证明一定存在一条对角线，使得经过这条对角线的划分之后，分成的两个部分之中较小的一部分不小于原大小的三分之一。可以这样证明这个结论：由于三角剖分将这个多边形分为了很多个小的三角形，那么不妨考虑这个正多边形外接圆的圆心所在的那个三角形：
+\par \begin{center}
+    \includegraphics[height=100pt]{graph2.png} \end{center}
+\par
+    那么
+
+%% 解题报告结束
+
+\end{document}

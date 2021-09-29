@@ -1,0 +1,121 @@
+\documentclass{noiassignment}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\begin{document}
+
+%% 解题报告开始
+
+\title{CasinoGame 解题报告}
+\author{绍兴一中~~张恒捷}
+
+\maketitle
+
+\section{试题来源}
+Topcoder SRM 643 1050pts
+
+\section{试题大意}
+
+你正在玩一个游戏，你的初始分数是0分。有一列n个实数$a_i$，每回合你等概率随机选择一个数，那个数加入到了你的分数然后被删去了，之后其他数字会产生影响，直到所有数字都没了。
+
+对于剩下的其他数字，影响有3种：
+
+1.有33\%的概率这个数字会被删掉。（且不会加入到你的分数中）
+
+2.有33\%的概率这个数字除以2。
+
+3.有33\%的概率这个数字变成了它的平方根。
+
+4.有1\%的概率这个数字变成了它最初时的数~$a_i$。
+
+每个数字之间的影响是互不关联的。
+
+求你的分数的期望。
+
+数据范围：
+
+$n\leq 1000,a_i\leq 1000$
+\newpage
+\section{算法介绍}
+
+一开始看这道题会觉得状态不好设计，甚至连暴力都难以实现。所以需要更进一步的分析。
+
+由于数字之间的影响是独立的，所以
+
+$$\mathds{E}(Ans)=\sum_i \mathds{E}(a_i)$$
+
+现在题目简化成了求每个数字对答案贡献的期望。
+
+由于
+
+$$\mathds{E}(a_i)=\sum_s P(s) \times f_s(a_i)$$
+
+其中~$s$~为由除以2与开根号所组成的操作序列，$f_s(x)$表示~$x$~经过~$s$~这个操作序列后得到的值。这个式子的意思就是说$a_i$ 对答案的贡献等同于枚举它最终加入到答案时所经过的操作序列，然后累计相应的值。
+
+
+这样就可以成功的推出我们的第一个算法。
+\subsection{算法1}
+假设现在考虑$x$这个数字。
+
+我们可以用dp来求上式中的$P(s)$。$f(i,j,k)$表示已经经过了i回合了，x还没有被删除，当前序列只剩下~$j$~个数字，并且~$x$~已经经过了$k$这个操作序列的概率。由于操作只有两种，所以操作序列可以用一个二进制数来表示。转移时枚举这回合有多少数字被删掉了，可以得到转移：
+
+$$
+\left\{
+  \begin{array}{ll}
+    f(i,j,k) \cdot \frac{1}{j}  \rightarrow P(k) \\
+    f(i,j,k) \cdot \frac{j-1}{j} \cdot {j-2 \choose x} \cdot 0.33^x\cdot0.67^{j-2-x}\cdot 0.33 \rightarrow f(i+1,j-x-1,k+`/2')  (x \leq j-2)\\
+    f(i,j,k) \cdot \frac{j-1}{j} \cdot {j-2 \choose x} \cdot 0.33^x\cdot0.67^{j-2-x}\cdot 0.33 \rightarrow f(i+1,j-x-1,k+`\sqrt{}')  (x \leq j-2)\\
+  \end{array}
+\right.
+$$
+
+由于一个数字若不被选到，则每回合都有~$33\%$~的概率被删除。因此过了一些回合后还剩下很多数没被删掉的概率是极小的。经验证剩下的数字数随着回合以大概 0.8 的倍率收敛。假设最终收敛到对答案贡献几乎无影响时的时刻是~$t$~，则上述算法的复杂度为：
+
+\begin{align*}
+   &~~O\left(\sum_{i=0}^{t} \left(0.8^in\right)^2 \cdot 2^i \right)\\
+  = &~~ O\left(n^2 \sum_{i=0}^{t} 1.28^i\right)\\
+  = &~~ O\left(1.28^t n^2\right)
+\end{align*}
+
+很可惜收敛的倍率不是很快，所以这个算法会TLE。
+
+\subsection{算法2}
+继续观察dp的式子，发现~$f(i+1,j-x-1,k+`/2')$~与~$f(i+1,j-x-1,k+`\sqrt{}')$~的转移系数是相同的。那么对于相同长度的序列$S1$与$S2$，一定有$P(S1)=P(S2)$。事实上，我们根本不必存下具体的序列，只需要知道序列的长度即可。
+
+\begin{align*}
+   &~~\mathds{E}(a_i)\\
+  = &~~ \sum_s P(s) \cdot f_s(a_i)\\
+  = &~~ \sum_s P(len(s))\cdot P(s|len(s)) \cdot f_s(a_i)\\
+  = &~~ \sum_l P(l) \cdot \sum_{s,len(s)=l} f_s(a_i)\\
+  = &~~ \sum_l P(l) \cdot \mathds{E}(f_s(a_i)|len(s)=l)
+\end{align*}
+
+至于求$P(l)$，只要将上述$f(i,j,k)$的第三维写成k的长度即可，转移几乎相同。这步的复杂度降为：
+
+\begin{align*}
+   &~~ O\left(\sum_{i=0}^{t} \left(0.8^in\right)^2 \right)\\
+  = &~~O\left(n^2\right)
+\end{align*}
+
+最后只剩下求 ~$\mathds{E}(f_s(a_i)|len(s)=l)$~ 了。不妨设~$G_l(x)=\mathds{E}(f_s(x)|len(s)=l)$~。
+
+那么有转移：
+
+$$G_l(x)=\frac{1}{2}\left(G_{l-1}\left(\sqrt{x}\right) + G_{l-1}\left(\frac{x}{2}\right)\right)$$
+
+可以发现~$G_l(x)$~是一个关于~$ x~,~ \sqrt{x}~,~\sqrt[4]{x}~,\ldots,\sqrt[2^l]{x}$~的线性组合。设~$H_l(x,y)$~表示~$G_l(x)$~中~$\sqrt[2^y]{x}$~前的系数，那么有：
+
+$$H_l(x,y)=\frac{1}{2}\left(H_{l-1}(x,y-1) + \frac{H_{l-1}(x,y)}{\sqrt[y]{2}}\right) $$
+
+这一步的复杂度为：$O\left(t^2n\right)$
+
+这样一来所有变量都求出来了。只要枚举所有~$a_i$~，然后将~$x=a_i$~带入~$H_l(x,y)$~中就能求解了。
+
+
+最终复杂度：$O(n^2+t^2n)$
+
+$t$~取100也没有问题了。
+%% 解题报告结束
+
+\end{document}

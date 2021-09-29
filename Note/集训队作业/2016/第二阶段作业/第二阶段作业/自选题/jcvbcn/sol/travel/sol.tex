@@ -1,0 +1,102 @@
+\documentclass{noiassignment}
+\usepackage{array}
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathrm}{normal}{OT1}{cmr}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+
+\title{旅行~~解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+
+原创题，用于2014年某次校内模拟赛。
+
+\section{试题大意}
+给定一个$n$个点，$m$条边的无向图，第$i$条边连接$u_i,v_i$，长度为$t_i$。
+
+共有$q$个询问，每次给出$x,y,K$，求出点$x$到点$y$的路径长度模$K$后的值的最小值，路径允许经过重复的边和点。如果不存在$x$到$y$的路径则输出NIE。
+\section{数据规模}
+各部分分的规模请参阅原题面。
+
+对于所有数据，$n,m,q\le 50000,1\le t_i\le 10^9, 2\le K \le 10^9$，没有重边或自环。
+
+\section{算法介绍}
+\subsection{算法一}
+当$K$为奇数时，如果$x$到$y$连通，我们可以任取一条从$x$到$y$的路径，总路程为$d$，我们沿着这条路来回走，$x \to y \to x \to y \to x  \to \cdots$，可以看出每次到达$y$点时，已走过的路程是一个任意正奇数乘上$d$。所以我们可以走$Kd$的总路程后到达$y$，这时路径长度是$Kd \bmod K = 0$，是最小值。
+
+为了判断两点是否连通，可以使用并查集数据结构，也可以使用图遍历算法预处理。
+
+时间复杂度是$O(n+m+q)$。
+
+可以解决测试点$1\sim 4$，获得$20$分。
+
+\subsection{算法二}
+测试点$5\sim 9$中$K$的值为$2$，且所有边的长度都是$1$。
+
+我们首先对每个连通分量分开考虑。
+
+如果这个连通分量不是二分图，那么存在一个奇数长度的环$C$。我们任取一个$x$到$y$的路径，并强制它经过$C$上的某个点$u$。如果路径长度为偶数，那么已经找到了一个答案为$0$的解；否则我们在路径中从$u$点开始绕$C$一圈，也能得到一个答案为$0$的解。
+
+如果这个连通分量是二分图，则可以对顶点黑白染色。易知每走过一条边，当前的顶点颜色会改变一次。所以$x,y$同色时路径长度为偶数，答案为$0$；异色时路径长度为奇数，答案为$1$。
+
+判断一个连通分量是否为二分图可以用简单的图遍历算法，或者并查集。
+
+时间复杂度是$O(n+m+q)$。
+
+结合算法一，可以获得$45$分。
+
+\subsection{算法三}
+测试点$10\sim 14$中$K$的值比较小。可以考虑动态规划算法。
+
+对于每个询问$(x,y,K)$，用布尔数组$f[i][j]$表示从$x$出发，到达了$i$点，当前走过的路径长度模$K$的余数为$j$是否可行。
+
+转移的时候就是用$f[u][j]$去更新$f[v][(j+w(u,v))\bmod K]$的值。这个DP可以使用一个简单的BFS实现。
+
+总时间复杂度是$O(q(n+m)K)$，结合算法一可以获得$70$分。
+
+
+\subsection{算法四}
+最后几个测试点并没有什么特殊性质。我们需要研究通用算法。
+
+仍然对每个连通分量分别考虑。
+
+设这个连通分量中的所有边的长度分别是$t_1,t_2,\cdots,t_e$。
+
+令$d=\gcd(t_1,t_2,\cdots,t_e,K)$，则容易看出最后的答案一定是$d$的倍数。因为我们可以把所有$t_i$和$K$值都除以$d$，最后答案再乘以$d$。所以现在我们不妨设$d=\gcd(t_1,t_2,\cdots,t_e,K)=1$。
+
+如果现在$K$是奇数，那么仿照算法一中的分析，可以证明答案是$0$。
+
+现在讨论$K$是偶数的情形。考虑利用$\gcd(t_1,t_2,\cdots,t_e,K)=1$的性质，任找一条回路，使得它经过了所有边至少一次（于是也经过了所有点）。可以适当修改这条回路，任选一条边$t_i$，在回路中某一处来回走一遍$t_i$，于是总路程增加了$2t_i$。
+
+根据熟知的数论知识，存在非负整数$k_1,\cdots,k_e$，使得$k_1t_1+k_2t_2+\cdots+k_et_e \bmod K = 1$。于是我们可以用上面的方法构造一条经过了所有边的回路$C$，使得它的总长度$\bmod K = 2$。
+
+这时候我们仿照算法二中的分析，如果此连通分量中存在一个奇数长度的环$D$，我们可以通过不断地将$C$接到$D$中，得到$D'$，且$D'$的长度$\bmod K=1$。 这时任取一条$x$到$y$的路径，并不断往里面接入$D'$，一定能使答案为$0$。
+
+如果不存在奇数长度的环，那么我们也可以对顶点黑白染色，满足：如果边$(u,v)$的长度为奇数，则$u,v$异色；否则$u,v$同色。于是同色点间的路径长度是偶数，异色点间的路径长度是奇数，我们可以不断地把环$C$接入，使得最后的答案为$0$（偶数）或者$1$（奇数）。这显然是最小答案了，最后不要忘记乘上$d$再输出。
+
+总时间复杂度是$O(n+(m+q) \log K)$，可以获得$100$分。
+
+\section{总结}
+
+这道题的定位是一道NOI第二天第一题难度的题目。它考察了基本的图连通性判断、二分图判断，以及数论中最大公约数相关的小结论，同时需要选手对各种情况进行详尽的讨论和分析。虽然难度不大，但也能视作一个比较有营养的题。
+\end{document}

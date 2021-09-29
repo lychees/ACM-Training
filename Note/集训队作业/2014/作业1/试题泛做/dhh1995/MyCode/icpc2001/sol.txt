@@ -1,0 +1,44 @@
+http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=57
+
+01
+	A	3516
+	B	3562
+	C	3747
+	D	3921
+	E	4000
+	F	3593
+	G	3913
+	H	4048
+	I	3510
+
+[A]Airport Configuration
+	模拟
+[B]Say Cheese
+	floyd
+[C]Crossword Puzzle
+	搜索+若干剪枝？
+[D]Can't Cut Down the Forest for the Trees
+	对当前树求出每个限制它的角度。设L=sqrt(r*r+H*H)
+	树和边界只需考虑半径为L的圆。
+	树和树根分三种情况：
+	1.若H>两圆切线长度，则覆盖区间为切线夹角。
+	2.否则若半径为H的圆与树根相交，则只需考虑半径为L的圆与树根交的弧度。
+	3.否则分两个区间，均为半径L圆交点~半径H圆公切线切点。
+	然后对角度做区间覆盖，一旦发现可以砍的树则砍倒，更新其他区间。
+		离散区间，类似拓扑O(n^3) 或 暴力找可行的树 O(n^3logn)。
+[E]The Geoduck GUI
+	预处理每个的路线，枚举两个，扫描地图，判断停下的时间，求格子数和时间。
+[F]A Major Problem
+	模拟，记录12个半音，判断各种大调的存在情况（2^7枚举），求出7个音符。
+[G]Fixed Partition Memory Management
+	费用流 (bzoj 1070 修车)
+[H]Professor Monotonic's Network
+	题意补充：按顺序放
+	根据排序网络01原则。
+[I]A Vexing Problem
+	搜索+若干剪枝？
+	
+	最优性剪枝。
+	某种颜色只剩一个。
+//	剩2~3个时(无视其他颜色)是否可达
+	当前决策估价：一步能消去的方块数（不计连锁反应），按估价排序后dfs。

@@ -1,0 +1,23 @@
+\section{235D Graph Game}
+\subsection*{试题大意}
+Solve(t)
+
+(t是一张n个点，n条边的连通无向图)
+
+1.totalCost=totalCost+(size of T).运算符’=’表示赋值。(Size of T)表示图T中的结点个数。
+
+2.在图T中随机选择一个结点x(图T中每个点被选中的概率相等)
+
+3.从图T中删除结点x
+
+4.然后T变成了一些联通快
+
+5.分治处理所有的Solve(S) (S是剩下的连通块)
+
+求totalcost的期望值。
+
+$N\leq 3000$
+
+\subsection*{算法}
+考虑一棵树上的时候，total的期望$=\sum f(a,b)$，f(a,b)表示的是在a删除时，a与b连通的概率。设在树上a与b间的点数为n，只要a删的比所有点都早。所以f(a,b)=1/a与b之间的点数。考虑n条边的情况，a 与b 有两条路径。容斥一下。
+\subsection*{时间复杂度：$O(n^2)$，空间复杂度：$O(n)$}

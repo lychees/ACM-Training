@@ -1,0 +1,81 @@
+\documentclass{noiassignment}
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+\title{《支柱》解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+
+PA 2013 Round 6 Filary
+
+提交地址：http://main.edu.pl/pl/archive/pa/2013/fil
+
+BZOJ：http://www.lydsy.com/JudgeOnline/problem.php?id=3837
+\section{试题大意}
+
+给定$n$个正整数$w_1,w_2,\cdots w_n$，从中挑出$k$个数，满足：存在某一个$m\ge 2$，使得这$k$个数模$m$的余数相等。
+
+求出$k$的最大值，并求出此时的$m$。
+
+如果有多组解使得$k$最大，你要在此基础上求出$m$的最大值（保证这个值存在）。
+
+数据规模：$2 \le n \le 10^5,1\le w_i \le 10^7$。
+
+\section{算法介绍}
+\subsection{发现性质}
+稍微探索一下，可以发现这样的性质：最优解中$k\ge \left \lceil \dfrac{n}{2} \right \rceil$。
+\begin{proof}[证明]
+取$m=2$。按奇偶性将$w_i$分成两类，其中必有一类的元素数量不小于$\left \lceil \dfrac{n}{2} \right \rceil$，取出这一类所有元素，即可得到一组合法解。
+\end{proof}
+
+这一性质告诉我们，如果任意选取一个$w_i$，则它被包含在最优解中的概率至少是$\frac{1}{2}$。
+
+如果我们能设计一个算法，对于给定的$w_i$，求出包含它的最优解。那么随机选取$w_i$计算并重复$k$次，答案错误的概率不会超过$2^{-k}$。取$k=10$左右就已足够可靠，可以AC。
+\subsection{包含给定值的最优解}
+设必须被包含的$w_i$的值为$z$。
+
+对于剩下的某个$w_i$，若满足$w_i\equiv z \pmod m$，则有$m \big| w_i-z$。令$x_i=\left |w_i-z\right |$。对于正整数$m$，设集合$S_m=\left \{i: m\big| x_i\right \}$。则问题转化为：寻找一个$m$，使得$k=\left |S_m\right |$ 最大；并在此基础上使$m$尽量大。
+
+\subsubsection{$k$的最大值}
+我们先不考虑第二问$m$的最大值。这时，为了使$k$尽量大，不妨设选取的$m$是质数；否则，取$m$的一个质因子，得到的$k$不会更小。
+
+将所有$x_i$质因数分解。对于所有涉及到的质数$p$求出对应的$\left |S_p\right |$。则$\max \left |S_p\right |$ 即为第一问答案。
+
+为了高效分解质因数，只需先用线性筛法预处理出$10^7$范围内每个数的最小质因子。
+
+\subsubsection{$m$的最大值}
+现在若考虑$m$的最大值，则选取的$m$不一定是质数。
+
+设最优解中$m$的质因数分解为$m=\prod_{j} p_j^{\alpha_j}$。 根据定义，显然有$S_m \subseteq S_{p_j}$。又由于$m$是最优解，有$|S_m| \ge \left | S_{p_j}\right |$。从而，对于所有$j$，有$S_m = S_{p_j}$。
+
+因此，我们可以把$S_p$相同的所有$p$都合并起来。判断两个集合$S$是否相等可以用比较哈希值的方法。
+
+合并时还需要考虑的是每个质因子的次数$\alpha_j$。这也很简单，只要取$\alpha= \min_i \max\left \{d:p^d\big|x_i\right \}$即可。这样我们就可以求得最大的$m$值。
+
+\subsection{时空复杂度}
+记$W=\max w_i$。线性筛预处理时间$O(W)$，分解质因数的时间为$O(W)$。从而总时间为$O(W+kn\log W)$，其中$k$是随机次数。
+
+空间复杂度为$O(n+W)$。
+\section{总结}
+本题利用传统的方法很难得到足够优秀的算法。但经过思考分析后，我们可以发现关于最优解的一个性质，并利用它得到一个随机化的算法。
+\end{document}

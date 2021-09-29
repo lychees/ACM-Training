@@ -1,0 +1,70 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{GCD？LCM！解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    原创题~~\href{http://acm.hdu.edu.cn/showproblem.php?pid=5382}{Hdu5382}
+    
+    2015 Multi-University Training Contest 8
+
+\section{试题大意}
+    首先定义:
+    \begin{itemize}
+        \item $lcm(i,j)$表示$i$和$j$的最小公倍数
+        \item $gcd(i,j)$表示$i$和$j$的最大公约数
+        \item $[~]$内的表达式为$true$则值为$1$，$false$则为$0$
+    \end{itemize}
+    
+    设
+    \begin{eqnarray*}
+      F(n) &=& \sum_{i=1}^n\sum_{j=1}^n~[~lcm(i,j)+gcd(i,j)\geq n~] \\
+      S(n) &=& \sum_{i=1}^nF(i)
+    \end{eqnarray*}
+
+    求$S(n)~mod~258280327$，$T$组数据。
+
+\subsection{数据规模与约定}
+    $n\leq 10^6$，$T\leq 10^5$
+
+    时间限制 1s，空间限制 128MB
+
+\section{算法介绍}
+    设
+    \begin{eqnarray*}
+      G(n) &=& \sum_{d|n}[~gcd(d,\frac{n}{d})=1~] \\
+      T(n) &=& \sum_{i=1}^n\sum_{j=1}^n[~lcm(i,j)+gcd(i,j)=n~] \\
+      ~ &=& \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor}[~ijd+d=n~][~gcd(i,j)=1~] \\
+      ~ &=& \sum_{d=1}^n\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor}[~d(ij+1)=n~][~gcd(i,j)=1~] \\
+      ~ &=& \sum_{d|n}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{n}{d}\rfloor}[~ij=\frac{n}{d}-1~][~gcd(i,j)=1~] \\
+      ~ &=& \sum_{d|n}G\left(\frac{n}{d}-1\right)
+    \end{eqnarray*}
+    那么
+    \begin{eqnarray*}
+      F(n) &=& \sum_{i=1}^n\sum_{j=1}^n[~lcm(i,j)+gcd(i,j)\geq n~] \\
+      ~ &=& \sum_{i=1}^n\sum_{j=1}^n[~lcm(i,j)+gcd(i,j)\geq n-1~]-\sum_{i=1}^n\sum_{j=1}^n[~lcm(i,j)+gcd(i,j)=n-1~] \\
+      ~ &=& \sum_{i=1}^n\sum_{j=1}^n[~lcm(i,j)+gcd(i,j)\geq n-1~]-T(n-1) \\
+      ~ &=& \sum_{i=1}^{n-1}\sum_{j=1}^{n-1}[~lcm(i,j)+gcd(i,j)\geq n-1~]+(2n-1)-T(n-1) \\
+      ~ &=& F(n-1)+(2n-1)-T(n-1) \\
+      S(n) &=& \sum_{i=1}^nF(i)
+    \end{eqnarray*}
+
+    容易发现$G(n)$是积性函数，且对于质数$p$，$G(p^k)=2$，所以可以利用线性筛$O(n)$计算$1\sim n$的$G(n)$。
+
+    考虑枚举最大公约数$d$，再枚举$k$，计算$G(k-1)$对$T(kd)$的贡献，复杂度$O(n\ln n)$。
+
+    得到$T(n)$后，再$O(n)$递推计算$F(n)$，最后$O(n)$计算$S(n)$即可。
+    
+    时间复杂度$O(n\ln n)$，空间复杂度$O(n)$。
+
+%% 解题报告结束
+
+\end{document}

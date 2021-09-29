@@ -1,0 +1,46 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks,citecolor=green,linkcolor=blue,menucolor=red,
+			bookmarksnumbered=false,bookmarksopen=false,
+			%unicode,					%Linux
+			CJKbookmarks,				%windows
+			pdftex]{hyperref}
+
+\usepackage{pdfpages}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{ReturnOfTheJedi 解题报告}
+\author{绍兴市第一中学~~王文涛}
+
+\maketitle
+
+\section{试题来源}
+
+\href{https://community.topcoder.com/stat?c=problem_statement&pm=14118}
+{TopCoder SRM 678 Div.1 Level 3 ReturnOfTheJedi}
+
+\section{试题大意}
+给定$N$个实数二元组$(p_i,x_i)$。对于所有满足$1 \leq K \leq N$的$K$，你需要从$N$个二元组中选出$K$个使得这$K$个二元组的$x_i$之和与$p_i$之积的积最大，即最大化$ \prod{p_i} \sum{x_i} $。
+
+数据范围：$N \leq 400, ~ 1 \leq x_i \leq 10^9, ~ 0 < p_i \leq 1$
+
+\section{算法介绍}
+
+考虑把乘法转化为加法，我们对$p_i$取对数。我们可以把每个二元组看成一个向量$(\log p_i,x_i)$。那么就是要求一个向量的组合，求出这些向量之和$(\sum p_i, \sum q_i)$，不妨设为$(X,Y)$，那么要求最小化$e^X Y$。
+
+\begin{center}
+\includegraphics[scale=0.5]{ReturnOfTheJedi_graph.pdf}
+\end{center}
+
+我们在平面上画出函数$e^X Y$的“等高线”，可以发现对于一些点中函数值最小的那个点，作这个点对应函数“等高线”的切线，其他点都在切线的一侧。也就是说，存在一个方向向量$\vec{d}$使得与其点积最大的答案就是函数值最大的答案。
+
+考虑对于某个$\vec{d}$如何求出最优解。我们把所有向量按与$\vec{d}$的点积排序，取最小的$K$个即可。
+
+考虑逐渐旋转$\vec{d}$，维护每时每刻所有向量与其点积大小的排序。那么如果排序发生变化，也就是交换了相邻的两个元素，此时的切线方向就是这两个点连线的方向。因此只要把所有两两点的连线的斜率求出来作为断点，中间每一段连续的区间内排序都是不变的。每次碰到一个断点只要像冒泡排序一样尝试交换一些元素就好了。这样总的交换次数是$O(N^2)$的。每段连续区间内$O(N)$更新答案，这样总复杂度就是$O(N^3)$。如果动态维护前缀和，每次只更新交换的那些元素的前缀和对应的答案的话就可以做到$O(N^2)$。
+
+%% 解题报告结束
+
+\end{document}

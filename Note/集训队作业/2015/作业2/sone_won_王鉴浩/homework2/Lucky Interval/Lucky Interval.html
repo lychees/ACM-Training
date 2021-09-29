@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- saved from url=(0043)http://codeforces.com/contest/109/problem/E -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="X-Csrf-Token" content="fb3cfddbb6306caa1844bf2acdf77913">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="c4">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90">
+    <meta property="fb:admins" content="100001352546622">
+    <meta property="og:image" content="http://st.codeforces.com/images/codeforces-telegram-square.png">
+    <link rel="image_src" href="http://st.codeforces.com/images/codeforces-telegram-square.png">
+    <meta property="og:title" content="Problem - E - Codeforces">
+    <meta property="og:description" content="">
+    
+    <meta property="og:site_name" content="Codeforces">
+    
+    <meta name="cc" content="kg23mmcnw5j2">
+    
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2">
+    <title>Problem - E - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community">
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup">
+    <meta name="robots" content="index, follow">
+
+    <link rel="stylesheet" href="./Lucky Interval_files/font-awesome.min.css" type="text/css" charset="utf-8">
+
+        <link href="./Lucky Interval_files/css" rel="stylesheet" type="text/css">
+
+
+    <link rel="shortcut icon" type="image/png" href="http://st.codeforces.com/favicon.png">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="./Lucky Interval_files/prettify.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/clear.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/style.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/ttypography.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/problem-statement.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/second-level-menu.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/roundbox.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/datatable.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/table-form.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/topic.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/jquery.jgrowl.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/facebox.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/jquery.wysiwyg.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/jquery.autocomplete.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/codeforces.datepick.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/colorbox.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/jquery.drafts.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./Lucky Interval_files/community.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./Lucky Interval_files/status.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./Lucky Interval_files/sidebar-menu.css" type="text/css" charset="utf-8">
+
+    <script type="text/javascript" async="" src="./Lucky Interval_files/ga.js"></script><script type="text/javascript" src="./Lucky Interval_files/prettify.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/sockjs-0.2.1.min.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/vertxbus-1.2.min.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/facebox.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.datepick.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.drafts.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/codeforces.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="./Lucky Interval_files/style(1).css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Lucky Interval_files/style(2).css" type="text/css" charset="utf-8">
+
+    <script type="text/javascript" src="./Lucky Interval_files/share.js" charset="utf-8"></script>
+    
+    <script type="text/javascript" src="./Lucky Interval_files/jquery.markitup.js"></script>
+    <script type="text/javascript" src="./Lucky Interval_files/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+</head>
+<body><span style="display:none;" class="csrf-token" data-csrf="fb3cfddbb6306caa1844bf2acdf77913">&nbsp;</span>
+<div class="button-up" style="opacity: 0.7; width: 30px; height: 100%; position: fixed; left: 0px; top: 0px; cursor: pointer; text-align: center; line-height: 30px; color: rgb(211, 219, 228); font-weight: bold; font-size: 20px;"><i class="icon-circle-arrow-up"></i></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    $(".second-level-menu-list").lavaLamp({
+        fx: "backout",
+        speed: 1000
+    });
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    $(".clickable-title").click(function() {
+        Codeforces.alert($(this).attr("title"));
+    }).css("position", "relative").css("bottom", "3px");
+
+        });
+    </script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-743380-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function () {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = (document.location.protocol == 'https:' ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="body">
+        
+<div id="header" style="position: relative;">
+    <div style="float:left;">
+            <a href="http://codeforces.com/"><img src="./Lucky Interval_files/codeforces-logo-with-telegram.png"></a>
+    </div>
+    <div class="lang-chooser">
+        <div style="text-align: right;">
+            <a href="http://codeforces.com/contest/109/problem/E?locale=en"><img src="./Lucky Interval_files/gb.png" title="In English" alt="In English"></a>
+            <a href="http://codeforces.com/contest/109/problem/E?locale=ru"><img src="./Lucky Interval_files/ru.png" title="По-русски" alt="По-русски"></a>
+        </div>
+        <div>
+                <a href="http://codeforces.com/enter">Enter</a>
+                 | 
+                <a href="http://codeforces.com/register">Register</a>
+                
+        </div>
+    </div>
+    <div style="font-size: 0.8em; margin-top: 0.25em; position: absolute; right: 0; top: 4.25em;">
+    </div>
+    <br style="clear: both;">
+</div>
+
+        
+    <div class="roundbox menu-box" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<div class="menu-list-container">
+    <ul class="menu-list main-menu-list">
+                <li class=""><a href="http://codeforces.com/">Home</a></li>
+                <li class="current"><a href="http://codeforces.com/contests">Contests</a></li>
+                <li class=""><a href="http://codeforces.com/gyms">Gym</a></li>
+                <li class=""><a href="http://codeforces.com/problemset">Problemset</a></li>
+                <li class=""><a href="http://codeforces.com/groups">Groups</a></li>
+                <li class=""><a href="http://codeforces.com/ratings">Rating</a></li>
+                <li class=""><a href="http://codeforces.com/api/help">API</a></li>
+                <li class=""><a href="http://codeforces.com/help">Help</a></li>
+                <li class=""><a href="http://codeforces.com/bayan2015">Bayan 2015 <img class="icon" src="./Lucky Interval_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/rcc2015">RCC <img class="icon" src="./Lucky Interval_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/zeptolab2015">ZeptoLab Code Rush <img class="icon" src="./Lucky Interval_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/vkcup2015">VK Cup 2015 <img class="icon" src="./Lucky Interval_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/5years"><span style="color:#ce2a2a;position:relative;bottom:3px;font-weight:bold;">5 years!</span><img src="./Lucky Interval_files/gift-small.png"></a></li>
+    </ul>
+    <br style="clear: both;">
+</div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input.search").focus(function () {
+                if ($(this).attr("data-isPlaceholder") === "true") {
+                    $(this).val("");
+                    $(this).removeAttr("data-isPlaceholder");
+                }
+            });
+        });
+    </script>
+        <br style="height: 3em; clear: both;">
+        <div style="position: relative;">
+                    <div id="sidebar">
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <table class="rtable ">
+            <tbody>
+                <tr>
+                            <th class="left" style="width:100%;"><a style="color: black" href="http://codeforces.com/contest/109">Codeforces Beta Round #84 (Div. 1 Only)</a></th>
+                </tr>
+                    <tr>
+                                <td class="left bottom" colspan="1"><span class="contest-state-phase">Finished</span></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Practice?
+            <div class="top-links">
+            </div>
+        </div>
+<div>
+    <div style="margin:1em;font-size:0.8em;">
+        Want to solve the contest problems after the official contest ends? Just register for practice and you will be able to submit solutions.
+    </div>
+
+    <div style="text-align:center;margin:1em;">
+    <form action="" method="post"><input type="hidden" name="csrf_token" value="fb3cfddbb6306caa1844bf2acdf77913">
+        <input type="hidden" name="action" value="registerForPractice">
+        <input type="submit" name="submit" value="Register for practice" style="padding:0 0.5em;">
+    <input type="hidden" name="_tta" value="571"></form>
+    </div>    
+</div>
+    </div>
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Virtual participation
+            <div class="top-links">
+            </div>
+        </div>
+
+<div>
+    <div style="margin:1em;font-size:0.8em;">
+        Virtual contest is a way to take part in past contest, as close as possible to participation on time. It is supported only ACM-ICPC mode for virtual contests.
+
+If you've seen these problems, a virtual contest is not for you - solve these problems in the archive.
+
+If you just want to solve some problem from a contest, a virtual contest is not for you - solve this problem in the archive.
+
+Never use someone else's code, read the tutorials or communicate this other person during a virtual contest.
+    </div>
+
+    <div style="text-align:center;margin:1em;">
+        <form action="http://codeforces.com/contest/109/virtual" method="get">
+            <input type="submit" name="submit" value="Start virtual contest" style="padding:0 0.5em;">
+        </form>
+    </div>
+</div>
+    </div>
+
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Problem tags
+            <div class="top-links">
+            </div>
+        </div>
+<div style="padding: 0.5em;">
+    <div class="roundbox " style="margin:2px; padding:0 3px 2px 3px; background-color:#f0f0f0;float:left;">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<span class="tag-box" style="font-size:12px;" title="Brute force">
+    brute force
+</span>
+    </div>
+    <div class="roundbox " style="margin:2px; padding:0 3px 2px 3px; background-color:#f0f0f0;float:left;">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<span class="tag-box" style="font-size:12px;" title="Mathematics including integration, differential equations, etc">
+    math
+</span>
+    </div>
+    <div style="clear:both;text-align:right;font-size:11px;">
+            <span title="Please login into the Codeforces" class="notice">No tag edit access</span>
+    </div>
+</div>
+    </div>
+
+<form id="addTagForm" action="http://codeforces.com/data/problemTags" method="post" style="display:none;"><input type="hidden" name="csrf_token" value="fb3cfddbb6306caa1844bf2acdf77913">
+    <input name="action" type="hidden" value="addTag">
+    <input name="problemId" type="hidden" value="575">
+    <input name="tagName" type="hidden" value="">
+<input type="hidden" name="_tta" value="571"></form>
+
+<form id="removeTagForm" action="http://codeforces.com/data/problemTags" method="post" style="display:none;"><input type="hidden" name="csrf_token" value="fb3cfddbb6306caa1844bf2acdf77913">
+    <input name="action" type="hidden" value="removeTag">
+    <input name="problemId" type="hidden" value="575">
+    <input name="tagName" type="hidden" value="">
+<input type="hidden" name="_tta" value="571"></form>
+
+<script type="text/javascript">
+    $(".tag-box img").click(function () {
+        var tagName = $(this).attr("value");
+        Codeforces.confirm("Are you sure you want to remove this tag?", function () {
+            $("#removeTagForm input[name=tagName]").val(tagName);
+            $("#removeTagForm").submit();
+        }, function () {
+        }, "Yes", "No");
+    });
+
+    $("#addTagLink").click(function () {
+        $(this).hide();
+        $("#addTagLabel").show();
+        return false;
+    });
+
+    $("#addTagSelect").change(function () {
+        var tagName = $(this).val();
+        if (tagName === "") {
+            $("#addTagLabel").hide();
+            $("#addTagLink").show();
+        } else {
+            $("#addTagForm input[name=tagName]").val(tagName);
+            $("#addTagForm").submit();
+        }
+    });
+</script>
+
+<style type="text/css">
+#new-resource-form tr td {
+padding-top: 0.5em;
+}
+#new-resource-form input:not([type="submit"]) {
+font-size: 0.8em;
+}
+#new-resource-form select {
+font-size: 0.8em;
+}
+</style>
+<div class="roundbox sidebox sidebar-menu" style="">
+<div class="roundbox-lt">&nbsp;</div>
+<div class="roundbox-rt">&nbsp;</div>
+<div class="caption titled">→ Contest materials
+<div class="top-links">
+</div>
+</div>
+<ul>
+<li>
+<span>
+<a href="http://codeforces.com/blog/entry/2547" title="Tutorial" target="_blank">Tutorial</a>
+</span>
+<span style="float: right;">
+<img class="delete-resource-link" resourceid="1685" resourcename="Tutorial" resourcemanual="true" src="./Lucky Interval_files/close-10x10.png" style="position: relative;bottom: -1px;left: 1px;cursor: pointer;">
+</span>
+<div style="clear: both;"></div>
+</li>
+</ul>
+</div></div>
+                    <div id="pageContent" class="content-with-sidebar">
+                <div class="second-level-menu">
+<ul class="second-level-menu-list"><li class="backLava" style="position: absolute; display: block; margin: 0px; padding: 0px; left: 0px; top: 0px; width: 84px; height: 20px;"><div class="leftLava"></div><div class="bottomLava"></div><div class="cornerLava"></div></li>
+        <li class="current selectedLava"><a href="http://codeforces.com/contest/109">Problems</a></li>
+        <li><a href="http://codeforces.com/contest/109/submit">Submit Code</a></li>
+        <li><a href="http://codeforces.com/contest/109/my">My Submissions</a></li>
+        <li><a href="http://codeforces.com/contest/109/status">Status</a></li>
+        <li><a href="http://codeforces.com/contest/109/hacks">Hacks</a></li>
+        <li><a href="http://codeforces.com/contest/109/room/1">Room</a></li>
+        <li><a href="http://codeforces.com/contest/109/standings">Standings</a></li>
+        <li><a href="http://codeforces.com/contest/109/customtest">Custom Invocation</a></li>
+</ul>
+</div>
+
+<div class="problemindexholder" problemindex="E">
+<div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E. Lucky Interval</div><div class="time-limit"><div class="property-title">time limit per test</div>4 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">Petya loves lucky numbers. We all know that lucky numbers are the positive integers whose decimal representations contain only the lucky digits <span class="tex-font-style-bf">4</span> and <span class="tex-font-style-bf">7</span>. For example, numbers <span class="tex-font-style-bf">47</span>, <span class="tex-font-style-bf">744</span>, <span class="tex-font-style-bf">4</span> are lucky and <span class="tex-font-style-bf">5</span>, <span class="tex-font-style-bf">17</span>, <span class="tex-font-style-bf">467</span> are not.</span></p><p>One day Petya came across an interval of numbers <span class="tex-span">[<i>a</i>, <i>a</i> + <i>l</i> - 1]</span>. Let <span class="tex-span"><i>F</i>(<i>x</i>)</span> be the number of lucky digits of number <span class="tex-span"><i>x</i></span>. Find the minimum <span class="tex-span"><i>b</i></span> <span class="tex-span">(<i>a</i> &lt; <i>b</i>)</span> such, that <span class="tex-span"><i>F</i>(<i>a</i>)</span> = <span class="tex-span"><i>F</i>(<i>b</i>)</span>, <span class="tex-span"><i>F</i>(<i>a</i> + 1)</span> = <span class="tex-span"><i>F</i>(<i>b</i> + 1)</span>, ..., <span class="tex-span"><i>F</i>(<i>a</i> + <i>l</i> - 1)</span> = <span class="tex-span"><i>F</i>(<i>b</i> + <i>l</i> - 1)</span>.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The single line contains two integers <span class="tex-span"><i>a</i></span> and <span class="tex-span"><i>l</i></span> (<span class="tex-span">1 ≤ <i>a</i>, <i>l</i> ≤ 10<sup class="upper-index">9</sup></span>) — the interval's first number and the interval's length correspondingly.</p></div><div class="output-specification"><div class="section-title">Output</div><p>On the single line print number <span class="tex-span"><i>b</i></span> — the answer to the problem.</p></div><div class="sample-tests"><div class="section-title">Sample test(s)</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>7 4<br></pre></div><div class="output"><div class="title">Output</div><pre>17<br></pre></div><div class="input"><div class="title">Input</div><pre>4 7<br></pre></div><div class="output"><div class="title">Output</div><pre>14<br></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider that <span class="tex-span">[<i>a</i>, <i>b</i>]</span> denotes an interval of integers; this interval <span class="tex-font-style-bf">includes</span> the boundaries. That is, <img align="middle" class="tex-formula" src="./Lucky Interval_files/18b4a6012d95ad18891561410f0314497a578d63.png"></p></div></div></div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        var inputFileDiv = $("div.input-file");
+        var inputFile = inputFileDiv.text();
+        var outputFileDiv = $("div.output-file");
+        var outputFile = outputFileDiv.text();
+
+        if (!endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        var titleDiv = $("div.header div.title");
+
+
+
+    });
+</script>
+            </div>
+        </div>
+
+<br style="clear: both;">
+<div id="footer">
+    <div><a href="http://codeforces.com/">Codeforces</a> (c) Copyright 2010-2015 Mike Mirzayanov</div>
+    <div>The only programming contests Web 2.0 platform</div>
+    <div>Server time: 2015-04-23 03:24:40 (c4).</div>
+</div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($(window).width() < 1600) {
+                $('.button-up').css('width', '30px').css('line-height', '30px').css('font-size', '20px');
+            }
+
+            if ($(window).width() >= 1200) {
+                $ (window).scroll (function () {
+                    if ($ (this).scrollTop () > 100) {
+                        $ ('.button-up').fadeIn();
+                    } else {
+                        $ ('.button-up').fadeOut();
+                    }
+                });
+
+                $('.button-up').click(function () {
+                    $('body,html').animate({
+                        scrollTop: 0
+                    }, 500);
+                    return false;
+                });
+
+                $('.button-up').hover(function () {
+                    $(this).animate({
+                        'opacity':'1',
+                    }).css({'background-color':'#e7ebf0','color':'#6a86a4'});
+                }, function () {
+                    $(this).animate({
+                        'opacity':'0.7'
+                    }).css({'background':'none','color':'#d3dbe4'});;
+                });
+            }
+            Codeforces.focusOnError();
+        });
+    </script>
+</div>
+
+
+<div id="datepick-div" style="display: none;"></div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none; padding-bottom: 42px; padding-right: 42px;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div></body></html>

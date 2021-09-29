@@ -1,0 +1,71 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=black, anchorcolor=black, citecolor=black, urlcolor=black]{hyperref}
+\theoremstyle{theorem}
+\newtheorem{ex}{例题}
+\numberwithin{equation}{section}
+\usepackage{tikz}
+
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{BearGirls解题报告}
+\author{雅礼中学\ 毛啸}
+
+\maketitle
+\section{试题来源}
+TopCoder Single Round Match 673(SRM 673) Level 3
+
+\url{https://community.topcoder.com/stat?c=problem_statement&pm=13896}
+\section{试题大意}
+有$n$个妹子，每个妹子有一个颜值，妹子以随机的顺序来约会，你每次约会完之后你可以比较当前妹子和前面所有约过会的妹子的颜值高低从而决定是否选择当前妹子，如果选择则直接结束，否则继续与接下来的妹子约会。每次约会的代价$cost$相同且给定，你要确定一种策略最大化约会到的妹子的颜值减去约会的总代价的期望。
+\section{数据范围}
+$n \le 10000$。
+\section{算法简介}
+这道题的解法看似非常简单但是却没有人在考场上解出，原因很简单，它考察了我们逆向思维的能力，而很多人考场上都是正向思维，因此难以解出此题。
+
+我们考虑一般的做法：从前往后考虑当前约会了几个妹子，假设是第$i$个，这个时候你会怎么办呢。
+
+首先我们考虑枚举当前妹子的颜值排名，每个排名的概率均为$\frac{1}{i}$，如果是第$j$名的话颜值的期望我们设为$E_{i, j}$，我们假设已经会算$E_{i, j}$了，怎么做呢？
+
+你会发现你完全不知所措：我到底是拒绝好还是不拒绝好？因为你不知道拒绝完了之后到底答案会变优还是变劣。
+
+这道题的突破口正是在这里，我们为什么一定要拘泥于传统思路呢，我们考虑倒过来思考，如果从后往前考虑约会了几个妹子行不行呢？
+
+初看我们觉得这种思路很荒谬，我们连约会到了第$i$个妹子的情况都没考虑，却先去考虑第$i + 1$个，但是这种思路却是可行的。
+
+我们假设如果当前已经约会到了第$i$个妹子，那么期望的答案是$dp_i$。
+
+显然，如果当前妹子排名是$j$，那么贡献是$\frac{max\{dp_{i + 1}, E_{i, j} - i \times cost\}}{i}$，于是我们可以转移。
+
+最后我们考虑怎么求$E_{i, j}$。
+
+首先$E_{n, *}$是很好求的，就是排完序之后每个位置的值。
+
+考虑用$E_{i + 1, *}$推$E_{i, j}$，那么我们考虑第$i + 1$个妹子究竟在什么位置，如果她在第$j$个或者第$j$个的前面，那么贡献就是$E_{i + 1, j + 1} \times \frac{j + 1}{i + 1}$，如果在第$j$个的后面那么贡献是$E_{i + 1, j} \times \frac{i - j}{i + 1}$，所以我们可以计算每一个$E_{i, j}$。
+
+于是这题就被我们解决了，时间复杂度为$O(n ^ 2)$。
+
+%% 解题报告结束
+
+\end{document}

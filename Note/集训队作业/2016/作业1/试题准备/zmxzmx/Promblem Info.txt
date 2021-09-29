@@ -1,0 +1,3 @@
+P8056. Many Left(MANYLEFT)
+P7941. Martial Arts(MARTARTS)
+P7939. Arithmetic Progressions(COUNTARI)

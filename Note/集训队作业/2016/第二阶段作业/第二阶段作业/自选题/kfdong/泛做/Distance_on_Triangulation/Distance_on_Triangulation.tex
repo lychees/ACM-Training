@@ -1,0 +1,46 @@
+\documentclass{noiassignment}
+\usepackage{url}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Distance on Triangulation 解题报告}
+\author{福建省福州第一中学~~董克凡}
+
+\maketitle
+
+\section{试题来源}
+\par
+    题目链接：\url{https://neerc.ifmo.ru/information/neerc-2015.pdf}
+\par
+    测试数据：\url{https://neerc.ifmo.ru/information/index.html}
+
+\section{题目大意}
+\par
+    给出一个正$n$边形以及这个$n$边形的一个三角剖分，需要处理$q$组询问，每组询问给出两个数$s_i,t_i$，询问$s_i$到$t_i$的最短路。
+\par
+    $n\le 5*10^4,q\le 10^5$
+\section{算法讨论}
+\par
+    首先观察一下凸多边形三角剖分的性质。首先，如果有一条边$(x,y)$将这个多边形分为了两个部分（如下图的实线部分与虚线部分）
+\par \begin{center}
+    \includegraphics[height=100pt]{graph1.png} \end{center}
+\par
+    那么假设$u,v$属于不同的部分，那么由于三角剖分的对角线不会相交，所以$u,v$之间的路径必然需要经过$x,y$ 之中的至少一个节点。所以$dist(u,v)=\min\{dist(u,x)+dist(x,v),dist(u,y)+dist(y,v)\}$。这就启发我们此题可能可以使用分治的方法解决。
+\par
+    那么要使用分治，就需要找到一条对角线将整个多边形分为两个部分，而且要求这两个部分中较大的一个部分的大小不能太大。事实上，可以证明一定存在一条对角线，使得经过这条对角线的划分之后，分成的两个部分之中较小的一部分不小于原大小的三分之一。可以这样证明这个结论：由于三角剖分将这个多边形分为了很多个小的三角形，那么不妨考虑这个正多边形外接圆的圆心所在的那个三角形：
+\par \begin{center}
+    \includegraphics[height=100pt]{graph2.png} \end{center}
+\par
+    假设这个多边形的大小为$n$，那么由于这个三角形包含圆心，所以$(x,y),(y,z),(z,x)$的长度（指有向弧上的点的个数）都不会超过$\frac{n}{2}$，由于$(x,y)+(y,z)+(z,x)=n$，不妨假设$(x,y)\le(y,z)\le(z,x)$，那么$(z,x)\ge \frac{n}{3}$，结合上面的结论，$\frac{n}{3}\le (z,x)\le \frac{n}{2}$，故$zx$这条对角线将多边形分为两个部分，其中较大的一部分不会超过$\frac{n}{3}$。
+\par
+    所以我们选择$zx$这一条对角线，然后分别从$z,x$两点bfs求出这两点到所有点的最短路，然后处理跨越这条对角线的所有询问，再进行分治。故时间复杂度满足：
+    $$T(n)=T(\frac{2}{3}n)+T(\frac{1}{3}n)+\mathcal{O}(n)$$
+    由主定理得，$T(n)=\mathcal{O}(n\log n)$
+\par
+    需要注意的是，这个分治与树分治不同，这里选择的$x,z$两个点要同时分治给两边，所以分治的过程中需要把不属于这一侧的多边形的对角线删去，否则上式的最后一项就不止$\mathcal{O}(n)$了，这就需要对边表做一定的修改。
+
+%% 解题报告结束
+
+\end{document}

@@ -1,0 +1,10 @@
+\section{235E Number Challenge}
+
+\subsection*{题目大意}
+设$d(x)$为x的的因子个数。给出a,b,c，求$\sum_{i=1}^a{\sum_{j=1}^b{\sum_{k=1}^c{d(i \times j \times k)}}}$
+$a,b,c\leq 2000$
+\subsection*{算法}
+用$f[p][i][j][k]$表示最近用的质数是p，a被除到了i，b被除到了j，c被除到了k的方案。后三维实际上只会是a,b,c的约数。大于$\sqrt{max(a,b,c)}$ 的质数在a,b,c中最多出现一次,这些质数可以特殊处理。第一维可以滚存省内存。
+
+\subsection*{时间复杂度 ：$O(\sqrt{a\times b\times c}  log(\sqrt{a\times b \times c})\times 14)$  其中$14$ 为$\sqrt {2000}$，空间复杂度：$O(\sqrt{a\times b \times c})$}
+

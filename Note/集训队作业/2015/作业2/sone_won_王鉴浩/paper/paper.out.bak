@@ -1,0 +1,38 @@
+\BOOKMARK [1][-]{section.1}{引言}{}% 1
+\BOOKMARK [1][-]{section.2}{定义}{}% 2
+\BOOKMARK [1][-]{section.3}{前缀类解法}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Trie}{section.3}% 4
+\BOOKMARK [3][-]{subsubsection.3.1.1}{例题}{subsection.3.1}% 5
+\BOOKMARK [2][-]{subsection.3.2}{KMP}{section.3}% 6
+\BOOKMARK [3][-]{subsubsection.3.2.1}{KMP 自动机}{subsection.3.2}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.2}{例题}{subsection.3.2}% 8
+\BOOKMARK [2][-]{subsection.3.3}{AC 自动机}{section.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.3.1}{例题}{subsection.3.3}% 10
+\BOOKMARK [1][-]{section.4}{后缀类解法}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{后缀数组}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.1.1}{问题一}{subsection.4.1}% 13
+\BOOKMARK [3][-]{subsubsection.4.1.2}{问题二}{subsection.4.1}% 14
+\BOOKMARK [3][-]{subsubsection.4.1.3}{问题三}{subsection.4.1}% 15
+\BOOKMARK [2][-]{subsection.4.2}{后缀树}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.3}{后缀仙人掌}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.4}{后缀自动机}{section.4}% 18
+\BOOKMARK [3][-]{subsubsection.4.4.1}{例题}{subsection.4.4}% 19
+\BOOKMARK [1][-]{section.5}{Border Tree}{}% 20
+\BOOKMARK [2][-]{subsection.5.1}{Border Group}{section.5}% 21
+\BOOKMARK [2][-]{subsection.5.2}{构建 Border Tree}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.3}{分析性质}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.4}{例子}{section.5}% 24
+\BOOKMARK [1][-]{section.6}{一类文本匹配问题}{}% 25
+\BOOKMARK [2][-]{subsection.6.1}{子问题}{section.6}% 26
+\BOOKMARK [2][-]{subsection.6.2}{模型转换}{section.6}% 27
+\BOOKMARK [2][-]{subsection.6.3}{覆盖}{section.6}% 28
+\BOOKMARK [3][-]{subsubsection.6.3.1}{时间复杂度分析}{subsection.6.3}% 29
+\BOOKMARK [2][-]{subsection.6.4}{计算技巧}{section.6}% 30
+\BOOKMARK [3][-]{subsubsection.6.4.1}{简化问题}{subsection.6.4}% 31
+\BOOKMARK [3][-]{subsubsection.6.4.2}{新问题}{subsection.6.4}% 32
+\BOOKMARK [3][-]{subsubsection.6.4.3}{情况一 \(j<d\)}{subsection.6.4}% 33
+\BOOKMARK [3][-]{subsubsection.6.4.4}{情况二 \(j d\)}{subsection.6.4}% 34
+\BOOKMARK [3][-]{subsubsection.6.4.5}{时间复杂度分析}{subsection.6.4}% 35
+\BOOKMARK [2][-]{subsection.6.5}{例题}{section.6}% 36
+\BOOKMARK [1][-]{section.7}{感谢}{}% 37
+\BOOKMARK [1][-]{section.8}{参考文献}{}% 38

@@ -1,0 +1,82 @@
+#include <vector>
+#include <list>
+#include <map>
+#include <set>
+#include <queue>
+#include <deque>
+#include <stack>
+#include <bitset>
+#include <algorithm>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
+
+using namespace std;
+
+const int MOD=1000000007,inf=0x3f3f3f3f;
+const double eps=1e-12;
+typedef long long llint;
+typedef vector<int> vi;
+typedef unsigned int uint;
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+
+int T,n,m,a[1010],b[1010],f[1010][1010],g[1010][1010],vis[1010];
+
+int find_min(int L,int R,int x)
+{
+    int pos=lower_bound(vis+L,vis+R+1,x)-vis-1;
+    return pos;
+}
+
+int main()
+{
+    //freopen("c.in","r",stdin);
+    for(scanf("%d",&T);T--;)
+    {
+        scanf("%d%d",&n,&m);
+        for(int i=1;i<=n;i++) scanf("%d%d",a+i,b+i);
+        int ans=0;
+        for(int j=0;j<=m;j++)
+        {
+            if (j)
+            {
+                memset(vis,63,sizeof vis);
+                vis[0]=0;
+                int R=0;
+                for(int i=1;i<=n;i++)
+                {
+                    g[i][j]=find_min(0,R,b[i])+1;
+                    vis[g[i][j-1]]=min(vis[g[i][j-1]],b[i]);
+                    vis[f[i][j-1]]=min(vis[f[i][j-1]],a[i]);
+                    R=max(R,max(g[i][j-1],f[i][j-1]));
+                    if (g[i][j]>ans) ans=g[i][j];
+//                    printf("%d %d %d\n",i,j,g[i][j]);
+                }
+            }
+            memset(vis,63,sizeof vis);
+            vis[0]=0;
+            int R=0;
+            for(int i=1;i<=n;i++)
+            {
+                f[i][j]=find_min(0,R,a[i])+1;
+                vis[f[i][j]]=min(vis[f[i][j]],a[i]);
+                vis[g[i][j]]=min(vis[g[i][j]],b[i]);
+                R=max(R,max(f[i][j],g[i][j]));
+                if (f[i][j]>ans) ans=f[i][j];
+            }
+        }
+        printf("%d\n",ans);
+    }
+    return 0;    
+}

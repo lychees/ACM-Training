@@ -1,0 +1,59 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=black, anchorcolor=black, citecolor=black, urlcolor=black]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Goldbach's Conjecture 解题报告}
+\author{宁波市镇海中学~~邹逍遥}
+
+\maketitle
+
+\section{试题来源}
+2015 Multi-University Training Contest 9
+
+\url{http://acm.hdu.edu.cn/showproblem.php?pid=5403}
+
+\section{试题大意}
+令$d(x)$为$x$的约数和。定义$x$是Good number当且仅当$1\sim d(x)$的数都能被表示成$x$的某几个不同约数之和。
+
+给定一个偶数$p$，求$p$是否能表示成两个Good number之和。假如可以的话需要给出一种分解方案。
+
+为了方便spj检查正确性，同时需要输出分解出的两个数的质因数分解。
+
+\section{数据范围}
+$p\leq 10^{18}$
+
+不超过$T=40000$组数据。
+\section{算法介绍}
+\subsection{算法1}
+首先考虑如何判断Good number。
+
+设$x=\prod_{i=1}^k p_i^{e_i},p_1<p_2<\cdots<p_k$，那么$x$是Good number的充要条件就是每个$p_i$都满足$p_i-1\leq d(\prod_{j=1}^{i-1}p_j^{e_j})$。
+
+必要性比较显然，因为小于$p_i$的数只能使用这些数表示，假如这些数之和都不够就一定不满足条件。
+
+充分性可以考虑用$p_i$进制来表示1到$d(\prod_{j=1}^{i}p_j^{e_j})$之间的数。那么由于保证了小的那些数能拼出$1\sim p_i-1$，所以转进制之后每一位都一定有办法拼出来。
+
+那么这样就获得了一个暴力算法：枚举$i$检查$i$和$x-i$是不是Good number。
+
+但是这样显然是会TLE的，假设瞬间能找到解，每次只分解一个$10^{18}$级别的数也需要$O(Tp^{\frac{1}{4}})$的时间复杂度，所以光找方案时间就不够用了。
+\subsection{算法2}
+由于光分解$p$就会TLE，所以必须想办法将解表示成两个数乘积的形式。这样两个数都是$10^9$级别，就可以承受了。
+
+那么就需要找出Good number分解成两个数后的一些性质。
+
+观察到Good number的充分性证明中并不需要保证$p_i$按照从小到大的顺序加入。也就是说对于一个Good number $x$，乘上任意一个小于$d(x)$的质数$p$后得到的数$xp$也是Good number。
+
+由于$x$是Good number所以$d(x)\geq 2x-1$，假如$x$和$x+2$都是Good number，使用扩展欧几里得就能将$x^2+2$到$3x^2$之间的数表示成$x$的倍数和$x+2$的倍数之和的形式。
+
+也就是说只需要预处理出$O(\log p)$对$x$和$x+2$都是Good number的情况就能覆盖所有情况了。
+
+由于Good number的密度还是比较大的，预处理部分只需要每找出一对相邻的Good number之后在扩大$\sqrt{3}$倍以内的地方暴力找到下一组Good number即可。
+
+时间复杂度$O(Tp^{\frac{1}{8}})$
+
+%% 解题报告结束
+
+\end{document}

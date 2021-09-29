@@ -1,0 +1,72 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{存在~解题报告}
+\author{安徽师范大学附属中学~~吴作凡}
+
+\maketitle
+
+\section{试题来源}
+
+陶润洲同学告诉我的题目，不清楚来源。
+
+\section{试题大意}
+
+有一个$n-1$阶的行列式，第$i$行第$j$列($1\leq i,j\leq n-1$)的数是$gcd(i+1,j+1)$的因子数，求它的值。
+
+数据范围：$2 \leq n \leq 10^{18}$。
+
+\section{算法介绍}
+
+先考虑一个简单一点的问题：一个$n$阶的行列式，第$i$行第$j$列($1\leq i,j\leq n-1$)的数是$gcd(i,j)$的因子数，求它的值。
+
+可以用行列式的一个性质——两个矩阵的积的行列式等于它们行列式的积。构造一个矩阵$A$，使得$A_{i,j}=[j|i]$，也就是如果$j$是$i$的因子则$A_{i,j}=1$，否则为0，那么$A$的转置$A^T_{i,j}=[i|j]$。令$B=AA^T$，可以发现$$B_{i,j}=\sum_{k=1}^{n}A_{i,k}*A^T_{k,j}=\sum_{k=1}^{n}[k|i][k|j]$$于是$B$就是需要求值的行列式，由于$A^T$是上三角矩阵，行列式的值就是对角线的积，而对角线的值必定为1，所以$det(B)=det(A)det(A^T)=1$。
+
+回到原题，我们依然可以构造一个矩阵$C$，$C_{i,j}=[j|i]$，特别的，我们令$C_{1,i}=\mu(i)$，这里的$\mu(i)$是莫比乌斯函数，考虑$D=CC^T$。
+
+可以发现$$D_{1,1}=\sum_{k=1}^{n}C_{1,k}C^T_{k,1}=\sum_{k=1}^{n}\mu^2(k)$$
+$$D_{1,i}=\sum_{k=1}^{n}C_{1,k}C^T_{k,i}=\sum_{k=1}^{n}\mu(k)[k|i]=0~[i!=1] $$
+$$D_{i,1}=\sum_{k=1}^{n}C_{i,k}C^T_{k,1}=\sum_{k=1}^{n}\mu(k)[k|i]=0~[i!=1] $$
+$$D_{i,j}=\sum_{k=1}^{n}C_{i,k}C^T_{k,j}=\sum_{k=1}^{n}[k|i][k|j]~[i!=1,j!=1] $$
+
+所以将$D$去掉第一行第一列的余子式就是要求的答案，而第一行和第一列只有$D_{1,1}$有值，所以答案就是$\frac{det(D)}{\sum_{k=1}^{n}\mu^2(k)}$，而$det(D)=det(C)det(C^T)=det(C)^2$，于是现在就是要求出$det(C)$。
+
+最简单的求行列式值的方法就是高斯消元成上三角或者下三角矩阵，我们可以考虑用第2行到第$n$行来将第一行的$\mu$全部消掉，那么答案就是第一行第一列的值。
+
+我们可以用数学归纳法证明——若$\mu(i)$不为0，那么消掉$\mu(i)$会使得$C_{1,1}$加1。
+
+当$i=2$的时候显然成立，现在假设当$2\leq i<m$的时候都成立，证明当$i=m$的时候依然成立。
+\begin{itemize}
+\item 若$\mu(m)=0$，不需要消元，显然成立。
+
+\item 若$\mu(m)=1$，那么先将第一行减去第$m$行，那么第一行的某些元素变成了-1，这些元素都是$m$的因子而且$\mu$值都不为0。一个数如果原来$\mu$就为-1，那么为了消去现在的值会使得$C_{1,1}$加1，否则会减1。因为$m$有偶数个质因子，那么最终会加2，再减去将第一行减去第$m$行时减掉的1，$C_{1,1}$加了1。
+
+\item 若$\mu(m)=-1$，证明类似。
+\end{itemize}
+
+由于$\mu$函数值只能为0,1或-1，$\mu(x)$不为0贡献为1的话就可以表示为$\mu^2(x)$，那么$det(C)=\sum_{k=1}^{n}\mu^2(k)$，所以答案是$$\frac{det(D)}{\sum_{k=1}^{n}\mu^2(k)}=\frac{det(C)^2}{\sum_{k=1}^{n}\mu^2(k)}=\sum_{k=1}^{n}\mu^2(k)$$。
+
+为了计算这个式子，我们有$\mu^2(n)=\sum_{d^2|n}\mu(d)$，证明如下：
+
+设$n$的质因子分解是$\prod_{k} p_k^{a_k}$，令$m=\prod_{k} p_k^{\lfloor a_k/2 \rfloor}$，那么$\mu^2(n)=1$的充要条件是$a_k=1$也就是$m=1$，而$[d^2|n]=[d|m]$，所以$$\sum_{d^2|n}\mu(d)=\sum_{d|m}\mu(d)=[m=1]=\mu^2(n)$$
+
+所以答案就变成了$$\sum_{k=1}^{n}\mu^2(k)=\sum_{k=1}^{n}\sum_{d^2|k}\mu(d)=\sum_{kd^2\leq n}\mu(d)=\sum_{k=1}^{n^{0.5}} \left \lfloor \frac{n}{k^2} \right \rfloor\mu(k)$$直接线性筛法求出$\mu(k)$ 可以做到$O(n^{0.5})$，但是要通过全部数据我们需要更优秀的算法。
+
+我们设定一个阈值$M$，暴力$M$以内的所有$k$计算贡献，那么剩下的部分$\left \lfloor \frac{n}{k^2} \right \rfloor$都在$\lfloor\frac{n}{M^2}\rfloor$以内，于是可以换一种枚举方式，枚举$\left \lfloor \frac{n}{k^2} \right \rfloor$，于是就是要算$$\sum_{t=1}^{\lfloor\frac{n}{M^2}\rfloor} \sum_{k=M+1}^{\lfloor \sqrt{\frac{n}{t}} \rfloor}\mu(k)$$
+
+令$S(n)=\sum_{k=1}^{n} \mu(k)$，于是就是求$\sum_{t=1}^{\lfloor\frac{n}{M^2}\rfloor}S(\lfloor \sqrt{\frac{n}{t}} \rfloor)-S(M)$，而莫比乌斯函数的前缀和我们有一种经典方法计算$$\sum_{i=1}^{n}\sum_{j|i}\mu(j)=\sum_{ij\leq n}\mu(j)=\sum_{i=1}^{n}\sum_{j=1}^{\lfloor \frac{n}{i}\rfloor}\mu(j)=\sum_{i=1}^{n}S(\lfloor \frac{n}{i}\rfloor)$$
+而我们知道
+$$\sum_{i=1}^{n}\sum_{j|i}\mu(j)=\sum_{i=1}^{n}[i=1]=1$$
+所以$$S(n)=1-\sum_{i=2}^{n}S(\lfloor \frac{n}{i}\rfloor)$$
+众所周知$\lfloor \frac{n}{i}\rfloor$只有$O(\sqrt{n})$种不同的值，于是可以枚举。在本题中，需要计算$S(k)$的时候，后面枚举的部分的$S$都已经提前算好。
+
+分析时间复杂度，暴力的部分是$O(M)$，而后面枚举的复杂度是$$O(\sum_{t=1}^{\lfloor\frac{n}{M^2}\rfloor}\sqrt{\lfloor \sqrt{\frac{n}{t}} \rfloor} )\approx O(n^{0.25} \sum_{t=1}^{\lfloor\frac{n}{M^2}\rfloor}t^{-0.25})\approx O(\frac{n}{M^{1.5}})$$
+为了使得两部分复杂度尽量平均，可以令$M=n^{0.4}$，于是总时间复杂度就是$O(n^{0.4})$，可以通过本题。
+%% 解题报告结束
+
+\end{document}

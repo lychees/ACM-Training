@@ -1,0 +1,55 @@
+#include<iostream>
+#include<algorithm>
+#include<cmath>
+#include<cstring>
+#include<cstdio>
+using namespace std;
+#define ll long long
+#define pp 1000000007
+#define N 305
+int a[N][N],dp[N][N],n,m;
+ll mo(ll a){
+   if(a>=0 && a<pp)return a;
+   a%=pp;
+   if(a<0)a+=pp;
+   return a;
+}
+int get(int x,int y){
+    if(x<=y)return dp[x][y];
+    return 1;
+}
+bool check(int t1,int t2,int t3,int t4){
+     if(t3>t4 || t1>t2)return 1;
+     return (a[t4][t2]-a[t3-1][t2]-a[t4][t1-1]+a[t3-1][t1-1])==0;
+}
+void solved(){
+     scanf("%d%d",&n,&m);
+     memset(a,0,sizeof a);
+     memset(dp,0,sizeof dp);
+     while(m--){
+       int x,y;
+       scanf("%d%d",&x,&y);
+       a[x][y]=1;
+     }
+     for(int i=1;i<=n;i++)
+       if(a[i][i]){
+         printf("0\n");
+         return ;
+       }
+     for(int i=1;i<=n;i++)
+       for(int j=1;j<=n;j++)a[i][j]+=a[i-1][j]+a[i][j-1]-a[i-1][j-1];
+     for(int i=1;i<=n;i++)dp[i][i]=1;
+     for(int len=2;len<=n;len++)
+       for(int i=1;i<=n-len+1;i++){
+         int j=i+len-1;
+         for(int k=i;k<=j;k++)
+           if(check(i,k-1,k,j) && check(k+1,j,k,k))dp[i][j]=mo(dp[i][j]+(ll)get(i,k-1)*get(k+1,j));
+       }
+     cout<<dp[1][n]<<endl;
+}
+int main(){
+    int T;
+    scanf("%d",&T);
+    while(T--)solved();
+    return 0;
+}

@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.14pt}
+\beamer@sectionintoc {1}{Contents}{2}{0}{1}
+\beamer@sectionintoc {2}{Introduction}{4}{0}{2}
+\beamer@sectionintoc {3}{Optimization}{26}{0}{3}
+\beamer@sectionintoc {4}{Convolution taking modulo by arbitrary numbers}{42}{0}{4}
+\beamer@sectionintoc {5}{Summary}{53}{0}{5}
+\beamer@sectionintoc {6}{Acknowledgements}{54}{0}{6}
+\beamer@sectionintoc {7}{Questions}{55}{0}{7}

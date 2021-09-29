@@ -1,0 +1,104 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <map>
+#include <deque>
+#include <queue>
+#include <set>
+#include <cstdlib>
+#include <cassert>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> PI;
+typedef vector<int> VI;
+#define mp make_pair
+#define pb push_back
+#define X first
+#define Y second
+#define cl(x,a) memset(x,a,sizeof(x))
+#define rep(i,j,k) for(int i=(j);i<=(k);i++)
+
+#define N 300010
+#define M 600010
+
+int n, pos[N], h[M], n1[M], p[M], q[M], ee, rt = 1, tot = 1;
+int st[M], ed[M], d[M], stot, sz[M];
+int m, a[M * 2], stk[M], top, vis[M], Q, seq[M];
+int bit[M * 2], fa[M], rk[M], pr[M], fir[M], now, la;
+int ans[19][N], lg[N];
+
+void ae(int x, int y){
+    p[ee] = y; n1[ee] = h[x]; h[x] = ee ++;
+}
+
+void prepare(){
+    for(int i = 1;i <= n;i ++) sz[i] = rk[i] = fa[i] = d[i] = seq[i] = pr[i] = 0;
+    int s = 1, e = 1;
+    q[1] = 1;
+    d[1] = 0;
+    while(s <= e){
+        int u = q[s ++];
+        for(int i = h[u]; ~i; i = n1[i]) if(p[i] != fa[u]) fa[p[i]] = u, q[++ e] = p[i], d[p[i]] = d[u] + 1;
+    }
+    for(int i = e; i; i --){
+        int u = q[i], he = 0;
+        sz[u] ++;
+        for(int j = h[u]; ~j; j = n1[j]) if(p[j] != fa[u]){
+            sz[u] += sz[p[j]];
+            if(sz[p[j]] > sz[he]) he = p[j];
+        }
+        fir[u] = he;
+    }
+    now = la = 0;
+    for(int i = 1; i <= e; i ++){
+        if(!rk[q[i]]){
+            for(int u = q[i]; u; u = fir[u]) seq[++ now] = u, rk[u] = now;
+            for(int j = la + 1; j <= now; j ++) pr[seq[j]] = seq[la + 1];
+            la = now;
+        }
+    }
+}
+
+int lca(int x, int y){
+    int nx, ny;
+    for(; pr[x] != pr[y]; x = fa[nx]){
+        nx = pr[x], ny = pr[y];
+        if(d[nx] < d[ny]) swap(x, y), swap(nx, ny);
+    }
+    if(d[x] < d[y]) swap(x, y);
+    return y;
+}
+
+int ask(int l,int r){
+    int k=lg[r-l+1];
+    return lca(ans[k][l],ans[k][r-(1<<k)+1]);
+}
+
+int main(){
+    for(int i=2;i<=300000;i++) if(i&(i-1))lg[i]=lg[i-1];else lg[i]=lg[i-1]+1;
+    while(scanf("%d",&n)!=EOF){
+        memset(h,-1,sizeof(h));
+        ee=0;
+        int x,y;
+        for(int i=1;i<n;i++){
+            scanf("%d%d",&x,&y);
+            ae(x,y);
+            ae(y,x);
+        }
+        prepare();
+        for(int i=1;i<=n;i++) ans[0][i]=i;
+        for(int i=1;i<=18;i++)
+            for(int j=1;j+(1<<i)-1<=n;j++)
+                ans[i][j]=lca(ans[i-1][j],ans[i-1][j+(1<<i-1)]);
+        int Q;
+        scanf("%d",&Q);
+        while(Q--){
+            scanf("%d%d",&x,&y);
+            printf("%d\n",ask(x,y));
+        }
+    }
+    return 0;
+}

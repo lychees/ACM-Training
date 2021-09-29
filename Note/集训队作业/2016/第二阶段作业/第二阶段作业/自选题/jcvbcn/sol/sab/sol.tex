@@ -1,0 +1,80 @@
+\documentclass{noiassignment}
+\usepackage{array}
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathrm}{normal}{OT1}{cmr}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+
+\title{SAB~~解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+PA2015 Round 4
+
+\section{试题大意}
+这是一道分布式题目。
+
+给定一个$n$个点，$m$条边的无向图，你需要求出它的桥边的个数。
+
+桥边$(u,v)$的定义是所有从$u$到$v$的路径都需要经过这条边。
+
+你可以通过调用库函数来得到第$i$条边的两端点的编号。
+
+\section{数据规模}
+
+$n\le 200000, m\le 10^8$。
+
+你可以同时在$100$台电脑上运行你的程序，它们之间可以相互通信。一台电脑发出的信息包的个数不超过$1000$，一台电脑发出的信息的总大小不超过$8$MB。
+
+\section{算法介绍}
+
+从2014年开始，波兰PA比赛的第四轮会包含两个分布式题目。去年我打了PA2015的线上赛，这道题就是那次第四轮的第二题。（第一题是对两个长度$2\times 10^9$级别的字符串求匹配次数）
+
+
+首先回顾一下用来解决桥边问题的经典的Tarjan算法，它依赖于DFS。在DFS的过程中，之后将会遇到哪些边，以及那时栈中的情况怎样，等等，都是无法提前知道的，只能一步步执行下来，因此不容易通过并行优化算法。所以直接套用经典算法是行不通的。
+
+再来看一下这道题的数据规模，$n$的范围比较小，在一台电脑可以处理的范围内；然而$m$比较大，所以肯定是要把这些边平均分配给每台电脑分别处理的。
+
+令$k$是电脑的数量。我们让每台电脑对分配给它的$m/k$条边跑一遍Tarjan算法，从而得到这些边确定的$n$个点之间的连通关系和双连通关系。
+
+接下来很自然的想到要把两台电脑的信息合并。
+
+首先找一个比较方便的能够表示连通性的方法。我的写法是建一张新图：把同一个双连通分量的点用一个环连在一起，剩下的一些连接两个双连通分量的树边还是和原来一样连接。这样得到的新图是由若干个仙人球组成的（沙漠）。可以根据仙人掌的性质证明它的边数量是$O(n)$级别的。
+
+接下来合并就很简单了，只要把两台电脑求出的新图的所有边都放到一起，然后再跑一遍Tarjan算法。然后把这次得到的连通关系再用一个新的仙人球沙漠表示出来。
+
+为了保证复杂度靠谱，直接一个一个合并是不行的。要充分利用分布式的力量，可以对这$k$台电脑建一个线段树，然后从底向上合并，这样只有$O(\log k)$层合并。
+
+\section{复杂度分析}
+
+首先每个结点要对一个$n$个点，$m/k$条边的图跑Tarjan，复杂度是$O(n+m/k)$。
+
+然后看合并的过程，合并次数最多的根结点要进行$O(\log k)$次合并，每次要对$n$个点，$O(n)$条边跑Tarjan，复杂度是$O(n)$。
+
+所以总的时间复杂度是$O(m/k+n \log k)$。
+
+再来看一下通信的复杂度。两台电脑要合并信息时，其中一方要发送$O(n)$个整数，另一方进行计算。我们可以规定一台电脑等到之后用不到它的时候，才把合并在自己这里的信息给发送出去，于是每台电脑只需要发送一次信息，也就是$O(n \log n)$个bit。
+
+\section{总结}
+目前算法竞赛里面DGCJ和PA是有分布式题的，但国内OI还没有看到过。我觉得UOJ以后肯定有能力评测这样的题目，等到那时说不定会诞生一波新的毒瘤黑科技。嘿嘿嘿。
+
+\end{document}

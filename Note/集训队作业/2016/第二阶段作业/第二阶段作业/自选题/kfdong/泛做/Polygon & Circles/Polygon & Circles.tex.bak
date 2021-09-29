@@ -1,0 +1,69 @@
+\documentclass{noiassignment}
+\begin{document}
+
+%% 解题报告开始
+
+\title{Polygon \& Circles 解题报告}
+\author{福州一中~~~董克凡}
+
+\maketitle
+
+\section{试题来源}
+\par
+	codechef MARCH16 CHEFPC
+\par
+	提交地址：https://www.codechef.com/problems/CHEFPC
+%end of section
+	
+\section{试题大意}
+\par
+    给出$n$个圆以及一个点数为$m$的凸多边形，求凸多边形中，至少被一个圆包含的面积。
+%end of section
+\par
+	$n,m\le 50$，答案精确到两位小数。
+%end of section
+
+\section{算法介绍}
+\subsection{算法一：自适应辛普森}
+\par
+    对于所有要求求出某个二维区域面积的题目，都可以用自适应辛普森积分暴力求解，不过在这个算法在运行时间较小的时候会损失部分精度。
+\par
+    我们可以把要求的区域看做某个函数$f(x)$在区间$[l,r]$上的积分，其中$l,r$分别表示这个区域的最左边的点和最右边的点的横坐标。由积分的定义，$f(t)$就应该表示直线$x=t$与这个区域的交的线段长度。在此问题中，$f(t)$是容易求出的：每个圆覆盖了直线$x=t$上的一条线段，那么可以枚举每一个圆，求出线段的左右端点，凸多边形同样覆盖了直线上的一条线段，也要求出线段端点。然后将所有圆覆盖的线段的端点排序，这些端点将直线分为了一些线段（或者射线，但射线显然不在任意一个圆内），扫描这些线段，同时维护一个变量表示当前的一段线段被多少圆覆盖，让这一段线段同时包含在多边形和至少一个圆内时，将这段线段贡献答案。
+\par
+    用以上方法可以求出对于每一个点$x_0$的函数值$f(x_0)$，接下来考虑如何求出积分。
+\par
+    对于区间$[l,r]$，如果在这段区间中将$f(x)$当做一个二次函数，那么很容易得到如下的近似：
+    $$F(l,r)=\int_l^r f(x) \mathrm{d}x=\frac{r-l}{6}\left(f(l)+f(r)+4f(mid)\right),mid=\frac{l+r}{2}$$
+    用这个公式计算区间$[l,r],[l,mid],[mid,r]$的值，若$$\left|F(l,r)-F(l,mid)+F(mid,r)\right|>\epsilon$$
+    那么递归计算$[l,mid],[mid,r]$，否则可以认为这次模拟足够精确，直接用模拟值作为返回值即可。
+\par
+    $\epsilon$越小，程序运行时间越长，得到的结果就越精确。如果$\epsilon$设得合理，那么这个算法是可以通过此题的。
+\subsection{算法二：扫描线}
+\par
+    类似圆的面积并这一题，可以先预处理出所有关键点，包括圆与圆，圆与多边形的交点，多边形的顶点，圆的最上最下两个端点，然后将这些关键点按照纵坐标排序。考虑两个关键点之间的区域，这块区域中不会出现曲线相交的情况，那么合法的区域是一些梯形加上一些弓形，这两种规则图形的面积可以直接计算，所以可以使用类似算法一的做法从左到右扫描整个结构，将合法的区域求出来，然后把合法区域的面积相加。
+\par
+    这个算法的时间复杂度为$\mathcal{O}\left((n+m)^3\right)$
+\subsection{算法三：格林公式}
+\par
+    一个封闭区域$\mathrm{D}$的面积可以看为一个二重积分：
+    $$\iint_{\mathrm{D}}1\mathrm{d}x\mathrm{d}y$$
+根据格林公式：
+    $$\iint_{\mathrm{D}}\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\mathrm{d}x\mathrm{d}y\right)=\oint_{\mathrm{L}}P\mathrm{d}x+Q\mathrm{d}y$$
+其中$\mathrm{L}$为区域$\mathrm{D}$的边界，方向满足区域始终在$L$左侧，若令$Q=x,P=-y$，得：
+    $$\iint_{\mathrm{D}}2\mathrm{d}x\mathrm{d}y=\oint_{\mathrm{L}}x\mathrm{d}y+y\mathrm{d}x$$
+等式左侧为区域$\mathrm{D}$面积$S_D$的两倍，所以
+    $$S_D=\frac{1}{2}\oint_{\mathrm{L}}x\mathrm{d}y+y\mathrm{d}x$$
+\par
+    对于本题来说，区域$\mathrm{D}$的边界由一些圆弧与一些线段构成。线段的部分处理同算法一，考虑那些在边界上的圆弧，它们一定被多边形包含，且不被其他的圆包含。那么枚举每一个圆，处理出其他圆覆盖这个圆的端点，以及多边形覆盖的端点，排序后扫描一遍，得到的边界上的每一段弧可以用一个五元组$(a,b,r,\theta_l, \theta_r)$ 表示，其中$(a,b)$为圆心，$r$为半径，$\theta_l,\theta_r$为这段弧在圆上的极角区间。那么这段弧满足如下关系：
+    那么对于这一段弧的路径积分为：
+    \begin{align*}
+        \int_L x\mathrm{d}y+y\mathrm{d}x &= \int_{\theta_l}^{\theta_r}{ (a+r\cos{\theta})\mathrm{d}(b+r\sin{\theta})-
+        (b+r\sin{\theta})\mathrm{d}(a+r\cos{\theta})} \\
+        &= \int_{\theta_l}^{\theta_r}{ar\cos{\theta}+br\sin{\theta}+r^2} \\
+        &= r^2\left(\theta_r-\theta_l\right)+ar(\sin{\theta_r-\theta_l})+br(\cos{\theta_l}-\cos{\theta_r})
+    \end{align*}
+    可以$\mathcal{O}\left(1\right)$计算，至此整题即可完美解决。
+\par
+    时间复杂度：$\mathcal{O}\left((n+m)^2log_2(n+m)\right)$
+
+\end{document}

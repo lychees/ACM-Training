@@ -1,0 +1,53 @@
+\documentclass{noiassignment}
+
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{kangaroos 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    Algorithmic Engagements 2011
+
+    \href{http://main.edu.pl/en/archive/pa/2011/kan}{MAIN PA2011 kan}\qquad\href{http://www.spoj.com/problems/STC08/}{SPOJ STC08}
+
+\section{试题大意}
+    定义两个区间互相匹配表示这两个区间有交集。
+
+    给出长度为$n$的区间序列$A$，$m$次询问，每次询问序列$A$中最长的连续子序列使得子序列中的每个区间都与$[L,R]$互相匹配。
+
+    数据范围：$n\leq 50000$，$m\leq 200000$。
+
+\section{算法介绍}
+    问题转化：对于每个询问，一开始设置计数器$count=0$。逐一遍历序列$A$，如果$A_i$和询问区间匹配则$count=count+1$，否则$count=0$。计算器$count$出现过的最大值就是这个询问的答案，即最长的能匹配的连续子序列。
+
+    区间$[l,r]$不能匹配区间$[l',r']$的条件是$r<l'$或$l>r'$，如果把区间的两个端点视为笛卡尔坐标系上的两维坐标，那么不能匹配它的区间的取值范围就是笛卡尔坐标系上的一块连通的空间。
+
+    考虑把询问区间用$k$-$d~tree$维护，每个点（区间）设定一个初始权值$0$。用序列$A$中的区间逐一去$k$-$d~tree$中覆盖，如果匹配则把权值加一，否则把权值清零。那么，最后需要求的就是每个点（区间）所到达过的历史最大值。
+
+    $k$-$d~tree$结构简单，是可以维护历史标记问题的。
+
+    要维护的标记可以看作一个$01$序列，其中$1$表示一次$+1$操作，$0$表示一次$=0$操作。一个标记的信息可能如下:
+    $$10101100011101100100001111110001000000110111$$
+
+    而由于清零标记会将之前的信息清空，所以我们实际上只需要关注序列头部、尾部的连续$+1$操作个数，以及中间的最长连续$+1$操作就可以了：
+    $${\color{red}1}010110001110110010000{\color{red}111111}0001000000110{\color{red}111}$$
+
+    考虑这个标记需要维护的几种操作：
+    \begin{itemize}\footnotesize
+        \item 加一：直接把尾部计数器加一。
+        \item 清零：把尾部计数器的值和中间最长连续长度取$Max$，然后把尾部计数器清零。
+        \item 合并两个标记：合并两个标记的头尾信息，与前两种操作类似。
+    \end{itemize}
+
+    时间复杂度$O(m\log m+n\sqrt{m})$，空间复杂度$O(n+m)$。
+
+%% 解题报告结束
+
+\end{document}

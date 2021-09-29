@@ -1,0 +1,67 @@
+\documentclass{noiassignment}
+\usepackage{url}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{chef and big matrix 解题报告}
+\author{福建省福州第一中学~~董克凡}
+
+\maketitle
+
+\section{试题来源}
+\par
+    codechef APRIL16
+\par
+    提交地址：\url{https://www.codechef.com/problems/CHNBGMT}
+
+\section{试题大意}
+\par
+    给出一个$n*m$的网格，其中有$c$个位置是关键点。求两条从$(1,1)$到$(n,m)$的路径，要求每次只能向下走或者向右走一格，并且这两条路径在除了起点以及终点之外的格子不相交，并且两条路径经过的关键点的个数之和不超过$d$。 求路径的方案数对$mod$取模的结果。
+\par
+    $n,m\le 10^5,d\le c\le 200,mod\le 10^9$，\textbf{不}保证$mod$为质数。
+
+\section{算法讨论}
+\subsection{只有一条路径的情况}
+\par
+    首先讨论寻找一条路径的解法。
+\par
+    首先将所有的关键点按照$x$为第一关键字，$y$为第二关键字排序，那么一条路径经过的所有关键节点的编号就一定是递增的，那么考虑递推计数。用$g(i,j)$表示当前的路径走到了第$i$个关键点，在此之前经过了共$j$个关键点的方案数，那么枚举上一个经过的关键节点的位置$k$，首先就要保证点$k$在点$i$的左上角。如果用$f(i,j)$表示从关键点$i$走到关键点$j$，且在此之间不经过其他关键点的方案数，那么就能得到如下递推关系：
+    $$g(i,j)=\sum_{k=1}^{i-1}g(k,j-1)f(i,j)$$
+    如果称起点为$0$号节点，终点为$c+1$号节点，那么边界为$g(0,0)=1$，最终答案就是：$$\sum_{i=0}^{d}g(c+1,i)$$
+\par
+    其中$f(i,j)$的求法就是一个经典问题了。首先不考虑关键节点，从$(sx,sy)$走到$(tx,ty)$的方案数就是$tx-sx+ty-sy \choose tx-sx$，记$ways(i,j)$为关键点$i$到关键点$j$的路径方案数（若$i$不在$j$的左上角，那么定义$ways(i,j)=0$）。枚举一个点$k$，扣除路径经过的第一个关键点为点$k$的路径，那么$$f(i,j)=ways(i,j)-\sum_{k=i+1}^{j-1}f(i,k)\cdot ways(k,j)$$
+\par
+    由于$mod$不一定为质数，这里求组合数需要用一些小技巧。设$mod=p_1^{\alpha_1}p_2^{\alpha _2}\cdots p_l^{\alpha_l}$，那么在预处理阶乘的时候就需要单独将所有$p_i$的幂次计数，剩余的部分$x$满足$(x,mod)=1$，则$x$存在逆元，而所有$p_i$的幂就需要单独用快速幂计算，所以计算一次组合数的复杂度为$\mathcal{O}(log^2mod)$。
+\par
+    所以只计算一条路径的复杂度为$\mathcal{O}(c^3)$
+
+\subsection{两条路径}
+\par
+    由于很难直接求两条不相交的路径，不妨考虑如何求出两条相交路径的方案数，然后用任意的路径减去两条相交路径的方案数。
+\par
+    在此不妨假设这两条路径分别为$(1,2)\rightarrow(n-1,m),(2,1)\rightarrow(n,m-1)$，这样就可以避开起点与终点相交的问题。记两条路径分别为$s_1\rightarrow t_1, s_2\rightarrow t_2$，设它们相较于点$p$，那么两条路径可以写为$s_1\rightarrow p\rightarrow t_1,s_2\rightarrow p\rightarrow t_2$，如果将这两条路径的后半段交换，那么可以得到$s_1\rightarrow p\rightarrow t_2, s_2\rightarrow p\rightarrow t_1$，那么这就是$s_1\rightarrow t_2,s_2\rightarrow t_1$的两条路径。也就是说，任意一组$s_1\rightarrow t_1,s_2 \rightarrow t_2$的相交路径都能唯一对应到一组$s_1\rightarrow t_2,s_2\rightarrow t_1$的路径上。类似的，任意一组$s_1\rightarrow t_2,s_2\rightarrow t_1$的路径都能唯一对应一组$s_1\rightarrow t_1,s_2 \rightarrow t_2$的相交路径。那么最终的答案就是$s_1\rightarrow t_1,s_2\rightarrow t_2$的路径方案数减去$s_1 \rightarrow t_2, s_2\rightarrow t_1$的路径方案数。
+\par
+    经过这样的转换，我们就只要求出从两个起点出发到达两个终点的两条路径的方案数，不要求这两条路径不相交，所以这就等于一对起点与终点之间路径的方案数的乘积。这个子问题在之前已经用$\mathcal{O}(c^3)$的时间求出，故此题可以在$\mathcal{O}(c^3)$的时间内解决。
+\subsection{一点扩展}
+\par
+    第二步中的思想被称作Lindstrom–Gessel–Viennot lemma，定理内容大致如下：在一个有限的图\footnote{这里的有限是指任意两点之间的路径方案数是有限的}中给$n$对起点以及终点$(a_i,b_i)$，设$e(i,j)$为点$i$到点$j$的路径方案数，那么从$a_i$到$b_i$的$n$条不相交路径的方案数为：
+    $$\begin{vmatrix}
+        e(a_1,b_1) & e(a_1,b_2) & \cdots & e(a_1,b_n) \\
+        e(a_2,b_1) & e(a_2,b_2) & \cdots & e(a_2,b_n) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        e(a_n,b_1) & e(a_n,b_2) & \cdots & e(a_n,b_n) \\
+    \end{vmatrix}$$即上面的矩阵的行列式的值。
+\par
+    这里的$e(i,j)$可以不是一个整数，比如在本题中就可以令$e(i,j)$为一个长度为$d$的形式幂级数。那么就可以得到最终的不相交路径的形式幂级数$$c(x)=e(s_1,t_1)(x)\cdot e(s_2,t_2)(x) - e(s_2,t_1)(x) \cdot e(s_1,t_2)(x)$$
+\par
+    这个定理的证明与上面的证明思路类似。
+\subsection{参考资料}
+\par
+    \url{https://en.wikipedia.org/wiki/Lindstrom–Gessel–Viennot_lemma}
+\par
+    \url{http://discuss.codechef.com/problems/CHNBGMT}
+%% 解题报告结束
+
+\end{document}

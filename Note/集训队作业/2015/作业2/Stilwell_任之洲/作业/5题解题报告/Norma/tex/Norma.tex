@@ -1,0 +1,59 @@
+\documentclass{noiassignment}
+
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Norma 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    Croatian Open Competition in Informatics 2014/2015 Round2
+    
+    \href{http://www.spoj.com/problems/NORMA2/}{SPOJ NORMA2 }\qquad\href{http://www.lydsy.com/JudgeOnline/problem.php?id=3745}{BZOJ 3745}
+
+\section{试题大意}
+    给定一个正整数序列$A$，求$$\sum_{i=1}^n\sum_{j=i}^n(j-i+1)\min(A_i,A_{i+1},...,A_j)\max(A_i,A_{i+1},...,A_j)$$
+    
+    答案对$10^9$取模。
+    
+    数据范围：$n\leq 500000$，$A_i\leq 10^8$。
+
+\section{算法介绍}
+    可以对序列上的每个区间单独考虑，枚举区间右端点$r$，对于每个$i\leq r$维护$$(r-i+1)min(A_i,A_{i+1},...,A_r)max(A_i,A_{i+1},...,A_r)$$
+    
+    对于每个$i$维护$(r-i+1)$、$min(A_i,A_{i+1},...,A_r)$、$max(A_i,A_{i+1},...,A_r)$三个值，设为$l_i$、$min_i$、$max_i$。当右端点$r$ 右移时，这三个值都会改变。
+    
+    考虑用线段树维护
+    $$ans=\sum l_i~min_i~max_i$$
+    $$sum=\sum min_i~max_i\qquad MinL=\sum l_i~min_i\qquad MaxL=\sum l_i~max_i$$
+    $$Min=\sum min_i\qquad Max=\sum max_i\qquad L=\sum l_i$$
+    
+    考虑把所有$l_i$增加$x$，维护这些标记
+    \begin{itemize}\footnotesize
+        \item $ans=ans+x~sum$
+        \item $MinL=MinL+x~Min$
+        \item $MaxL=MaxL+x~Max$
+        \item $L=L+\sum x$
+    \end{itemize}
+    
+    当$r$右移时，$min_i$和$max_i$的改变范围会是一段区间，这个区间可以用单调栈来找。标记维护以修改$min_i=x$为例
+    \begin{itemize}\footnotesize
+        \item $ans=x~MaxL$
+        \item $sum=x~Max$
+        \item $MinL=x~L$
+        \item $Min=\sum x$
+    \end{itemize}
+    
+    至此，所有信息都可以维护完成，只需要基本的线段树操作。
+    
+    时间复杂度$O(n\log n)$，空间复杂度$O(n)$。
+
+%% 解题报告结束
+
+\end{document}

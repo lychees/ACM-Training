@@ -1,0 +1,8 @@
+\section{USACO Mar 12 Cows in a Skyscrape}
+\subsection*{试题大意}
+n个物品，每个物品重ai。袋子能盛重m的物品。求最少几个袋子装完所有物品。
+
+$n\leq 18   ~~,ai\leq m \leq 10^9$
+\subsection*{算法}
+f(S)是一个二元组，表示装完S这些物品，用了最少几个袋子，在袋子数相同的情况下还剩下最多多少空间。直接dp即可。
+\subsection*{时间复杂度：$O(n2^n)$，空间复杂度：$O(2^n)$}

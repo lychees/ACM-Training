@@ -1,0 +1,120 @@
+\documentclass{noiassignment}
+\usepackage{tikz}
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+\title{《松树林》解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+
+PA 2013 Round 6 Dzia{\l}ka
+
+提交地址：http://main.edu.pl/pl/archive/pa/2013/dzi
+
+BZOJ：http://www.lydsy.com/JudgeOnline/problem.php?id=3839
+\section{试题大意}
+
+平面上有$n$个互不相同的整点$(x_i,y_i)$。
+
+共有$q$次询问（允许离线），每次给出一个边平行坐标轴的矩形，你需要回答矩形内（包含边界）的点组成的凸包的面积。
+
+数据规模：$3\leq n \leq 3000, 1\leq q \leq 10^6, 0\leq x_i, y_i \leq 10^6$。
+
+\section{算法介绍}
+这题初看不太好做。
+
+但注意到点数$n$很少，能撑过$O(n^2)$的复杂度。我们的算法需要利用这一点。
+\subsection{将凸包拆成四部分}
+对于一个边平行坐标轴的矩形，我们找出其中最上、最左、最下、最右的四个点$A,B,C,D$（可能出现重合）。若有多个满足条件的点就再按另一维坐标比较。
+
+显然$A,B,C,D$都会出现在矩形内点的凸包上，且将凸包的周界分成了左上、左下、右下、右上四个部分。如图所示。
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.012]
+\draw[dashed] (-400,300) rectangle (400,-300);
+\path[draw=red,line width=2](-200,220) --(70,220)--(320,170)--(400,-240);
+\path[draw=green,line width=2](400,-240)--(-220,-200)--(-320,-80);
+\path[draw=blue,line width=2](-320,-80)--(-320,100)--(-200,220);
+\fill (50,350) circle(10);
+\fill (450,200) circle(10);
+\fill (-200,-370) circle(10);
+\fill (-200,220) circle(10) node[above left] {$A$};
+\fill (70,220) circle(10);
+\fill (320,170) circle(10);
+\fill (-220,-200) circle(10);
+\fill (-320,-80) circle(10)node[below left] {$B$};
+\fill (-320,100) circle(10);
+\fill (400,-240) circle(10) node[above right] {$C(D)$};
+\fill (90,70) circle(10);
+\fill (-140,100) circle(10);
+\fill (-60,-90) circle(10);
+\fill (150,-120) circle(10);
+\end{tikzpicture}
+\end{center}
+
+凸包的面积可以写成每条边的贡献之和，其中边$PQ$ （按逆时针序）的贡献为$\dfrac{1}{2}\big|\overrightarrow{OP}\times\overrightarrow{OQ}\big|$。于是我们可以将四个部分的贡献相加以求出整个凸包的面积。
+
+注意到，给定两个点$P,Q$和方向$d\in \left \{\text{左上,左下,右下,右上}\right \}$，其定义的周界是一段\textbf{唯一确定}的凸壳。若将其对面积的贡献记为$S_d(P,Q)$，那么答案即为$S_{\text{左上}}(A,B)+S_{\text{左下}}(B,C)+S_{\text{右下}}(C,D)+S_{\text{右上}}(D,A)$。
+
+\subsection{预处理面积}
+由于四个部分的计算方法相同，我们不妨只考虑$S_{\text{左上}}(A,B)$的处理。下面简记作$S(A,B)$。
+
+\subsubsection{树形结构}
+由于点数不多，我们可以考虑预处理出每一对点之间的$S(A,B)$值。注意到$A,B$点间的周界即为满足$x_b\leq x\leq x_A,y_b\leq y\leq y_A$的点$(x,y)$的上凸壳，用$\mathrm{pre}_B(A)$ 表示这一凸壳上$A$的前驱点。
+
+假如我们固定点$B$，并将所有$B$右上方的点$P$与它的前驱$\mathrm{pre}_B(P)$用线段连接，则会形成一棵以$B$为根的树。如图所示。\begin{center}
+\begin{tikzpicture}[scale=0.012]
+\path[draw=red,line width=2](150,240)--(0,20) --(20,290)--(80,355)--(200,400);
+\path[draw=red,line width=2](20,290)--(210,320);
+\path[draw=red,line width=2](320,210)--(140,120)--(340,140);
+\path[draw=red,line width=2](140,120)--(0,20)--(150,240);
+\fill (0,20) circle(10)node[below left] {$B$};
+\fill (20,290) circle(10);
+\fill (80,355) circle(10);
+\fill (140,120) circle(10);
+\fill (150,240) circle(10);
+\fill (200,400) circle(10);
+\fill (210,320) circle(10);
+\fill (320,210) circle(10);
+\fill (340,140) circle(10);
+\end{tikzpicture}
+\end{center}
+
+容易看出，某个点$P$与$B$之间形成的凸壳即为这棵树上$B,P$两点之间的路径。我们从根节点$B$开始遍历这棵树，即可计算出所有$S(P,B)$的值。
+
+\subsubsection{维护树形态}
+给定$B$点，为了得到对应树的形态，我们需要知道每个点$P$的前驱$\mathrm{pre}_B(P)$。容易看出，$\mathrm{pre}_B(P)$即为满足$x_B\leq x \leq x_P, y_B \leq y \leq y_P$的点$(x,y)$中，与$P$点连线斜率最小的那个点。
+
+于是我们可以枚举$B$点，并对其右上方的每一个点$P$用$O(n)$时间求出$\mathrm{pre}_B(P)$，再对得到的树进行遍历。这样我们就有一个$O(n^3)$的算法预处理所有$S(A,B)$。
+
+但这个做法并不优秀，需要优化。我们固定一个$A$点，考虑$B$点按$x_B$升序枚举时，$\mathrm{pre}_B(A)$的变化情况。对$A$左下方的所有点$B$建立一个单调队列，满足$x_B$坐标递增，斜率$k_{BA}$递增。这样每次寻找$\mathrm{pre}_B(A)$的时间就可以均摊$O(1)$了。
+
+从而预处理的总时间为$O(n^2)$。
+\subsection{查询$A,B,C,D$点}
+查询矩形内某一维坐标值最大/最小的点是一个经典问题，可以离线排序后用线段树查询。若需要在线则可以用可持久化线段树。
+\subsection{时空复杂度}
+时间复杂度$O\big (n^2+q(\log q+\log n)\big )$，空间复杂度$O(n^2+q)$。
+\section{总结}
+本题的关键在于发现矩形内的凸包可以拆成四个独立的凸壳，并利用一些手段进行预处理，从而求得答案。
+\end{document}

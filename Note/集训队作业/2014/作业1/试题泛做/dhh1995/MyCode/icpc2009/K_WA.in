@@ -1,0 +1,15 @@
+ADB ABB 8
+C B
+BA DC
+CCC ABD
+B C
+D C
+ACA CBD
+DB CB
+B A
+.
+
+ADB->ACB->ACA->CBD->CBC->CBB->CBA->CDC->CDB->CCB->CCC->ABD->ABC->ABB
+ DB-> CB         D->  C	       BA-> DC	       B->  C         C->  B
+       B->  A         C->  B         C->  B	  CCC->ABD
+	  ACA->CBD         B->  A	 DB-> CB	 D->  C

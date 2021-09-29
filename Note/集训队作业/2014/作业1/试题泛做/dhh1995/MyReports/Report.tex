@@ -1,0 +1,111 @@
+\documentclass[11pt]{report}
+
+\usepackage{ctex}
+\usepackage{fancyhdr}                % 页眉页脚
+\usepackage{extramarks} %\firstleftmark
+\usepackage{titling} %\thetitle \theauthor
+\usepackage{indentfirst}             % 首行缩进
+%\usepackage{CJK}     % 中文支持
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref} % 超链接
+\usepackage{makeidx}
+\usepackage{array}  %表格定宽居中
+\usepackage{isomath} %\mathbfit
+\usepackage{amsmath}
+\usepackage{cases}
+\usepackage{multirow} %表格合并行
+\usepackage{makecell} %表格边框加粗
+\usepackage{graphicx} %图片
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\makeindex
+
+\newcommand{\reffig}[1]{图~\ref{#1}~}
+
+%\usepackage{courier}
+\iffalse
+%\usepackage{ctex}
+%\usepackage{times}     % 包括 Times Roman + Helvetica + Courier
+%%%%%%%%%% 导入中文环境 %%%%%%%%%%
+\AtBeginDocument{\begin{CJK*}{GBK}{song} % 不计中文的空格
+\CJKindent                           % 首行缩进两个汉字
+\sloppy\CJKspace                     % 中英文混排的断行
+\CJKtilde                            % 重新定义~，用~隔开中英文
+%\CJKcaption{GB}                      % 章节标题的中文化
+}
+\AtEndDocument{\end{CJK*}}
+\fi
+%%%%%%%%%% 一些新定义 %%%%%%%%%%
+\newcommand{\song}{\CJKfamily{song}} % 宋体
+\newcommand{\hei}{\CJKfamily{hei}}   % 黑体
+\newcommand{\fs}{\CJKfamily{fs}}     % 仿宋
+\newcommand{\kai}{\CJKfamily{kai}}   % 楷体
+
+%%%%%%%%%% 重定义字号命令 %%%%%%%%%%
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}       % 一号, 1.4倍行距
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}       % 二号, 1.25倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}      % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}      % 三号, 1.5倍行距
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}     % 小三, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}       % 四号, 1.5倍行距
+\newcommand{\bansi}{\fontsize{13pt}{19.5pt}\selectfont}     % 半四, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}      % 小四, 1.5倍行距
+\newcommand{\dawu}{\fontsize{11pt}{11pt}\selectfont}        % 大五, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont}   % 五号, 单倍行距
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}%放在导言区
+%然后使用&\tabincell{c}{}&就可以在表格中自动换行
+
+%%%%%%%%%% 正文 %%%%%%%%%%
+\begin{document}
+
+%\pagestyle{headings}
+\pagestyle{fancy}
+%\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+%%%%%%%%%% 页眉和页脚的设置 %%%%%%%%%%
+%\lhead{\textbf{{\thetitle}}}
+%\chead{{\theauthor}}
+\rhead{\textbf{\nouppercase{ \firstleftmark }}}
+%\rhead{\nouppercase{ \firstleftmark\\\lastleftmark }}
+\lhead{}
+%\fancyhead{\leftmark}
+\cfoot{\thepage}
+
+%\pagestyle{headings}
+%%%%%%%%%% 论文标题、作者等 %%%%%%%%%%
+\title{$IOI2014$~中国国家集训队第一次作业\\ 第二部分~泛做表格\\            % 论文标题
+        \textcolor{green}{\sanhao{Accepted(159/159)}}
+        }
+\author{%dhh1995
+        \textit{绍兴一中\quad 董宏华}
+                            % 作者
+        }
+\date{\today}        % 日期
+\maketitle                           % 生成标题
+\thispagestyle{empty}                % 首页无页眉页脚
+\vspace{50pt}
+
+\tableofcontents
+\clearpage
+
+
+\include{WorldFinals2013}
+\include{WorldFinals2012}
+\include{WorldFinals2011}
+\include{WorldFinals2010}
+\include{WorldFinals2009}
+\include{WorldFinals2008}
+\include{WorldFinals2007}
+\include{WorldFinals2006}
+\include{WorldFinals2005}
+\include{WorldFinals2004}
+\include{WorldFinals2003}
+\include{WorldFinals2002}
+\include{WorldFinals2001}
+\include{WorldFinals2000}
+\include{WorldFinals1999}
+\include{WorldFinals1998}
+
+
+\end{document}
+%%%%%%%%%% 结束 %%%%%%%%%%

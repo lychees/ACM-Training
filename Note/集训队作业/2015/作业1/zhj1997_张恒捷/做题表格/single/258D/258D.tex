@@ -1,0 +1,10 @@
+\section{258D Little Elephant and Broken Sorting}
+\subsection*{试题大意}
+一个n个元素的排列，m个操作（x,y）表示50\%概率交换第x,y元素。求逆序对期望。
+
+$n,m\leq 1000$
+\subsection*{算法}
+用F[i][j]表示第i个位置上的数字比第j个位置上的数字大的概率。
+
+每个操作过后相应地维护一下f数组就可以了。
+\subsection*{时间复杂度：$O(nm)$，空间复杂度：$O(nm)$}

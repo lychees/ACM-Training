@@ -1,0 +1,230 @@
+#include <vector>
+#include <list>
+#include <map>
+#include <set>
+#include <queue>
+#include <deque>
+#include <stack>
+#include <bitset>
+#include <algorithm>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
+
+using namespace std;
+
+const int MOD=1000000007,inf=0x3f3f3f3f;
+const double eps=1e-12;
+typedef long long llint;
+typedef vector<int> vi;
+typedef unsigned int uint;
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+
+const int MAXN=100010;
+
+struct query
+{
+    int ope;
+    int x,y,z;
+    int xx,yy,zz;
+} a[50010];
+
+struct arr
+{
+    int ope;
+    int x,y,z;
+} b[400010];
+
+int lx[MAXN],ly[MAXN],lz[MAXN],dx,dy,dz;
+int n,m,T;
+int lis[400010],len;
+int LL[400010],ll;
+int ans[400010];
+
+bool cmpx(int x,int y)
+{
+    if (b[x].x!=b[y].x) return b[x].x<b[y].x;
+    return b[x].ope<b[y].ope;
+}
+
+bool cmpy(int x,int y)
+{
+    if (b[x].y!=b[y].y) return b[x].y<b[y].y;
+    return b[x].ope<b[y].ope;
+}
+
+struct SegmentTree
+{
+    int c[MAXN];
+    int d[MAXN];
+    int tim;
+    void clear()
+    {
+        ++tim;
+    }
+    void ins(int x)
+    {
+        for(;x<=dz;x+=(x&-x))
+            if (d[x]==tim) c[x]++;
+            else d[x]=tim,c[x]=1;
+    }
+    int ask(int x)
+    {
+        int ret=0;
+        for(;x;x&=(x-1)) if (d[x]==tim) ret+=c[x];
+        return ret;
+    }
+} xds;
+
+void suan()
+{
+    sort(LL+1,LL+ll+1,cmpy);
+    xds.clear();
+    for(int i=1;i<=ll;i++)
+        if (b[LL[i]].ope==1)
+        {
+//            printf("ins %d\n",b[LL[i]].z);
+            xds.ins(b[LL[i]].z);
+        }
+        else
+        {
+//            printf("ask %d\n",b[LL[i]].z);
+//            if (LL[i]==12)
+//            {
+//                puts("!!");
+//            }
+            ans[LL[i]]+=xds.ask(b[LL[i]].z);
+        }
+//    exit(0);
+}
+
+void gao(int L,int R)
+{
+    if (L>=R) return;
+    int t=(L+R)>>1;
+    ll=0;
+    xds.clear();
+    for(int i=L;i<=t;i++)
+        if (b[lis[i]].ope==1) LL[++ll]=lis[i];
+    for(int i=t+1;i<=R;i++)
+        if (b[lis[i]].ope==2) LL[++ll]=lis[i];
+    suan();
+    gao(L,t);
+    gao(t+1,R);
+}
+
+void calc()
+{
+    sort(lis+1,lis+len+1,cmpx);
+    gao(1,len);
+}
+
+void solve(int L,int R)
+{
+    if (L>=R) return;
+    int t=(L+R)>>1;
+    len=0;
+    for(int i=L;i<=t;i++)
+        if (b[i].ope==1) lis[++len]=i;
+    for(int i=t+1;i<=R;i++)
+        if (b[i].ope==2) lis[++len]=i;
+    calc();
+    solve(L,t);
+    solve(t+1,R);
+}
+
+int main()
+{
+    //freopen("d.in","r",stdin);
+    
+    scanf("%d",&T);
+    for(;T--;)
+    {
+        memset(ans,0,sizeof ans);
+        scanf("%d",&n);
+        m=0;
+        dx=0; dy=0; dz=0;
+        for(int i=1;i<=n;i++)
+        {
+            scanf("%d",&a[i].ope);
+            scanf("%d%d%d",&a[i].x,&a[i].y,&a[i].z);
+            if (a[i].ope==1)
+            {
+                lx[++dx]=a[i].x;
+                ly[++dy]=a[i].y;
+                lz[++dz]=a[i].z;
+            }
+            if (a[i].ope==2)
+            {
+                scanf("%d%d%d",&a[i].xx,&a[i].yy,&a[i].zz);
+                swap(a[i].x,a[i].xx);
+                swap(a[i].y,a[i].yy);
+                swap(a[i].z,a[i].zz);
+                lx[++dx]=a[i].x;
+                ly[++dy]=a[i].y;
+                lz[++dz]=a[i].z;
+                lx[++dx]=--a[i].xx;
+                ly[++dy]=--a[i].yy;
+                lz[++dz]=--a[i].zz;
+            }
+        }
+        sort(lx+1,lx+dx+1);
+        sort(ly+1,ly+dy+1);
+        sort(lz+1,lz+dz+1);
+        dx=unique(lx+1,lx+dx+1)-lx-1;
+        dy=unique(ly+1,ly+dy+1)-ly-1;
+        dz=unique(lz+1,lz+dz+1)-lz-1;
+        for(int i=1;i<=n;i++)
+        {
+            a[i].x=lower_bound(lx+1,lx+dx+1,a[i].x)-lx;
+            a[i].y=lower_bound(ly+1,ly+dy+1,a[i].y)-ly;
+            a[i].z=lower_bound(lz+1,lz+dz+1,a[i].z)-lz;
+            if (a[i].ope==1)
+            {
+                ++m;
+                b[m].ope=1;
+                b[m].x=a[i].x;
+                b[m].y=a[i].y;
+                b[m].z=a[i].z;
+            } else
+            {
+                a[i].xx=lower_bound(lx+1,lx+dx+1,a[i].xx)-lx;
+                a[i].yy=lower_bound(ly+1,ly+dy+1,a[i].yy)-ly;
+                a[i].zz=lower_bound(lz+1,lz+dz+1,a[i].zz)-lz;
+                ++m; b[m].ope=2; b[m].x=a[i].x; b[m].y=a[i].y; b[m].z=a[i].z;
+                ++m; b[m].ope=2; b[m].x=a[i].x; b[m].y=a[i].y; b[m].z=a[i].zz;
+                ++m; b[m].ope=2; b[m].x=a[i].x; b[m].y=a[i].yy; b[m].z=a[i].z;
+                ++m; b[m].ope=2; b[m].x=a[i].xx; b[m].y=a[i].y; b[m].z=a[i].z;
+                ++m; b[m].ope=2; b[m].x=a[i].x; b[m].y=a[i].yy; b[m].z=a[i].zz;
+                ++m; b[m].ope=2; b[m].x=a[i].xx; b[m].y=a[i].y; b[m].z=a[i].zz;
+                ++m; b[m].ope=2; b[m].x=a[i].xx; b[m].y=a[i].yy; b[m].z=a[i].z;
+                ++m; b[m].ope=2; b[m].x=a[i].xx; b[m].y=a[i].yy; b[m].z=a[i].zz;
+            }
+        }
+        solve(1,m);
+        /*
+        for(int i=1;i<=m;i++)
+            if (b[i].ope==2)
+                printf("%d %d %d %d %d\n",i,b[i].x,b[i].y,b[i].z,ans[i]);
+        */
+        for(int i=1;i<=m;i++)
+            if (b[i].ope==2)
+            {
+                printf("%d\n",ans[i]-ans[i+1]-ans[i+2]-ans[i+3]+ans[i+4]+ans[i+5]+ans[i+6]-ans[i+7]);
+                i+=7;
+            }
+    }
+    
+    return 0;
+}

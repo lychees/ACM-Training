@@ -1,0 +1,8 @@
+\section{249D Donkey and Stars}
+\subsection*{试题大意}
+平面直角坐标系中有n个点，你每次从一个点出发，在x-y这两条斜率的线中间再选一个点，重复这个过程。问最多有几个点。
+
+$n\leq 10^5$
+\subsection*{算法}
+
+\subsection*{时间复杂度：$O()$，空间复杂度：$O()$}

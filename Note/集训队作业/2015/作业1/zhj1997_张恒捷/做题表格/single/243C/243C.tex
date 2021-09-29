@@ -1,0 +1,8 @@
+\section{243C Colorado Potato Beetle}
+\subsection*{试题大意}
+一个无限大的格子图上，有n条横着或者竖着的格子上有障碍。问有多少格子与无限远的地方四联通。
+
+$n\leq 1000$
+\subsection*{算法}
+将与这n条有关的坐标离散后得到大小为n*n的格子图，然后用bfs模拟一遍。
+\subsection*{时间复杂度：$O(n^2)$，空间复杂度：$O(n^2)$}

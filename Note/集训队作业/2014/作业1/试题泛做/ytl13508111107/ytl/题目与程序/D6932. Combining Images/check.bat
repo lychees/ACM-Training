@@ -1,0 +1,1 @@
+for /l %%i in (1,1,100) do copy image%%i.in image.in&&bc.exe&&fc bc.out image%%i.out

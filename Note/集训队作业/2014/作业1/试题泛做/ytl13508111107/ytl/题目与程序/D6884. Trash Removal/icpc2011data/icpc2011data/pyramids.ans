@@ -1,0 +1,202 @@
+Case 1: 3H 3L 2H
+Case 2: impossible
+Case 3: 143H 35H 4H 3H
+Case 4: 142H 46H 21L 7H
+Case 5: 170L 99L
+Case 6: 174L 81L 35H
+Case 7: 136H 96L 7H
+Case 8: 143H 43L 13H
+Case 9: 178L 62L 19H
+Case 10: 142H 58L 15H
+Case 11: 142H 55L 26H
+Case 12: 180L 27H 21H 16H
+Case 13: 152L 123L 63H
+Case 14: 180L 37L 24L
+Case 15: 142H 42H 38L
+Case 16: impossible
+Case 17: impossible
+Case 18: impossible
+Case 19: impossible
+Case 20: 2H
+Case 21: impossible
+Case 22: impossible
+Case 23: impossible
+Case 24: impossible
+Case 25: 3L
+Case 26: impossible
+Case 27: impossible
+Case 28: impossible
+Case 29: 3H
+Case 30: 3L 2H
+Case 31: impossible
+Case 32: impossible
+Case 33: impossible
+Case 34: 3H 2H
+Case 35: 4L
+Case 36: impossible
+Case 37: impossible
+Case 38: impossible
+Case 39: 3H 3L
+Case 40: 4L 2H
+Case 41: impossible
+Case 42: impossible
+Case 43: impossible
+Case 44: 3H 3L 2H
+Case 45: 4H
+Case 46: impossible
+Case 47: impossible
+Case 48: impossible
+Case 49: 4L 3H
+Case 50: 5L
+Case 51: impossible
+Case 52: impossible
+Case 53: impossible
+Case 54: 4L 3H 2H
+Case 55: 5L 2H
+Case 56: impossible
+Case 57: impossible
+Case 58: impossible
+Case 59: 4H 3H
+Case 60: 5L 3L
+Case 61: impossible
+Case 62: impossible
+Case 63: impossible
+Case 64: 5L 3H
+Case 65: 4H 4L
+Case 66: impossible
+Case 67: impossible
+Case 68: impossible
+Case 69: 5L 3H 2H
+Case 70: 5H
+Case 71: 6L
+Case 72: impossible
+Case 73: impossible
+Case 74: 5L 3H 3L
+Case 75: 5H 2H
+Case 76: 6L 2H
+Case 77: impossible
+Case 78: impossible
+Case 79: 4H 4L 3H
+Case 80: 5H 3L
+Case 81: 6L 3L
+Case 82: impossible
+Case 83: impossible
+Case 84: 5H 3H
+Case 85: 6L 3H
+Case 86: 6L 3L 2H
+Case 87: impossible
+Case 88: impossible
+Case 89: 5H 3H 2H
+Case 90: 5H 4L
+Case 91: 6L 4L
+Case 92: impossible
+Case 93: impossible
+Case 94: 5H 3H 3L
+Case 95: 6L 3H 3L
+Case 96: 6L 4L 2H
+Case 97: impossible
+Case 98: impossible
+Case 99: 7L
+Case 100: 5H 4H
+Case 101: 6L 4H
+Case 102: impossible
+Case 103: impossible
+Case 104: 7L 2H
+Case 105: 5H 5L
+Case 106: 6H
+Case 107: impossible
+Case 108: impossible
+Case 109: 7L 3L
+Case 110: 5H 5L 2H
+Case 111: 6H 2H
+Case 112: impossible
+Case 113: 7L 3H
+Case 114: 7L 3L 2H
+Case 115: 6L 4H 3H
+Case 116: 8L 3L
+Case 117: 6H 5L 2H
+Case 118: impossible
+Case 119: 7L 5L 3H
+Case 120: 8L 3H
+Case 121: 8L 3L 2H
+Case 122: 6H 5L 3L
+Case 123: impossible
+Case 124: 7L 5L 3H 2H
+Case 125: 7L 5H
+Case 126: 7H
+Case 127: 6H 4H 4L
+Case 128: impossible
+Case 129: 7L 5L 3H 3L
+Case 130: 8L 3H 3L
+Case 131: 7H 2H
+Case 132: 6H 5H
+Case 133: 6H 6L
+Case 134: 7L 4H 4L 3H
+Case 135: 7L 5H 3L
+Case 136: 13H 7L 5H 5L 3H
+Case 137: 11H 9L 6H 3L 2H
+Case 138: 11H 6H 6L 3H 3L
+Case 139: 10H 6H 6L 4L 2H
+Case 140: 12L 7L 3H 3L 2H
+Case 141: 11L 6H 6L 3H 3L
+Case 142: 8H 7L 4L 3H 2H
+Case 143: 8L 6H 6L 3L 2H
+Case 144: 6H 6L 5H 5L 4L 2H
+Case 145: 6H 6L 5H 5L 4L
+Case 146: 6H 6L 5H 4H 4L
+Case 147: 6H 6L 5H 5L 3L
+Case 148: 6H 6L 5H 5L 2H
+Case 149: 6H 6L 5H 4L 2H
+Case 150: 6H 6L 5H 3L 2H
+Case 151: 7L 5H 5L 4L 3H 2H
+Case 152: 7L 5H 5L 4L 3H
+Case 153: 7L 5H 4H 4L 3H
+Case 154: 7L 5H 5L 3H 3L
+Case 155: 7L 5H 5L 3H 2H
+Case 156: 7L 5H 4L 3H 2H
+Case 157: 7L 5H 3H 3L 2H
+Case 158: 180L
+Case 159: 143H
+Case 160: 179L
+Case 161: 142H
+Case 162: 132H 86H 29H
+Case 163: 122H 131L 26L
+Case 164: 101H 126L 97H
+Case 165: 143H 35H
+Case 166: 136H 96L
+Case 167: 180L 31H 2H
+Case 168: 180L 37L 14H 2H
+Case 169: 180L 37L 24L
+Case 170: 131H 26H 9H
+Case 171: 126L 46H 21L
+Case 172: 107L 30L 7L 3H
+Case 173: 104H 37L 13H
+Case 174: 156L 51L 11H
+Case 175: 140L 35L 2H
+Case 176: 111L 69H 26L
+Case 177: 146L 96H 55H
+Case 178: 134L 26H 9H
+Case 179: 96L 21H 16L 7L
+Case 180: 110H 73H 88L
+Case 181: 92H 26L 10H
+Case 182: 160L 50H 57L
+Case 183: 74L 28H 2H
+Case 184: 147L 105L 42L
+Case 185: 117H 31L 4L
+Case 186: 85L 38L 11H
+Case 187: 60H 71L 18L
+Case 188: 176L 32L 4H
+Case 189: 87H 20L 8H
+Case 190: 136L 87H 46L
+Case 191: 163L 104L 36L
+Case 192: 56L 16L
+Case 193: 106L 21L 10L 6L
+Case 194: 160L 37L 16H
+Case 195: 122H 41H 7H
+Case 196: 149L 24H 2H
+Case 197: 134L 76L 9L
+Case 198: 163L 61L 12L
+Case 199: 82L 44H 17L
+Case 200: 174L 61L 45L
+Case 201: 144L 32L 8L 3H
+Case 202: 154L 64L 11L

@@ -1,0 +1,43 @@
+\documentclass{noiassignment}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{《文学》解题报告}
+\author{佛山石中 李子豪}
+
+\maketitle
+
+\section{试题来源}
+    
+    清华集训2015题目
+    
+    可在BZOJ 3822找到。
+    
+
+\section{试题大意}
+
+    
+
+\section{算法介绍}
+
+\subsection{题目特点与本质}
+
+    
+
+
+\subsection{算法}
+
+    
+
+\section{时空复杂度}
+    空间复杂度$O()$,时间复杂度$O()$.
+
+\section{总结}
+
+    
+
+%% 解题报告结束
+
+\end{document}

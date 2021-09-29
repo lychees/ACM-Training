@@ -1,0 +1,437 @@
+/* LAYOUT */
+
+#jobs_wrapper {
+    width: 700px;
+    margin: 0 auto;
+}
+
+/* GENERAL HTML ELEMENTS */
+
+/* to standardize cross browser layout styling */
+
+#jobs_wrapper H1, #jobs_wrapper H2, #jobs_wrapper UL, #jobs_wrapper LI, #jobs_wrapper FORM {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* HEADER */
+
+#jobs_header {
+    height: 53px;
+    background: #FFF url(../i/about/jobs/bg_header.png) repeat-x;
+}
+
+#jobs_header H1 {
+    background: transparent url(../i/about/jobs/header_right.png) no-repeat top right;
+    text-indent: -9999px;
+}
+
+#jobs_header A {
+    display: block;
+    height: 53px;
+    background: url(../i/about/jobs/header_left.png) no-repeat;
+    text-indent: -9999px;
+}
+
+/* TABS MENU */
+
+#jobs_menu {
+    float: left;
+    width: 100%;
+    height: 43px;
+    background: #FFF;
+    line-height: normal;
+    font-weight: bold;
+    font-size: 11px;
+    background: url(../i/about/jobs/tabsmenu_bg.png) no-repeat 0 35px;
+}
+
+#jobs_menu UL {
+    margin: 0;
+    padding: 5px 10px 0 0;
+    list-style: none;
+}
+
+#jobs_menu UL LI {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+#jobs_menu A {
+    float: left;
+    background: url(../i/about/jobs/tabsmenu_left.png) no-repeat left top;
+    margin: 0 1px 0 0;
+    padding: 0 0 0 7px;
+    text-decoration: none;
+}
+
+#jobs_menu A SPAN {
+    float: left;
+    display: block;
+    background: url(../i/about/jobs/tabsmenu_right.png) no-repeat right top;
+    padding: 10px 15px 6px 6px;
+    color: #25384a;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#jobs_menu a span {float:none;}
+/* End IE5-Mac hack */
+
+#jobs_menu a:hover span {
+    color: #25384a;
+}
+
+#jobs_menu a:hover {
+    background-position: 0% -31px;
+}
+
+#jobs_menu a:hover span {
+    background-position: 100% -31px;
+}
+
+#jobs_menu #jobs_menuactive A {
+    background-position: 0% -31px;
+    color: #FF0000;
+    background-color: #FFF;
+    padding: 0 0 0 7px;
+}
+
+#jobs_menu #jobs_menuactive A SPAN {
+    background-position: 100% -31px;
+    color: #FF0000;
+    background-color: #FFF;
+    padding: 10px 15px 7px 6px;
+}
+
+/* MAIN ROUNDED FRAME */
+
+#jobs_frame {
+    background: transparent url(../i/about/jobs/bg_bottom_right.png) no-repeat bottom right;
+}
+
+#jobs_frame #jobs_frame2 {
+    padding-bottom: 7px;
+    background: transparent url(../i/about/jobs/bg_bottom_left.png) no-repeat bottom left;
+    
+}
+
+#jobs_frame3 {
+    padding-bottom: 5px;
+    border-left: 1px solid #c9c9c9;
+    border-right: 1px solid #c9c9c9;
+}
+
+/* SUB HEADING */
+
+.jobs_subheader {
+    clear: both;
+    margin: 0 3px 5px 3px;
+    padding-top: 5px;
+    height: 40px;
+    background: url(../i/about/jobs/subheader_right.png) no-repeat bottom right;
+}
+
+.jobs_subheader H2 {
+    height: 40px;
+    background: url(../i/about/jobs/subheader_left.png) no-repeat bottom left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #25384a;
+}
+
+.jobs_subheader H2 SPAN {
+    display: block;
+    padding-top: 14px;
+    padding-left: 15px;
+}
+
+/* FEATURED AREA */
+
+.jobs_featured {
+    clear: both;
+    width: 678px;
+    margin: 0 0 0 10px;
+    padding: 0 0 10px 0;
+    border: none;
+}
+
+.jobs_featured_main {
+    float: left;
+    width: 660px;
+    padding-left:10px;
+}
+
+.jobs_featured_sub {
+    float: right;
+    width: 223px;
+    height: 136px;
+    /* hidding subscription image
+    background: url(../i/about/jobs/bg_subscribeform.png) no-repeat;
+    */
+}
+
+.jobs_subscribe_form {
+    padding: 20px 10px 0 20px;
+}
+
+.jobs_subscribe_form H3 {
+    text-transform: uppercase;
+}
+
+.jobs_subscribe_form INPUT.jobs_email_text {
+    margin: 0;
+    padding: 0;
+}
+
+.jobs_subscribe_form LABEL {
+    font-weight: bold;
+}
+
+/* BOX CONTAINER FOR NEWS ITEMS */
+
+.jobs_box {
+    width: 678px;
+    margin: 0 0 0 10px;
+    padding: 0;    
+    background: url(../i/about/jobs/bg_boxtop.png) no-repeat top;
+}
+
+.jobs_box .jobs_box2 {
+    padding-bottom: 7px;
+    padding-top: 7px;
+    background: url(../i/about/jobs/bg_boxbottom.png) no-repeat bottom;
+}
+
+.jobs_boxcontent {
+    padding: 5px 10px;
+    border-left: 1px solid #c9c9c9;
+    border-right: 1px solid #c9c9c9;
+}
+
+/* NEWS ITEM CONTENT */
+
+
+.jobs_newsitem {
+    margin-bottom: 1em;
+}
+
+#jobs_content P {
+    margin: 0;
+    padding: 0;
+}
+
+.jobs_img {
+    float: left;
+    width: 60px;
+    min-height: 150px;
+    *height: 150px;
+    background: url(../i/about/jobs/bg_imgheadlines.png) no-repeat top left;
+    text-align: center;
+}
+
+.jobs_imgR {
+    float: right;
+    width: 60px;
+    min-height: 150px;
+    *height: 150px;
+    background: url(../i/about/jobs/bg_imgheadlinesR.png) no-repeat top left;
+    text-align: center;
+}
+
+.jobs_imgR IMG {
+    margin: 40px 5px;
+}
+
+.jobs_headlines {
+    float: left;
+    width: 500px;
+    *width: 520px; /* IE WIN hacks */
+    padding: 10px 0px 10px 0px;
+    background: url(../i/about/jobs/bg_excerpt.png) repeat-x top;
+}
+
+.jobs_headlines A {
+    text-decoration: none;
+}
+
+.jobs_headlines A:hover {
+    color: #FF0000;
+}
+
+.jobs_headlines H3 A {
+    color: #353e45;
+}
+
+.jobs_headlines SMALL {
+    display: block;
+}
+
+.jobs_headlines SMALL A {
+    color: #5f8aab;
+}
+
+/* NEWS ARCHIVE */
+
+.jobs_newsarchive H3 {
+    height: 29px;
+    background: url(../i/about/jobs/bg_headdivision.png) no-repeat top left;
+    padding-left: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #004b80;
+    text-transform: uppercase;
+}
+
+.jobs_newsarchive DL {
+    margin: 0 0 0.6em 30px;
+    padding: 0;
+}
+
+.jobs_newsarchive DT {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #a03333;
+}
+
+.jobs_newsarchive DD {
+    margin: 0;
+    padding: 0 0 0 10px;
+    line-height: 18px;
+    background: url(../i/about/jobs/bullet.png) no-repeat 0 6px;
+}
+
+.jobs_newsarchive A {
+    text-decoration: none;
+    color: #000;
+}
+
+.jobs_newsarchive A:hover {
+    color: #FF0000;
+}
+
+.jobs_newsarchive A SMALL {
+    color: #004b80;
+    font-size: 12px;
+}
+
+/* PROMO VIDEO */
+
+#jobs_promovideo {
+    width: 440px;
+    background: #FFF url(../i/about/jobs/bg_video_bottom2.png) no-repeat left bottom;
+    padding-bottom: 7px;
+}
+
+#jobs_promovideo_header {
+    padding: 48px 0 9px 25px;
+    background: url(../i/about/jobs/bg_video_top2.png) no-repeat left top;
+}
+
+#jobs_promovideo H2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #353e45;
+    
+}
+
+#jobs_videocontent {
+    padding: 0 10px 10px 10px;
+    border-left: 1px solid #c9c9c9;
+    border-right: 1px solid #c9c9c9;
+}
+
+#jobs_videocontent TD {
+    padding-bottom: 0.5em;
+}
+
+
+TD.jobs_video_img {
+    vertical-align: top;
+}
+
+TD.jobs_video_space {
+    width: 10px;
+}
+
+.jobs_video_img IMG {
+    border: 0;
+    padding: 2px;
+    margin: 0;
+    border: 2px solid #c9c9c9;
+}
+
+.jobs_video_desc A {
+    text-decoration: none;
+}
+/*
+.jobs_video_desc A:hover {
+    color: #FF0000;
+}
+*/
+.jobs_video_desc H3 A {
+    font-size: 12px;
+    color: #353e45;
+}
+
+.jobs_video_desc SMALL {
+    display: block;
+    color: #5f8aab;
+    font-size: 11px;
+}
+
+.jobs_video_desc P {
+    margin-bottom: 10px;
+}
+
+
+
+/* REQUEST FORM */
+
+#jobs_requestform {
+    padding: 5px 20px 10px 20px;
+    margin: 0;    
+}
+
+#jobs_requestform DL {
+    margin: 1em 0;
+    padding: 0;
+}
+
+#jobs_requestform DT {
+    clear: both;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#jobs_requestform DD {
+    margin: 0;
+    padding: 0;
+    margin-left: 200px;
+    margin-bottom: 0.7em;
+    padding-left: 15px;
+    /*background: url(../i/about/jobs/raquo.png) no-repeat 0 6px;*/
+}
+
+#jobs_requestform DD.jobs_submit {
+    background: none;
+}
+
+/* MISC */
+
+.jobs_backtop A {
+    float: right;
+    display: block;
+    height: 19px;
+    width: 19px;
+    text-indent: -9999px;
+    background: url(../i/about/jobs/top.png) no-repeat top right;
+}
+
+.jobs_clear {
+    clear: both;
+}

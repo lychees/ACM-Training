@@ -1,0 +1,90 @@
+\documentclass{noiassignment}
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathrm}{normal}{OT1}{cmr}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+
+\title{最大异或和~~解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+
+2015年集训队互测
+
+\section{试题大意}
+维护一个长度为$n$的数列$a_1,a_2,\cdots,a_n$，其中每个$a_i$都是$m$位二进制数。操作数量为$q$，类型包括以下三种：
+\begin{itemize}
+\item $1~x~y~w$ 对于所有$x\le i\le y$，将$a_i$修改为$a_i \,\mathrm{xor}\, w$；
+\item $2~x~y~w$ 对于所有$x\le i\le y$，将$a_i$修改为$w$；
+\item $3$ 询问$a_1,a_2,\cdots,a_n$的最大子集$\mathrm{xor}$和。
+\end{itemize}
+数据规模：$1\leq n,m,q \leq 2000$。
+\section{算法介绍}
+\subsection{算法一}
+操作1和操作2可以$O(nm)$暴力实现。
+
+对于每个询问，枚举所有$2^n$个子集并计算异或和，求出最大的即可。
+
+每次询问的复杂度是$O(2^n nm)$或$O(2^n m)$，可以通过10\%的数据。
+\subsection{算法二}
+将所维护的数列视为$n\times m$的01矩阵。
+
+每次询问时对矩阵做一遍高斯消元，得到一个行阶梯形矩阵。复杂度是$O(n^2m)$。
+
+然后按照从高位到低位的顺序枚举主元，并贪心地选取行即可。这一步复杂度是$O(nm)$。
+
+于是询问一次的复杂度是$O(n^2 m)$，可以通过30\%的数据。
+\subsection{算法三}
+在算法二的基础上，用bitset存储矩阵的每一行。在进行消元等操作时，可以使用bitset的\^{}运算进行加速。
+
+这样，每次修改是$O(nm)$，每次询问仍然是$O(n^2 m)$，但常数都变为了原来的$1/32$，可以通过40\%的数据。
+\subsection{算法四}
+现在整个算法的瓶颈在于询问时第一步的消元过程。 为了优化这个过程，我们需要在每次修改操作后快速更新消元得到的阶梯形矩阵。
+
+设原矩阵为$A$，其中$A$的第$i$行为$a_i$的二进制表示。设经过消元得到的行阶梯矩阵为$B$。同时，我们把消元的过程记录下来，用可逆矩阵$P$表示，即$PA=B$。
+
+先来考虑修改单个$a_i$的情况：
+
+假设我们将$a_i$改为$a_i\,\mathrm{xor}\,w$，则$A$被修改为$A'=A+e_i  w$。于是$B$变为$B'=PA'=B+Pe_i w$。即对于所有$P_{ji}=1$的$j$，$B$的第$j$ 行都被异或了$w$。 令其中最大的$j=j_{\max}$，即第$j_{\max}$行是所有被异或的行中最靠下方的一个，我们用这一行去消剩下所有被异或的行，设其为$j$行，那么对应的$B_j$ 会变成$(B_j\,\mathrm{xor}\, w)\,\mathrm{xor}\,(B_{j_{\max}}\,\mathrm{xor}\, w)= B_j \,\mathrm{xor}\, B_{j_{\max}}$，从而$w$对第$j$行的影响就被抵消了。又因为在行梯形矩阵中，$j_{\max}$在$j$的下方，所以第$j$行的主元不会被影响。
+
+这样一轮操作过后，第$j_{\max}$行的主元可能保持不变，也可能会变成$w$的最高位。如果是后者，则还需检查原本这一列上有没有主元，若有的话还需要对其对应的那一行进行一次消元。
+
+运用上述方法，可以在每次修改单个$a_i$之后，用$O(nm)$时间更新阶梯形矩阵$B$（以及对应的矩阵$P$)。可以通过50\%的数据。
+
+\subsection{算法五}
+算法四中，我们实现了将单个$a_i$异或上$w$。这一方法可以容易地推广到多个$a_i$的情况：
+
+设被异或的行的编号组成的集合是$S$，令列向量$s= \sum_{i \in S}e_i$。
+
+于是，$A$被修改为$A'=A+s  w$时，$B$变成了$B'=PA'=B+Ps w$。只要将列向量$Ps$计算出来（这可以用bitset的\&运算和count()函数），就可以同算法四一样处理了。可以通过60\%的数据。
+\subsection{算法六}
+现在只需要解决操作2。
+
+首先由异或运算的性质可知，对于若干个相同的$a_i$，我们只需要保留其中一个，而不会影响答案。
+
+由此，我们把序列$\{a_i\}$分成若干个连续段，每个连续段中的$a_i$相同，只在矩阵中存一份即可。
+
+每次操作2时，我们把涉及到的连续段一个个从矩阵中删除，然后合并这些段，并在矩阵中插入连续一段$w$。由于每次区间操作后，连续段的总数至多增加2，容易证明这样的方法每次只要做均摊$O(1)$次矩阵操作，复杂度为均摊$O(nm)$。
+
+因此，本题时间复杂度为$O\left ((n+q)nm\right )$，空间复杂度$O(nm)$，用bitset优化后常数均为原来的1/32，可以通过100\%的数据。
+
+\section{总结}
+本题是一道NOI中等偏下难度的题目，主要考察对高斯消元的基本理解和利用位运算优化程序的技巧。预计集训队互测中绝大多数选手能拿到40分及以上，约有5名选手可以拿到满分或接近满分。
+\end{document}

@@ -1,0 +1,76 @@
+\documentclass{noiassignment}
+\usepackage{graphicx}
+\begin{document}
+
+%% 解题报告开始
+
+\title{[CTSC2015]gender解题报告}
+\author{绍兴市第一中学洪华敦}
+
+\maketitle
+
+\section{试题来源}
+http://www.lydsy.com/JudgeOnline/problem.php?id=4067
+\section{试题大意}
+有$M$只绵羊，有$K$条长度为$N$性别单一的血缘链。也有可能有绵羊不在任何血缘链上，每个绵羊有辈分，在血缘链上的绵羊辈分就是他在血缘链的位置。两个相同辈分的绵羊会可能有繁衍关系
+
+修改绵羊$i$的性别需要$c_i$的代价，对于繁衍关系$j$有系数$b_j,d_j$，若修改后两只绵羊性别不变，则稳定度为$b_j$。若性别互换则为$\left\lfloor b_j*d_j\right \rfloor$。其他情况则为$0$
+
+设$A$为血缘链相邻绵羊性别不同的数量，$S$为稳定度之和，$C$为修改性别的代价。则总的收益为
+
+$$\left\lfloor 10ln(1+A)\right \rfloor*S-C$$
+
+$N\leq 50$，$K\leq 4$，$M\leq 1000$，$P\leq 10000$，$0\leq d_j\leq 1$。
+\section{算法介绍}
+我们可以发现$K$比较小，而且$A$在收益中的贡献式子处理起来比较棘手，所以我们先枚举$\left\lfloor 10ln(1+A)\right \rfloor$的值，并且在$DP$时记录$A$的具体值
+
+我们考虑$f[i][j][S]$表示当前处理了前$i$个辈分，$A$的值为$j$，前面一个辈分的性别状态为$S$的代价，考虑转移
+
+我们先用网络流最小割的建模，对每个当前辈分的绵羊建一个点，若他最后属于$S$集合，则它变性，否则不变性
+
+我们先用$2^K$的代价去枚举每条链上当前辈分绵羊的性别，并累加$A$的值
+
+之后我们算出非血缘链上的绵羊选男选女后，和链上绵羊的繁衍关系产生的代价，并将代价映射到他们和$S,T$的连边上
+
+之后我们考虑链接两个非血缘链绵羊的繁衍关系的贡献
+
+我们用$1$和$0$代表变性和不变性
+
+代价分别为：
+
+$0+0$：$b_j$
+
+$1+1$：$\left\lfloor b_j*d_j\right \rfloor$
+
+$0+1$：$0$
+
+$1+0$：$0$
+
+考虑最小割的建边，一种广为人知的是：
+
+$A$向$B$连流量为$w$的无向边，则当$A,B$不同时产生$w$的代价，如下图
+
+\begin{figure}[H]\centering{\includegraphics[width=10cm]{gra1.png}}\\\end{figure}
+
+还有一种：新建点$X$，$A$，$B$向$X$连$inf$边，$X$向$T$连$w$的边，则当$A$,$B$中有一个是$S$集时产生$w$的代价
+
+\begin{figure}[H]\centering{\includegraphics[width=10cm]{gra2.png}}\\\end{figure}
+
+那本题中我们可以这样连：
+
+$1.$预加一下所有$b_j$，把最大化问题转成最小割问题
+
+$2.$新建点$X$，$A$，$B$向$X$连$inf$边，$X$向$T$连$b_j-\left\lfloor b_j*d_j\right \rfloor$的边
+
+$3.$$A$向$B$连$\left\lfloor b_j*d_j\right \rfloor$的边
+
+这样就能产生上述的效果了
+
+我们直接跑若干遍网络流即可
+
+复杂度都$O(2^k*N*N*K*flow)$
+\end{document}
+
+
+
+

@@ -1,0 +1,25 @@
+\section{316E3 Summer Homework}
+\subsection*{试题大意}
+一个整数序列a1,a2...an，有m个操作，操作有3种：
+
+1.改变一个数字
+
+2.计算$\sum_{x=0}^{r-l}{f_x\times a_{l+x}}$~模$10^9$的值。
+
+3.区间加一个数字
+
+f为斐波那契数列。
+
+$n,m\leq 200000$
+\subsection*{算法}
+斐波那契数列有一个性质：
+
+$F_x=F_k\times F_{x-k}+F_{k-1}\times F_{x-k-1}$
+
+设$G(l,r,x)$为$\sum_{i=l}^r{a_i\times F_{i+x}}$
+
+只要知道$G(l,r,x)$与$G(l,r,x+1)$的值，就可以推得$G(l,r,x+k)$了。
+
+这样就可以用线段树维护答案了，1,3操作也可以简单的维护。
+
+\subsection*{时间复杂度：$O(mlogn)$，空间复杂度：$O(n)$}

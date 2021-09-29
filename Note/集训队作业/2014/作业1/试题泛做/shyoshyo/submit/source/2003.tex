@@ -1,0 +1,32 @@
+	\section{ACM/ICPC World Finals 2003}
+		\subsection{ACM/ICPC World Finals 2003 H A Spy in the Metro}
+			\subsubsection{题意概述}
+				在一个有 $N$ 个站的线形地铁里，某人在第一个站台。$T$ 秒后，他必须到达最后一个站台。列车双向都有发车，但发车时间不一定对称。已知列车时刻表，且双向相邻两站的运行时间恒定，停车时间忽略。求一个乘坐方案，使得 $T$ 秒后，他在准时出现在最后一个站台，且在站台上的等待时间最少。
+				
+				所有时刻都是整秒。$N \le 50, T \le 200, \text{双向列车班数 $K$ 分别} \le 50$。同向列车发车时间两两不同。
+			\subsubsection{简要分析}
+				令 $L[i][j]$ 和 $R[i][j]$ 分别表示在时刻 $i$ 秒，站台 $j$ 上是否有列车向左和向右开。
+				根据发车时间表和相邻两站的运行时间，可以轻易处理出 $L[i][j], R[i][j]$。
+				
+				最后令 $F[i][j]$ 表示该人在时刻 $i$ 秒出现在站台 $j$ 最多需要在站台上等的
+				秒数。状态转移方程
+				\begin{align}
+				F[i][j] = \min \left\{ \begin{aligned}
+					& F[i-d(j-1)][j-1], && i\ge d(j-1), j>1, R[i-d(j-1)][j-1]\\
+					& F[i-d(j)][j+1], && i\ge d(j), j<N, L[i-d(j)][j+1]\\
+					& F[i-1][j]+1, && i \ge 1
+					\end{aligned}
+				\right.
+				\end{align}
+				其中 $d(j)$ 表示站台 $j$ 到站台 $(j+1)$ 的运行时间。边界
+				\begin{align}
+					F[0][j] = \begin{cases}
+						0, & j=1\\
+						+\infty, & j>1
+					\end{cases}
+				\end{align}
+				最终答案为 $F[T][N]$。
+				\subsubsection{时空复杂度}
+					时间复杂度 $\mathcal{O}\left(NT + KN\right)$。
+							
+					空间复杂度 $\mathcal{O}\left(NT + KN\right)$。

@@ -1,0 +1,31 @@
+                               <html><head><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/ab2p.common.css"></link><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/acm.sgu.ru/ab2p.css"></link><title> SSU Online Contester :: 333. Random Shooting </title><META http-equiv='content-type' content='text/html; charset=windows-1251'><link rel=stylesheet type=text/css href='/texstyle.css'></head><body><div style='line-height:1.3em;'><div align=center><h4>333. Random Shooting</h4></div><div align=center>Time limit per test: 0.25 
+ second(s)<br />Memory limit: 65536
+ kilobytes</div><div align=center>input: standard<br />output: standard</div><br/><br /><br />You're playing a new game at the shooting range. First, a target is placed on a square board. The target itself is a convex polygon strictly inside the board.<br /><br />Then, you're allowed to shoot twice. In case at least one of your shots gets inside the target, you win. Moreover, if the segment connecting the points of your shots intersects the target, you still win. If none of the above holds, you lose.<br /><br />Assuming your aiming is very bad (i.e., the points of your shots are independently uniformly distributed all over the board), compute the probability of you winning.<br /><br /><div align = left style='margin-top:1em;'><b>Input</b></div>The first line of input contains an integer <i>N</i>, 3 &le; <i>N</i> &le; 8,&nbsp;&mdash; the number of vertices of the target. The next <i>N</i> lines contain two integers each, <i>x</i><sub><i>i</i></sub> and <i>y</i><sub><i>i</i></sub>, 1 &le; <i>x</i><sub><i>i</i></sub>, <i>y</i><sub><i>i</i></sub> &le; 99, decribing the coordinates of the vertices of the target (a convex polygon) in the counter-clockwise direction. No three vertices of the target lie on the same line. The coordinate system is chosen so that the corners of the board have coordinates (0, 0), (0, 100), (100, 0) and (100, 100).<br /><br /><div align = left style='margin-top:1em;'><b>Output</b></div>Output the required probability. Your solution will be accepted if it is within 10<sup>-7</sup> of the correct one.<br /><br /><div align = left style='margin-top:1em;'><b>Example(s)</b></div>
+<table cellspacing=0 cellpadding=4
+ style='border-collapse:collapse; border: 1px black solid;'>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample input</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample output</pre>
+ </td>
+ </tr>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+4
+25 25
+75 25
+75 75
+25 75
+</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+0.7328341830
+</pre>
+ </td>
+ </tr>
+</table><br>
+<br /><br /> </div><hr><table width=100% cellpadding=0 cellspacing=0 border=0><tr style='background-color : #FFFFFF;'><td align=right><a target=_top href='mailto:acm@cs.sgu.ru'>Online Contester</a> Team &copy; 2002 - 2010. All rights reserved.</td></tr></table></body></html>

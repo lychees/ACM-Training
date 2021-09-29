@@ -1,0 +1,25 @@
+\section{295D Greg and Caves}
+\subsection*{试题大意}
+一个由n*m个像素点组成的矩形，每个像素点可以是黑色或白色。
+
+如果符合以下条件，那么矩阵合法：
+
+一.存在一个区间[L,R]($1<=L<=R<=N$)，
+使得上至行L、下至行R，每一行都恰有2个黑点，而其他列只有白点。
+
+二.存在一个行号t$\in$[L,R]，使得：
+
+定义：中间白点是指同一行处在2个黑点之间的白点，$blackleft[i]$表示第i行靠左边的黑点所在列，$blackright[i]$表示靠右边的黑点所在列
+
+1.对于任意$L<=i<=j<=t$，第i行的任意列的中间白点，第j行的同一列都是中间白点。且$blackleft[i]>=blackleft[j],blackright[i]<=blackright[j]$
+
+2.对于任意$t<=i<=j<=R$，第j行的任意列的中间白点，第i行的同一列都是中间白点。且$blackleft[i]<=blackleft[j],blackright[i]>=blackright[j]$
+
+求合法矩阵方案数。
+
+$n,m \leq 2000$
+\subsection*{算法}
+$f[i][j]$表示用了i行，第i行最长且它的长为j的方案数。转移用前缀和。
+
+算方案的时候枚举t在哪里，然后以t为界的两半用f组合在一起即可。
+\subsection*{时间复杂度：$O(nm)$，空间复杂度：$O(nm)$}

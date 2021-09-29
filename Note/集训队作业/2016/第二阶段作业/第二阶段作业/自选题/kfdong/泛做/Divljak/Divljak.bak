@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{CJK}
+\usepackage{listings}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{cases}
+\usepackage{algorithm}
+\usepackage{enumerate}
+\usepackage{algorithmic}
+\usepackage{amssymb}
+\usepackage[pdftex,CJKbookmarks=true,colorlinks,linkcolor=black,anchorcolor=green,citecolor=green]{hyperref} 
+
+\begin{CJK}{UTF8}{gbsn}
+\title{\textbf{Divljak 解题报告}}
+\author{福州一中 董克凡}
+\date{}
+\begin{document}
+\maketitle
+
+\section{试题来源}
+\par
+	coci2015 Divljak
+\par
+	BZOJ地址：\url{http://www.lydsy.com/JudgeOnline/problem.php?id=3881}
+%end of section
+	
+\section{试题大意}
+\par
+	给出$n$个模式串$s_i$，共进行$m$次操作，每次操作有两种形式：
+	\begin{itemize}
+	\item 插入一个新的文本串$t_i$
+	\item 询问当前第i个模式串被多少个文本串包含
+\end{itemize}
+%end of section
+\par
+	$n,m\le 10^5,s\le 2*10^6$，其中$s$为文本串与模式串各自长度之和。
+%end of section
+
+\section{算法介绍}
+\par
+	首先注意到模式串输入之后就已经确定，那么考虑从模式串入手。对于模式串建立AC自动机，并且构造出fail树。对于操作一，可以直接把文本串在AC自动机上跑一下，把经过的节点标记下来。那么对于一个被这个新的文本串包含的模式串$s_i$，$s_i$的对应节点在fail树的子树内一定至少有一个节点被标记过，那么就把满足这个条件的所有$s_i$的答案$+1$，在操作二的时候直接输出答案即可。
+\par
+	考虑需要进行$+1$操作的所有节点，这些节点就是所有标记节点到根的链的并上的节点。故只需要用一个数据结构支持对某些点到根的链取并$+1$即可。
+\par
+	一种经典做法是，用fail树的dfs序来统计答案。首先将所有的标记节点去重，然后按照dfs序进行排序，然后按照这个序进行处理，每次考虑整个结构（即树链的并）的增量，即当前点到与其相邻的前一个节点的lca的一条链，然后把这一条链上的点答案+1。可以转化为在当前点到根路径+1，lca处-1。
+\par
+	维护一个点到根路径的链的+1，-1操作，可以使用树状数组+dfs序维护。在这个点单点修改，然后询问一个点的值时询问这个点的子树中的权值和即可。
+\par
+	这样维护时间复杂度为$\mathcal{O} \left( s*log(s) \right) $\\
+\par
+	这里我使用了另一种方法来维护树链的并。
+\par
+	考虑link-cut-tree的access操作，这个操作的的作用就是依次把一个点到根路径上的点放到一棵平衡树中。那么把多个access操作放在一起考虑，在lct的每一个节点上打一个时间戳，每次access不是一直做到根停止，而是到已经有时间戳的节点就停止。那么在时间戳更新之前，每次进行access操作就能避免更新已经被经过的节点。也就是说，对于一个操作一，在经过的每一个节点调用这个修改后的access操作，就相当于直接把加入了这个节点以后产生的增量放在了一颗平衡树中。直接在这棵平衡树中进行+1操作即可。在一整个操作一结束之后再更新时间戳。这样所有的需要更新的节点就只操作了一遍。
+\par
+	使用这种方法维护，不需要对于经过的节点按照dfs序排序。而且对于不会被询问到的节点，修改操作同样是不需要执行的，故可以把这些点缩起来而不影响答案，只保留每个模式串所在的一个节点，就能将lct的规模限制在$\mathcal{O} \left( n \right) $级别。这样时间复杂度就是$\mathcal{O} \left( s*log(n) \right) $
+\par
+	用这种方式维护一些点到根路径的链并，可以非常自然地避免重复计算的问题，并且不需要支持修改操作有逆。虽然使用了lct这个大常数的数据结构，但是其效率比经典算法要快近一倍（在BZOJ的提交情况上可以看出）。其中一个原因是虽然执行了$s$次access操作，但这些操作并没有把一整条链都访问一遍，事实上每次access操作的时间复杂度基本都是不满的。
+%end of section
+
+\end{CJK}
+\end{document}

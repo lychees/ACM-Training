@@ -1,0 +1,29 @@
+\section{263E Rhombus}
+
+\subsection*{题目大意}
+给出一个$n*m$的矩阵，定义函数$f$
+
+\includegraphics[width=12cm]{single/263E/gongshi.png}
+
+给出$n,m,k$,你需要求在$k\leq x \leq n-k+1 $ 和 $k\leq y \leq m-k+1 $ 时$f$能取到的最大值。
+
+\subsection*{算法}
+此题普通的方法都显得很麻烦，这里介绍一种非常方便的做法。
+
+考虑$k=2$时的情况
+
+\includegraphics[width=3.5cm]{single/263E/1.png}
+
+$f$函数的值相当于每个格子的值乘上它对应的权值。
+
+由于权值的特殊性，$f$函数的值还可以表示成若干个子矩形内格子权值的和。
+
+\includegraphics[width=3.5cm]{single/263E/2.png}
+
+到这里就已经有些明显了，再对这些矩形进行差分。就可以表示成若干个前缀矩形的加减。
+
+\includegraphics[width=3.5cm]{single/263E/3.png}
+
+这里$+1,-1$表示前缀矩形的加减，发现它们都形成了一条斜线。所以此题只要计算4条斜线的值就可以算出每个$f$的值，进而求出最终的答案。
+
+\subsection*{时间复杂度 ： $O(NM) $，空间复杂度：$O(NM)$}

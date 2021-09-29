@@ -1,0 +1,93 @@
+                               <html><head><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/ab2p.common.css"></link><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/acm.sgu.ru/ab2p.css"></link><title> SSU Online Contester :: 395. "Binary Cat" Club </title><META http-equiv='content-type' content='text/html; charset=windows-1251'><link rel=stylesheet type=text/css href='/texstyle.css'></head><body><div style='line-height:1.3em;'><div align=center><h4>395. "Binary Cat" Club</h4></div><div align=center>Time limit per test: 0.25 
+ second(s)<br />Memory limit: 65536
+ kilobytes</div><div align=center>input: standard<br />output: standard</div><br/><br /><br />"Binary Cat" club is extremely popular among Berland citizens. Club is a pretty crowded place and some unpleasant incidents happen there from time to time. So the club management monitors their visitors thoroughly. Usual measures like "face control" are accompanied with so-called "logging". Each time visitor enters the club, the "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/b17e855426b6a405107a6e17e7cd1a60.png'/>" record is added to the log. <img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/06dd0c9fdd78cbb299cea6352872684f.png'/> is the name of the person who just entered. Similarly the "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/16c8f5c2a2fc9f6e5855e1f923e4da39.png'/>" record is added when a person leaves the club. From time to time security adds records like "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/65be9436cd78aa2972984758e3dd802c.png'/>", where <img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/726500115a6ce232c3b653ec4035aa6e.png'/> is the number of the club guests present at the moment. At the moment the club was opened, it was empty. All records are added in the chronological order. If a person entered and exited the club several times, all these events are recorded. At the moment the club is closed some guests may still be there to participate in after-party. The club is big enough to contain any number of visitors at the same time.<br /><br />However all this security precautions didn't help. Recently a big scandal happened in the club. The scandal was about the discussion of implementation details of Malhotra-Kumar-Maheshwari algorithm. Police requested the log of the events for the night of the incident from the club management. During logs archive inspection club personnel found out that logs for the night of the incident are not complete due to technical reasons. Some of the records in the log are missing, but all the remaining records are preserved in their original order.<br /><br />Now club management wants to "polish" the log a bit, so that it looks plausible. They believe that the log looks plausible, if for the sequence of records in the log there is a sequence of actions which can happen in real life. For example, if the log contains a record that somebody leaves the club, the record about the same person entering the club should be present earlier in the log. Or, a person cannot enter the club the second time, if she did not leave the club after the first entry. The records "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/65be9436cd78aa2972984758e3dd802c.png'/>" should represent the actual number of guests in the club.<br /><br />The club managers would like to add some random records to the log in such a way, that the relative order of existing records is preserved and the final log is plausible. Your task is to find minimal possible number of records to be added to the log and to create one of the variants of "polished" log.<br /><br /><div align = left style='margin-top:1em;'><b>Input</b></div>The first line of the input contains integer number <i>N</i> (1 &le; <i>N</i> &le; 200), where <i>N</i> is the number of existing records in the log. Following <i>N</i> lines contain records of the log, one per line. Each record has the form "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/b17e855426b6a405107a6e17e7cd1a60.png'/>", "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/16c8f5c2a2fc9f6e5855e1f923e4da39.png'/>" and "<img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/65be9436cd78aa2972984758e3dd802c.png'/>". The value of <img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/726500115a6ce232c3b653ec4035aa6e.png'/> is between 0 and 100, inclusive. All names have length between 1 and 16 characters and consist of only lowercase Latin letters. <br /><br /><div align = left style='margin-top:1em;'><b>Output</b></div>Write in the first line <i>M</i>, the minimal possible number of records in "polished" log. The following <i>M</i> lines should contain the records of the "polished" log in the same format they were given in the input. The limitations on the format of names and the number of visitors remain. If there are several solutions, choose any of them. <br /><br /><div align = left style='margin-top:1em;'><b>Example(s)</b></div>
+<table cellspacing=0 cellpadding=4
+ style='border-collapse:collapse; border: 1px black solid;'>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample input</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample output</pre>
+ </td>
+ </tr>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+3
++ andrew
++ ilya
+- mike
+</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+4
++ andrew
++ ilya
++ mike
+- mike
+</pre>
+ </td>
+ </tr>
+</table><br>
+<table cellspacing=0 cellpadding=4
+ style='border-collapse:collapse; border: 1px black solid;'>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample input</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample output</pre>
+ </td>
+ </tr>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+1
+= 2
+</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+3
++ first
++ second
+= 2
+</pre>
+ </td>
+ </tr>
+</table><br>
+<table cellspacing=0 cellpadding=4
+ style='border-collapse:collapse; border: 1px black solid;'>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample input</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample output</pre>
+ </td>
+ </tr>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+3
+- silentbob
+- silentbob
+= 1
+</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+6
++ silentbob
+- silentbob
++ silentbob
+- silentbob
++ silentbob
+= 1
+</pre>
+ </td>
+ </tr>
+</table><br>
+<br /><br /> </div><hr><table width=100% cellpadding=0 cellspacing=0 border=0><tr style='background-color : #FFFFFF;'><td align=right><a target=_top href='mailto:acm@cs.sgu.ru'>Online Contester</a> Team &copy; 2002 - 2010. All rights reserved.</td></tr></table></body></html>

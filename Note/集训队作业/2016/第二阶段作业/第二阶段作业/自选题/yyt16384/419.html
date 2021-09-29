@@ -1,0 +1,50 @@
+                               <html><head><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/ab2p.common.css"></link><link rel="stylesheet" type="text/css" href="http://127.0.0.1:6384/acm.sgu.ru/ab2p.css"></link><title> SSU Online Contester :: 419. Hexagonal Walkaround </title><META http-equiv='content-type' content='text/html; charset=windows-1251'><link rel=stylesheet type=text/css href='/texstyle.css'></head><body><div style='line-height:1.3em;'><div align=center><h4>419. Hexagonal Walkaround</h4></div><div align=center>Time limit per test: 0.25 
+ second(s)<br />Memory limit: 262144
+ kilobytes</div><div align=center>input: standard<br />output: standard</div><br/><br /><br />A hexagonal leftist tank is a very complicated piece of machinery. It lives on a hexagonal grid, moving from a cell to some of its adjacent cells each turn.<br /><br />More specifically, each moment of time the tank is located in some cell (<i>x</i>,<i>y</i>) of the grid, heading in one of six directions (see picture for the definition of coordinate system and directions). In one turn, the tank can either move forward in the direction it is heading, or turn left one direction (i.e., increase the direction it is heading by one modulo six), and then move forward in the new direction the tank is heading. Moreover, it is forbidden to move more than <i>b</i> times in the same direction consecutively.<br /><br /><img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/5d1567d4487b266428e701a398805887.png'/><br /><br />You need to put the tank into cell (<i>x</i>,<i>y</i>), heading in direction <i>d</i><sub>2</sub>, given it is located in cell (0,0) initially, heading in direction <i>d</i><sub>1</sub>. What is the minimal number of turns required to do that?<br /><br /><div align = left style='margin-top:1em;'><b>Input</b></div>The input file contains five integer numbers <i>x</i>, <i>y</i>, <i>d</i><sub>2</sub>, <i>d</i><sub>1</sub>, <i>b</i> (-10<sup>12</sup> &le; <i>x</i>, <i>y</i> &le; 10<sup>12</sup>, 0 &le; <i>d</i><sub>1</sub>, <i>d</i><sub>2</sub> &le; 5, 2 &le; <i>b</i> &le; 10).<br /><br /><div align = left style='margin-top:1em;'><b>Output</b></div>Output one integer number &mdash; the minimal number of turns required to get the tank to the required position.<br /><br /><div align = left style='margin-top:1em;'><b>Example(s)</b></div>
+<table cellspacing=0 cellpadding=4
+ style='border-collapse:collapse; border: 1px black solid;'>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample input</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample output</pre>
+ </td>
+ </tr>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+3 3 1 5 3
+</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+6
+</pre>
+ </td>
+ </tr>
+</table><br>
+<table cellspacing=0 cellpadding=4
+ style='border-collapse:collapse; border: 1px black solid;'>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample input</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>sample output</pre>
+ </td>
+ </tr>
+ <tr >
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+-1 -3 4 2 2
+</pre>
+ </td>
+ <td width=400 valign=top style='border-collapse:collapse; border: 1px black solid;'>
+ <pre>
+10
+</pre>
+ </td>
+ </tr>
+</table><br>
+<br /><br />The second example is solved as follows (see next page):<br /><br /><img style='vertical-align:text-bottom;position:relative;top:-2px;' src='/cache/36ce20e9c15fd877d529d61f77b7d24c.png'/><br /><br /></div><hr><table width=100% cellpadding=0 cellspacing=0 border=0><tr style='background-color : #FFFFFF;'><td align=right><a target=_top href='mailto:acm@cs.sgu.ru'>Online Contester</a> Team &copy; 2002 - 2010. All rights reserved.</td></tr></table></body></html>

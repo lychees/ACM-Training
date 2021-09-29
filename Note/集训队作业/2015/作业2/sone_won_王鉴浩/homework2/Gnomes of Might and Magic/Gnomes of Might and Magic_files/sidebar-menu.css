@@ -1,0 +1,33 @@
+.sidebar-menu ul {
+    font-size: 13px;
+    margin: 1em;
+    list-style: disc inside;
+}
+
+.sidebar-menu ul li {
+    margin: 0.25em 0;
+    padding: 0.25em 0.25em 0.25em 0.5em;
+}
+
+.sidebar-menu ul a {
+    text-decoration: none;
+    color: black;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.sidebar-menu ul li {
+    border: 1px solid white;
+}
+
+.sidebar-menu ul li:hover, .sidebar-menu ul li.active {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #eaeaea;
+    background-color: #eaeaea;
+}
+
+.sidebar-menu ul li.active {
+    border: 1px solid #def;
+    background-color: #def;
+}

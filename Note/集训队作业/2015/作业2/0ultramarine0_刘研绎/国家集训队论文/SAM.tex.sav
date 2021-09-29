@@ -1,0 +1,29 @@
+\documentclass{noithesis}
+
+\begin{document}
+
+%% 论文开始
+
+\title{论文标题，还不知道叫什么}
+\author{长沙市雅礼中学~~刘研绎}
+
+\maketitle
+
+\begin{abstract}
+还不知道要怎么写摘要。
+\end{abstract}
+
+\section{引言}
+    先说什么``其他''
+
+
+\section*{参考文献}
+\begin{enumerate}[\lbrack 1\rbrack]
+\item Mokhtar S. Bazaraa, John J. Jarvis, and Hanif D. Sherali, ``Linear Programming and Network Flows (4th ed.)'', John Wiley \& Sons Inc.
+\item 刘汝佳, 黄亮, 《算法艺术与信息学竞赛》, 清华大学出版社。
+\item 刘汝佳, 《算法竞赛入门经典》, 清华大学出版社。
+\end{enumerate}
+
+%% 论文结束
+
+\end{document}

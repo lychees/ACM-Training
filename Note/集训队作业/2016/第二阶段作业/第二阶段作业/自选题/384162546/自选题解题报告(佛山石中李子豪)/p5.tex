@@ -1,0 +1,110 @@
+\documentclass{noiassignment}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{《Jabby's newwork》解题报告}
+\author{佛山石中 李子豪}
+
+\maketitle
+
+\section{试题来源}
+
+    可在BZOJ3913找到。
+
+\section{试题大意}
+
+    给定$L,R,A,B,C,K$,求${\sum_{X=L}^{R}}\left[\frac{AX+B}{C}\right]^K$.
+    
+    $K \leq 50,L,R,A,B,C \leq 10^9 $
+    
+
+\section{算法介绍}
+
+\subsection{一些需要用到的小知识}
+
+\subsubsection{}  
+
+    ${\sum_{X=L}^{R}}\left[\frac{AX+B}{C}\right]^K$
+    
+    我们可以转换为${\sum_{X=0}^{R}}\left[\frac{AX+B}{C}\right]^K-{\sum_{X=0}^{L-1}}\left[\frac{AX+B}{C}\right]^K$.
+    
+    从而问题就变成求解${\sum_{X=0}^{N}}\left[\frac{AX+B}{C}\right]^K$.
+    
+\subsubsection{}
+
+    二项式定理：$(a+b)^n={\sum_{i=0}^{n}} C_{n}^{i}a^ib^{n-i}$.
+    
+\subsubsection{}
+
+    ${\sum_{i=1}^{n}}i^m$,我们可以用一个关于$n$的$m+1$次多项式表示。
+    
+    并且我们可以用$O(m^3)$的方法预处理出所有$i \leq m$的对应多项式表示。
+    
+    这一点，我们可以通过$(b+1)^m-b^m$的值，通过二项式定理展开和累加得到这个多项式表示。
+
+
+\subsection{算法}
+
+    因此，我们可以采用类欧几里得算法解决。（之所以称为类欧几里得算法，后面就知道了）
+    
+    这道题，我们可以去求解一个通式情况：${\sum_{X=0}^{N}}X^a\left[\frac{AX+B}{C}\right]^b$.
+    
+    最初的情况中,$a=0,b=K$.
+    
+    我们针对各种情况进行分类讨论：
+    
+    1.若$b=0$,那么原式化简为${\sum_{X=0}^N}X^a$,于是我们可以通过预处理好的多项式表示求解。
+    
+    2.若$A \geq C$,那么原式可变成${\sum_{X=0}^N}X^a(\left[\frac{A}{C}\right]X+\left[\frac{(A mod C)X+B}{C}\right])^b$
+    对于这个我们通过二项式定理进行拆项，又可以转化为子问题了。
+    
+    3.若$B \geq C$,那么原式可变成${\sum_{X=0}^N}X^a(\left[\frac{B}{C}\right]+\left[\frac{AX+(B mod C)}{C}\right])^b$
+    继续进行二项式定理拆项，转化为子问题。
+    
+    4.若$A=0$或$\left[\frac{AN+B}{C}\right]=0$,那么可知结果为$0$,可直接结束；
+    
+    5.若$a=0$,可以通过一系列变换：
+    
+    \qquad ${\sum_{X=0}^N}\left[\frac{AX+B}{C}\right]^b$
+    
+    \qquad $={\sum_{X=0}^N}{\sum_{Y=0}^{\left[\frac{AX+B}{C}\right]-1}}[(Y+1)^b-Y^b]$
+    
+    \qquad $={\sum_{Y=0}^{\left[\frac{AN+B}{C}\right]-1}}[(y+1)^b-y^b]{\sum_{X=\left[\frac{CY+C-B-1}{A}\right]+1}^N}1$
+    
+    \qquad $=N{\sum_{Y=0}^{\left[\frac{AN+B}{C}\right]-1}}[(y+1)^b-y^b]-{\sum_{Y=0}^{\left[\frac{AN+B}{C}\right]-1}}[(y+1)^b-y^b]\left[\frac{CY+C-B-1}{A}\right]$
+    
+    对于前半部分，我们可以通过预处理得到的东西求解，而对于后半部分，继续通过二项式定理拆项转换为子问题。
+    
+    我们可以观察到，此时A到了分母地方，C则到了分子地方，交换了位置！！
+    
+    因此，通过欧几里得算法的证明，我们可以得到最多只会递归$O(log_2N)$层。
+    
+    6.对于其余的情况，同样是通过类似的变换：
+    
+    \qquad ${\sum_{X=0}^{N}}X^a\left[\frac{AX+B}{C}\right]^b$
+    
+    \qquad $=$...$=S-{\sum_{Y=0}^{\left[\frac{AN+B}{C}\right]-1}}[(y+1)^b-y^b]{\sum_{X=0}^{\left[\frac{CY+C-B-1}{A}\right]}}X^a$,
+    
+    \qquad 此处，$S={\sum_{Y=0}^{\left[\frac{AN+B}{C}\right]-1}}[(y+1)^b-y^b]{\sum_{X=0}^{N}}X^a$.
+    
+    那么，S可以通过预处理得到的东西求解，然后后半部分则通过前$N$项$M$次幂和的多项式表示化简开，然后变成子问题处理。
+    
+    综合以上的部分，我们就可以解决这道题。
+    
+    然后，这里需要用一个hash记录所有算过的值，以免重复，从而保证时间复杂度。
+    
+
+\section{时空复杂度}
+
+    空间复杂度$O(K^2log_{2}N)$,时间复杂度$O(K^4log_{2}N)$.
+
+\section{总结}
+
+    通过数学推导，采用类欧几里得算法解决。
+    
+
+%% 解题报告结束
+
+\end{document}

@@ -1,0 +1,18 @@
+[A]Low Cost Air Travel
+	dijkstra
+[B]Remember the A La Mode!
+	最小费用最大流。
+[C]Ars Longa
+	每个杆子设为未知数，每个不在地面的点列方程，高斯消元。
+	
+	给每个点一个随机的力，若仍有解，则稳定。
+[D]Bipartite Numbers
+	暴力枚举。
+[E]Bit Compressor
+	暴力dfs解压
+[G]Pilgrimage
+	每次人数改变前 这一段pay 要能被人数整除，筛选出合法的人数。
+[I]Degrees of Separation
+	map处理人名，floyd，取max
+[J]Routing
+	f[i][j]

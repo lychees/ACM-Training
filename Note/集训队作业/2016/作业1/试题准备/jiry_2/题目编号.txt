@@ -1,0 +1,3 @@
+P7974. Chef and Tree Game
+P7963. Make It Zero 3
+P7967. Sereja and Permutation

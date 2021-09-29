@@ -1,0 +1,3 @@
+P7654. Find a Subsequence
+P8005. Flight Distance
+P8027. Smart Chef vs Evil Chef

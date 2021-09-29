@@ -1,0 +1,11 @@
+题目名称：Queries With Points
+题目来源：Codechef November Challange 2013 QPOINT
+Tsinsen上试题编号：8045
+
+题目名称：Gangsters of Treeland
+题目来源：Codechef November Challange 2013 MONOPOLY
+Tsinsen上试题编号：8043
+
+题目名称：Sereja and Vectors
+题目来源：Codechef November Challange 2013 SEAVEC
+Tsinsen上试题编号：8037

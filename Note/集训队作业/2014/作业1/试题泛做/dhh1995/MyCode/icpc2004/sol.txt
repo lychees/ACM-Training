@@ -1,0 +1,35 @@
+[A]Carl the Ant
+	模拟
+[B]Heliport
+	二分半径，卡住 边、点，求圆心，判断是否在多边形内并分别和线段求交判断是否可行。
+[C]Image Is Everything
+	对照三视图，若某格不能满足则往里推。
+[D]Insecure in Prague
+	枚举，预处理优化判断。中途剪枝。
+[E]Intersecting Dates
+	分别排序，两指针扫过去，若某段既需要又没有被查询过则输出。
+[F]Merging Maps
+	枚举两幅图片，枚举偏移量，计算最优值。合并产生新图像后与旧图像计算最优值。
+[G]Navigation
+	随便取两个圆求交(eps=0.1)，对两个交点分别判断是否可行。
+[H]Tree-Lined Streets
+	线段求交，分割线段，分别计算树的棵树。
+[I]Suspense!
+	猫可以跳到的区间和鸟会被抓到的区间的重叠部分不可建桥面。在所有合法的值中，肯定是取高度最小的。由抛物线上两点和最小值，可以求出抛物线的函数y=ax^2。对抛物线长度积分。
+	f(x)	=	ax^2
+	len	=	\int \sqrt(1+f'(x)^2) dx
+		=	\int \sqrt(1+(2ax)^2) dx
+		=	2a \int \sqrt(1/4a^2+x^2) dx
+		=	2a (x/2 \sqrt(1/4a^2+x^2)+ln|x+ \sqrt(1/4a^2+x^2)|/8a^2)
+		=	ax \sqrt(1/4/a^2+x^2)+ln|x+\sqrt(1/4a^2+x^2)|/4a
+	设t=2ax , 则x=t/2a , dx=d(t/2a)=dt/2a
+	len	=	1/2a \int \sqrt(1+t^2) dt
+		=	1/2a (t/2 \sqrt(1+t^2)) + 1/2ln|t+\sqrt(1+t^2)|
+		=	1/2a (ax  \sqrt(1+4a^2x^2) + 1/2 ln|2ax + \sqrt(1+4a^2x^2)|)
+		=	ax \sqrt(1/4a^2+x^2) + ln |2ax + \sqrt(1+4a^2x^2) | /4a
+
+[J]Air Traffic Control
+	...
+
+schedule
+H ok	E ok	C ok	G ok	I ok	D ok	F ok	B	A	

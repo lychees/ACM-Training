@@ -1,0 +1,48 @@
+#include <vector>
+#include <list>
+#include <map>
+#include <set>
+#include <queue>
+#include <deque>
+#include <stack>
+#include <bitset>
+#include <algorithm>
+#include <functional>
+#include <numeric>
+#include <utility>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
+
+using namespace std;
+
+const int MOD=1000000007,inf=0x3f3f3f3f;
+const double eps=1e-12;
+typedef long long llint;
+typedef vector<int> vi;
+typedef unsigned int uint;
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+
+int T,n,a[110],k;
+
+int main()
+{
+    for(scanf("%d",&T);T--;)
+    {
+        scanf("%d",&n);
+        memset(a,0,sizeof a);
+        for(int i=0;i<n;i++) scanf("%d",&k),a[k]++;
+        int ans=1;
+        for(int i=2;i<=n;i++) if (a[i]>a[ans]) ans=i;
+        printf("%d\n",ans);
+    }
+    return 0;
+}

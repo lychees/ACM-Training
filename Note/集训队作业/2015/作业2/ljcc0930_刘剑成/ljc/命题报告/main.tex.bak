@@ -1,0 +1,377 @@
+\documentclass{noithesis}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\usepackage{syntonly}
+\usepackage{graphicx}
+\usepackage[colorlinks,CJKbookmarks=true,linkcolor=red]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{ydc的奖金 命题报告}
+\author{雅礼中学~~刘剑成}
+
+\maketitle
+
+\section{试题大意}
+
+	有一场比赛，如果你能在这场比赛中获得第$i$名，那么你可以得到$p_i$的奖金。
+
+	现在你已经提前了解了其他$n-1$名选手与你自己的各项能力，并且根据他们的能力分别计算出了他们得分的概率。这场考试的满分为1分，最低为0分，分数可以为任意小数。对于第$i$个人，他得$x$分的概率，与$t_i$次函数$f_i(x)$成正比。
+
+	如果一个人的函数为$f(x)=2$，那么他获得任意分数的概率都是相等的；如果一个人的函数为$f(x)=2-x$，那么他获得越高的分的概率就越低，且他获得0分的概率是获得1分的概率两倍。
+
+	现在你需要计算你能在这场比赛中期望能得到多少的奖金。由于分数可以为小数，所以无需考虑排名相等的情况。
+
+	答案对998244353（$7\times17\times2^{23}+1$，一个质数）取模。
+
+	\
+
+	时间限制：清澄\ 8sec/UOJ\ 6sec
+
+	空间限制：64MB
+
+\section{输入格式}
+
+	输入共$n+2$行。
+
+	第一行包含一个整数$n$。
+
+	在第二行有$n$个整数，第$i$个数代表$p_i$。
+
+	接下来$n-1$行，每行第一个数为$t_i$，代表第$i$个人所对应的函数是一个$t_i-1$次函数，接下来$t_i$个实数，第$j$个数代表该函数中$x^{j-1}$项的系数。
+
+	最后一行，第一个数为$t_n$，代表你所对应的函数是一个$t_n-1$次函数，接下来$t_n$个实数，第$j$个数代表该函数中$x^{j-1}$项的系数。
+
+\section{输出格式}
+
+	输出1行，包含一个整数，表示你期望能获得的奖金。
+
+\section{数据范围}
+
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			编号 & $n$ & $S=\sum t_i$ & 特殊限制\\
+			\hline
+			1  & \multirow{2}{*}{2}	& 5					 & \multirow{10}{*}{无} \\
+			\cline{1-1}\cline{3-3}
+			2  &					   & 10					& \\
+			\cline{1-1}\cline{2-2}\cline{3-3}
+			3  & \multirow{4}{*}{10}   & 40					& \\
+			\cline{1-1}\cline{3-3}
+			4  &					   & 60					& \\
+			\cline{1-1}\cline{3-3}
+			5  &					   & 80					& \\
+			\cline{1-1}\cline{3-3}
+			6  &					   & 100				   & \\
+			\cline{1-1}\cline{2-2}\cline{3-3}
+			7  & \multirow{4}{*}{100}  & 400				   & \\
+			\cline{1-1}\cline{3-3}
+			8  &					   & 600				   & \\
+			\cline{1-1}\cline{3-3}
+			9  &					   & 800				   & \\
+			\cline{1-1}\cline{3-3}
+			10 &					   & 1000				  & \\
+			\cline{1-1}\cline{2-2}\cline{3-3}\cline{4-4}
+			11 & \multirow{10}{*}{500} & \multirow{4}{*}{4000} & 所有名次的奖金相等 \\
+			\cline{1-1}\cline{4-4}
+			12 &					   &					   & 所有人的函数相同 \\
+			\cline{1-1}\cline{4-4}
+			13 &					   &					   & 除了第一名与最后一名 \\
+			\cline{1-1}
+			14 &					   &					   & 其他人的奖金都相等 \\
+			\cline{1-1}\cline{3-3}\cline{4-4}
+			15 &					   & 1500				  & \multirow{6}{*}{无} \\
+			\cline{1-1}\cline{3-3}
+			16 &					   & 2000				  & \\
+			\cline{1-1}\cline{3-3}
+			17 &					   & 2500				  & \\
+			\cline{1-1}\cline{3-3}
+			18 &					   & 3000				  & \\
+			\cline{1-1}\cline{3-3}
+			19 &					   & 3500				  & \\
+			\cline{1-1}\cline{3-3}
+			20 &					   & 4000				  & \\
+			\hline
+		\end{tabular}
+	\end{center}
+
+	保证所有人的函数在$[0,1]$的范围以内大于等于0，输入的所有实数仅有2位小数，且除了常数项以外的系数绝对值均小于5，常数项的绝对值小于30。
+
+	所有数据均为随机生成。
+
+	$p_i$的范围在0到10000之间。
+
+\section{算法介绍}
+
+	\subsection{算法1\label{alg_1}}
+
+		在$10\%$的数据中，只有2个人，即我们只需要求出第一个人有多大概率在第二个人以下，再乘上获得的奖金即可。
+
+		对于第$i$个人，他的分数落在$[l,r]$以内的概率$P_i(l,r)$为：
+		\begin{eqnarray}
+			P_i(l,r)=\frac{\int_l^rf_i(x)\ dx}{\int_0^1f_i(x)\ dx}
+		\end{eqnarray}
+
+		直观上看，该结果就是函数在$[l,r]$这一段中与$x$轴所构成区域的面积，除以函数在$[0,1]$中与$x$轴所构成区域的面积。即函数在$[l,r]$这一段的定积分除以在$[0,1]$这一段的定积分，如下图所示：
+
+		\begin{center}
+			\includegraphics[width=0.4\textwidth]{2-2.png}
+			\includegraphics[width=0.4\textwidth]{2-1.png}
+
+			\footnotesize{染色区域的面积除以函数在$[0,1]$的总面积即为分数落在左右边界内部的概率}
+		\end{center}
+
+		由于函数乘上一个常数对答案并没有任何影响，则我们可以将所有的函数除以它在$[0,1]$中与$x$轴所构成区域的面积，则有：
+		\begin{eqnarray}
+			P_i(l,r)=\int_l^rf_i(x)\ dx \label{eq:1}
+		\end{eqnarray}
+
+		假设答案不需要对998244353取模，考虑一种并不完美的做法：
+
+		确定一个很小的距离$\epsilon$，将每$\epsilon$的距离分为一段，枚举你所获得的分数落在哪一段内，通过计算另一个人的分数在你之下的概率，求和即为你超过另一个人的概率$P$：
+		\begin{eqnarray}
+			P& \approx &\sum_{k \in Z^+}^{k\epsilon \leq 1}P_1(0,k\epsilon-\epsilon)P_2(k\epsilon-\epsilon,k\epsilon)
+			\\
+			& = &\sum_{k \in Z^+}^{k\epsilon \leq 1}\int_{0}^{k\epsilon-\epsilon}f_1(x)\ dx\int_{k\epsilon-\epsilon}^{k\epsilon}f_2(x)\ dx
+		\end{eqnarray}
+
+		可以发现，当$d$取到无限接近于0的时候，$\int_{k\epsilon-\epsilon}^{k\epsilon}f_2(x)\ dx$等于$f_2(x)$的不定积分在$k\epsilon$处的导数，即为$f_2(k\epsilon)$。
+
+		记$f_i(x)$的原函数中，满足$F_i(0)=0$的原函数为$F_i(x)$，则有：
+		\begin{eqnarray}
+			P & = &\int_0^1 F_1(x) f_2(x) dx
+		\end{eqnarray}
+
+		由于本题中函数均为多项式函数，则对于函数：
+		$$f(x)=a_0 + a_1 x^1 + a_2 x^2 + ... + a_N x^N$$
+
+		它的原函数为：
+		$$F(x)=a_0x + \frac{a_1}{2} x^2 + \frac{a_2}{3} x^3 + ... + \frac{a_N}{N+1} x^{N+1}$$
+
+		所以我们只需要求出$F_1(x)f_2(x)$的值，再求一次定积分即可。
+
+		\
+
+		时间复杂度：$O(S^2)$
+
+		空间复杂度：$O(S)$
+
+	\subsection{算法2}
+
+		对于接下来$20\%$的数据，有$n=10$，那么考虑枚举哪些人分数比你高，哪些人分数比你低。
+
+		定义$U=\{1,2,3,...,n-1\}$，假设所有分数比你高的人构成了集合$A$，则分数比你低的人构成了集合$\complement_UA$，套用\textbf{算法1}的计算方法，则有：
+		\begin{eqnarray}
+			P & = &\int_0^1 f_n(x) \prod_{i}^{i \in A}F_i(x) \prod_{i}^{i \in \complement_U A}\big[1-F_i(x)\big] \ dx
+		\end{eqnarray}
+
+		接下来，只需统计当前超过了多少人，计入答案即可。
+
+		\
+
+		时间复杂度：$O(2^nS^2)$
+
+		空间复杂度：$O(S)$
+
+	\subsection{算法3}
+
+		我们观察获得第$i$名的总概率：
+
+		\begin{eqnarray}
+			P_i & = &\sum_{A \subseteq \{1,2,...,n-1\}}^{|A| = i} \int_0^1 \prod_{i}^{i \in A}F_i(x) \prod_{i}^{i \in \complement_UA}\big[1-F_i(x)\big]f_n(x)\ dx
+			\\
+			P_i & = &\int_0^1 f_n(x)\sum_{A \subseteq \{1,2,...,n-1\}}^{|A| = i} \prod_{i}^{i \in A}F_i(x) \prod_{i}^{i \in \complement_UA}\big[1-F_i(x)\big]\ dx
+		\end{eqnarray}
+
+		即我们可以先求出：
+		$$\sum_{A \subseteq \{1,2,...,n-1\}}^{|A| = i} \prod_{i}^{i \in A}F_i(x) \prod_{i}^{i \in \complement_UA}\big[1-F_i(x)\big]$$
+
+		接下来乘上$f_n(x)$再积分即为获得第$i$名的概率。
+
+		考虑动态规划，我们依次枚举第$i$个函数，判断它是乘上$F_i(x)$还是$1-F_i(x)$。可以设出状态$g_{i,j}(x)$代表已经到了第$i$个人，且有$j$个人的分数比你低的时候，当前的多项式为$g_{i,j}(x)$，
+
+		则有递推式：
+		\begin{eqnarray}
+			g_{i,j}(x)=F_i(x)g_{i-1,j-1}(x)+\big[1-F_i(x)\big]g_{i-1,j}(x)\label{eq:2}
+		\end{eqnarray}
+
+		接下来，我们只需要暴力进行多项式乘法，递推即可。使用滚动数组可以将空间优化至$O(nS)$。
+
+		时间复杂度：$O(nS^2)$
+
+		空间复杂度：$O(nS)$
+
+	\subsection{Bonus数据}
+
+		\subsubsection{数据11}
+
+			当所有名次的奖金相等时，无论获得任意名次都必然获得$p$的奖金，所以可以直接输出$p$。
+
+			\
+
+			时间复杂度：$O(1)$
+
+			空间复杂度：$O(1)$
+
+		\subsubsection{数据12}
+
+			当所有人的概率函数相等时，每个人获得第$i$名的概率是相同的，所以我们只需输出$\sum_{i=1}^{n}\frac{p_i}{n}$即可。
+
+			\
+
+			时间复杂度：$O(n)$
+
+			空间复杂度：$O(1)$
+
+		\subsubsection{数据13-14}
+
+			对于数据点13和14，我们只需要计算出获得第一名与最后一名的概率，再乘上他们奖金与2到$n-1$名奖金的差值即为答案。
+
+			获得第一名的概率为：
+			\begin{eqnarray}
+				P_1 & = &\int_0^1 \prod_{i=1}^{n-1}F_i(x)\ f_n(x)\ dx
+			\end{eqnarray}
+
+			获得最后一名的概率为：
+			\begin{eqnarray}
+				P_n & = &\int_0^1 \prod_{i=1}^{n-1}\big[1-F_i(x)\big]\ f_n(x)\ dx
+			\end{eqnarray}
+
+			我们只需要直接暴力计算多项式乘法即可。
+
+			\
+
+			时间复杂度：$O(S^2)$
+
+			空间复杂度：$O(S)$
+
+		\subsubsection{一个更优的解法\label{alg_fast}}
+
+			可以发现，在求第一名与最后一名的概率时，所需要做的即为求$n$个多项式的乘积。由于本题中模数的特殊性，很容易想到使用快速傅里叶变换（FFT）优化乘法。
+
+			对于所有的$i$满足$1 \leq i < n$，将$F_i(x)$进行离散傅里叶变换（DFT），即用一个数组记录当$x$分别为$\{\omega_L^0,\omega_L^1,\omega_L^2,...,\omega_L^{L-1}\}$\footnote{$\omega_L^k$指第$k$个$L$次单位复根；$L$为2的若干次幂}时，函数的值分别为多少。
+
+			如：新的$A_k$等于原$A$函数$A(\omega_L^k)$的值；新的$F_{i,k}$等于原$F_i$函数$F_i(\omega_L^k)$的值。
+
+			对于多项式$C(x)=A(x) + B(x)$，在进行DFT之后有：
+			$$C_i=A_i + B_i$$
+
+			同理，对于$C(x)=A(x) \times B(x)$，在进行DFT之后有：
+			$$C_i=A_i \times B_i$$
+
+			所以在计算多项式的运算时，我们可以将两个多项式进行DFT，在进行若干运算过后通过逆DFT转换回来，即为多个多项式的运算结果。
+
+			转换的时间复杂度为$O(L \log L)$，单次计算的时间复杂度为$O(L)$。\footnote{FFT的具体实现过程可以戳这里\href{http://en.wikipedia.org/wiki/Fast_Fourier_transform}{http://en.wikipedia.org/wiki/Fast\_Fourier\_transform}}
+
+			如果我们直接使用FFT，需要转换$2n$次，计算$n$次，是$O(nS \log S+nS)$的，这样的时间复杂度反而更劣了。
+
+			注意到如果直接一个一个多项式乘过去，到最后会出现长度为$O(S)$的多项式乘上长度为$O(1)$的多项式，这样并不是最优的方法。所以我们可以每次将$n$个多项式分为两半，将两边的多项式分别乘起来之后再相乘，这样的复杂度为：
+			\begin{eqnarray}
+				T(S)&=&2T\left(\frac{S}{2}\right)+O(S \log S)
+			\end{eqnarray}
+
+			可以算出总复杂度为$O(S \log^2 S)$。
+
+			\
+
+			时间复杂度：$O(S \log^2 S)$
+
+			空间复杂度：$O(S)$
+
+	\subsection{算法4}
+
+		同样的，我们在递推求$g_{i,j}$的时候，可以考虑用FFT进行优化。
+
+		在我们将$F_i$进行DFT之后，转移方程\ref{eq:2}变为：
+		\begin{eqnarray}
+			g_{i,j,k} & = & F_{i,k}g_{i-1,j-1,k}+(1-F_{i,k})g_{i-1,j,k}
+		\end{eqnarray}
+
+		接下来，我们确定$i$与$k$，即将整个$g$的第二维与第三维交换一下，则转移方程变为：
+		\begin{eqnarray}
+			g_{i,k,j} & = & F_{i,k}g_{i-1,k,j-1}+(1-F_{i,k})g_{i-1,k,j}
+		\end{eqnarray}
+
+		可以发现，数列$g_{i,k}$的生成函数$G_{i,k}(x)$与数列$g_{i-1,k}$的生成函数$G_{i-1,k}(x)$的关系为：
+		\begin{eqnarray}
+			G_{i,k}(x) & = & \big[F_{i,k}x+(1-F_{i,k})\big]G_{i-1,k}(x)
+		\end{eqnarray}
+
+		由于$G_{0,k}(x)=1$，则可推导出：
+		\begin{eqnarray}
+			G_{n-1,k}(x) & = & \prod_{i=1}^{n-1}\big[F_{i,k}x+(1-F_{i,k})\big]\label{eq:3}
+		\end{eqnarray}
+
+		观察\ref{eq:3}，对于每一个$k$，如果我们已经知道了$F_{i,k}$的值，都可以使用如\ref{alg_fast}所说的分治套FFT算法，在$O(n \log^2 n)$的时间内求出$G_{n,k}(x)$。而$F_{i,k}$可以直接利用FFT在$O(nS \log S)$的时间内求出。
+
+		在求出所有的$g_{n-1,k,j}$之后，最终使用逆DFT转化回来即为函数$g_{n-1,j}(x)$。
+
+		\
+
+		时间复杂度：$O(nS \log^2 n)$
+
+		空间复杂度：$O(nS)$
+
+	\subsection{算法5}
+
+		换个角度，假设对于转移方程\ref{eq:2}我们直接套用生成函数，则对于$g_{i,j}(x)$的二元生成函数$G_i(x,y)$，有：
+		\begin{eqnarray}
+			G_{i}(x,y) & = & \Big\{F_i(x)y+\big[1-F_i(x)\big]\Big\}G_{i-1}(x,y)
+		\end{eqnarray}
+		
+		又由于$G_0=1$，则可以推导出：
+		\begin{eqnarray}
+			G_{n-1}(x,y) & = & \prod_{i=1}^{n-1}\Big\{F_i(x)y+\big[1-F_i(x)\big]\Big\}
+		\end{eqnarray}
+		
+		则最终我们需要求的即为若干个二元多项式乘起来之后所得的多项式。
+		
+		对于二元多项式的DFT，相当于分别枚举$x$与$y$在取不同的值时，函数的值为多少，所以我们只需要先固定$y$，对于$y$的若干次幂之前关于$x$多项式进行FFT，再对于每个$x$不同的取值，对关于$y$的多项式进行FFT即可，对于一个$N \times M$的二元多项式进行FFT的时间复杂度为$O(NM\log NM)$。
+		
+		有了二元多项式的DFT，接下来我们可以沿用之前的思路——分治套FFT来解决当前问题。
+		
+		需要注意的是，假设我们的问题规模是$n \times S$的，由于数据是随机的，当我们将$n$个多项式等量的分成两份时，它们乘起来的项数也大约是差不多的，则此时的时间复杂度为：
+		\begin{eqnarray}
+			T(n,S)&=&2T\left(\frac{n}{2}\ ,\frac{S}{2}\right)+O(nS \log nS)
+		\end{eqnarray}
+			
+		可以发现，此时分治套FFT的时间复杂度并没有$\log^2$项了，时间复杂度仅为$O(nS \log nS)$。
+		
+		在求出$G_{n-1}$之后，我们只需要用$g_{n-1,j}(x)$乘上$f_n(x)$再积分即为答案。
+		
+		至此，问题完美解决。
+
+		\
+
+		时间复杂度：$O(nS \log nS)$
+
+		空间复杂度：$O(nS)$
+
+\section{感谢}
+
+	感谢屈运华老师在学习生活上的关心和照顾。
+
+	感谢父母对我的养育之恩。
+
+	感谢朱全民老师、廖晓刚老师和汪星明老师的教导。
+
+	感谢CCF提供的平台和机会。
+
+	感谢国家集训队教练的辛勤付出。
+
+	感谢清华大学黄志翱学长为我提供的帮助。
+
+	感谢匡正非、杨定澄、刘研绎同学为本文审稿。
+
+	感谢于纪平、吕凯风、杜瑜皓同学在出题的过程中提出的建议。
+
+	感谢所有帮助过我的同学。
+
+%% 解题报告结束
+
+\end{document}

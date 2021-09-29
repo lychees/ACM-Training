@@ -1,0 +1,21 @@
+[B]Simplified GSM Network
+	每条边计算穿越次数
+	枚举一个信号塔，枚举另一个，不断缩小其区域，计算剩余区域数
+	最后floyd即可
+[C]The Traveling Judges Problem
+	枚举中转点集合，做最小生成树。
+[D]cNteSahruPfefrlefe(Near Perfect Shuffle)
+	洗牌次数不同，牌相差很大，直接枚举洗牌次数，用两数组的差异计算所需的最少错误次数来估计。
+	然后搜索，中途用差异估价并剪枝。答案先比较错误数量，然后按错误的位置组成的数组比较字典序。	
+[E]Lots of Sunlight
+	对于每个询问，枚举两侧楼房，计算挡住的时间(算夹角，换算成时间)，注意不存在的特判。
+[F]Crossing Streets
+	离散，bfs
+[G]Tiling the Plane
+	O(n^4)
+[H]The Great Wall Game
+	横行或竖行可以贪心，对角线最优匹配，用最小费用流或KM。
+[I]Workshops
+	按时间排序，在时间允许下显然选人数满足情况下人数最多的，用multiset维护即可。
+[J]Zones
+	枚举选取的集合，计算人数，取最优。

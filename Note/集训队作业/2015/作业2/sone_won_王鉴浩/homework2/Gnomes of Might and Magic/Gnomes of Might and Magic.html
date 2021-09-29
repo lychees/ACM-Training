@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- saved from url=(0043)http://codeforces.com/contest/175/problem/F -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="X-Csrf-Token" content="82c6b91d8569dddd2bcf9b5d69317e16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="c2">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90">
+    <meta property="fb:admins" content="100001352546622">
+    <meta property="og:image" content="http://st.codeforces.com/images/codeforces-telegram-square.png">
+    <link rel="image_src" href="http://st.codeforces.com/images/codeforces-telegram-square.png">
+    <meta property="og:title" content="Problem - F - Codeforces">
+    <meta property="og:description" content="">
+    
+    <meta property="og:site_name" content="Codeforces">
+    
+    <meta name="cc" content="i9of11a91kj9">
+    
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2">
+    <title>Problem - F - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community">
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup">
+    <meta name="robots" content="index, follow">
+
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/font-awesome.min.css" type="text/css" charset="utf-8">
+
+        <link href="./Gnomes of Might and Magic_files/css" rel="stylesheet" type="text/css">
+
+
+    <link rel="shortcut icon" type="image/png" href="http://st.codeforces.com/favicon.png">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/prettify.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/clear.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/style.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/ttypography.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/problem-statement.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/second-level-menu.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/roundbox.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/datatable.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/table-form.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/topic.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/jquery.jgrowl.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/facebox.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/jquery.wysiwyg.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/jquery.autocomplete.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/codeforces.datepick.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/colorbox.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/jquery.drafts.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./Gnomes of Might and Magic_files/community.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./Gnomes of Might and Magic_files/status.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./Gnomes of Might and Magic_files/sidebar-menu.css" type="text/css" charset="utf-8">
+
+    <script type="text/javascript" async="" src="./Gnomes of Might and Magic_files/ga.js"></script><script type="text/javascript" src="./Gnomes of Might and Magic_files/prettify.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/sockjs-0.2.1.min.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/vertxbus-1.2.min.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/facebox.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.datepick.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.drafts.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/codeforces.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/style(1).css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="./Gnomes of Might and Magic_files/style(2).css" type="text/css" charset="utf-8">
+
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/share.js" charset="utf-8"></script>
+    
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/jquery.markitup.js"></script>
+    <script type="text/javascript" src="./Gnomes of Might and Magic_files/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+</head>
+<body><span style="display:none;" class="csrf-token" data-csrf="82c6b91d8569dddd2bcf9b5d69317e16">&nbsp;</span>
+<div class="button-up" style="display: none; opacity: 0.7; width: 30px; height: 100%; position: fixed; left: 0px; top: 0px; cursor: pointer; text-align: center; line-height: 30px; color: rgb(211, 219, 228); font-weight: bold; font-size: 20px;"><i class="icon-circle-arrow-up"></i></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    $(".second-level-menu-list").lavaLamp({
+        fx: "backout",
+        speed: 1000
+    });
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    $(".clickable-title").click(function() {
+        Codeforces.alert($(this).attr("title"));
+    }).css("position", "relative").css("bottom", "3px");
+
+        });
+    </script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-743380-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function () {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = (document.location.protocol == 'https:' ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<div id="body">
+        
+<div id="header" style="position: relative;">
+    <div style="float:left;">
+            <a href="http://codeforces.com/"><img src="./Gnomes of Might and Magic_files/codeforces-logo-with-telegram.png"></a>
+    </div>
+    <div class="lang-chooser">
+        <div style="text-align: right;">
+            <a href="http://codeforces.com/contest/175/problem/F?locale=en"><img src="./Gnomes of Might and Magic_files/gb.png" title="In English" alt="In English"></a>
+            <a href="http://codeforces.com/contest/175/problem/F?locale=ru"><img src="./Gnomes of Might and Magic_files/ru.png" title="По-русски" alt="По-русски"></a>
+        </div>
+        <div>
+                <a href="http://codeforces.com/enter">Enter</a>
+                 | 
+                <a href="http://codeforces.com/register">Register</a>
+                
+        </div>
+    </div>
+    <div style="font-size: 0.8em; margin-top: 0.25em; position: absolute; right: 0; top: 4.25em;">
+    </div>
+    <br style="clear: both;">
+</div>
+
+        
+    <div class="roundbox menu-box" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<div class="menu-list-container">
+    <ul class="menu-list main-menu-list">
+                <li class=""><a href="http://codeforces.com/">Home</a></li>
+                <li class="current"><a href="http://codeforces.com/contests">Contests</a></li>
+                <li class=""><a href="http://codeforces.com/gyms">Gym</a></li>
+                <li class=""><a href="http://codeforces.com/problemset">Problemset</a></li>
+                <li class=""><a href="http://codeforces.com/groups">Groups</a></li>
+                <li class=""><a href="http://codeforces.com/ratings">Rating</a></li>
+                <li class=""><a href="http://codeforces.com/api/help">API</a></li>
+                <li class=""><a href="http://codeforces.com/help">Help</a></li>
+                <li class=""><a href="http://codeforces.com/bayan2015">Bayan 2015 <img class="icon" src="./Gnomes of Might and Magic_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/rcc2015">RCC <img class="icon" src="./Gnomes of Might and Magic_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/zeptolab2015">ZeptoLab Code Rush <img class="icon" src="./Gnomes of Might and Magic_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/vkcup2015">VK Cup 2015 <img class="icon" src="./Gnomes of Might and Magic_files/cup.png"></a></li>
+                <li class=""><a href="http://codeforces.com/5years"><span style="color:#ce2a2a;position:relative;bottom:3px;font-weight:bold;">5 years!</span><img src="./Gnomes of Might and Magic_files/gift-small.png"></a></li>
+    </ul>
+    <br style="clear: both;">
+</div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input.search").focus(function () {
+                if ($(this).attr("data-isPlaceholder") === "true") {
+                    $(this).val("");
+                    $(this).removeAttr("data-isPlaceholder");
+                }
+            });
+        });
+    </script>
+        <br style="height: 3em; clear: both;">
+        <div style="position: relative;">
+                    <div id="sidebar">
+    <div class="roundbox highlight-blue sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Attention
+            <div class="top-links">
+            </div>
+        </div>
+    <div style="margin: 1em">
+        Package for this problem was not updated by the problem writer or Codeforces administration after we’ve upgraded the judging servers. To adjust the time limit constraint, solution execution time will be multiplied by 2. For example, if your solution works for 400 ms on judging servers, than value 800 ms will be displayed and used to determine the verdict.
+    </div>
+    </div>
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <table class="rtable ">
+            <tbody>
+                <tr>
+                            <th class="left" style="width:100%;"><a style="color: black" href="http://codeforces.com/contest/175">Codeforces Round #115</a></th>
+                </tr>
+                    <tr>
+                                <td class="left bottom" colspan="1"><span class="contest-state-phase">Finished</span></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Practice?
+            <div class="top-links">
+            </div>
+        </div>
+<div>
+    <div style="margin:1em;font-size:0.8em;">
+        Want to solve the contest problems after the official contest ends? Just register for practice and you will be able to submit solutions.
+    </div>
+
+    <div style="text-align:center;margin:1em;">
+    <form action="" method="post"><input type="hidden" name="csrf_token" value="82c6b91d8569dddd2bcf9b5d69317e16">
+        <input type="hidden" name="action" value="registerForPractice">
+        <input type="submit" name="submit" value="Register for practice" style="padding:0 0.5em;">
+    <input type="hidden" name="_tta" value="571"></form>
+    </div>    
+</div>
+    </div>
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Virtual participation
+            <div class="top-links">
+            </div>
+        </div>
+
+<div>
+    <div style="margin:1em;font-size:0.8em;">
+        Virtual contest is a way to take part in past contest, as close as possible to participation on time. It is supported only ACM-ICPC mode for virtual contests.
+
+If you've seen these problems, a virtual contest is not for you - solve these problems in the archive.
+
+If you just want to solve some problem from a contest, a virtual contest is not for you - solve this problem in the archive.
+
+Never use someone else's code, read the tutorials or communicate this other person during a virtual contest.
+    </div>
+
+    <div style="text-align:center;margin:1em;">
+        <form action="http://codeforces.com/contest/175/virtual" method="get">
+            <input type="submit" name="submit" value="Start virtual contest" style="padding:0 0.5em;">
+        </form>
+    </div>
+</div>
+    </div>
+
+
+    <div class="roundbox sidebox" style="">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+        <div class="caption titled">→ Problem tags
+            <div class="top-links">
+            </div>
+        </div>
+<div style="padding: 0.5em;">
+    <div class="roundbox " style="margin:2px; padding:0 3px 2px 3px; background-color:#f0f0f0;float:left;">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<span class="tag-box" style="font-size:12px;" title="Heaps, binary search trees, segment trees, hash tables, etc">
+    data structures
+</span>
+    </div>
+    <div class="roundbox " style="margin:2px; padding:0 3px 2px 3px; background-color:#f0f0f0;float:left;">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<span class="tag-box" style="font-size:12px;" title="Graphs">
+    graphs
+</span>
+    </div>
+    <div class="roundbox " style="margin:2px; padding:0 3px 2px 3px; background-color:#f0f0f0;float:left;">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<span class="tag-box" style="font-size:12px;" title="Implementation problems, programming technics, simulation">
+    implementation
+</span>
+    </div>
+    <div class="roundbox " style="margin:2px; padding:0 3px 2px 3px; background-color:#f0f0f0;float:left;">
+            <div class="roundbox-lt">&nbsp;</div>
+            <div class="roundbox-rt">&nbsp;</div>
+            <div class="roundbox-lb">&nbsp;</div>
+            <div class="roundbox-rb">&nbsp;</div>
+<span class="tag-box" style="font-size:12px;" title="Shortest paths on weighted and unweighted graphs">
+    shortest paths
+</span>
+    </div>
+    <div style="clear:both;text-align:right;font-size:11px;">
+            <span title="Please login into the Codeforces" class="notice">No tag edit access</span>
+    </div>
+</div>
+    </div>
+
+<form id="addTagForm" action="http://codeforces.com/data/problemTags" method="post" style="display:none;"><input type="hidden" name="csrf_token" value="82c6b91d8569dddd2bcf9b5d69317e16">
+    <input name="action" type="hidden" value="addTag">
+    <input name="problemId" type="hidden" value="1152">
+    <input name="tagName" type="hidden" value="">
+<input type="hidden" name="_tta" value="571"></form>
+
+<form id="removeTagForm" action="http://codeforces.com/data/problemTags" method="post" style="display:none;"><input type="hidden" name="csrf_token" value="82c6b91d8569dddd2bcf9b5d69317e16">
+    <input name="action" type="hidden" value="removeTag">
+    <input name="problemId" type="hidden" value="1152">
+    <input name="tagName" type="hidden" value="">
+<input type="hidden" name="_tta" value="571"></form>
+
+<script type="text/javascript">
+    $(".tag-box img").click(function () {
+        var tagName = $(this).attr("value");
+        Codeforces.confirm("Are you sure you want to remove this tag?", function () {
+            $("#removeTagForm input[name=tagName]").val(tagName);
+            $("#removeTagForm").submit();
+        }, function () {
+        }, "Yes", "No");
+    });
+
+    $("#addTagLink").click(function () {
+        $(this).hide();
+        $("#addTagLabel").show();
+        return false;
+    });
+
+    $("#addTagSelect").change(function () {
+        var tagName = $(this).val();
+        if (tagName === "") {
+            $("#addTagLabel").hide();
+            $("#addTagLink").show();
+        } else {
+            $("#addTagForm input[name=tagName]").val(tagName);
+            $("#addTagForm").submit();
+        }
+    });
+</script>
+
+<style type="text/css">
+#new-resource-form tr td {
+padding-top: 0.5em;
+}
+#new-resource-form input:not([type="submit"]) {
+font-size: 0.8em;
+}
+#new-resource-form select {
+font-size: 0.8em;
+}
+</style>
+<div class="roundbox sidebox sidebar-menu" style="">
+<div class="roundbox-lt">&nbsp;</div>
+<div class="roundbox-rt">&nbsp;</div>
+<div class="caption titled">→ Contest materials
+<div class="top-links">
+</div>
+</div>
+<ul>
+<li>
+<span>
+<a href="http://codeforces.com/blog/entry/4330" title="Codeforces Round #115" target="_blank">Announcement</a>
+</span>
+<span style="float: right;">
+<img class="delete-resource-link" resourceid="384" resourcename="Codeforces Round #115" resourcemanual="true" src="./Gnomes of Might and Magic_files/close-10x10.png" style="position: relative;bottom: -1px;left: 1px;cursor: pointer;">
+</span>
+<div style="clear: both;"></div>
+</li>
+<li>
+<span>
+<a href="http://codeforces.com/blog/entry/4339" title="Codeforces Round #115 — editorial A-E" target="_blank">Tutorial #1</a>
+</span>
+<span style="float: right;">
+<img class="delete-resource-link" resourceid="964" resourcename="Codeforces Round #115 — editorial A-E" resourcemanual="true" src="./Gnomes of Might and Magic_files/close-10x10.png" style="position: relative;bottom: -1px;left: 1px;cursor: pointer;">
+</span>
+<div style="clear: both;"></div>
+</li>
+<li>
+<span>
+<a href="http://codeforces.com/blog/entry/4353" title="Codeforces Round #115 — editorial F" target="_blank">Tutorial #2</a>
+</span>
+<span style="float: right;">
+<img class="delete-resource-link" resourceid="966" resourcename="Codeforces Round #115 — editorial F" resourcemanual="true" src="./Gnomes of Might and Magic_files/close-10x10.png" style="position: relative;bottom: -1px;left: 1px;cursor: pointer;">
+</span>
+<div style="clear: both;"></div>
+</li>
+</ul>
+</div></div>
+                    <div id="pageContent" class="content-with-sidebar">
+                <div class="second-level-menu">
+<ul class="second-level-menu-list"><li class="backLava" style="position: absolute; display: block; margin: 0px; padding: 0px; left: 0px; top: 0px; width: 84px; height: 20px;"><div class="leftLava"></div><div class="bottomLava"></div><div class="cornerLava"></div></li>
+        <li class="current selectedLava"><a href="http://codeforces.com/contest/175">Problems</a></li>
+        <li><a href="http://codeforces.com/contest/175/submit">Submit Code</a></li>
+        <li><a href="http://codeforces.com/contest/175/my">My Submissions</a></li>
+        <li><a href="http://codeforces.com/contest/175/status">Status</a></li>
+        <li><a href="http://codeforces.com/contest/175/hacks">Hacks</a></li>
+        <li><a href="http://codeforces.com/contest/175/room/1">Room</a></li>
+        <li><a href="http://codeforces.com/contest/175/standings">Standings</a></li>
+        <li><a href="http://codeforces.com/contest/175/customtest">Custom Invocation</a></li>
+</ul>
+</div>
+
+<div class="problemindexholder" problemindex="F">
+<div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">F. Gnomes of Might and Magic</div><div class="time-limit"><div class="property-title">time limit per test</div>8 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Vasya plays a popular game the Gnomes of Might and Magic.</p><p>In this game Vasya manages the kingdom of gnomes, consisting of several castles, connected by bidirectional roads. The kingdom road network has a special form. The kingdom has <span class="tex-span"><i>m</i></span> main castles <span class="tex-span"><i>a</i><sub class="lower-index">1</sub>, <i>a</i><sub class="lower-index">2</sub>, ..., <i>a</i><sub class="lower-index"><i>m</i></sub></span>, which form the Good Path. This path consists of roads between the castles <span class="tex-span"><i>a</i><sub class="lower-index"><i>i</i></sub>, <i>a</i><sub class="lower-index"><i>i</i> + 1</sub></span> <span class="tex-span">(1 ≤ <i>i</i> &lt; <i>m</i>)</span> as well as the road between <span class="tex-span"><i>a</i><sub class="lower-index"><i>m</i></sub></span> and <span class="tex-span"><i>a</i><sub class="lower-index">1</sub></span>. There are no other roads between the castles of the Good Path.</p><p>In addition, for each pair of neighboring Good Path castles <span class="tex-span"><i>u</i></span> and <span class="tex-span"><i>v</i></span> there is exactly one Evil Shortcut — a path that goes along the roads leading from the first castle <span class="tex-span">(<i>u</i>)</span> to the second one <span class="tex-span">(<i>v</i>)</span> and not having any common vertexes with the Good Path except for the vertexes <span class="tex-span"><i>u</i></span> and <span class="tex-span"><i>v</i></span>. It is known that there are no other roads and castles in the kingdom there, that is, every road and every castle lies either on the Good Path or the Evil Shortcut (castles can lie in both of them). In addition, no two Evil Shortcuts have any common castles, different than the castles of the Good Path.</p><p>At the beginning of each week in the kingdom appears one very bad gnome who stands on one of the roads of the kingdom, and begins to rob the corovans going through this road. One road may accumulate multiple very bad gnomes. Vasya cares about his corovans, so sometimes he sends the Mission of Death from one castle to another.</p><p>Let's suggest that the Mission of Death should get from castle <span class="tex-span"><i>s</i></span> to castle <span class="tex-span"><i>t</i></span>. Then it will move from castle <span class="tex-span"><i>s</i></span> to castle <span class="tex-span"><i>t</i></span>, destroying all very bad gnomes, which are on the roads of the Mission's path. Vasya is so tough that his Mission of Death can destroy any number of gnomes on its way. However, Vasya is very kind, so he always chooses such path between castles <span class="tex-span"><i>s</i></span> and <span class="tex-span"><i>t</i></span>, following which he will destroy the smallest number of gnomes. If there are multiple such paths, then Vasya chooses the path that contains the smallest number of roads among them. If there are multiple such paths still, Vasya chooses the lexicographically minimal one among them.</p><p>Help Vasya to simulate the life of the kingdom in the Gnomes of Might and Magic game.</p><p>A path is a sequence of castles, such that each pair of the neighboring castles on the path is connected by a road. Also, path <span class="tex-span"><i>x</i><sub class="lower-index">1</sub>, <i>x</i><sub class="lower-index">2</sub>, ... , <i>x</i><sub class="lower-index"><i>p</i></sub></span> is lexicographically less than path <span class="tex-span"><i>y</i><sub class="lower-index">1</sub>, <i>y</i><sub class="lower-index">2</sub>, ... , <i>y</i><sub class="lower-index"><i>q</i></sub></span>, if either <span class="tex-span"><i>p</i> &lt; <i>q</i></span> and <span class="tex-span"><i>x</i><sub class="lower-index">1</sub> = <i>y</i><sub class="lower-index">1</sub>, <i>x</i><sub class="lower-index">2</sub> = <i>y</i><sub class="lower-index">2</sub>, ... , <i>x</i><sub class="lower-index"><i>p</i></sub> = <i>y</i><sub class="lower-index"><i>p</i></sub></span>, or exists such number <span class="tex-span"><i>r</i></span> <span class="tex-span">(<i>r</i> &lt; <i>p</i>, <i>r</i> &lt; <i>q</i>)</span>, that <span class="tex-span"><i>x</i><sub class="lower-index">1</sub> = <i>y</i><sub class="lower-index">1</sub>, <i>x</i><sub class="lower-index">2</sub> = <i>y</i><sub class="lower-index">2</sub>, ... , <i>x</i><sub class="lower-index"><i>r</i></sub> = <i>y</i><sub class="lower-index"><i>r</i></sub></span> and <span class="tex-span"><i>x</i><sub class="lower-index"><i>r</i> + 1</sub> &lt; <i>y</i><sub class="lower-index"><i>r</i> + 1</sub></span>.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>m</i></span> <span class="tex-span">(3 ≤ <i>m</i> ≤ <i>n</i> ≤ 100000)</span> — the number of castles in the kingdom, and the number of castles on the Good Path, respectively.</p><p>The second line contains <span class="tex-span"><i>m</i></span> integers, which are numbers of Good Path castles (the castles are numbered from <span class="tex-span">1</span> to <span class="tex-span"><i>n</i></span>) in the order of occurrence on the Path, starting with some castle. All Good Path castles are different.</p><p>Each of the following <span class="tex-span"><i>m</i></span> lines describes an Evil Shortcut. First a line contains an integer <span class="tex-span"><i>k</i><sub class="lower-index"><i>i</i></sub></span> <span class="tex-span">(3 ≤ <i>k</i><sub class="lower-index"><i>i</i></sub> ≤ 100000)</span> — the number of castles on the corresponding Evil Shortcut (with the two castles which are on the Good Path), followed by a <span class="tex-span"><i>k</i><sub class="lower-index"><i>i</i></sub></span> integers — number of castles in the order of occurrence in the given Shortcut. All castles in one Evil Shortcut are different. It is guaranteed that the first and the last castles from the Shortcut are on the Good Path and the first castles in the Evil Shortcuts form the Good Path and are presented in the same order in which the Path was represented on the second line.</p><p>The next line contains an integer <span class="tex-span"><i>q</i></span> <span class="tex-span">(1 ≤ <i>q</i> ≤ 100000)</span> — the number of events in the life of the kingdom. Each of the following <span class="tex-span"><i>q</i></span> lines describes a single event. An event is described by the symbol <span class="tex-span"><i>c</i><sub class="lower-index"><i>j</i></sub></span> and two numbers or castles <span class="tex-span"><i>s</i><sub class="lower-index"><i>j</i></sub></span> and <span class="tex-span"><i>t</i><sub class="lower-index"><i>j</i></sub></span> (the character and numbers of castles are separated by a single space). If the character of <span class="tex-span"><i>c</i><sub class="lower-index"><i>j</i></sub></span> is equal to "<span class="tex-font-style-tt">+</span>" (a plus), it means that a very bad gnome (probably not the first one) has appeared on the road between castles <span class="tex-span"><i>s</i><sub class="lower-index"><i>j</i></sub></span> and <span class="tex-span"><i>t</i><sub class="lower-index"><i>j</i></sub></span>. If <span class="tex-span"><i>c</i><sub class="lower-index"><i>j</i></sub></span> equals "<span class="tex-font-style-tt">?</span>" (a question), then Vasya sent a Mission of Death from castle <span class="tex-span"><i>s</i><sub class="lower-index"><i>j</i></sub></span> to castle <span class="tex-span"><i>t</i><sub class="lower-index"><i>j</i></sub></span>. It is guaranteed that for each request "<span class="tex-font-style-tt">+</span>", the road between castles <span class="tex-span"><i>s</i><sub class="lower-index"><i>j</i></sub></span> and <span class="tex-span"><i>t</i><sub class="lower-index"><i>j</i></sub></span> exists. The events are given in chronological order, starting with the earliest one. Initially there are no very bad gnomes on the roads.</p><p>All numbers in all lines are separated by single spaces. It is guaranteed that all the given Evil Shortcuts and Good Path fit in the limitations given in the problem statement.</p></div><div class="output-specification"><div class="section-title">Output</div><p>For each query "<span class="tex-font-style-tt">?</span>" print a single number on a single line — the number of very bad gnomes destroyed by the corresponding Mission of Death. Print the answers to queries in the chronological order.</p></div><div class="sample-tests"><div class="section-title">Sample test(s)</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>6 3<br>1 2 3<br>3 1 4 2<br>3 2 5 3<br>3 3 6 1<br>10<br>+ 1 2<br>+ 4 2<br>+ 1 3<br>+ 2 3<br>? 1 2<br>+ 2 5<br>? 1 2<br>? 1 2<br>+ 1 2<br>? 1 2<br></pre></div><div class="output"><div class="title">Output</div><pre>0<br>1<br>0<br>1<br></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the example after the first four requests there is only one path from castle 1 to castle 2, which does not contain roads with very bad gnomes: 1 <img align="middle" class="tex-formula" src="./Gnomes of Might and Magic_files/70a0795f45d32287dba0eb83fc4a3f470c6e5537.png"> 6 <img align="middle" class="tex-formula" src="./Gnomes of Might and Magic_files/70a0795f45d32287dba0eb83fc4a3f470c6e5537.png"> 3 <img align="middle" class="tex-formula" src="./Gnomes of Might and Magic_files/70a0795f45d32287dba0eb83fc4a3f470c6e5537.png"> 5 <img align="middle" class="tex-formula" src="./Gnomes of Might and Magic_files/70a0795f45d32287dba0eb83fc4a3f470c6e5537.png"> 2.</p><p>After a gnome stood on the road (2, 5), the next Mission of Death moves along path 1 <img align="middle" class="tex-formula" src="./Gnomes of Might and Magic_files/70a0795f45d32287dba0eb83fc4a3f470c6e5537.png"> 2, and destroys the gnome, who was on the road (1, 2). The next Mission of Death follows the same path which is already free of gnomes.</p><p>After yet another gnome stood on the road (1, 2), the next Mission of Death goes on the path 1 <img align="middle" class="tex-formula" src="./Gnomes of Might and Magic_files/70a0795f45d32287dba0eb83fc4a3f470c6e5537.png"> 2, and kills the gnome.</p></div></div></div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        var inputFileDiv = $("div.input-file");
+        var inputFile = inputFileDiv.text();
+        var outputFileDiv = $("div.output-file");
+        var outputFile = outputFileDiv.text();
+
+        if (!endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        var titleDiv = $("div.header div.title");
+
+
+
+    });
+</script>
+            </div>
+        </div>
+
+<br style="clear: both;">
+<div id="footer">
+    <div><a href="http://codeforces.com/">Codeforces</a> (c) Copyright 2010-2015 Mike Mirzayanov</div>
+    <div>The only programming contests Web 2.0 platform</div>
+    <div>Server time: 2015-04-23 03:35:24 (c2).</div>
+</div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($(window).width() < 1600) {
+                $('.button-up').css('width', '30px').css('line-height', '30px').css('font-size', '20px');
+            }
+
+            if ($(window).width() >= 1200) {
+                $ (window).scroll (function () {
+                    if ($ (this).scrollTop () > 100) {
+                        $ ('.button-up').fadeIn();
+                    } else {
+                        $ ('.button-up').fadeOut();
+                    }
+                });
+
+                $('.button-up').click(function () {
+                    $('body,html').animate({
+                        scrollTop: 0
+                    }, 500);
+                    return false;
+                });
+
+                $('.button-up').hover(function () {
+                    $(this).animate({
+                        'opacity':'1',
+                    }).css({'background-color':'#e7ebf0','color':'#6a86a4'});
+                }, function () {
+                    $(this).animate({
+                        'opacity':'0.7'
+                    }).css({'background':'none','color':'#d3dbe4'});;
+                });
+            }
+            Codeforces.focusOnError();
+        });
+    </script>
+</div>
+
+
+<div id="datepick-div" style="display: none;"></div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none; padding-bottom: 42px; padding-right: 42px;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div></body></html>

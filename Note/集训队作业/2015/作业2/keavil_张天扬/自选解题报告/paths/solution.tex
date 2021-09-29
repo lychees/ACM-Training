@@ -1,0 +1,86 @@
+\documentclass{noiassignment}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{林中路径~~解题报告}
+\author{长沙市一中~~张天扬}
+
+\maketitle
+
+\section{试题来源}
+
+HEOI2014
+
+http://www.lydsy.com/JudgeOnline/problem.php?id=3610
+
+\section{试题大意}
+给定一张$n$个点$m$条边的有向图，以及一个$k$。之后有$Q$个询问，每次询问从$s$到$t$所有路径长度不超过$k$的路径的长度平方和。
+
+$n\leqslant 100,m \leqslant 10^5,k \leqslant 10^9,Q \leqslant 10000$
+
+\section{算法介绍}
+不妨考虑所有路径长度小于$k$的路径长度平方和。这样我们可以将$k$加一之后计算答案。
+不妨设$a_i$表示经过路径长度为$i-1$的路径，从$s$到$t$的方案数。
+
+\begin{displaymath}
+ans_k=\sum_{i=1}^k {a_i(i-1)^2}
+\end{displaymath}
+
+那么容易看出：
+
+\begin{displaymath}
+\begin{split}
+ans_{2k} & = \sum_{i=1}^{2k}{a_i(i-1)^2}\\
+         &=\sum_{i=1}^k{a_i(i-1)^2}+\sum_{i=1}^k{a_{i+k}(i+k-1)^2}\\
+         &=\sum_{i=1}^k{a_i(i-1)^2}+\sum_{i=1}^k{a_{i+k}(i-1)^2}+k^2\sum_{i=1}^k{a_{i+k}}+2k\sum_{i=1}^k{a_{i+k}}\\
+\end{split}
+\end{displaymath}
+
+不妨设$f_k=\sum_{i=1}^k{a_i(i-1)}$，$g_k=\sum_{i=1}^k{a_i}$。
+则：
+\begin{displaymath}
+\begin{split}
+f_{2k}&=\sum_{i=1}^{2k}{a_i(i-1)}\\
+		  &=\sum_{i=1}^k{a_i(i-1)}+\sum_{i=1}^k{a_{i+k}(i+k-1)}\\
+      &=\sum_{i=1}^k{a_i(i-1)}+\sum_{i=1}^k{a_{i+k}(i-1)}+k\sum_{i=1}^k{a_{i+k}}
+\end{split}
+\end{displaymath}
+
+不妨设$D$为邻接矩阵，$I$为单位矩阵。设$G$为所有点对间$g$的矩阵，设$F$为所有点对间$f$的矩阵，设$A$为所有点对间$ans$的矩阵。那么我们有：
+
+\begin{displaymath}
+\begin{split}
+G_1&=I\\
+G_{2k}&=G_k+G_k*D^k\\
+G_{k+1}&=G_k+D^{k}\\
+\end{split}
+\end{displaymath}
+
+这样就能够求出$G$矩阵。
+
+\begin{displaymath}
+\begin{split}
+F_1&=0\\
+F_{2k}&=F_k+F_kD^k+kG_kD^k\\
+F_{k+1}&=F_k+kD^k\\
+\end{split}
+\end{displaymath}
+
+这是对照上面$f$的计算方式得出来的。这样我们可以求出$F$矩阵。
+
+\begin{displaymath}
+\begin{split}
+A_1&=0\\
+A_{2k}&=A_k+A_kD^k+2kF_kD^k+k^2G_kD^k\\
+A_{k+1}&=A_k+k^2D^k
+\end{split}
+\end{displaymath}
+
+我们可以使用递归的方式来计算以上三个矩阵。得到$A_{k}$之后，对于一个询问$(s,t)$，$A_{k_{i,j}}$就是所求的答案。
+
+复杂度是$O(n^3 \log k + Q)$。
+%% 解题报告结束
+
+\end{document}

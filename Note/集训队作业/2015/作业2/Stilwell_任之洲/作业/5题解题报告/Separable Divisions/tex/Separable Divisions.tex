@@ -1,0 +1,59 @@
+\documentclass{noiassignment}
+
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Separable~Divisions 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    Andrew Stankevich Contest 27
+
+    \href{http://codeforces.com/gym/100243}{Codeforces gym ASC27 J}
+
+\section{试题大意}
+    对于一个$n$×$m$的方格图，一种黑白染色方案被称为$Separable~Divisions$，当且仅当满足以下条件：
+    \begin{itemize}
+        \item 由一个黑色连通块和一个白色连通块组成。
+        \item 这两个连通块是可分离的，即可以从某个方向抽开两个连通块。
+    \end{itemize}
+    \begin{figure}[H]\centering
+    \includegraphics[height=4cm]{sample.png}
+    \end{figure}
+
+    求出$Separable~Divisions$染色方案数量。
+
+    数据范围：$n,m\leq 50$。
+
+\section{算法介绍}
+    可以用容斥思想来简化这个问题。
+
+    方格图共有四条边，定义一条边合法为可以将黑色连通块从这条边抽出（首先要保证黑白连通），那么通过容斥易得
+    $$ans=\sum_{i=1}^4(-1)^{i+1}f_i$$
+
+    其中$f_i$表示强制其中$i$条边一定合法的方案，考虑如下四种情况：
+    \begin{itemize}
+        \item 对于$f_1$的情况，可以直接枚举在那条边上黑色连通块所占的区间长度$l$，可选用的染色高度为$1\sim m-1$。
+        \item 对于$f_2$的情况，一定是覆盖了某一个角，从边上看的话就是一个递减序列，用DP可以解决。
+        \item 对于$f_3$的情况，很简单，一定是沿着某一条边不断扩展。
+        \item 对于$f_4$的情况，只有全图染同一种颜色的可能，不需要考虑。
+    \end{itemize}
+
+    \begin{figure}[H]\centering
+    \includegraphics[height=3cm]{f1.png}~~
+    \includegraphics[height=3cm]{f2.png}~~
+    \includegraphics[height=3cm]{f3.png}~~
+    \includegraphics[height=3cm]{f4.png}
+    \end{figure}
+
+    不考虑大整数高精度计算带来的时间和空间开销，时间复杂度$O(nm)$，空间复杂度$O(nm)$。
+
+%% 解题报告结束
+
+\end{document}

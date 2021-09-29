@@ -1,0 +1,197 @@
+nclude<iostream>
+#include<algorithm>
+#include<cstdio>
+#include<cmath>
+#include<cstring>
+#include<cstdlib>
+using namespace std;
+#define ll long long
+#define N 30100
+#define M 460000
+ll tot,Ans[N];
+int n,m,kk;
+int s[M*4],lab[M*4],cp[N],a[N],siz[N],fa[N],Max[N],q[N],q3[M],q1[N],q2[N],sum1[N],sum2[N];
+int head[N*2],next[N*2],v[N*2],num=1;
+bool p[N*2];
+int st[N][16],ed[N][16],rec1[N][16],rec2[N][16],St[N],Ed[N],dd[N][16];
+int get(int u){
+     int t=0,w=1;q[1]=u;
+     fa[u]=0;
+     while(t<w){
+       u=q[++t];
+       siz[u]=1;
+       Max[u]=0;
+       for(int i=head[u];i;i=next[i])
+         if(fa[u]!=v[i] && !p[i]){
+           q[++w]=v[i];
+           fa[v[i]]=u;
+         }
+     }
+     for(int i=w;i>1;i--){
+             siz[fa[q[i]]]+=siz[q[i]];
+             Max[fa[q[i]]]=max(Max[fa[q[i]]],siz[q[i]]);
+             }
+     for(int i=1;i<=w;i++)Max[q[i]]=max(Max[q[i]],siz[q[1]]-siz[q[i]]);
+     int id=q[1];
+     for(int i=2;i<=w;i++)
+       if(Max[q[i]]<Max[id])id=q[i];
+     return id;
+}
+void dfs(int u,int Fa,int dep,int x1,int x2,int w){
+     dd[u][dep]=w;
+     st[u][dep]=num+1;
+     rec1[u][dep]=x1;
+     rec2[u][dep]=x2;
+     for(int i=head[u];i;i=next[i])
+       if(!p[i] && v[i]!=Fa)dfs(v[i],u,dep,x1,x2,w^cp[v[i]]);
+     ed[u][dep]=++num;
+}
+int sqr(int x){
+    return x*x;
+}
+void build(int u,int dep){
+     u=get(u);
+     St[u]=num+1;
+     for(int i=head[u];i;i=next[i])
+       if(!p[i]){
+         p[i]=p[i^1]=1;
+         dfs(v[i],u,dep,v[i],u,cp[v[i]]);
+         p[i]=p[i^1]=0;
+         sum1[u]-=sqr(ed[v[i]][dep]-st[v[i]][dep]+1);
+       }
+     Ed[u]=num;
+     sum1[u]+=sqr(Ed[u]-St[u]+1);
+     for(int i=head[u];i;i=next[i])
+       if(!p[i]){
+         p[i]=p[i^1]=1;
+         build(v[i],dep+1);
+         }
+}
+void down(int u,int l,int r){
+     if(!lab[u])return;
+     s[u]=r-l+1-s[u];
+     if(l!=r)lab[u*2]^=1,lab[u*2+1]^=1;
+     lab[u]=0;
+}
+void updata(int u,int l,int r){
+     int mid=(l+r)>>1;
+     down(u*2,l,mid);
+     down(u*2+1,mid+1,r);
+     s[u]=s[u*2]+s[u*2+1];
+}
+void work(int u,int l,int r,int x,int y){
+     if(x>r || y<l)return;
+     down(u,l,r);
+     if(x<=l && y>=r){
+             lab[u]=1;
+             down(u,l,r);
+             return;
+     }
+     int mid=(l+r)>>1;
+     work(u*2,l,mid,x,y);
+     work(u*2+1,mid+1,r,x,y);
+     updata(u,l,r);
+}
+int find(int u,int l,int r,int x,int y){
+    if(x>r || y<l)return 0;
+    down(u,l,r);
+    if(x<=l && y>=r)return s[u];
+    int mid=(l+r)>>1;
+    return find(u*2,l,mid,x,y)+find(u*2+1,mid+1,r,x,y);
+}
+int calc2(int u){
+    if(St[u]>Ed[u])return 0;
+    int tt=find(1,1,num,St[u],Ed[u]);
+    if(a[u])tt=Ed[u]-St[u]+1-tt;
+    return tt;
+}
+int calc1(int u,int dep){
+    int v1=rec1[u][dep],v2=rec2[u][dep];
+    int t1=find(1,1,num,St[v2],Ed[v2]),t2=Ed[v2]-St[v2]+1-t1;
+    int t3=find(1,1,num,st[v1][dep],ed[v1][dep]),t4=ed[v1][dep]-st[v1][dep]+1-t3;
+    t1-=t3;t2-=t4;
+    if(!a[v2])return t1*t4+t2*t3;
+    else return t1*t3+t2*t4;
+}
+void change(int u,int x){
+     if(x==a[u])return;
+     tot-=calc2(u)*2;
+     a[u]=x;
+     tot+=calc2(u)*2;
+     tot-=sum2[u];
+     sum2[u]=sum1[u]-sum2[u];
+     tot+=sum2[u];
+     for(int i=0;rec1[u][i];i++){
+       int tt=calc1(u,i)*2;
+       sum2[rec2[u][i]]-=tt;
+       tot-=tt;
+       tot-=calc2(rec2[u][i])*2;
+       work(1,1,num,st[u][i],ed[u][i]);
+       tt=calc1(u,i)*2;
+       tot+=tt;
+       sum2[rec2[u][i]]+=tt;
+       tot+=calc2(rec2[u][i])*2;
+     }
+}
+void pre(int u,int l,int r){
+     if(l==r){
+       s[u]=q3[l];
+       return;
+     }
+     int mid=(l+r)>>1;
+     pre(u*2,l,mid);
+     pre(u*2+1,mid+1,r);
+     s[u]=s[u*2]+s[u*2+1];
+}
+void add(int x,int y){
+     v[++num]=y;next[num]=head[x];head[x]=num;
+     }
+int main(){
+    while(~scanf("%d%d",&n,&m)){
+    memset(head,0,sizeof head);
+    memset(rec1,0,sizeof rec1);
+    memset(rec2,0,sizeof rec2);
+    memset(st,0,sizeof st);
+    memset(ed,0,sizeof ed);
+    memset(St,0,sizeof St);
+    memset(Ed,0,sizeof Ed);
+    memset(p,0,sizeof p);
+    memset(sum1,0,sizeof sum1);
+    for(int i=1;i<=m;i++)Ans[i]=0;
+    num=1;
+    for(int i=1;i<=n;i++)head[i]=0;
+    for(int i=1;i<=n;i++)scanf("%d",&cp[i]);
+    for(int i=1;i<n;i++){
+      int x,y;
+      scanf("%d%d",&x,&y);
+      add(x,y);add(y,x);
+    }
+    for(int i=1;i<=m;i++)scanf("%d%d",&q1[i],&q2[i]);
+    num=0;
+    build(1,0);
+    for(int i=0;i<15;i++){
+      tot=0;
+      for(int j=1;j<=n;j++)sum2[j]=0,a[j]=(cp[j]>>i)&1;
+      for(int j=1;j<=num*4;j++)lab[j]=s[j]=0;
+      for(int j=1;j<=num;j++)q3[j]=0;
+      for(int j=1;j<=n;j++)
+          for(int k=0;rec1[j][k];k++)q3[ed[j][k]]=(dd[j][k]>>i)&1;
+      pre(1,1,num);
+      for(int j=1;j<=n;j++)
+        for(int k=0;rec1[j][k];k++)
+          if(rec1[j][k]==j){
+            int tt=calc1(j,k);
+            sum2[rec2[j][k]]+=tt;
+            tot+=tt;
+            }
+      for(int j=1;j<=n;j++)
+        if(St[j]<=Ed[j])tot+=calc2(j)*2;
+      for(int j=1;j<=m;j++){
+              change(q1[j],(q2[j]>>i)&1);
+              Ans[j]+=tot<<i;
+              }
+    }
+    for(int j=1;j<=m;j++)printf("%I64d\n",Ans[j]);
+    }
+    return 0;
+}

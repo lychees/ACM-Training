@@ -1,0 +1,68 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks,citecolor=green,linkcolor=blue,menucolor=red,
+			bookmarksnumbered=false,bookmarksopen=false,
+			%unicode,					%Linux
+			CJKbookmarks,				%windows
+			pdftex]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{BearPairs 解题报告}
+\author{绍兴市第一中学~~王文涛}
+
+\maketitle
+
+\section{试题来源}
+
+\href{https://community.topcoder.com/stat?c=problem_statement&pm=14127}
+{TopCoder SRM 680 Div.1 Level 3 BearPairs}
+
+\section{试题大意}
+给定一个长为$n$的只含前六种小写字母的字符串$s$。同时给定一个数$skips$（$skips \leq n$ 且$skips$的奇偶性与$n$相同）。同时还给出一个长度为$n$的整数数组$cost$。你需要从字符串$s$中选出$n-skips$个位置，并把这些位置两两匹配。将位置$i$和$j$匹配必须满足$s_i \neq s_j$，且需要付出$100 |i-j| + cost_i + cost_j$的代价。求最小代价。如果不能匹配，输出$-1$。
+
+数据范围：$n \leq 2500, ~ skips \leq 6, ~ 1 \leq cost_i \leq 10^5$
+
+时间限制：14s
+
+\section{算法介绍}
+
+我们考虑所有代价最小时可能的匹配情况。如果我们找出在这些情况下可能的匹配，就可以求出最小代价或确定不能匹配。
+
+通过观察，我们得到了这样一个定理：
+
+对于一个代价最小的匹配方案，对于字符串中任意两个相邻字符的中间线，所有跨过这条中间线的匹配（也就是一个位置在左边、一个位置在右边的匹配），要么左边的所有位置上的字符都相同，要么右边所有位置上的字符都相同。
+
+证明：如果左边所有字符都相同，定理成立。因此我们只要考虑左边存在两个位置（不妨设为$a,b$）的字符不同的情况。我们将要证明，它们在右边匹配位置（不妨设为$c,d$）的字符必然相同。反证法：如果$s_c \neq s_d$，那么由于$s_a \neq s_b$，我们把$a$与$b$匹配、$c$与$d$ 匹配必然比原先$a$与$c$匹配、$b$与$d$匹配优（画图可知），这与当前匹配方案代价最小矛盾，故$s_c = s_d$。那么由于左边存在不同的字符，对于任何两种不同字符应用刚才证明的结论，我们显然可以得到右边所有的字符都相同，定理成立。
+
+现在我们来考虑DP：我们从左往右扫，每次决定当前这个位置是跳过还是与前面未匹配的某个位置匹配还是暂时不匹配、与之后的位置匹配。根据刚才的定理，之前未匹配的字符的状态只可能有三种：没有字符，全都是同一种字符或全都要匹配同一种字符。我们记$f[i][j][k][l]$表示扫完了前$i$个位置、之前有$j$个全都是字符$k$的未匹配位置、跳过了$l$个位置的最小代价。（这里为了方便计算代价，我们对于某个未匹配位置$i$定义它的代价为$-i$，只要在右边匹配的那个位置$j$处把代价$+j$就好了。）同样定义$g[i][j][k][l]$，只是$k$代表的是要匹配的字符。这样一来，所有可能的转移都可以实现了，这就不一一赘述了。不过有几个需要注意的转移。首先是$f$可以通过添加一个不同的字符转移到$g$，这时需要枚举$g$中的$k$，但我们可以用两个数组分别表示前缀取$\min$和后缀取$\min$来避免枚举的复杂度。其次是有没有可能从$g$转移到$f$？事实上是不可能的。考虑下图中的情况：
+
+\begin{figure}[H]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=9cm]{BearPairs_graph1.png}
+%  \caption{图1}\label{图1}
+\end{figure}
+
+这张图表示的是，之前有一些都匹配字符c的字符（图中c左边的b和d），而这些字符被匹配掉一些之后只剩下了b一种字符。图中的d是最后一个不是b的字符，在与图中的c匹配之后，剩下的字符就全是b了。后面可能又匹配掉了一些b。再后面又出现了一个字符b，显然这个字符b不能与前面的b匹配。我们要证明的是，b之后匹配的字符只可能也是c，而不可能是图中所示的一个与c不同的字符a。为了证明这一点，我们构造一个比图中更优的匹配方案，如下图所示：
+
+\begin{figure}[H]
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[width=9cm]{BearPairs_graph2.png}
+%  \caption{图1}\label{图1}
+\end{figure}
+
+这样改变之后仍然有相同个数的b与后面的c匹配。改变后有两个位置的符号发生了变化，易知代价减小了。如果d的左边没有这样的b，那么与右边的b匹配的情况代价同样会减小。这样就证明了这种情况不可能出现。
+
+最后还要注意如果前面没有未匹配位置了（$j=0$）可以转移到其他任意$j=0$的状态。
+
+时间复杂度：$O(n^2 \times \text{字符集大小6} \times skips)$
+
+为了省空间，我们把第一维用滚动数组存。空间复杂度：$O(n \times \text{字符集大小6} \times skips)$
+
+%% 解题报告结束
+
+\end{document}

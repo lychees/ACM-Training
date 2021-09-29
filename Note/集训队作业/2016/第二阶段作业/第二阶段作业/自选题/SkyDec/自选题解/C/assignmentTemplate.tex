@@ -1,0 +1,80 @@
+\documentclass{noiassignment}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{$Jabby's~newwork$解题报告}
+\author{绍兴市第一中学洪华敦}
+
+\maketitle
+
+\section{试题来源}
+http://www.lydsy.com/JudgeOnline/problem.php?id=3913
+\section{试题大意}
+$$\sum_{x=L}^{R}\left \lfloor \frac{Ax+B}{C}\right \rfloor^K$$
+
+输出答案对$10^9+7$取模后的答案
+
+$L,R,A,B,C\leq 10^9$，$K\leq 50$
+\section{算法介绍}
+问题可以规约成$$\sum_{x=0}^{N}\left \lfloor \frac{Ax+B}{C}\right \rfloor^K$$
+
+设函数$f(A,B,C,N)$可以实现对于$U,V\leq K$，求出$$\sum_{x=0}^{N}\left \lfloor \frac{Ax+B}{C}\right \rfloor^V*x^U$$
+
+首先，当$A$或$B$大于等于$C$时，我们可以用二项式定理将多余的容易计算的式子计算掉
+
+这达到了令$A\%=C$，$B\%=C$的效果，于是现在满足$A<C$,$B<C$了
+
+令$$M=\left \lfloor \frac{A*N+B}{C} \right \rfloor$$
+
+$$\sum_{x=0}^{n}x^U*\left(\left \lfloor \frac{A*x+B}{C}\right \rfloor\right )^V$$
+
+$$=\sum_{x=0}^{n}x^U*sum_{y=0}^{M}\left[y<\left \lfloor \frac{A*x+B}{C}\right \rfloor\right]\left((y+1)^V-y^V\right)$$
+
+$$=\sum_{y=0}^{M}\left((y+1)^V-y^V\right)\sum_{x=0}^{n}x^U*\left[x>\left \lfloor \frac{C*y+C-B-1}{A}\right \rfloor\right]$$
+
+我们可以把$(y+1)^U-y^U$二项式展开
+
+原式等于
+
+$$\sum_{i=0}^{V-1}\binom{V}{i}\sum_{y=0}^{M}y^i*\sum_{x=0}^{n}x^U*\left[x>\left \lfloor \frac{c*y+c-b-1}{a}\right \rfloor\right]$$
+
+$$\sum_{i=0}^{V-1}\binom{V}{i}\sum_{y=0}^{M}y^i*\left(S_U(n)-S_U\left(\left \lfloor \frac{c*y+c-b-1}{a}\right \rfloor\right)\right)$$
+
+$$\sum_{i=0}^{V-1}\binom{V}{i}\sum_{y=0}^{M}y^i*S_U(n)-\sum_{i=0}^{V-1}\binom{V}{i}\sum_{y=0}^{M}y^i*S_U\left(\left \lfloor \frac{c*y+c-b-1}{a}\right \rfloor\right)$$
+
+前者等于$\sum_{i=0}^{V-1}\binom{V}{i}S_i(M)*S_U(n)$，于是问题就变成了求后者
+
+我们可以发现$S_d(x)$是一个关于$x$的$d+1$次多项式
+
+设$$S_d(x)=\sum_{i=0}^{d+1}a[d][i]*x^i$$
+
+数组$a$可以用高斯消元预处理，或者直接带伯努利数进去
+
+原式等于$$\sum_{i=0}^{V-1}\binom{V}{i}\sum_{y=0}^{M}y^i*\sum_{j=0}^{U+1}a[U][j]*\left(\left \lfloor \frac{c*y+c-b-1}{a}\right \rfloor\right)^j$$
+
+等于$$\sum_{i=0}^{V-1}\sum_{j=0}^{U+1}a[U][j]*\binom{V}{i}\sum_{y=0}^{M}y^i*\left(\left \lfloor \frac{c*y+c-b-1}{a}\right \rfloor\right)^j$$
+
+于是我们再次完成了$a,c$的互换，这样递归下去只有$O(log(A))$层
+
+我们可以对于每个$(a,b,c,n)$求出对于所有$(i,j)$的答案，具体方法就是递归下去，然后用返回的那些答案更新
+
+用一些卷积优化可以把时间复杂度优化到$O(K^3logn)$
+
+如何优化呢？
+
+设$h[i][j]=\sum_{y=0}^{M}y^i*\left(\left \lfloor \frac{c*y+c-b-1}{a}\right \rfloor\right)^j$
+
+我们设$$p[V][j]=\sum_{i=0}^{V-1}*\binom{V}{i}*h[i][j]$$
+
+显然$p$数组我们可以$O(K^3)$求得
+
+于是答案就是$$\sum_{j=0}^{U+1}a[U][j]*p[V][j]$$
+
+时间复杂度就是$O(k^3logk)$了
+\end{document}
+
+
+
+

@@ -1,0 +1,354 @@
+\documentclass{ctexartutf8}
+
+
+
+\def\pgfsysdriver{pgfsys-dvipdfmx.def}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{multienum}
+\usepackage{amsmath,arcs,amssymb}
+\usepackage{xeCJK}
+\usepackage{picins}
+\usepackage[unicode=true,colorlinks=true,linkcolor=black]{hyperref}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{multirow}
+\usepackage[Cyrillic]{ucharclasses} 
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[justification=centering]{caption}
+\usepackage{pgf,tikz,wrapfig}
+\usepackage[overlap,CJK]{ruby}
+%\usepackage[dvips]{xymtexpdf}
+\usepackage{tikz-3dplot}
+% \usepackage{attachfile}
+% \usepackage{attachfile2}
+\usepackage{navigator}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata,shadows,positioning}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations}
+\usepgflibrary{decorations.markings}
+\usetikzlibrary{decorations.markings}
+\usepgflibrary{decorations.pathmorphing}
+\usepgflibrary{decorations.text}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{decorations}
+\usepgflibrary{decorations.pathreplacing} % LATEX and plain TEX and pure pgf
+%\usepgflibrary[decorations.pathreplacing] % ConTEXt and pure pgf
+\usetikzlibrary{decorations.pathreplacing} % LATEX and plain TEX when using Tik Z
+%\usetikzlibrary[decorations.pathreplacing] % ConTEXt when using Tik Z
+\usepgflibrary{decorations.markings} % LATEX and plain TEX and pure pgf
+%\usepgflibrary[decorations.markings] % ConTEXt and pure pgf
+\usetikzlibrary{decorations.markings} % LATEX and plain TEX when using Tik Z
+%\usetikzlibrary[decorations.markings] % ConTEXt when using Tik Z
+\usepgflibrary{decorations.footprints} % LATEX and plain TEX and pure pgf
+%\usepgflibrary[decorations.footprints] % ConTEXt and pure pgf
+\usetikzlibrary{decorations.footprints} % LATEX and plain TEX when using Tik Z
+%\usetikzlibrary[decorations.footprints] % ConTEXt when using Tik Z
+\usepgflibrary{decorations.shapes,decorations.text} % LATEX and plain TEX and pure pgf
+%\usepgflibrary[decorations.shapes] % ConTEXt and pure pgf
+\usetikzlibrary{decorations.shapes,decorations.text} % LATEX and plain TEX when using Tik Z
+%\usetikzlibrary[decorations.shapes] % ConTEXt when using Tik Z
+\usepgflibrary{decorations.pathreplacing} % LATEX and plain TEX and pure pgf
+\usepgflibrary[decorations.pathreplacing] % ConTEXt and pure pgf
+\usetikzlibrary{decorations.pathreplacing} % LATEX and plain TEX when using Tik Z
+\usetikzlibrary[decorations.pathreplacing] % ConTEXt when using Tik Z
+\usepgflibrary{decorations.pathmorphing} % LATEX and plain TEX and pure pgf
+\usepgflibrary[decorations.pathmorphing] % ConTEXt and pure pgf
+\usetikzlibrary{decorations.pathmorphing} % LATEX and plain TEX when using Tik Z
+\usetikzlibrary[decorations.pathmorphing] % ConTEXt when using Tik Z
+\usepgflibrary{shapes.geometric}
+\usetikzlibrary{shapes.geometric}
+% \usepackage[russian,english]{babel}
+\usepackage{xymtex/xymtex}
+
+\usepackage[paperwidth=19.5cm, paperheight=27cm, left=0.9in,right=0.9in,top=1.1in,bottom=1.1in,headheight=1cm]{geometry}
+
+\usepackage{multicol, mdwlist}
+\usepackage{titletoc}
+
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{pifont}
+
+\setTransitionsFor{Cyrillic}{\bgroup\fontspec{Book Antiqua}}{\egroup}
+
+
+\hypersetup{CJKbookmarks,%
+       bookmarksnumbered,%
+              colorlinks,%
+               linkcolor=black,%
+               citecolor=black,%
+              plainpages=false,%
+            pdfstartview=FitH}
+
+
+%--------CJK config--------%
+%\setCJKmainfont[BoldFont=方正黑体_GBK,ItalicFont=方正楷体_GBK]{方正书宋_GBK}
+%\setCJKsansfont{方正黑体_GBK}
+%\setCJKfamilyfont{kai}{方正楷体_GBK}
+%\newcommand\kai{\CJKfamily{kai}}
+\setCJKmainfont[BoldFont=黑体,ItalicFont=楷体]{宋体}
+\setCJKsansfont{黑体}
+\setCJKfamilyfont{kai}{楷体}
+\newcommand\kai{\CJKfamily{kai}}
+%--------------------------%
+\if false
+Meiryo UI
+Meiryo UI
+MingLiU_HKSCS,細明體_HKSCS
+Meiryo UI
+Meiryo,メイリオ
+Meiryo,メイリオ
+Microsoft JhengHei,微軟正黑體
+Microsoft JhengHei,微軟正黑體
+MS Mincho,ＭＳ 明朝
+MS Mincho,ＭＳ 明朝
+MS PMincho,ＭＳ Ｐ明朝
+Meiryo,メイリオ
+MS PGothic,ＭＳ Ｐゴシック
+MS UI Gothic
+MS Gothic,ＭＳ ゴシック
+Arial Unicode MS
+MingLiU,細明體
+PMingLiU,新細明體
+Meiryo UI
+Meiryo,メイリオ
+\fi
+\setCJKfamilyfont{mincho}{MS PMincho}
+\newcommand\mincho{\CJKfamily{mincho}}
+\setCJKfamilyfont{Meiryo}{Meiryo UI}
+\newcommand\Meiryo{\CJKfamily{Meiryo}}
+\setCJKfamilyfont{gothic}{MS PGothic}
+\newcommand\gothic{\CJKfamily{gothic}}
+\setCJKfamilyfont{meiryo}{Meiryo UI}
+\newcommand\meiryo{\CJKfamily{meiryo}}
+
+
+% \linespread{1.09}
+\CTEXsetup[number={\arabic{section}}]{section}
+%\CTEXsetup[number={\arabic{subsection}}]{subsection}
+\CTEXsetup[format+={\flushleft}]{section}
+\CTEXsetup[format+={}]{subsection}
+%\CTEXsetup[number={}]{subsubsection}
+%\CTEXsetup[format+={}]{subsubsection}
+%\CTEXsetup[format+={\zihao{-4}}]{subsubsection}
+\CTEXsetup[format+={\zihao{3}}]{section}
+\CTEXsetup[format+={\zihao{4}}]{subsection}
+%\CTEXsetup[beforeskip={4ex plus .2ex}]{section}
+%\CTEXsetup[afterskip={4ex plus .2ex}]{section}
+
+\newcommand{\ei}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ed}{\mathrm{d}}
+
+\newcommand{\neta}[2]{{\kai (出自\textit{#1}第#2话)}}
+\newcommand{\netta}[1]{{\kai (出自\textit{#1})}}
+
+\newcommand{\longspace}{\underline{\qquad\qquad}}
+
+\renewcommand{\thefootnote}{注\arabic{footnote}}
+
+\hypersetup{pdfauthor={重庆市巴蜀中学 雷凯翔},%
+            pdftitle={IOI2014 中国国家集训队第一次作业 第二部分 ACM/ICPC World Finals 试题泛做},%
+            pdfsubject={},%
+            pdfkeywords={},%
+            pdfproducer={},%
+            pdfcreator={}
+}
+
+\newtheorem{theorem}{定理}
+\newtheorem*{pf}{证明}
+\newtheorem{lemma}[theorem]{引理}
+\numberwithin{theorem}{section}
+\numberwithin{theorem}{subsection}
+
+
+\usepackage{titling}
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}%
+}
+
+% \newtheorem{theorem}{Theorem}
+% \newtheorem*{pf}{Proof}
+
+\makeatletter % `@' now normal "letter"
+\@addtoreset{equation}{section}
+\@addtoreset{equation}{subsection}
+\makeatother
+%\renewcommand\theequation{\oldstylenums{\thesection}.\oldstylenums{\thesubsection}%
+%                   .\oldstylenums{\arabic{equation}}}
+\renewcommand{\theequation}{\arabic{section}.\arabic{subsection}.\arabic{equation}}
+
+\makeatletter % `@' now normal "letter"
+\@addtoreset{algorithm}{section}
+\@addtoreset{algorithm}{subsection}
+\makeatother
+\renewcommand{\thealgorithm}{\arabic{section}.\arabic{subsection}.\arabic{algorithm}}
+
+\makeatletter % `@' now normal "letter"
+\@addtoreset{figure}{section}
+\@addtoreset{figure}{subsection}
+\makeatother
+\renewcommand{\thefigure}{\arabic{section}.\arabic{subsection}.\arabic{figure}}
+
+\makeatletter % `@' now normal "letter"
+\@addtoreset{table}{section}
+\@addtoreset{table}{subsection}
+\makeatother
+\renewcommand{\thetable}{\arabic{section}.\arabic{subsection}.\arabic{table}}
+
+\DeclareMathOperator*{\LOR}{{\bigvee}}
+
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\floatname{algorithm}{算法}
+
+\begin{document}
+
+	\title{\bf  IOI2014 中国国家集训队第一次作业第二部分}
+	\subtitle{\bf  ACM/ICPC World Finals 试题泛做}
+	\author{重庆市巴蜀中学　雷凯翔}
+	\date{\today}
+	
+	\maketitle
+	\setcounter{tocdepth}{2}
+	\addtocounter{section}{-1} 
+	\tableofcontents
+%	本分析纯属个人总结，错误难免。若与正解有出入，还请参考官方题解。
+	
+	\newpage
+%	\if flase
+	\section{本次作业的说明}
+		教练您好！本次作业共计完成了 83 题，其中 1 题在 tsinsen 上未找到，其余试题均能通过 tsinsen。
+		有一部分计算几何的精度要求较高，造成了大量的有精度误差的提交。还有一部分题目一开始的数据有误，造成了错误提交。
+		
+	\input{2013.tex}
+	\input{2012.tex}
+	\input{2011.tex}
+	\input{2010.tex}
+	\input{2009.tex}
+	\input{2008.tex}
+	\input{2007.tex}
+	\input{2006.tex}
+	\input{2005.tex}
+	\input{2004.tex}
+%	\fi
+	\input{2003.tex}
+	\if false
+		\subsection{ACM/ICPC World Finals 2011 F Low Power}
+			\subsubsection{题目大意}
+				
+
+			\subsubsection{算法讨论}
+			\subsubsection{时空复杂度}
+				时间复杂度 $\mathcal{O}\left(1\right)$。
+					
+				空间复杂度 $\mathcal{O}\left(1\right)$。
+		\newpage
+	\subsection{ACM/ICPC World Finals 2008 G Net Loss}
+		\subsubsection{题意概述}
+			给定多项式 $p(x)$ 和常数 $c \left(-1 < c < 1\right)$，求三个实数 $k_1,k_2,b$ 使得
+			\begin{align}
+				d = \int_{-1}^{c} \left(k_1\left(x-c\right)+b - p(x)\right)^2 \mathrm{d}x
+					+ \int_{c}^{1} \left(k_2\left(x-c\right)+b - p(x)\right)^2 \mathrm{d}x 
+			\end{align}
+			最小化，并输出 $k_1,k_2,b$ 的值。
+			
+			$1 \le p(x) \text{的次数} \le 10$。多组询问。
+			
+		\subsubsection{简要分析}
+			考虑 $d$ 关于 $k_1,k_2,b$ 的梯度
+			\begin{align}
+				\nabla d & = \left(\frac{\mathrm{\partial} d}{\mathrm{\partial} k_1},
+						\frac{\mathrm{\partial} d}{\mathrm{\partial} k_2},
+						\frac{\mathrm{\partial} d}{\mathrm{\partial} b}\right) 
+			\end{align}
+			其中
+			\begin{align}
+					\frac{\mathrm{\partial} d}{\mathrm{\partial} k_1} 
+						& = \int_{-1}^{c} 2(k_1(x-c)+b-p(x)) \cdot (x-c) \; \mathrm{d}x\\
+					\frac{\mathrm{\partial} d}{\mathrm{\partial} k_2} 
+						& = \int_{c}^{1} 2(k_2(x-c)+b-p(x)) \cdot (x-c) \; \mathrm{d}x\\
+					\frac{\mathrm{\partial} d}{\mathrm{\partial} b} 
+						& = \int_{-1}^{c} 2(k_1(x-c)+b-p(x)) \; \mathrm{d}x +
+							\int_{c}^{1} 2(k_2(x-c)+b-p(x)) \; \mathrm{d}x 
+			\end{align}
+			由三个方向的偏导随该维的单调性可知，$d$ 取得最小值当且仅当
+			\begin{align}
+				\nabla d = \mathbf{0}
+			\end{align}
+			即
+			\begin{align}
+				\left\{\setlength{\tabcolsep}{2.5pt}
+					\begin{tabular}{cccccccc}
+						$\displaystyle k_1 \int_{-1}^{c} (x-c)^2 \; \mathrm{d}x$ & $+$ & $0$ & $+$ & $\displaystyle b \int_{-1}^{c} (x-c) \; \mathrm{d}x $  &$ =$&$\displaystyle  \int_{-1}^{c} p(x)\cdot(x-c) \; \mathrm{d}x$ \\
+						$0$ & $+$ & $\displaystyle k_2 \int_{c}^{1} (x-c)^2 \; \mathrm{d}x$ &$ +$&$ \displaystyle b \int_{c}^{1} (x-c) \; \mathrm{d}x $&$  =$ &$ \displaystyle \int_{c}^{1} p(x)\cdot(x-c) \; \mathrm{d}x$ \\
+						$k_1 \displaystyle \int_{-1}^{c} (x-c) \; \mathrm{d}x$ & $+$ & $k_2\displaystyle \int_{c}^{1} (x-c) \; \mathrm{d}x$ &$ +$&$ b \int_{-1}^{1} \mathrm{d}x $&$  =$ &$ \displaystyle \int_{-1}^{1} p(x) \; \mathrm{d}x$ 
+					\end{tabular}
+				\right.
+			\end{align}
+			写成矩阵的形式
+			\begin{align}
+				A\mathbf{x} = \mathbf{b}
+			\end{align}
+			其中
+			\begin{align}
+				A & = \begin{bmatrix}
+					 \int_{-1}^{c} (x-c)^2 \; \mathrm{d}x & 0 & \int_{-1}^{c} (x-c) \; \mathrm{d}x \\
+					0 & \int_{c}^{1} (x-c)^2 \; \mathrm{d}x & \int_{c}^{1} (x-c) \; \mathrm{d}x \\
+					\int_{-1}^{c} (x-c) \; \mathrm{d}x & \int_{c}^{1} (x-c) \; \mathrm{d}x & 2
+				\end{bmatrix} \\
+				\mathbf{x} & = (k_1,k_2,b)^{\mathrm{T}} \\
+				\mathbf{b} & = \left(\int_{-1}^{c} p(x)\cdot(x-c) \; \mathrm{d}x,
+					\int_{c}^{1} p(x)\cdot(x-c) \; \mathrm{d}x,
+					\int_{-1}^{1} p(x) \; \mathrm{d}x\right)^{\mathrm{T}}
+			\end{align}
+			定积分可以使用牛顿—莱布尼兹定理求得。剩下的只需使用高斯消元，人工解方程，或者通过伴随矩阵求逆矩阵等方法求出解向量 $\mathbf{x}$。
+			
+			计算可得，系数矩阵 $A$ 的行列式 $\left|A\right| = \textstyle \frac{1}{18} (1+c)^3 (1-c)^3 $，故 $\left|A\right|  > 0 $ 恒成立，方程组恒有且仅有一组解。
+			
+		
+	\subsection{ACM/ICPC World Finals 2003 H A Spy in the Metro}
+		\subsection{题意概述}
+			在一个有 $N$ 个站的线形地铁里，某人在第一个站台。$T$ 秒后，他必须到达最后一个站台。列车双向都有发车，但发车时间不一定对称。已知列车时刻表，且双向相邻两站的运行时间恒定，停车时间忽略。求一个乘坐方案，使得 $T$ 秒后，他在准时出现在最后一个站台，且在站台上的等待时间最少。
+			
+			所有时刻都是整秒。$N \le 50, T \le 200, \text{双向列车班数分别} \le 50$。同向列车发车时间两两不同。
+		\subsection{简要分析}
+			令 $L[i][j]$ 和 $R[i][j]$ 分别表示在时刻 $i$ 秒，站台 $j$ 上是否有列车向左和向右开。
+			根据发车时间表和相邻两站的运行时间，可以轻易处理出 $L[i][j], R[i][j]$。
+			
+			最后令 $F[i][j]$ 表示该人在时刻 $i$ 秒出现在站台 $j$ 最多需要在站台上等的
+			秒数。状态转移方程
+			\begin{align}
+			F[i][j] = \min \left\{ \begin{aligned}
+				& F[i-d(j-1)][j-1], && i\ge d(j-1), j>1, R[i-d(j-1)][j-1]\\
+				& F[i-d(j)][j+1], && i\ge d(j), j<N, L[i-d(j)][j+1]\\
+				& F[i-1][j]+1, && i \ge 1
+				\end{aligned}
+			\right.
+			\end{align}
+			其中 $d(j)$ 表示站台 $j$ 到站台 $(j+1)$ 的运行时间。边界
+			\begin{align}
+				F[0][j] = \begin{cases}
+					0, & j=1\\
+					+\infty, & j>1
+				\end{cases}
+			\end{align}
+			最终答案为 $F[T][N]$。
+	\fi
+\end{document}

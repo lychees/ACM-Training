@@ -1,0 +1,52 @@
+\documentclass{noiassignment}
+
+\setlength{\parskip}{0.5\baselineskip}
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Moving Pebbles 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    \href{http://www.spoj.com/problems/PEBBMOV/}{SPOJ PEBBMOV}
+
+\section{试题大意}
+    有$n$堆石子，第$i$堆共$A_i$颗石子，两个人开始博弈。
+    
+    规则为每次从一堆中扔掉至少一个石子，然后将这堆中剩下的石子取出任意个（可以是$0$个）分配到别的任意堆中（可以是好几堆），不能操作的人为负。
+    
+    数据范围：$n\leq 10^5$，$A_i$可能是高精度数。
+
+\section{算法介绍}
+    首先可以构造一种简单的先手必败态：
+    \begin{itemize}
+        \item $n$是偶数。
+        \item $A_1=A_2,A_3=A_4,A_5=A_6,...,A_{n-1}=A_n$。
+    \end{itemize}
+    
+    对于这种局面，先手无论怎样操作，后手只要一样操作就可以了。
+    
+    接下来可以证明对于剩下的所有情况，先手都有必胜策略。设$A_{i-1}\leq A_i$，分奇偶两种情况讨论。
+    
+    对于$n$是奇数的情况，一定满足$$\sum_{i=1}^{\lfloor\frac{n}{2}\rfloor}A_{2i}-A_{2i-1}<A_n$$
+    
+    对于这种情况，可以直接把$A_n$分解，构造出先手必败态。
+    
+    对于$n$是偶数，且不是必败态的情况，一定可以找到一个$k$满足$A_{2k}\neq A_{2k-1}$。
+    
+    取这个$k$为最小的$k$，则一定满足$$\sum_{i=k}^{\frac{n}{2}-1}A_{2i+1}-A_{2i}<A_n-A_{2k-1}$$
+    
+    可以直接通过分解$A_n$把$A_n$变成$A_{2k-1}$，从而把当前局面转化为先手必败态。
+    
+    经过以上分析得到结论：必败态只有一开始构造的那一种可能。排序后判断即可。
+    
+    不考虑高精度的时间、空间开销，时间复杂度$O(n\log n)$，空间复杂度$O(n)$。
+
+%% 解题报告结束
+
+\end{document}

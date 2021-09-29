@@ -1,0 +1,246 @@
+
+	\section{ACM/ICPC World Finals 2006}
+		\subsection{ACM/ICPC World Finals 2006 A Low Cost Air Travel}
+			\subsubsection{题目大意}
+				有 $N$ 个机票套餐，每张机票套餐是连续的若干转乘机票。第 $i$ 个套餐经过 $n_i$ 个站点
+				\begin{align}	
+					p_{i,1} \rightarrow p_{i,2} \rightarrow p_{i,3}  \rightarrow \cdots \rightarrow p_{i, n_i}
+				\end{align}
+				售价 $w_i$ 元，剩余无数张。每张票必须从头开始乘坐，也就是说如果乘客没有乘坐 $p_{i,j} \rightarrow p_{i, j + 1}$，那么就不能乘坐 $ p_{i, j + 1} \rightarrow p_{i, j + 2}$。同时，乘坐 $p_{i,j}\rightarrow p_{i , j+ 1}$ 到达 $p_{i, j + 1}$ 后乘坐其他飞机，最后又回到 $p_{i, j + 1}$，再乘坐 $ p_{i, j + 1} \rightarrow p_{i , j + 2}$ 也是不允许的。今有一个 $M$ 旅行计划
+				\begin{align}	
+					q_{i,1} \rightarrow q_{i,2} \rightarrow q_{i,3}  \rightarrow \cdots \rightarrow q_{i, K_i} \label{2006a1}
+				\end{align}
+				问需要买多少机票才能完成此计划，并给出具体乘坐的方案。
+				
+				$N \le 20, M \le 20, K_i \le 10, n_i \le 10$。
+			\subsubsection{算法讨论}
+				动态规划。设 $F[i][j][k]$ 表示 已经游览了\eqref{2006a1} 中的前 $i$ 个城市，现在在套餐 $j$ 的第 $k$ 个中转站。转移
+				\begin{align}
+					F[i][j][k] & = \begin{cases}
+						F[i^\prime][j][k - 1], & k > 1\\
+						w_j + \min_{j^\prime, k^\prime}  F[i][j^\prime][k^\prime], & k = 1, p_{j, k} = p_{j^\prime, k^\prime}
+					\end{cases}
+					\intertext{其中}
+					i^\prime&  = \begin{cases}
+						i - 1, &p_{j, k} = q_{\text{当前旅行计划}, i}\\
+						i, &\text{其他}
+					\end{cases}
+				\end{align}
+				转移可能需最短路算法来实现。
+				答案 $\min F[K_i][\cdot][\cdot]$。记录下转移即可输出方案。
+				
+				由于有 $M$ 个计划，故上述算法需执行 $M$ 次。
+			
+			\subsubsection{时空复杂度}
+				时间复杂度 $\mathcal{O}\left(\sum_j K_j \cdot \sum_i n_i \log K_j \cdot \sum_i n_i \right)$。题中 $\sum_j K_j \cdot \sum_i n_i \log K_j \cdot \sum_i n_i  \le 20 \times \num{2000} \log \num{2000}$
+					
+				空间复杂度 $\mathcal{O}\left( \max_j K_j \cdot \sum_i n_i\right)$。
+
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 B Remember the A La Mode!}
+			\subsubsection{题目大意}
+				给定整数 $a_i, b_j, w_{i, j} (1 \le i, j \le N)$，解整数线性规划
+				\begin{align}
+					\text{maximize/minimize} & \sum_{i,j} w_{i,j}x_{i,j}   \label{2006bb} \\
+					\text{s.t.} & \begin{cases}
+						\sum_{j} x_{i, j} = a_i\\
+						\sum_{i} x_{i, j} = b_j\\
+								x_{i, j} \ge 0\\
+								x_{i, j} \in \mathbb{Z}
+					\end{cases} \label{2006b}
+				\end{align}
+				
+				$N \le 50$。
+			\subsubsection{算法讨论}
+				可根据 \eqref{2006bb} \eqref{2006b} 建图，运行最大（小）费用网络流，求出答案。
+			\subsubsection{时空复杂度}
+				
+				时间复杂度 $\mathcal{O}\left(Maxflow(2N+2, 2N+N^2)\right)$。$Maxflow(N, M)$ 表示计算 $N$ 个点 $M$ 条边的最优费用流的复杂度。
+					
+				空间复杂度 $\mathcal{O}\left(N^2\right)$。
+			
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 C Ars Longa}
+			\subsubsection{题目大意}
+				空间中有 $N$ 个相同的塑料球，用 $M$ 个不可伸缩的棒连接。给定这些球的位置，以及 $M$ 根木棒的连接情况。$z = 0$ 是地面，且在地面上的球都粘贴在地面上，其余则满足 $z > 0$。问这个系统是否静止；如果静止，是否稳定（受到足够小的外力后仍然静止）。
+				
+				$N, M \le 100$。
+			\subsubsection{算法讨论}
+				要静止，则必须要使得塑料球均静止。$z = 0$ 上的球粘贴在该平面上，肯定静止，无需考虑。
+				
+				显然，每个物体受重力 $\mathbf{G} = -G \mathbf{k}$。对于木棒，根据刚体力学，其可受拉力和压力，不妨假设其受大小 $F$ 的拉力（压力则取负），连接的两球位置向量 $\mathbf{p, q} $，则 $p$ 受拉力 
+				\begin{align}
+					\mathbf{F}_p & = F \frac{\mathbf{q} - \mathbf{p}}{  \left|\mathbf{q} - \mathbf{p} \right|}
+					\intertext{$q$ 受拉力 }
+					\mathbf{F}_q & = F \frac{\mathbf{p} - \mathbf{q}}{  \left|\mathbf{p} - \mathbf{q} \right|}
+				\end{align}
+				只需要每个 $z > 0$ 的球重力和木棒的拉力加起来为 $\mathbf{0}$ 即可，这样就构成了 $N^\prime$ 个方程 $M$ 个未知数的线性方程组，$N^\prime$ 是未处于地面的小球数量，$M$ 个木棒拉力大小 $F_i$ 未知，为未知数。运行高斯消元解这个方程组就可以知道其是否静止。
+				
+				而要检查其是否稳定，只需检查系数矩阵的秩是否为  $N^\prime$ 。因为如果不为  $N^\prime$，那么运行高斯消元后，会有若干形如
+				\begin{align}
+					(0, 0, \ldots, 0) \cdot (F_1, F_2, \ldots, F_M) = 0 \label{2006c}
+				\end{align} 的式子。这样肯定存在某个方向的微小外力，使得 \eqref{2006c} 的常数项变成一个微小的非零值 $\epsilon$，导致整个方程无解，系统不静止。反正如果秩恰为 $N^\prime$ 那么不管常数在外力下如何变化，根据线性代数，肯定能用高斯消元求出一组解。如果 
+				秩恰为 $N^\prime$，$M = N^\prime$，那么将会仅有一组可行解。
+			\subsubsection{时空复杂度}
+				
+				时间复杂度 $\mathcal{O}\left(N^2M\right)$。
+					
+				空间复杂度 $\mathcal{O}\left(NM\right)$。
+			
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 D Bipartite Numbers}
+			\subsubsection{题目大意}
+				定义二次重复数 $(a,b,n,m) = (\underbrace{aaa\cdots a}_{n \text{ 个} \, a}
+				\underbrace{bbb\cdots b}_{m \text{ 个} \, b})_{10}, 0 < a \le 9, 0 \le b \le 9, n,m > 0$。
+				
+				对于一个 $x$，求一个最小的 $y$，使得 $x | y$，且 $y$ 是二次重复数，并输出其 $a, b, n, m$。
+				
+				$1 \le x \le \num{99999}$，多组询问。
+			\subsubsection{算法讨论}
+				预处理 $F(i) = 10^i \mod{x}$ 和 $G(i) = (10^i - 1) / 9 \mod{x}$，两者都可以用递推处理，转移方程 $F(i) = 10 \,F(i - 1) \mod{x}, G(i) = (10\,G(i-1) + 1) \mod{x}$。
+				
+				这样二次重复数 $(a,b,n,m)$ 能被 $x$ 整除当且仅当 
+				\begin{align}
+					a\,G(n)\,F(m) +  b\,G(m) \equiv 0 \pmod{x} \label{2006d}
+				\end{align}
+				
+				先从小到大枚举 $n+m$ 再枚举 $n, m, a, b$ 使用 \eqref{2006d} 判断即可求到最小值。
+				
+				实践之后会发现，对于非整十的值 $x$，上述算法效率非常高；但是如果是整十的，那么由于其后几位不管翻几倍都是 0。要形成二段数，前面的必然是一连串相同的数，而实践可知，这样的 $n$ 异常庞大， $m$ 却非常非常小。如果按照上述算法的步骤进行爆搜，耗时非常多。
+				
+				 针对整十的数 $x, 1 \le x \le \num{99999}$，通过爆搜可以发现，不存在满足
+					\begin{align}
+						n + m > 30, m > 20\label{2006dddd}
+					\end{align}
+				的最优解。这样我们可以使用 \eqref{2006dddd} 作为减枝，加快搜索速度，达到满意的效果。
+				
+				 
+			\subsubsection{时空复杂度}
+				
+				时间复杂度难以分析，但由于我们的算法用到了 $1 \le x \le \num{99999}$ 这个条件，这样这个算法能解决的问题的上限就固定了，故应算作常数 $\mathcal{O}\left(1\right)$。但从应用的角度看，经过如上的优化后，程序运行的速度能够接受。
+					
+				空间复杂度 $\mathcal{O}\left(1\right)$。
+			
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 E Bit Compressor}
+			\subsubsection{题目大意}
+				一个长度为 $N$ 的零一串，如果将连续的 1 （前后均为 0 或者位于串的两端）取出，用 1 的长度（二进制）来替换后，能缩短这个串 的长度，那么就替换掉它。
+				
+				已知此串用上述方法压缩成了 长度为 $M$ 的已知串。请问原串是否存在；如果存在，是否有多可可能的原串。
+				
+				$M \le 40, N \le \num{131072}$。
+			\subsubsection{算法讨论}
+				暴力搜索。压缩后的部分其两端有 0（或位于整个串的两端），以 1 开头，且不可能是 $10$，因为 $11$ 不可能压缩成 $10$，原因是长度没有变化。$10, 1$ 两个串压缩前后都是一样的，不必判断。
+				
+				而 0 需要枚举其究竟是原始的，还是作为压缩数据存在的。
+				
+				整个枚举的过程就像是对长度为 $N$ 的串划分。
+				
+				一旦搜到两个合法解就立即退出。
+			\subsubsection{时空复杂度}
+				时间复杂度涉及到一个组合问题，不便于求出。但考虑到 $M \le 40$，加上本题的限制，暴力搜索还是能够胜任。
+				
+				空间复杂度 $\mathcal{O}\left(M\right)$。
+
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 F Building a Clock}
+			\subsubsection{题目大意}
+				有一个电动轴。有 $N$ 个齿轮数已知的齿轮和若干轮轴。给定电动轴的角速度，请通过这个轴，以及若干咬合的齿轮，拼接出一个角速度 \SI{1}{r\per\hour} 和角速度 \SI{2}{r\per\day}  的齿轮。齿轮固定在轴上。一个角速度 $r_1$ 齿轮数 $T_1$ 的齿轮与角速度 $r_2$ 齿轮数 $T_2$ 的齿轮咬合后，满足
+				\begin{align}
+					r_1\,T_1 + r_2T_2 = 0\label{2006f}
+				\end{align}
+				输出轴使用最少的，其次齿轮使用最少的，最后按题目输出的字典序最少的。
+				
+				$3 \le N \le 6$
+			\subsubsection{算法讨论}
+				这个齿轮系统就像是一个树。使用同一个轴串起来的就是兄弟，其有相同的角速度；咬合起来的齿轮就是一对父子，角速度的值根据 \eqref{2006f} 推知。将电动轴抽象成一个点，则其为根。
+				
+				使用 DFS 算法可以搜索出所有合法的拼接方法（树），再按照题目的规定，取字典序最优的输出。
+
+			\subsubsection{时空复杂度}
+				时间复杂度涉及到一个组合问题，不便于求出。但考虑到 $N \le 6$，加上本题的限制，暴力搜索肯定能够胜任。
+				
+				空间复杂度 $\mathcal{O}\left(N\right)$。
+			
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 G Pilgrimage}
+			\subsubsection{题目大意}
+				某人管理一个旅行团（他自己也算在内）的钱。每当有新的人进入时，他会要求每个新人交纳目前每人平均已交纳的钱；同时，如有人退出，他则按照每人平均已交纳的钱退还。可能地，他还会同时向大家各收取相同的一笔整数金额的钱；或者，以集体的名义消费某金额的钱。整个过程中没有出现小数，管理钱的人一直都在该旅游团里。给定这些事件，问最开始的时候可能有多少人？
+				
+				\emph{最开始时集体的钱数未知。}
+				
+				事件数 $M \le 50$，每次消费的金额上限 $K \le \num{2000}$。
+			\subsubsection{算法讨论}
+				由于我们只关心整个过程是否产生整数，而不关心团体的钱是否充足，故向大家收取一笔整数数额的钱是我们所不需要关心的，可先忽略（删除）。
+				
+				为便于接下来的处理，可先将时间上相邻的操作合并，这样相邻的事件类型都不相同，而且不会影响答案。
+%				整个时间轴上相邻的操作都
+				
+				消费事件发生后不会立即平分金钱，故这一阶段原则上不必考虑产生整数的问题。\emph{但}下一阶段必然是入团（退团）的操作，故还是需要求出整个消费的金额的因数，确定人数。
+				
+				发生入团和退团事件后，需记录当前的人数与开始的偏移，方能继续操作。
+				
+				整个过程至少都会有一个人，故答案有一个下界，低于此下界的答案要剔除掉。
+				
+				如果一次消费事件都未发生，则答案为下界到无穷大的区间。
+				
+				\emph{一开始的总金额未知，故第一次入团和退团事件发生前的消费事件不必处理。}
+			\subsubsection{时空复杂度}
+				
+				时间复杂度 $\mathcal{O}\left(N\sqrt{NK}\right)$。
+					
+				空间复杂度 $\mathcal{O}\left(NK\right)$。
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 I Degrees of Separation}
+			\subsubsection{题目大意}
+				给定有向图 $G = (V, E)$，设 $u, v$ 的最短路为 $d(u, v)$，则图的连通度为 $Ans = \max_{u, v} d(u, v)$。求 $G$ 的图连通度。
+				
+				$N = |V| \le 50$。
+			\subsubsection{算法讨论}
+				对图 $G$ 运行 Floyd-Warshall 算法即可求到 任意 $u, v$ 的 $d(u, v)$。最后根据定义可直接计算连通度，求出答案。
+			\subsubsection{时空复杂度}
+				
+				时间复杂度 $\mathcal{O}\left(N^3\right)$。
+					
+				空间复杂度 $\mathcal{O}\left(N^2\right)$。
+		\newpage
+		\subsection{ACM/ICPC World Finals 2006 J Routing}
+			\subsubsection{题目大意}
+				给定无向图 $G = (V, E)$ 和起点终点 $s, t \in V$。求路径 $s \rightarrow t, t \rightarrow s$，使得其并集所经过的不重复的结点总数最小。
+				
+				$N = |V| \le 100%, |E| \le 100
+				$。
+				
+			\subsubsection{算法讨论}
+				如果不考虑结点的重复计数问题，那么答案为 $s \rightarrow t$ 的最短路长度加 $t \rightarrow s$ 的最短路长度。
+				
+				如果有重复点，那么两条路径经过重复的点的顺序不一定是互为正逆的关系。也就是说，需要注意到其还可能是以一条重复的路径存在的。如
+				\begin{align}
+						s \rightarrow A \rightarrow B \rightarrow C \rightarrow D \rightarrow E  \rightarrow t  \\
+						t \rightarrow E \rightarrow B \rightarrow C \rightarrow D \rightarrow A \rightarrow s
+				\end{align}
+				此处 $B, C, D$ 三点就是以一条路径参与去重的。
+				
+				不妨考虑动态规划。如果 $f[u][v]$ 表示 $s \rightarrow u, v \rightarrow s$ 两条路径共同经过的点数的下限。预处理好 $u, v$ 两点间最短路 $d(u, v)$，按照算法 \ref{2006j} 进行操作。
+
+				\begin{algorithm}[H]
+				\caption{计算 $f[u][v]$}
+				\label{2006j}
+					\begin{algorithmic}[1]
+						\State $f[s][s] \gets 1$
+						\For{选一个未访问的最小的 $F[x][y]$，并标记访问它} \label{2006jjjj}
+								\State 选一个 $z, (x, z) \in E$，执行 $F[z][y] \gets \min(F[z][y], F[x][y] + [z \ne y])$
+								\State 选一个 $z, (z, y) \in E$，执行 $F[x][z] \gets \min(F[x][z], F[x][y] + [z \ne x])$ \Comment{延长一个点}
+								\State 若 $x \ne y$，则执行 $F[y][x] \gets \min(F[y][x], F[x][y] + d(x, y) - 1$ \Comment{延长一个重复的路径}
+						\EndFor
+					\end{algorithmic}
+				\end{algorithm}
+				
+				算法 \ref{2006j} 的第 \ref{2006jjjj} 行可用堆实现。答案 $F[t][t]$。
+
+			\subsubsection{时空复杂度}
+				
+				时间复杂度 $\mathcal{O}\left(N^2\log N\right)$。
+					
+				空间复杂度 $\mathcal{O}\left(N^2\right)$。
+		\newpage

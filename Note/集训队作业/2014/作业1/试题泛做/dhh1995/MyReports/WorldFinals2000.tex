@@ -1,0 +1,90 @@
+
+\chapter{ACM/ICPC World Finals 2000~(8/8)}
+
+\section{[A]Abbott's Revenge}
+\subsection{题意简述}
+箭头迷宫，每次走到一个点后会强制向进入处标注的箭头方向之一前进，求最优解。
+
+【数据范围】迷宫大小~$\leq 9\times 9$。
+\subsection{算法分析}
+用当前位置和方向来表示状态。直接从起点bfs。
+
+注意终点可能和起点相同。
+
+【时间复杂度】O(~$\text{迷宫大小}\times 4^2$~)，【空间复杂度】$O(\text{迷宫大小})$。
+
+\section{[B]According to Bartjens}
+\subsection{题意简述}
+在一个长度为~$n$~的数字串中插入~$+-\times$~符号（至少一个），使其构成不含前导~$0$~的算式，且其运算结果为~$2000$~。
+
+按字典序输出所有解。
+
+【数据范围】$n\leq 9$。
+\subsection{算法分析}
+直接搜索。
+
+【时间复杂度】$O(\text{指数级别})$，【空间复杂度】$O(n)$。
+
+\section{[C]Cutting Chains}
+\subsection{题意简述}
+共~$n$~个环，要求打开最少数量的环，再闭合，使所有环合并成链状一串。
+
+【数据范围】$n\leq 15$。
+\subsection{算法分析}
+~$n$~较小，枚举哪些打开，剩下的必须为链，统计链的数量，判断能否用拆开的合并。
+
+【时间复杂度】$O(2^n\times n)$，【空间复杂度】$O(n)$。
+
+\section{[D]Gifts Large and Small}
+\subsection{题意简述}
+求一个简单~$n$~边形的面积最小和最大的包围矩形。
+
+【数据范围】$n\leq 100$。
+\subsection{算法分析}
+先求点集的凸包。
+
+最小：最小矩形覆盖，暴力或旋转卡壳
+
+最大：枚举边界卡住的一点，三分角度，找其余三个卡住的地方。
+
+【时间复杂度】$O(n^2\log{n})$，【空间复杂度】$O(n)$。
+
+\section{[E]Internet Bandwidth}
+\subsection{题意简述}
+$n$~个点~$m$~条边的无向图，求源到汇的最大流。
+
+【数据范围】$n\leq 100,m\leq \frac{n\times(n-1)}{2}$。
+\subsection{算法分析}
+$dinic$~或~$sap$~均可。
+
+【时间复杂度】$O(n\sqrt{m})$，【空间复杂度】$O(n+m)$。
+
+\section{[F]Page Hopping}
+\subsection{题意简述}
+$n$~个网页之间~$m$~个单向跳转关系，求两两最短路的平均值。
+
+【数据范围】$n\leq 100,m\leq 100^2$。
+\subsection{算法分析}
+$floyd$~或每点一遍~$spfa$~或~$dijkstra$~求两点间最短路，求平均。
+
+【时间复杂度】$O(n^3)$，【空间复杂度】$O(n^2)$。
+
+\section{[G]Queue and A}
+\subsection{题意简述}
+有~$n$~种任务，每种任务有~$b_i$~个，模拟工作的分配（按优先级）。
+
+【数据范围】$n\leq 20,b_i\leq 1000$。
+\subsection{算法分析}
+按题意模拟，在按优先级分配时，可直接按人员优先级排序后按顺序分配工作。
+
+【时间复杂度】$O(n\times b_i)$，【空间复杂度】$O(n)$。
+
+\section{[H]Stopper Stumper}
+\subsection{题意简述}
+问三个双层同心圆柱（可上下反转）能否平放入一个三棱柱内（高度均相同，同心圆柱都贴住三角形两边）。
+
+【数据范围】无。
+\subsection{算法分析}
+搜索圆柱和边的对应方式，反转情况（最多一个半径小的向下），然后线段平移求交得到三个圆心，判断。
+
+【时间复杂度】$O(1)$，【空间复杂度】$O(1)$。

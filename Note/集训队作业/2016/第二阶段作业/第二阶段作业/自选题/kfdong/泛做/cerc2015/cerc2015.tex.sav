@@ -1,0 +1,30 @@
+\documentclass{noiassignment}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{cerc2015 解题报告}
+\author{福建省福州第一中学~~董克凡}
+
+\maketitle
+
+\section{试题来源}
+\par
+    http://cerc.hsin.hr/tasks/cerc2015_problems.pdf
+
+\section{Frightful Formula}
+\subsection{试题大意}
+\par
+    给出一个$n*n$矩阵的第一行和第一列，其余的数通过如下公式推出：
+    $$F[i,j]=a*f[i,j-1]+b*f[i-1,j]+c$$
+    求$f[n,n]$对$10^6+3$（一个质数）取模的结果。
+\par
+    $n\le 10^$
+\subsection{算法介绍}
+
+
+
+%% 解题报告结束
+
+\end{document}

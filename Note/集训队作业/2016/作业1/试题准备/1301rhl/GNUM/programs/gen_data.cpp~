@@ -1,0 +1,56 @@
+#include <cstdio>
+#include <cstdlib>
+#include <vector>
+using namespace std;
+#define ran (rand() * 32768 + rand())
+const int X = 1000000000;
+
+void gen1(int n, int l, int r){
+  printf("%d\n", n);
+  for (int i = 1; i <= n + n; i++)
+    printf("%d%c", ran % (r - l + 1) + l, " \n"[i % n == 0]);
+}
+
+void gen2(int n, int p){
+  printf("%d\n", n);
+  int T = X / p;
+  for (int i = 1; i <= n + n; i++)
+    printf("%d%c", p * (ran % T + 1), " \n"[i % n == 0]);
+}
+
+void gen3(int n, int *p, int k){
+  int P = 1, i, j, T;
+  printf("%d\n", n);
+  for (i = 1; i <= k; i++) P *= p[i];
+  for (int x = 1; x <= n + n; x++){
+    i = ran % k + 1;
+    T = X / (P / p[i]);
+    do {j = ran % T + 1;} while (j % p[i] == 0);
+    printf("%d%c", j * (P / p[i]), " \n"[x % n == 0]);
+  }
+}
+
+int gcd(int x, int y){return y ? gcd(y, x % y) : x;}
+void gen4(int n, int x, int y){
+  int i, j, k;
+  printf("%d\n", n);
+  for (i = 1; i <= n + n; i++){
+    if (i == n + 1) swap(x, y);
+    k = (i % (X / x) + 1) * x;
+    printf("%d%c", k, " \n"[i % n == 0]);
+  }
+}
+
+int p[20] = {0, 2, 3, 5, 7, 11, 13, 17, 19, 23};
+int q[20] = {0, 7, 11, 13, 17};
+int main(){
+  freopen("GNUM.in", "w", stdout);
+  printf("6\n");
+  gen1(400, 1, 10000);
+  gen2(400, 2);
+  gen2(400, 3214567);
+  gen3(400, q, 4);
+  gen3(400, p, 9);
+  gen4(400, 37800, 19448);
+  return 0;
+}

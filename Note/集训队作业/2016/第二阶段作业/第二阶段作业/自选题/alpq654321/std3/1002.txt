@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <map>
+#include <deque>
+#include <queue>
+#include <set>
+#include <cstdlib>
+#include <cassert>
+using namespace std;
+typedef long long ll;
+typedef pair<int,int> PI;
+typedef vector<int> VI;
+#define mp make_pair
+#define pb push_back
+#define X first
+#define Y second
+#define cl(x,a) memset(x,a,sizeof(x))
+#define rep(i,j,k) for(int i=(j);i<=(k);i++)
+const int mo=1e9+7;
+int pow(int a,int b,int c){int ret=1;for(;b;b>>=1,a=1LL*a*a%c)if(b&1)ret=1LL*ret*a%c;return ret;}
+multiset<ll> S;
+ll a[100010];
+int main(){
+    int n;
+    ll p;
+    while(scanf("%d%I64d",&n,&p)!=EOF){
+        S.clear();
+        for(int i=1;i<=n;i++){
+            scanf("%I64d",&a[i]);
+            a[i]%=p;
+            S.insert(a[i]);
+        }
+        ll ans=0;
+        for(int i=1;i<=n;i++){
+            S.erase(S.find(a[i]));
+            multiset<ll> ::iterator it=S.lower_bound(p-a[i]);
+            it--;
+            ans=max(ans,(a[i]+*it)%p);
+            it=S.lower_bound(2LL*p-a[i]);
+            it--;
+            ans=max(ans,(a[i]+*it)%p);
+            S.insert(a[i]);
+        }
+        cout << ans << endl;
+    }
+
+    return 0;
+}

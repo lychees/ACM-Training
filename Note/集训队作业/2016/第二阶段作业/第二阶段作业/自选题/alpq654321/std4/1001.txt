@@ -1,0 +1,25 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<cstdlib>
+#include<cmath>
+#include<algorithm>
+#define N 505
+#define LL long long
+#define oo (1<<30)
+#define TAT "%I64d"
+using namespace std;
+int n,b,c,a[N],ans;
+int main()
+{
+    int i,j;
+    while(scanf("%d %d %d",&n,&b,&c)!=EOF){
+        for(i=1;i<=n;i++) scanf("%d",&a[i]);
+        ans=0;
+        for(i=1;i<=n;i++)
+            for(j=i+1;j<=n;j++)
+                if(abs(a[i]-a[j])%b==c) ans++;
+        cout<<ans<<endl;
+      }
+    return 0;
+}

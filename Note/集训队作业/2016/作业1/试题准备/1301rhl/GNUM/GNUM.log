@@ -1,0 +1,777 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.22)  18 OCT 2015 05:20
+entering extended mode
+**H:/2016ÂõΩÂÆ∂ÈõÜËÆ≠Èòü‰Ωú‰∏ö233/set/GNUM/GNUM.tex
+(H:/2016ÂõΩÂÆ∂ÈõÜËÆ≠Èòü‰Ωú‰∏ö233/set/GNUM/GNUM.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for loaded.
+(F:\CTEX\CTeX\tex\latex\cct\cctart.cls
+Document Class: cctart 2004/10/14 Derived from the `article' class
+(F:\CTEX\MiKTeX\tex\latex\base\article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(F:\CTEX\MiKTeX\tex\latex\base\size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(F:\CTEX\CTeX\tex\latex\cct\cctbase.sty
+Package: cctbase 2006/05/17
+ (F:\CTEX\CTeX\tex\latex\cct\CCT.sty
+0.61803 [2009/11/20] (F:\CTEX\CTeX\tex\latex\cct\cchead.sty
+\!ZihaoNo=\count87
+\ccwd=\dimen103
+\ccht=\dimen104
+\ccdp=\dimen105
+\!ccbox=\box26
+\!ccbdskip=\skip43
+)
+Package: CCT 2009/11/20 0.61803
+\@CCTcnta=\count88
+\@CCTcntb=\count89
+\@CCTlastkern=\count90
+\@CCTglue=\skip44
+\@CCTtoks=\toks14
+
+(F:\CTEX\CTeX\tex\latex\cct\CCT.cfg) (F:\CTEX\CTeX\tex\latex\cct\GBKkern.cfg)
+(F:\CTEX\CTeX\tex\latex\CJK\GB\c19song.fd) (\ziti{A}->gbksong)
+\@CCTskip=\skip45
+)))
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip46
+
+For additional information on amsmath, use the `?' option.
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks15
+\ex@=\dimen106
+))
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(F:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count91
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count92
+\leftroot@=\count93
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count94
+\DOTSCASE@=\count95
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count96
+\c@MaxMatrixCols=\count97
+\dotsspace@=\muskip10
+\c@parentequation=\count98
+\dspbrk@lvl=\count99
+\tag@help=\toks16
+\row@=\count100
+\column@=\count101
+\maxfields@=\count102
+\andhelp@=\toks17
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks18
+\multlinegap=\skip47
+\multlinetaggap=\skip48
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(F:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(F:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks20
+)
+(F:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(F:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(F:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(F:\CTEX\MiKTeX\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\ltxcmds.sty
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count103
+))
+\Gin@req@height=\dimen115
+\Gin@req@width=\dimen116
+)
+(F:\CTEX\MiKTeX\tex\latex\caption\caption.sty
+Package: caption 2011/11/10 v3.2e Customizing captions (AR)
+
+(F:\CTEX\MiKTeX\tex\latex\caption\caption3.sty
+Package: caption3 2011/11/01 v1.4a caption3 kernel (AR)
+\captionmargin=\dimen117
+\captionmargin@=\dimen118
+\captionwidth=\dimen119
+\caption@indent=\dimen120
+\caption@parindent=\dimen121
+\caption@hangindent=\dimen122
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\vskip \abovecaptionski
+p \sbox \@tempboxa {#1~~#2}\ifdim \wd \@tempboxa >\hsize #1~~#2\par \else \glob
+al \@minipagefalse \hb@xt@ \hsize {\hfil \box \@tempboxa \hfil }\fi \vskip \bel
+owcaptionskip .
+\c@ContinuedFloat=\count104
+) (F:\CTEX\MiKTeX\tex\latex\titlesec\titlesec.sty
+Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
+\ttl@box=\box29
+\beforetitleunit=\skip49
+\aftertitleunit=\skip50
+\ttl@plus=\dimen123
+\ttl@minus=\dimen124
+\ttl@toksa=\toks21
+\titlewidth=\dimen125
+\titlewidthlast=\dimen126
+\titlewidthfirst=\dimen127
+)
+(F:\CTEX\MiKTeX\tex\latex\graphics\color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(F:\CTEX\MiKTeX\tex\latex\00miktex\color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(F:\CTEX\MiKTeX\tex\latex\geometry\geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(F:\CTEX\MiKTeX\tex\generic\ifxetex\ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count105
+\Gm@cntv=\count106
+\c@Gm@tempcnt=\count107
+\Gm@bindingoffset=\dimen128
+\Gm@wd@mp=\dimen129
+\Gm@odd@mp=\dimen130
+\Gm@even@mp=\dimen131
+\Gm@layoutwidth=\dimen132
+\Gm@layoutheight=\dimen133
+\Gm@layouthoffset=\dimen134
+\Gm@layoutvoffset=\dimen135
+\Gm@dimlist=\toks22
+
+(F:\CTEX\MiKTeX\tex\latex\geometry\geometry.cfg))
+(F:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(F:\CTEX\MiKTeX\tex\latex\ulem\ulem.sty
+\UL@box=\box30
+\UL@hyphenbox=\box31
+\UL@skip=\skip51
+\UL@hook=\toks23
+\UL@height=\dimen136
+\UL@pe=\count108
+\UL@pixel=\dimen137
+\ULC@box=\box32
+Package: ulem 2011/03/18
+\ULdepth=\dimen138
+)
+(F:\CTEX\MiKTeX\tex\latex\mdframed\mdframed.sty
+Package: mdframed 2012/03/04 v1.4: mdframed
+
+(F:\CTEX\MiKTeX\tex\latex\oberdiek\kvoptions.sty
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\kvsetkeys.sty
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(F:\CTEX\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\expl3.sty
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3names.sty
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3bootstrap.sty
+Package: l3bootstrap 2011/12/29 v3110 L3 Experimental bootstrap code
+)
+Package: l3names 2011/12/30 v3113 L3 Experimental namespace for primitives
+)
+(F:\CTEX\MiKTeX\tex\latex\misc\etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count109
+)
+Package: expl3 2012/02/26 v3471 L3 Experimental code bundle wrapper
+
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3basics.sty
+Package: l3basics 2012/02/26 v3460 L3 Experimental basic definitions
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3expan.sty
+Package: l3expan 2012/02/26 v3460 L3 Experimental argument expansion
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3tl.sty
+Package: l3tl 2012/02/26 v3460 L3 Experimental token lists
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3seq.sty
+Package: l3seq 2012/01/09 v3158 L3 Experimental sequences and stacks
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3int.sty
+Package: l3int 2012/02/26 v3460 L3 Experimental integers
+\c_max_int=\count110
+\l_tmpa_int=\count111
+\l_tmpb_int=\count112
+\l_tmpc_int=\count113
+\g_tmpa_int=\count114
+\g_tmpb_int=\count115
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3quark.sty
+Package: l3quark 2012/02/12 v3384 L3 Experimental quarks
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3prg.sty
+Package: l3prg 2012/02/26 v3464 L3 Experimental control structures
+\g_prg_map_int=\count116
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3clist.sty
+Package: l3clist 2012/02/26 v3460 L3 Experimental comma separated lists
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3token.sty
+Package: l3token 2012/02/26 v3460 L3 Experimental token manipulation
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3prop.sty
+Package: l3prop 2012/02/26 v3460 L3 Experimental property lists
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3msg.sty
+Package: l3msg 2012/02/26 v3470 L3 Experimental messages
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3file.sty
+Package: l3file 2012/02/26 v3464 L3 Experimental file and I/O operations
+\l_iow_stream_int=\count117
+\l_iow_line_length_int=\count118
+\l_iow_target_length_int=\count119
+\l_iow_current_line_int=\count120
+\l_iow_current_word_int=\count121
+\l_iow_current_indentation_int=\count122
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3skip.sty
+Package: l3skip 2012/02/26 v3460 L3 Experimental dimensions and skips
+\l_tmpa_dim=\dimen139
+\l_tmpb_dim=\dimen140
+\l_tmpc_dim=\dimen141
+\g_tmpa_dim=\dimen142
+\g_tmpb_dim=\dimen143
+\l_tmpa_skip=\skip52
+\l_tmpb_skip=\skip53
+\l_tmpc_skip=\skip54
+\g_tmpa_skip=\skip55
+\g_tmpb_skip=\skip56
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3keys.sty
+Package: l3keys 2011/12/22 v3086 L3 Experimental key-value interfaces
+\g_keyval_level_int=\count123
+\l_keys_choice_int=\count124
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3fp.sty
+Package: l3fp 2012/02/06 v3315 L3 Experimental floating-point operations
+\c_one_million=\count125
+\c_one_hundred_million=\count126
+\c_five_hundred_million=\count127
+\c_one_thousand_million=\count128
+\c_fp_pi_by_four_decimal_int=\count129
+\c_fp_pi_by_four_extended_int=\count130
+\c_fp_pi_decimal_int=\count131
+\c_fp_pi_extended_int=\count132
+\c_fp_two_pi_decimal_int=\count133
+\c_fp_two_pi_extended_int=\count134
+\l_fp_count_int=\count135
+\l_fp_div_offset_int=\count136
+\l_fp_exp_integer_int=\count137
+\l_fp_exp_decimal_int=\count138
+\l_fp_exp_extended_int=\count139
+\l_fp_exp_exponent_int=\count140
+\l_fp_input_a_sign_int=\count141
+\l_fp_input_a_integer_int=\count142
+\l_fp_input_a_decimal_int=\count143
+\l_fp_input_a_exponent_int=\count144
+\l_fp_input_b_sign_int=\count145
+\l_fp_input_b_integer_int=\count146
+\l_fp_input_b_decimal_int=\count147
+\l_fp_input_b_exponent_int=\count148
+\l_fp_input_a_extended_int=\count149
+\l_fp_input_b_extended_int=\count150
+\l_fp_mul_a_i_int=\count151
+\l_fp_mul_a_ii_int=\count152
+\l_fp_mul_a_iii_int=\count153
+\l_fp_mul_a_iv_int=\count154
+\l_fp_mul_a_v_int=\count155
+\l_fp_mul_a_vi_int=\count156
+\l_fp_mul_b_i_int=\count157
+\l_fp_mul_b_ii_int=\count158
+\l_fp_mul_b_iii_int=\count159
+\l_fp_mul_b_iv_int=\count160
+\l_fp_mul_b_v_int=\count161
+\l_fp_mul_b_vi_int=\count162
+\l_fp_mul_output_int=\count163
+\l_fp_output_sign_int=\count164
+\l_fp_output_integer_int=\count165
+\l_fp_output_decimal_int=\count166
+\l_fp_output_exponent_int=\count167
+\l_fp_output_extended_int=\count168
+\l_fp_round_position_int=\count169
+\l_fp_round_target_int=\count170
+\l_fp_split_sign_int=\count171
+\l_fp_internal_int=\count172
+\l_fp_trig_octant_int=\count173
+\l_fp_trig_sign_int=\count174
+\l_fp_trig_decimal_int=\count175
+\l_fp_trig_extended_int=\count176
+\l_fp_internal_dim=\dimen144
+\l_fp_internal_skip=\skip57
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3box.sty
+Package: l3box 2012/02/18 v3432 L3 Experimental boxes
+\l_tmpb_box=\box33
+\l_box_top_dim=\dimen145
+\l_box_bottom_dim=\dimen146
+\l_box_left_dim=\dimen147
+\l_box_right_dim=\dimen148
+\l_box_top_new_dim=\dimen149
+\l_box_bottom_new_dim=\dimen150
+\l_box_left_new_dim=\dimen151
+\l_box_right_new_dim=\dimen152
+\l_box_internal_box=\box34
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3coffins.sty
+Package: l3coffins 2012/02/26 v3460 L3 Experimental coffin code layer
+\l_coffin_internal_box=\box35
+\l_coffin_internal_dim=\dimen153
+\l_coffin_offset_x_dim=\dimen154
+\l_coffin_offset_y_dim=\dimen155
+\l_coffin_x_dim=\dimen156
+\l_coffin_y_dim=\dimen157
+\l_coffin_x_prime_dim=\dimen158
+\l_coffin_y_prime_dim=\dimen159
+\l_coffin_Depth_dim=\dimen160
+\l_coffin_Height_dim=\dimen161
+\l_coffin_TotalHeight_dim=\dimen162
+\l_coffin_Width_dim=\dimen163
+\c_empty_coffin=\box36
+\l_coffin_aligned_coffin=\box37
+\l_coffin_aligned_internal_coffin=\box38
+\l_coffin_bounding_shift_dim=\dimen164
+\l_coffin_left_corner_dim=\dimen165
+\l_coffin_right_corner_dim=\dimen166
+\l_coffin_bottom_corner_dim=\dimen167
+\l_coffin_top_corner_dim=\dimen168
+\l_coffin_scaled_total_height_dim=\dimen169
+\l_coffin_scaled_width_dim=\dimen170
+\l_coffin_display_coffin=\box39
+\l_coffin_display_coord_coffin=\box40
+\l_coffin_display_pole_coffin=\box41
+\l_coffin_display_offset_dim=\dimen171
+\l_coffin_display_x_dim=\dimen172
+\l_coffin_display_y_dim=\dimen173
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3color.sty
+Package: l3color 2011/09/07 v2776 L3 Experimental colour support
+)
+(F:\CTEX\MiKTeX\tex\latex\l3kernel\l3luatex.sty
+Package: l3luatex 2012/02/09 v3355 L3 Experimental LuaTeX-specific functions
+\g_cctab_allocate_int=\count177
+\g_cctab_stack_int=\count178
+))
+Package: xparse 2012/02/26 v3471 L3 Experimental document command parser
+\l_xparse_current_arg_int=\count179
+\l_xparse_m_args_int=\count180
+\l_xparse_mandatory_args_int=\count181
+\l_xparse_processor_int=\count182
+\l_xparse_v_nesting_int=\count183
+)
+(F:\CTEX\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
+\etb@tempcnta=\count184
+)
+(F:\CTEX\MiKTeX\tex\latex\oberdiek\zref-abspage.sty
+Package: zref-abspage 2011/03/18 v2.21 Module abspage for zref (HO)
+
+(F:\CTEX\MiKTeX\tex\latex\oberdiek\zref-base.sty
+Package: zref-base 2011/03/18 v2.21 Module base for zref (HO)
+
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+)
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\pdftexcmds.sty
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(F:\CTEX\MiKTeX\tex\latex\oberdiek\auxhook.sty
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+Package zref Info: New property list: main on input line 707.
+Package zref Info: New property: default on input line 708.
+Package zref Info: New property: page on input line 709.
+)
+(F:\CTEX\MiKTeX\tex\generic\oberdiek\atbegshi.sty
+Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
+)
+\c@abspage=\count185
+Package zref Info: New property: abspage on input line 62.
+)
+\mdf@templength=\skip58
+\c@mdf@globalstyle@cnt=\count186
+\mdf@skipabove@length=\skip59
+\mdf@skipbelow@length=\skip60
+\mdf@leftmargin@length=\skip61
+\mdf@rightmargin@length=\skip62
+\mdf@innerleftmargin@length=\skip63
+\mdf@innerrightmargin@length=\skip64
+\mdf@innertopmargin@length=\skip65
+\mdf@innerbottommargin@length=\skip66
+\mdf@splittopskip@length=\skip67
+\mdf@splitbottomskip@length=\skip68
+\mdf@outermargin@length=\skip69
+\mdf@innermargin@length=\skip70
+\mdf@linewidth@length=\skip71
+\mdf@innerlinewidth@length=\skip72
+\mdf@middlelinewidth@length=\skip73
+\mdf@outerlinewidth@length=\skip74
+\mdf@roundcorner@length=\skip75
+\mdf@footenotedistance@length=\skip76
+\mdf@userdefinedwidth@length=\skip77
+\mdf@frametitleaboveskip@length=\skip78
+\mdf@frametitlebelowskip@length=\skip79
+\mdf@frametitlerulewidth@length=\skip80
+\mdf@frametitleleftmargin@length=\skip81
+\mdf@frametitlerightmargin@length=\skip82
+\mdf@shadowsize@length=\skip83
+\mdf@frametitlebox=\box42
+\mdf@footnotebox=\box43
+\mdf@splitbox@one=\box44
+\mdf@splitbox@two=\box45
+\mdfsplitboxwidth=\skip84
+\mdfsplitboxtotalwidth=\skip85
+\mdfsplitboxheight=\skip86
+\mdfsplitboxdepth=\skip87
+\mdfsplitboxtotalheight=\skip88
+\mdfframetitleboxwidth=\skip89
+\mdfframetitleboxtotalwidth=\skip90
+\mdfframetitleboxheight=\skip91
+\mdfframetitleboxdepth=\skip92
+\mdfframetitleboxtotalheight=\skip93
+\mdffootnoteboxwidth=\skip94
+\mdffootnoteboxtotalwidth=\skip95
+\mdffootnoteboxheight=\skip96
+\mdffootnoteboxdepth=\skip97
+\mdffootnoteboxtotalheight=\skip98
+\mdftotallinewidth=\skip99
+\mdfboundingboxwidth=\skip100
+\mdfboundingboxtotalwidth=\skip101
+\mdfboundingboxheight=\skip102
+\mdfboundingboxdepth=\skip103
+\mdfboundingboxtotalheight=\skip104
+\mdf@freevspace@length=\skip105
+\mdf@horizontalwidthofbox@length=\skip106
+\mdf@verticalmarginwhole@length=\skip107
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining document command \newmdtheoremenv with arg. spec. 'O{} m o m o ' on
+. line 483.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining document command \mdtheorem with arg. spec. ' O{} m o m o ' on line
+. 563.
+.................................................
+
+(F:\CTEX\MiKTeX\tex\latex\mdframed\md-frame-0.mdf
+File: md-frame-0.mdf 2012/03/04 v1.4: md-frame-0
+)
+\c@mdf@zref@counter=\count187
+Package zref Info: New property: mdf@pagevalue on input line 764.
+\mdf@horizontalspaceofbox=\skip108
+)
+(H:\2016ÂõΩÂÆ∂ÈõÜËÆ≠Èòü‰Ωú‰∏ö233\set\GNUM\GNUM.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+
+(F:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count188
+\scratchdimen=\dimen174
+\scratchbox=\box46
+\nofMPsegments=\count189
+\nofMParguments=\count190
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count191
+\MPscratchDim=\dimen175
+\MPnumerator=\count192
+\makeMPintoPDFobject=\count193
+\everyMPtoPDFconversion=\toks25
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(56.9055pt, 731.23584pt, 56.9055pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=731.23584pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-52.36449pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\AtBeginShipoutBox=\box47
+(F:\CTEX\CTeX\tex\latex\CJK\GB\c19hei.fd) (\ziti{B}->gbkhei)
+Warning: font `bs' not found, trying alternative font `hei'
+(\ziti{E}->gbkhei)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 18.
+ (F:\CTEX\MiKTeX\tex\latex\base\ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 32.
+
+(F:\CTEX\MiKTeX\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 32.
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 33.
+
+Loading punctuation table gbksong.tbl
+Overfull \hbox (11.30846pt too wide) in paragraph at lines 38--39
+[]\gbksong54-10.5 4 \gbksong58-10.5 ∑ \gbksong50-10.5 Ç \gbksong58-10.5 ë \gbks
+ong44-10.5 o \gbksong48-10.5 ¸ \gbksong42-10.5 á \gbksong41-10.5  \gbksong63-1
+0.5  \gbksong65-10.5 | \gbksong40-10.5  \gbksong45-10.5 8 \gbksong43-10.5 ‹$\
+OML/cmm/m/it/10 S[]; S[]$\gbksong26-10.5 ß| \gbksong38-10.5 – \gbksong55-10.5 ©
+ û \gbksong45-10.5 8 \gbksong43-10.5 ‹ \gbksong46-10.5 ˛ \gbksong58-10.5 è \gbk
+song47-10.5 ò |\gbksong25-10.5 "| \gbksong50-10.5 z \gbksong39-10.5 g \gbksong3
+7-10.5 ˆ \gbksong65-10.5 ä \gbksong26-10.5 ß| \gbksong56-10.5 ¶ \gbksong45-10.5
+ Ú \gbksong44-10.5 ¨ \gbksong60-10.5 ¿ \gbksong63-10.5 J \gbksong48-10.5 ¸ \gbk
+song42-10.5 á \gbksong55-10.5 Í \gbksong40-10.5 È$\OT1/cmr/m/n/10 (\OML/cmm/m/i
+t/10 i; j\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
+p; q\OT1/cmr/m/n/10 )$\gbksong26-10.5 ß|
+ []
+
+
+Overfull \hbox (3.55383pt too wide) in paragraph at lines 38--39
+\gbksong49-10.5 ˜ \gbksong65-10.5 v$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 i; j\OT1/
+cmr/m/n/10 )$\gbksong37-10.5 ÿ \gbksong63-10.5 3$\OML/cmm/m/it/10 S[]$\gbksong6
+4-10.5 •\OT1/cmr/m/n/10 ,$(\OML/cmm/m/it/10 p; q\OT1/cmr/m/n/10 )$\gbksong37-10
+.5 ÿ \gbksong63-10.5 3$\OML/cmm/m/it/10 S[]$\gbksong64-10.5 • \gbksong26-10.5 ß
+| $\OML/cmm/m/it/10 B[] > A[]; B[] < A[]; []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A
+[]; B[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 6\OT1/cmr/m/n/10 = 1\OML/cmm/m/it/10 
+; []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A[]; B[]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/1
+0 6\OT1/cmr/m/n/10 = 1$\gbksong26-10.5 ß| \gbksong53-10.5 Ö$[]\OT1/cmr/m/n/10 (
+\OML/cmm/m/it/10 A[]; B[]\OT1/cmr/m/n/10 )$\gbksong62-10.5 Ü
+ []
+
+(F:\CTEX\CTeX\tex\latex\CJK\GB\c19kai.fd) (\ziti{C}->gbkkai) [1
+
+{F:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}}]
+Overfull \hbox (18.11153pt too wide) in paragraph at lines 106--107
+[]\gbksong58-10.5 ∑ \gbksong50-10.5 Ç \gbksong45-10.5 P \gbksong49-10.5 π \gbks
+ong59-10.5 e$\OML/cmm/m/it/10 S[]; S[]$\gbksong40-10.5  \gbksong51-10.5 S \gbk
+song54-10.5 N \gbksong46-10.5 “ \gbksong47-10.5 å \gbksong61-10.5 ± \gbksong37-
+10.5  \gbksong56-10.5 | \gbksong49-10.5 
+ |\gbksong25-10.5 "| \gbksong55-10.5 Ø ¢ \gbksong54-10.5 ˛ \gbksong37-10.5 ÿ \g
+bksong57-10.5 ” \gbksong40-10.5 $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 S[]; S[]\O
+MS/cmsy/m/n/10 g$\gbksong42-10.5 á \gbksong55-10.5 Í \gbksong64-10.5 ê \gbksong
+62-10.5 k$\OML/cmm/m/it/10 O\OT1/cmr/m/n/10 (2[])$\gbksong42-10.5 á |\gbksong25
+-10.5 "| \gbksong42-10.5 E \gbksong63-10.5 , \gbksong40-10.5 ›$\OML/cmm/m/it/10
+ O\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T\OT1/cmr/m/n/10 2[]\OML/cmm/m/it/10 N[]\OT
+1/cmr/m/n/10 )$\gbksong26-10.5 ß|
+ []
+
+
+Overfull \hbox (9.02832pt too wide) in paragraph at lines 114--115
+[]\gbksong56-10.5 § \gbksong61-10.5 ± \gbksong47-10.5 å \gbksong61-10.5 ± \gbks
+ong55-10.5 ¶ \gbksong62-10.5 ^ \gbksong60-10.5 : ﬂ \gbksong48-10.5 | \gbksong56
+-10.5 é \gbksong41-10.5 { \gbksong44-10.5 Ω\OT1/cmr/m/n/10 Dinic\gbksong56-10.5
+ é \gbksong41-10.5 { \gbksong52-10.5  \gbksong41-10.5  © \gbksong57-10.5 „ \g
+bksong65-10.5 Å \gbksong39-10.5 å \gbksong52-10.5 ö  \gbksong26-10.5 ß| \gbkso
+ng42-10.5 E \gbksong63-10.5 , \gbksong40-10.5 ›$\OML/cmm/m/it/10 O\OT1/cmr/m/n/
+10 (\OML/cmm/m/it/10 TN[]\OT1/cmr/m/n/10 )$\gbksong44-10.5 Ω$\OML/cmm/m/it/10 O
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 TN[]\OT1/cmr/m/n/10 )$\gbksong26-10.5 ß| \gbk
+song52-10.5 œ \gbksong58-10.5 " \gbksong40-10.5  \gbksong41-10.5 ©$\OT1/cmr/m/
+n/10 30$\gbksong41-10.5 © |\gbksong25-10.5 "|
+ []
+
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 117.
+[2]
+Overfull \hbox (6.85762pt too wide) in paragraph at lines 146--147
+[]\gbksong42-10.5 E \gbksong63-10.5 , \gbksong40-10.5 ›$\OML/cmm/m/it/10 O\OT1/
+cmr/m/n/10 (\OML/cmm/m/it/10 T[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 N[]; XN[]\OT1
+/cmr/m/n/10 ))$\gbksong26-10.5 ß| \gbksong42-10.5 ä \gbksong46-10.5 ‚ \gbksong5
+5-10.5 ¢ \gbksong59-10.5 y \gbksong62-10.5 ` \gbksong49-10.5  \gbksong52-10.5 
+œ \gbksong58-10.5 " \gbksong40-10.5  \gbksong41-10.5 ©$\OT1/cmr/m/n/10 70 \OMS
+/cmsy/m/n/10  \OT1/cmr/m/n/10 100$\gbksong41-10.5 © |\gbksong25-10.5 "| \gbkso
+ng40-10.5 È \gbksong62-10.5 u \gbksong39-10.5 ¸ \gbksong58-10.5 † \gbksong54-10
+.5 N \gbksong48-10.5 ˛ \gbksong40-10.5  \gbksong57-10.5 „ \gbksong26-10.5 ß| \
+OT1/cmr/m/n/10 Dinic\gbksong56-10.5 é
+ []
+
+
+Overfull \hbox (49.18355pt too wide) in paragraph at lines 160--161
+[]\gbksong50-10.5 z \gbksong42-10.5 á \gbksong37-10.5 ˇ \gbksong55-10.5 ¡ \gbks
+ong40-10.5 : \gbksong62-10.5 k$\OT1/cmr/m/n/10 10$\gbksong65-10.5 | \gbksong55-
+10.5 Í \gbksong46-10.5 ‚ \gbksong26-10.5 ß| \gbksong56-10.5 § \gbksong61-10.5 ±
+ \gbksong47-10.5 å \gbksong61-10.5 ± \gbksong47-10.5  \gbksong49-10.5 ƒ \gbkso
+ng64-10.5  \gbksong40-10.5 È \gbksong37-10.5 ÿ \gbksong57-10.5 ” \gbksong40-10
+.5  \gbksong56-10.5 é \gbksong41-10.5 { \gbksong26-10.5 ß| \gbksong55-10.5 ¶ \
+gbksong62-10.5 ^ \gbksong37-10.5 ÿ \gbksong57-10.5 ” \gbksong40-10.5  \gbksong
+55-10.5 Í \gbksong46-10.5 ‚ \gbksong55-10.5 ) \gbksong38-10.5 § \gbksong52-10.5
+ Ï |\gbksong25-10.5 "| \gbksong45-10.5 Ñ\OT1/cmtt/m/n/10 programs$\OMS/cmsy/m/n
+/10 n$\OT1/cmtt/m/n/10 gen[]data.cpp|\gbksong25-10.5 "|  
+ []
+
+[3] (H:\2016ÂõΩÂÆ∂ÈõÜËÆ≠Èòü‰Ωú‰∏ö233\set\GNUM\GNUM.aux) ) 
+Here is how much of TeX's memory you used:
+ 10153 strings out of 495354
+ 163662 string characters out of 3183859
+ 245290 words of memory out of 3000000
+ 13096 multiletter control sequences out of 15000+200000
+ 31526 words of font info for 114 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 38i,7n,38p,900b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Windows/Fonts/simh
+ei.ttf><C:/Windows/Fonts/simhei.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun
+.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><C:/Windows/Fonts/simhei.t
+tf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/
+simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Window
+s/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C
+:/Windows/Fonts/simhei.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/
+CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chines
+e/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/font
+s/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><
+F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chi
+nese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/f
+onts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.tt
+f><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/
+chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTe
+X/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun
+.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truety
+pe/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/
+CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/sim
+sun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><C:/Windows/Fonts/simhe
+i.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><F:/CTEX/CTeX/f
+onts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.tt
+f><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/
+chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTe
+X/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun
+.ttf><F:/CTEX/CTeX/fonts/truetype/chinese/simsun.ttf><F:/CTEX/CTeX/fonts/truety
+pe/chinese/simsun.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf
+><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><F:/CTEX/MiKTeX/font
+s/type1/public/amsfonts/cm/cmbsy10.pfb><F:/CTEX/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmbx10.pfb><F:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><F:
+/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><F:/CTEX/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmmi5.pfb><F:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmmi7.pfb><F:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><F:/CTEX/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><F:/CTEX/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr5.pfb><F:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb>
+<F:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><F:/CTEX/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmsy7.pfb><F:/CTEX/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmtt10.pfb>
+Output written on GNUM.pdf (3 pages, 332899 bytes).
+PDF statistics:
+ 272 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

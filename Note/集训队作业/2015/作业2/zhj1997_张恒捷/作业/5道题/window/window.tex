@@ -1,0 +1,101 @@
+\documentclass{noiassignment}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\newtheorem*{theorem*}{定理}
+\begin{document}
+
+%% 解题报告开始
+
+\title{WINDOW 解题报告}
+\author{绍兴一中~~张恒捷}
+
+\maketitle
+
+\section{试题来源}
+codechef WINDOW
+
+\section{试题大意}
+二维平面上有一个三角形，三个点分别为~$(0,0),(N,0),(N,N*A/B)$~，现在你现在可以选择~$L+1$~个整数~$0\leq x[0] < x[1] < \dots <x[L] \leq N$~与~$K+1$~个整数 ~$0\leq y[0] <y[1]< \dots < y[K] \leq N*A/B$~。使得所有~$(x[i],y[j])$~都在三角形中。
+
+求有多少选法，答案模900000011输出。
+
+数据范围：
+
+数据组数~$\leq 50$~
+
+$~N,A,B\leq 10^{18}$
+
+$K,L\leq 10$~
+
+\newpage
+\section{算法介绍}
+枚举~$x[0]$~，方案可以马上算出。
+
+$$ans=\sum_{i=0}^{N} {N-i \choose L} \times {\left\lfloor \frac{iA}{B} \right\rfloor +1 \choose K+1}$$
+
+把组合数看成多项式，不妨设：
+
+$${N-i \choose L} ~=~ \sum_{j=0}^L a_j\cdot i^j$$
+
+$${\left\lfloor \frac{iA}{B} \right\rfloor +1 \choose K+1} ~=~ \sum_{j=0}^{K+1} b_j \cdot\left\lfloor \frac{iA}{B} \right\rfloor ^j$$
+
+可得：
+
+$$ans=\sum_{j=0}^L a_j \sum_{k=0}^{K+1}b_k \cdot \sum_{x=0}^N x^j \cdot \left\lfloor \frac{xA}{B} \right\rfloor ^k$$
+
+
+不妨设
+~$$f(N,A,B,C,j,k)=\sum_{x=0}^N x^j\cdot \left\lfloor \frac{xA+C}{B} \right\rfloor ^k$$
+
+接下来介绍怎么求~$f$~
+
+我们尝试不停迭代缩小问题规模。
+
+当~$A\geq B$~或 ~$C\geq B$~时，有：
+
+\begin{align*}
+~~~~~~~~~&f(N,A,B,C,j,k)\\=&~\sum_{x=0}^N x^j \left( \left\lfloor \frac{x\cdot (A~mod~B) + (C~mod~B)}{B}\right\rfloor  + x  \left\lfloor\frac{A}{B}\right\rfloor +\left\lfloor \frac{C}{B} \right\rfloor  \right) ^k\\
+~~~~~~~~~=&~\sum_{p1+p2\leq k} x^{p1}  \left\lfloor \frac{A}{B} \right\rfloor^{p1}    \left\lfloor \frac{C}{B} \right\rfloor^{p2}  {k \choose p1}{k-p1 \choose p2} \sum_{x=0}^N x^j \left\lfloor \frac{x\cdot (A~mod~B) + (C~mod~B)}{B}\right\rfloor ^{k-p1-p2}\\
+~~~~~~~~~=&~\sum_{p1\leq k} \left\lfloor \frac{A}{B}  \right\rfloor ^{p1}{k\choose p1}\sum_{p2\leq k-p1} \left\lfloor \frac{C}{B}  \right\rfloor ^{p2} {k-p1\choose p2} \cdot f(N,A~mod~B,B,C~mod~B,j+p1,k-p1-p2)
+\end{align*}
+
+这里只需要将~$k-p1$~看成一个整体将后者预处理就可以做到~$O(k)$。
+
+当~$A=0$~时，用伯努利数或者预处理多项式的系数就可以算了。
+
+当~$A<B$~时：
+
+另~$M=\left\lfloor \frac{NA+C}{B} \right\rfloor$
+
+$[x]$~的意思是~$x$~为真值为1，否则为0。
+
+\begin{align}
+f(N,A,B,C,j,k)&=~\sum_{x=0}^N x^j\cdot  \left\lfloor \frac{xA+C}{B}  \right\rfloor ^k\\
+&=~\sum_{x=0}^Nx^j\cdot \sum_{y=0}^{M-1} \left((y+1)^k-y^k\right)\cdot \left[y+1 \leq  \left\lfloor \frac{xA+C}{B} \right\rfloor \right]\\
+&=~\sum_{y=0}^{M-1}\left((y+1)^k-y^k\right)\cdot \sum_{x=0}^N x^j \left[ x\geq  \left\lfloor \frac{By+B+A-C-1}{A}  \right\rfloor \right]
+\end{align}
+
+在~$(1)$~到~$(2)$~的推导中，只有~$k>0$~时成立，故若~$k=0$~则单独计算。
+
+后者~$\sum_{x=0}^N x^j\cdot [x\geq t]$~在~$N,j$~已知的情况下是一个关于~$y$~的~$j+1$~次多项式，假设第~$i$~次的系数为~$S(N,j)_i$~。那么原式
+
+\begin{align*}
+&=~\sum_{y=0}^{M-1}\left((y+1)^k-y^k\right)\cdot \sum_{i=0}^{j+1} S(N,j)_i \left\lfloor \frac{By+B+A-C-1}{A}  \right\rfloor ^i\\
+&=~\sum_{y=0}^{M-1}\sum_{u=0}^{k-1} {k \choose u}\cdot y^u  \sum_{i=0}^{j+1} S(N,j)_i \left\lfloor \frac{By+B+A-C-1}{A}  \right\rfloor ^i\\
+&=~\sum_{u=0}^{k-1} {k \choose u} \sum_{i=0}^{j+1} S(N,j)_i \sum_{y=0}^{M-1} y^u   \left\lfloor \frac{By+B+A-C-1}{A}  \right\rfloor ^i\\
+&=~\sum_{u=0}^{k-1} {k \choose u} \sum_{i=0}^{j+1} S(N,j)_i \cdot f(M-1,B,A,B+A-C-1,u,i)\\
+\end{align*}
+
+递归求出~$f$~即可。如果预处理后者可以做到~$O(k)$。
+
+由于每迭代两次，~$(A,B)$~就会变成~$(B,A~mod~B)$~，复杂度与求~$gcd$~相同。
+
+故总复杂度为：
+
+$$O((k+l)^3 log~n)$$
+
+%% 解题报告结束
+
+\end{document}

@@ -1,0 +1,10 @@
+\section{288E Polo the Penguin and Lucky Numbers}
+\subsection*{试题大意}
+给出两个只由~4,7~构成的~$n$~位数~$l,r(l<r)$，设~$[l,r]$~中所有由~4,7~构成的数依次为~$a_1,a_2,\ldots,a_m$，求~$a_1a_2+a_2a_3+\cdots+a_{m-1} a_m$。
+
+$n\le 10^5$
+\subsection*{算法}
+由于长度固定为~$n$，先考虑~$[444\cdots4,777\cdots7]$~之间的数的答案，其为~$f[n]$。则~$f[n+1]$~可由~$f[n]$~推出，它一定是前面加个~4，或前面加个~7，或是~$4777\cdots7\times7444\cdots4$。 求~$f[n+1]$~时还需预处理~$n$~位的所有合法数字的和。
+
+	最终答案为~$[444\ldots4,r]$~的答案减去~$[444\ldots4,l]$~的答案，然后像数位~DP~一样做，固定一个前缀，后面可以任取。注意这时也有类似~$\mathrm{X}4777\cdots7 \times \mathrm{X}7444\cdots4$~的情况。
+\subsection*{时间复杂度：$O(n)$，空间复杂度：$O(n)$}

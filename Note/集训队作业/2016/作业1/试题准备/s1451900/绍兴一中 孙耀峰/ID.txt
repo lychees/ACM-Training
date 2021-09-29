@@ -1,0 +1,3 @@
+P7916. Find a special connected block
+P7935. Substrings on a Tree
+P8079. Similar Graphs

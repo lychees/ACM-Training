@@ -1,0 +1,59 @@
+% !Mode:: "TeX:UTF-8"
+\documentclass[CJK]{ctexart}
+\usepackage{syntonly}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{CJK}
+\pagestyle{fancy}
+\lhead{Prime Distance On Tree题解}
+\rhead{}
+\begin{document}
+\begin{CJK*}{GBK}{kai}
+\title{Prime Distance On Tree题解}
+\author{雅礼中学 毛啸}
+\maketitle
+\newpage
+\section*{DIFFICULTY}
+这是一道CC上的困难难度题，在集训队作业里属于比较简单的题。
+\section*{PREREQUISITES}
+FFT，图论。
+\section*{PROBLEM}
+给定一棵树，问从中选两个点他们之间距离是质数的概率。
+\subsection*{note}
+这个题目表面上是问概率，实际上我们只要求出距离是质数的点对个数然后除以$\binom{n}{2}$即可。
+\section*{EXPLANATION}
+这个题解的思路主要来自这道题在CC上的测试者。
+
+\subsection*{ignore thhe prime numbers}
+这个题虽然是问你距离为质数的点对个数，但是这个限制并不能很好的简化问题。所以我们的目标应该更简单。
+
+对所有$x$，找到两两之间距离为$x$的点的个数。
+
+最后，我们只对所有的质数$x$ 把个数加进答案即可。
+
+\subsection*{divide and conquer}
+本题可以用树分治+FFT解决。
+
+\begin{enumerate}
+\item{将树以重心$v$为根化为有根树。}
+\item{对$v$的每个子树递归调用这个算法。}
+\item{递归的问题将会比原问题更简单。}
+\end{enumerate}
+
+如果对于$v$的孩子我们知道了他的后代中与他的距离为每个值的个数，我们可以更新$v$与他们距离为每个值的个数，只要把距离加一即可。
+
+这个只是统计了从每个点只往下走的路径。
+
+对于其他的路径，通过对v的每个子树的答案对应的序列一起做个卷积很容易统计。卷积可以用FFT实现。这个思路在CC的challenge问题FARASA中也有用到。
+
+注意的是，FFT的过程必须是从最大深度较小的子树到最大深度较大的子树（或者按大小排序也可以），不然无法保证复杂度，虽然CC 的数据好像这样还是能过，但是清橙上是过不了的$>\_<$。
+
+复杂度为$O(n\log ^ 2 n)$。
+\section*{官方题解}
+\href{https://discuss.codechef.com/questions/20550/primedst-editorial}{CC 上的题解}
+\end{CJK*}
+\end{document}

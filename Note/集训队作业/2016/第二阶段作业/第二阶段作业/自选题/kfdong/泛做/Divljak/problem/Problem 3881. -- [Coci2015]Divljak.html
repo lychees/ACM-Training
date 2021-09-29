@@ -1,0 +1,87 @@
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel=stylesheet href='include/hoj.css' type='text/css'>
+</head>
+<body>
+<center>
+<div style="width:90%; text-align:left">
+<img src="image/logo.png"/>
+</div>
+<table width=96%> 
+	<tr align="center" class='hd' valign="top">
+				<th><a href="faqs.php">F.A.Qs</a></th>
+		<th><a href="./">Home</a></th>
+		<th><a href="./bbs.php">Discuss</a></th>
+		<th><a href="./problemset.php">ProblemSet</a></th>
+		<th><a href="./status.php">Status</a></th>
+		<th><a href="./ranklist.php">Ranklist</a></th>
+		<th><a href="./contest.php">Contest</a></th>
+		<th><a href=./modifypage.php><b>ModifyUser</b></a>&nbsp;&nbsp;<a href='userinfo.php?user=dkf1998'>
+				<font color=red>dkf1998</font></a></th><th><a href=logout.php>Logout</a></th>		<th><a href="./donation.php"><font color=red>捐赠本站</font></a></th>
+	</tr>
+</table>
+</center>
+<center>
+<div class="notice">
+	<div>
+		<B>Notice:</B>1:由于本OJ建立在Linux平台下，而许多题的数据在Windows下制作，请注意输入、输出语句及数据类型及范围，避免无谓的RE出现。
+2:本站已推出针对初学者的试题系统(与目前OJ是分开的，互不影响)，内容覆盖从语法入门到NOI的所有知识点，网址是http://begin.lydsy.com/JudgeOnline/
+3:敬请关注OJ论坛http://lydsy.cf/ 鸣谢SCaffrey及CJSoft！	</div>
+</div>
+</center>
+</div>
+<title>Problem 3881. -- [Coci2015]Divljak</title><center><h2>3881: [Coci2015]Divljak</h2><span class=green>Time Limit: </span>10 Sec&nbsp;&nbsp;<span class=green>Memory Limit: </span>768 MB<br><span class=green>Submit: </span>415&nbsp;&nbsp;<span class=green>Solved: </span>122<br>[<a href='submitpage.php?id=3881'>Submit</a>][<a href='problemstatus.php?id=3881'>Status</a>][<a href='bbs.php?id=3881'>Discuss</a>]</center><h2>Description</h2><div class=content><div>Alice有n个字符串S_1,S_2...S_n，Bob有一个字符串集合T，一开始集合是空的。</div>
+<div>接下来会发生q个操作，操作有两种形式：</div>
+<div>&ldquo;1 P&rdquo;，Bob往自己的集合里添加了一个字符串P。</div>
+<div>&ldquo;2 x&rdquo;，Alice询问Bob，集合T中有多少个字符串包含串S_x。（我们称串A包含串B，当且仅当B是A的子串）</div>
+<div>Bob遇到了困难，需要你的帮助。</div>
+<div></div>
+<div></div>
+<p></p></div><h2>Input</h2><div class=content><div>第1行，一个数n；</div>
+<div>接下来n行，每行一个字符串表示S_i；</div>
+<div>下一行，一个数q；</div>
+<div>接下来q行，每行一个操作，格式见题目描述。</div>
+<p></p></div><h2>Output</h2><div class=content><div>
+<div>对于每一个Alice的询问，帮Bob输出答案。</div>
+</div>
+<p></p></div><h2>Sample Input</h2>
+			<div class=content><span class=sampledata>3<br />
+a<br />
+bc<br />
+abc<br />
+5<br />
+1 abca<br />
+2 1<br />
+1 bca<br />
+2 2<br />
+2 3</span></div><h2>Sample Output</h2>
+			<div class=content><span class=sampledata>1<br />
+2<br />
+1</span></div><h2>HINT</h2>
+			<div class=content><p><div>【数据范围】</div><br />
+<div>1 &lt;= n,q &lt;= 100000；</div><br />
+<div>Alice和Bob拥有的字符串长度之和各自都不会超过 2000000；</div><br />
+<div>字符串都由小写英文字母组成。</div><br />
+<p></p></p></div><h2>Source</h2>
+			<div class=content><p><a href='problemset.php?search=鸣谢 Dzy'>鸣谢 Dzy</a></p></div><center>[<a href='submitpage.php?id=3881'>Submit</a>][<a href='problemstatus.php?id=3881'>Status</a>][<a href='bbs.php?id=3881'>Discuss</a>]</center>﻿<br>
+
+<a href="./"><span class=red>HOME</span></a>
+<a href="javascript:history.go(-1)"><span class=red>Back</span></a>
+
+<hr>
+<center>
+	<div class="footer">
+			<a href=setlang.php?lang=ko>한국어</a>&nbsp;
+		<a href=setlang.php?lang=cn>中文</a>&nbsp;
+		<a href=setlang.php?lang=fa>فارسی</a>&nbsp;
+		<a href=setlang.php?lang=en>English</a>&nbsp;
+		<a href=setlang.php?lang=th>ไทย</a>
+	<br>		<div>版权所有 &copy;2008-2012 大视野在线测评 | <a href="http://www.miitbeian.gov.cn">湘ICP备13009380号</a> | <script src="http://s21.cnzz.com/stat.php?id=2982771&web_id=2982771" language="JavaScript"></script>
+</div>
+		<div>Based on opensource project <a href="http://hustoj.googlecode.com">hustoj</a>.</div>
+	</div>
+</center>
+</body>
+</html>

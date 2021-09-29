@@ -1,0 +1,100 @@
+\documentclass{noiassignment}
+\usepackage{array}
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathrm}{normal}{OT1}{cmr}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+
+\title{PCOPTRIP~~解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+
+SPOJ PCOPTRIP
+
+\section{试题大意}
+
+求整数三元组个数$(i,j,k)$，满足$1\le i,j,k \le n$，且$\gcd(i,j)=\gcd(j,k)=\gcd(k,i)=1$。
+\section{数据规模}
+$n\le 10^5$。
+
+\section{算法介绍}
+这个题是我去年一月份搞出来，本来准备投给UOJ做C题的，当时的版本还是$1\le i \le a,1\le j\le b,1\le k\le c$，不过没有太大区别。比较巧合的是当时杜瑜皓也在做这个题，然后我才得知这个题在SPOJ上已经有人出过了。看了下杜老师的做法（去年集训队作业），大概是转化成一个图的三元环的计数。建出来的图的大小是多两个$\log$的，但实际跑出来效果比较好，原因是那个图离最坏形状差的很远，但是具体复杂度是多少又不太容易分析。我这里介绍一个只用到数论手段的做法，复杂度是严格的$O(n\sqrt{n})$。
+
+令
+$$
+f(i)=\sum_{1\le j \le n}\sum_{1\le k\le n} [\gcd(j,k)=1][\gcd(i,j)=1][\gcd(i,k)=1],
+$$
+那么所求的答案就是
+$$
+\sum_{1\le i \le n} f(i).
+$$
+
+对$f(i)$的式子进行一下化简，
+\begin{align*}
+f(i)&=\sum_{1\le j \le n}\sum_{1\le k\le n} [\gcd(j,k)=1][\gcd(i,j)=1][\gcd(i,k)=1]\\
+&=\sum_{1\le j \le n}\sum_{1\le k\le n} \sum_{d|j,d|k} \mu(d)[\gcd(i,j)=1][\gcd(i,k)=1]\\
+&=\sum_{d} \mu(d) \sum_{1\le j \le n/d}\sum_{1\le k\le n/d} [\gcd(i,jd)=1][\gcd(i,kd)=1]\\
+&=\sum_{d} \mu(d) [\gcd(i,d)=1]\sum_{1\le j \le n/d}\sum_{1\le k\le n/d} [\gcd(i,j)=1][\gcd(i,k)=1].
+\end{align*}
+
+记
+\begin{align*}
+	A(i,m)&=\sum_{1\le j\le m} [\gcd(i,j)=1],\\
+	B(i,m)&=\sum_{1\le j\le m} [\gcd(i,j)=1]\mu(j),\\
+\end{align*}
+那么
+$$
+	f(i)=\sum_{d} \mu(d) [\gcd(i,d)=1] A(i,\lfloor n/d \rfloor)^2,
+$$
+接下来使用常用技巧，$\lfloor n/d \rfloor$能分成$O(\sqrt{n})$段，每段取值相同。所以除了要快速求出$A(i,\lfloor n/d \rfloor)$之外，还要快速求出前面系数的前缀和，也就是$B(i,m)$。值得注意的是并不需要对所有$m$都能求出$B(i,m)$，只需要求出那些根据$\lfloor n/d \rfloor$分段时段边界上对应的$d$的值$B(i,d)$。所以这样的$d$一定可以写成$\lfloor n/t \rfloor$，其中$t=\lfloor n/d \rfloor $。
+
+所以现在只需要预处理出所有$A(i,\lfloor n/t \rfloor)$和$B(i,\lfloor n/t \rfloor)$的值就可以了。这样子共有$O(n^{1.5})$的状态数，所以需要找到一个$O(1)$的转移式子。当$i=1$时，都是很容易预处理的；现在考虑$i\ge 2$，不妨设$i$是square-free数，$p$是$i$的某个质因子，
+\begin{align*}
+	A(i,m) &= \sum_{1\le j\le m} [\gcd(i,j)=1]\\
+	       &= \sum_{1\le j\le m} [\gcd(p,j)=1][\gcd(i/p,j)=1]\\
+	       &= \sum_{1\le j\le m} (1-[p|j])[\gcd(i/p,j)=1] \\
+	       &= \sum_{1\le j\le m}[\gcd(i/p,j)=1] - \sum_{1\le j\le m/p}[\gcd(i/p,pj)=1]\\
+	       &= \sum_{1\le j\le m}[\gcd(i/p,j)=1] - \sum_{1\le j\le m/p}[\gcd(i/p,j)=1]\\
+	       &= A(i/p,m) - A(i/p,\lfloor m/p \rfloor ),
+\end{align*}
+$B(i,m)$也类似处理，
+\begin{align*}
+	B(i,m)&=\sum_{1\le j\le m} [\gcd(i,j)=1]\mu(j)\\
+	      &=\sum_{1\le j\le m} [\gcd(p,j)=1][\gcd(i/p,j)=1]\mu(j)\\
+	      &= \sum_{1\le j\le m} (1-[p|j])[\gcd(i/p,j)=1]\mu(j) \\
+	      &= \sum_{1\le j\le m}[\gcd(i/p,j)=1]\mu(j) - \sum_{1\le j\le m/p}[\gcd(i/p,j)=1]\mu(pj)\\
+	      &=B(i/p,m) - \sum_{1\le j \le m/p} [\gcd(i/p,j)=1] [\gcd(p,j)=1]\mu(p)\mu(j)\\
+	      &=B(i/p,m)-\mu(p)B(i,\lfloor m/p \rfloor)\\
+	      &=B(i/p,m)+B(i,\lfloor m/p\rfloor)
+\end{align*}
+
+
+用这两个递推式预处理，于是这个题就在$O(n\sqrt{n})$时间做完了。
+
+
+\section{总结}
+这个做法所用到的都是这类题目的常用技巧，先反演，然后根号分段，建立递推式。但这个求和式一开始的约束比较多，有三条互质的限制，所以需要一个合理的顺序去逐步拆解这个东西并进行化简。
+
+如果推广到$4$个变量的话，感觉会更加困难，因为两两互质是平方级别的约束个数，搞起来比较复杂，不知道有没有更简单的做法。
+
+\end{document}

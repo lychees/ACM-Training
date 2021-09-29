@@ -1,0 +1,199 @@
+\documentclass[12pt]{report}
+
+\usepackage{fancyhdr}                % 页眉页脚
+\usepackage{extramarks} %\firstleftmark
+\usepackage{titling} %\thetitle \theauthor
+\usepackage{indentfirst}             % 首行缩进
+%\usepackage{CJK}     % 中文支持
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref} % 超链接
+\usepackage{makeidx}
+\usepackage{array}  %表格定宽居中
+\usepackage{isomath} %\mathbfit
+\usepackage{multirow} %表格合并行
+\usepackage{makecell} %表格边框加粗
+\usepackage{graphicx} %图片
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{listings}
+\makeindex
+
+\newcommand{\reffig}[1]{图~\ref{#1}~}
+
+\usepackage{courier}
+\usepackage{ctex}
+\usepackage{verbatim}
+\iffalse
+%\usepackage{times}     % 包括 Times Roman + Helvetica + Courier
+%%%%%%%%%% 导入中文环境 %%%%%%%%%%
+\AtBeginDocument{\begin{CJK*}{GBK}{song} % 不计中文的空格
+\CJKindent                           % 首行缩进两个汉字
+\sloppy\CJKspace                     % 中英文混排的断行
+\CJKtilde                            % 重新定义~，用~隔开中英文
+%\CJKcaption{GB}                      % 章节标题的中文化
+}
+\AtEndDocument{\end{CJK*}}
+\fi
+%%%%%%%%%% 一些新定义 %%%%%%%%%%
+\newcommand{\song}{\CJKfamily{song}} % 宋体
+\newcommand{\hei}{\CJKfamily{hei}}   % 黑体
+\newcommand{\fs}{\CJKfamily{fs}}     % 仿宋
+\newcommand{\kai}{\CJKfamily{kai}}   % 楷体
+
+%%%%%%%%%% 重定义字号命令 %%%%%%%%%%
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}       % 一号, 1.4倍行距
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}       % 二号, 1.25倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}      % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}      % 三号, 1.5倍行距
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}     % 小三, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}       % 四号, 1.5倍行距
+\newcommand{\bansi}{\fontsize{13pt}{19.5pt}\selectfont}     % 半四, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}      % 小四, 1.5倍行距
+\newcommand{\dawu}{\fontsize{11pt}{11pt}\selectfont}        % 大五, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{10.5pt}\selectfont}   % 五号, 单倍行距
+
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}%放在导言区
+%然后使用&\tabincell{c}{}&就可以在表格中自动换行
+
+
+\begin{document}
+
+\title{第一部分作业}
+\author{绍兴市第一中学~~张恒捷}
+
+\maketitle
+\tableofcontents
+\chapter{codeforces}
+
+
+%\begin{comment}
+\input{single/263E/263E}
+\input{single/293B/293B}
+\input{single/235E/235E}
+\input{single/325E/325E}
+%\input{single/241B/241B} (TLE)
+\input{single/260E/260E}
+\input{single/317E/317E}
+\input{single/325D/325D}
+%\input{single/335E/335E} (不会)
+\input{single/360D/360D}
+\input{single/339E/339E}
+\input{single/332D/332D}
+
+
+\input{single/286E/286E}
+\input{single/335D/335D}
+\input{single/261D/261D}
+\input{single/235C/235C}
+\input{single/311E/311E}
+\input{single/306D/306D}
+\input{single/249E/249E}
+\input{single/295D/295D}
+\input{single/264E/264E}
+\input{single/286D/286D}
+
+
+\input{single/258D/258D}
+\input{single/273D/273D}
+\input{single/283E/283E}
+%\input{single/280E/280E}   (出题人太委竟然在加强数据)
+\input{single/305D/305D}
+\input{single/354D/354D}
+\input{single/261E/261E}
+\input{single/253E/253E}
+\input{single/309E/309E}
+\input{single/316E3/316E3}
+\input{single/243C/243C}
+
+
+\input{single/316G3/316G3}
+\input{single/251E/251E}
+\input{single/256D/256D}
+\input{single/303D/303D}
+\input{single/338D/338D}
+%\input{single/266E/266E}  (div2的)
+\input{single/269E/269E}
+\input{single/332E/332E}
+\input{single/331E2/331E2}
+\input{single/356E/356E}
+\input{single/273E/273E}
+
+\input{single/333C/333C}
+\input{single/240F/240F}
+\input{single/305E/305E}
+\input{single/235D/235D}
+\input{single/342D/342D}
+\input{single/319E/319E}
+\input{single/301C/301C}
+\input{single/309D/309D}
+\input{single/301E/301E}
+%===========第一版第二版分割线============
+\input{single/309B/309B}
+
+
+\input{single/331D3/331D3}
+\input{single/277D/277D}
+\input{single/341E/341E}
+\input{single/323B/323B}
+\input{single/248E/248E}
+\input{single/325C/325C}
+\input{single/266D/266D}
+\input{single/311C/311C}
+\input{single/316D/316D}
+\input{single/323C/323C}
+
+\input{single/343E/343E}
+\input{single/267C/267C}
+\input{single/240E/240E}
+\input{single/329E/329E}
+\input{single/303E/303E}
+\input{single/316F3/316F3}
+\input{single/360E/360E}
+\input{single/338E/338E}
+\input{single/285E/285E}
+\input{single/238D/238D}
+
+\input{single/331C3/331C3}
+\input{single/288E/288E}
+%\input{single/241F/241F}  (没做)
+\input{single/243D/243D}
+\input{single/238E/238E}
+\input{single/251D/251D}
+\input{single/351D/351D}
+\input{single/293E/293E}
+\input{single/348E/348E}
+\input{single/241E/241E}
+%\input{single/257E/257E}  (div2的)
+%\input{single/268D/268D}  (div2的)
+%\input{single/254D/254D}  (div2的)
+\input{single/269D/269D}
+
+\input{single/346E/346E}
+\input{single/264D/264D}
+\input{single/280D/280D}
+\input{single/243E/243E}
+%\input{single/329D/329D}  (Moving Rocks)
+\input{single/293D/293D}
+\input{single/306C/306C}
+%\input{single/335F/335F}  (Buy One, Get One Free)
+\input{single/317C/317C}
+\input{single/297E/297E}
+%\input{single/294D/294D}  (div2的)
+\input{single/321D/321D}
+\input{single/274C/274C}
+
+%\end{comment}
+\input{single/319D/319D}
+\input{single/241D/241D}
+\input{single/314E/314E}
+\input{single/249D/249D}
+%\input{single/274E/274E}  (没做)
+
+\chapter{USACO}
+\input{single/CowPatterns/CowPatterns}
+\input{single/CowRun/CowRun}
+\input{single/CowsinaSkyscrape/CowsinaSkyscrape}
+\input{single/Cowstantinople/Cowstantinople}
+\input{single/HillWalk/HillWalk}
+
+\end{document}

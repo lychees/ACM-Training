@@ -1,0 +1,57 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=black, anchorcolor=black, citecolor=black, urlcolor=black]{hyperref}
+\theoremstyle{theorem}
+\newtheorem{ex}{例题}
+\numberwithin{equation}{section}
+\usepackage{tikz}
+
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{FrogsOnGrid解题报告}
+\author{雅礼中学\ 毛啸}
+
+\maketitle
+\section{试题来源}
+TopCoder Open 2015(TCO2015) Final Level 2
+
+\url{https://community.topcoder.com/stat?c=problem_statement&pm=14044}
+\section{试题大意}
+长宽皆不超过$10 ^ 6$的棋盘上有不超过$50$个障碍，非障碍点上有一个青蛙，每个青蛙可以向\textbf{下和右两个方向}跳，\textbf{如果跳出最下面一行将回到第一行，跳出最后一列将回到第一列}，每个青蛙会选一个方向跳，问能否给每个青蛙安排一个跳跃的方案使得青蛙不会跳到障碍点上且一个格子上只有一只青蛙。问\textbf{存不存在方案}。
+\section{算法简介}
+考虑没有障碍，那么每个青蛙都向右跳即可。
+
+如果有障碍，那么它左边的青蛙只能向下跳，接着这个青蛙左下边的青蛙也只能向下跳，$\cdots$，以此类推。
+
+结束条件有两种：左下角是障碍，那么这个障碍的影响到此结束；下边是障碍：那么可以直接宣告无解。
+
+暴力就是对所有障碍都试一遍，直接暴力顺着这条不断往左下角走的链往下推，如果没有出现无解，那么我们发现剩下的没有确定的青蛙只需要全部向右即可。
+
+现在考虑优化，对于一个障碍，无非就是看这个不断往左下角走的链是遇到哪种结束条件，可以对于所有其他障碍和这个障碍上方的点都解个方程或者暴力，判断出最早到达的时间，如果是先到一个障碍，那么就不会出现无解，如果是先到一个障碍的上方，那么就直接宣告无解。
+
+假设障碍个数为$n$，那么时间复杂度为$O(n ^ 2T)$，其中$T$为解方程的时间复杂度。
+
+%% 解题报告结束
+
+\end{document}

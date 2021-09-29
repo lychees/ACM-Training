@@ -1,0 +1,9 @@
+\documentclass{noiassignment}
+\usepackage[colorlinks,CJKbookmarks=true,linkcolor=red,anchorcolor=blue,citecolor=green]{hyperref}
+
+\begin{document}
+
+\title{Bingo! 解题报告}
+\author{长沙市雅礼中学~~刘研绎}
+
+\maketitle

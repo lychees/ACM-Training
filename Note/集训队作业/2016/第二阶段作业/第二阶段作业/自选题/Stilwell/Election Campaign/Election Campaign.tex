@@ -1,0 +1,91 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks, citecolor = green, linkcolor = blue, menucolor = red, CJKbookmarks=true]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Election Campaign 解题报告}
+\author{绍兴市第一中学~~任之洲}
+
+\maketitle
+
+\section{试题来源}
+    \href{http://cms.ioi-jp.org/open-2015/index.html}{JOI Open Contest 2014/2015}
+
+\section{试题大意}
+    对于一棵$N$个点的树，给出树上的$M$条链$(A_i,B_i)$，每条链有一个价值$C_i$。
+    
+    要求选出一个链的集合$S$，使得集合内的链两两不相交，并最大化$\sum_{i\in S}C_i$。
+
+\subsection{数据规模与约定}
+    $2\leq N\leq 100000$，$1\leq M\leq 100000$
+
+    $1\leq A_i,B_i\leq N$，$A_i\neq B_i$，$1\leq C_i\leq 10000$
+
+    \begin{itemize}
+        \item subtask1~[10points]: $M\leq 15$
+        \item subtask2~[5points]: 这棵树是一条链，$C_i=1$
+        \item subtask3~[5points]: 这棵树是一条链
+        \item subtask4~[30points]: $C_i=1$
+        \item subtask5~[10points]: $N,M\leq 1000$
+        \item subtask6~[40points]: 没有额外的限制
+    \end{itemize}
+
+    时间限制 1s，空间限制 256MB
+
+\section{算法介绍}
+\subsection{算法一}
+    考虑预处理每条链与另外哪些链相交，朴素实现可以枚举两条链$O(N)$判断，这样复杂度为$O(M^2N)$。
+    
+    完成了以上预处理后，可以考虑枚举一个链的子集，枚举时判断链之间是否冲突，复杂度为$O(2^MM)$。
+    
+    时间复杂度$O(M^2N+2^MM)$，可以通过subtask1。
+    
+\subsection{算法二}
+    原问题是一棵树，那么先来考虑相对于树的简化情况，也就是树退化为一条链。在链的情况中，问题可以视为选出一个区间的集合，使得这些区间两两不交。
+    
+    设$f[i]$表示在所有右端点$\leq i$的区间中选出一个合法集合的最大价值和。
+    
+    枚举区间的右端点进行转移，设当前枚举的右端点为$i$，考虑选取一个区间$[l_k,r_k]$，其中$r_k=i$，那么这种情况的最大价值为$f[l-1]+C_k$。
+    
+    这样只需要将每个区间用链表挂在其右端点对应位置，顺次转移。
+    
+    时间复杂度$O(N+M)$，可以通过subtask2和subtask3。
+
+\subsection{算法三}
+    对于$C_i=1$即每条链的价值均相同的情况，可以用贪心解决。
+    
+    选取1号点作为根，从深度较深的点开始，自底向上进行决策。
+    
+    对于两条链，设它们深度最浅的点为$u,v$，假如$u$是$v$的祖先，那么$v$所在的这条链对后续决策的约束一定比$u$所在链小，于是在这两条链都能选择时，可以贪心选择$v$所在链。
+    
+    经过整理后，最后得到的贪心算法为：
+    \begin{itemize}
+        \item 每条链在计算到它深度最浅的点\footnote{也就是两个端点的LCA。}时进行决策。
+        \item 所有点按深度由深到浅遍历，每次判断当前点上需要决策的所有链是否能放置。
+    \end{itemize}
+    
+    判断一条链是否能使用，相当于判断这条链上是否有点已经被覆盖。可以转化为每放置一条链就将其深度最浅的点对应的整棵子树都覆盖，判断时只需要检查两个端点。
+    
+    先处理出这棵树的DFS序，然后就可以用线段树来$O(\log N)$判断和覆盖。
+    
+    时间复杂度$O(N+M\log N)$，可以通过subtask2和subtask4。
+    
+\subsection{算法四}
+    将算法二和算法三相结合，设$f[i]$表示在所有点均在$i$子树的链中选出一个合法集合的最大价值和。
+    
+    同样将所有点按深度由深到浅遍历，每条链在遍历到它深度最浅的点时进行决策，比如现在决策到一条链$k$，考虑计算这类方案的最大价值和。
+    
+    现在强制选取了链$k$，那么$A_k$到$B_k$的这一条路径上都不能有其它链覆盖，并且$A_k$和$B_k$的LCA对应的子树就是当前正在计算的子树。
+    
+    设$g_i$表示点$i$的所有直接儿子节点的$f[i]$之和，容易发现需要计算的其实是链$(A_k,B_k)$的$g[i]$之和减去链$(A_k,B_k)$去掉$LCA$的$f[i]$之和，剩下的问题就是用数据结构来维护。
+    
+    考虑将这棵树进行树链剖分，由于在计算时是由深到浅遍历的，所以在每条重链上可以维护一个前缀和，这样在树链上进行求和就可以$O(\log N)$完成。
+    
+    时间复杂度$O(N+M\log N)$，空间复杂度$O(N+M)$。
+
+%% 解题报告结束
+
+\end{document}

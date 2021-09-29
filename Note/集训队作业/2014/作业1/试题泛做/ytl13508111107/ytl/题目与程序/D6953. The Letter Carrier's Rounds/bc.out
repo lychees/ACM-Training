@@ -1,0 +1,55 @@
+Connection between Cairo and MexicoCity
+     HELO Cairo
+     250
+     MAIL FROM:<Hamdy@Cairo>
+     250
+     RCPT TO:<Conrado@MexicoCity>
+     250
+     RCPT TO:<Lisa@MexicoCity>
+     550
+     DATA
+     354
+     Congratulations on your efforts !!
+     --Hamdy
+     .
+     250
+     QUIT
+     221
+Connection between Cairo and SanFrancisco
+     HELO Cairo
+     250
+     MAIL FROM:<Hamdy@Cairo>
+     250
+     RCPT TO:<Shariff@SanFrancisco>
+     250
+     DATA
+     354
+     Congratulations on your efforts !!
+     --Hamdy
+     .
+     250
+     QUIT
+     221
+Connection between London and HongKong
+     HELO London
+     250
+     MAIL FROM:<Fiona@London>
+     250
+     RCPT TO:<Chen@HongKong>
+     250
+     DATA
+     354
+     Thanks for the report!  --Fiona
+     .
+     250
+     QUIT
+     221
+Connection between London and Paris
+     HELO London
+     250
+     MAIL FROM:<Fiona@London>
+     250
+     RCPT TO:<Natasha@Paris>
+     550
+     QUIT
+     221

@@ -1,0 +1,59 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=black, anchorcolor=black, citecolor=black, urlcolor=black]{hyperref}
+\theoremstyle{theorem}
+\newtheorem{ex}{例题}
+\numberwithin{equation}{section}
+\usepackage{tikz}
+
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{DemocraticAssignment解题报告}
+\author{雅礼中学\ 毛啸}
+
+\maketitle
+\section{试题来源}
+TopCoder Open 2015(TCO2015) Final Level 3
+
+\url{https://community.topcoder.com/stat?c=problem_statement&pm=14016}
+\section{试题大意}
+不超过50个人和相同数量的房子，每个人对房子的喜好程度对应的排列给定。分配方案就是人与房子之间的一个匹配，对于两个分配方案A和B，如果对在A中分配到的房子比B中分配到的房子更喜欢的人，大于对在B中分配到的房子比A中分配到的房子更喜欢的人，那么A 比B 要优。对一个分配方案如果没有其他分配方案比他优则称为完美匹配，求一个字典序最小的完美匹配或判断完美匹配不存在。
+\section{算法简介}
+\textbf{重要房子就是一个房子，使得存在一个人它最喜欢的房子就是这个房子。}。
+
+考虑对于一个人a，如果它分配了一个重要房子B且这个房子不是他最喜欢的，那么考虑如果b最喜欢B，a最喜欢A，b目前分配的房子是C，目前A被分配在c手中，也就是当前匹配是a-B, b-C, c-A，考虑匹配a-A, b-B, c-C，那么只有c可能不喜欢新的分配方案，而a、b一定都更喜欢新的方案，\textbf{因此一定不能给一个人分配不是他最喜欢的且重要的房子}。
+
+考虑对于一个人a，如果它分配了一个非重要房子C且这个房子不是他最喜欢的非重要房子，假设他最喜欢的非重要房子是A，且A 在b手上，b最喜欢的房子是B，B一定不等于C(要不然C就是重要的)，且B在c手上，那么现在的方案是a-C, b-A, c-B，考虑a-A, b-B, c-C，那么只有c可能不喜欢新的分配方案，而a、b一定都更喜欢新的方案，因此\textbf{一定不能给一个人分配非重要房子中不是他最喜欢的那个}。
+
+所以假设一个分配方案满足上述两个要求，则容易发现一定不存在比他优的分配方案。
+
+假设一个方案优于满足上述两个条件的分配方案，那么一定是有一些分配最喜欢的非重要房子的人分配了他最喜欢的重要房子，这就导致同样数目的人被迫分配了非重要房子，对于这些人这个被分配到的房子一定比以前的差(以前他分配到了他最喜欢的房子而现在不是)，所以喜欢旧方案的人至少和喜欢新方案的人一样多。
+
+也就是说上面两个条件是\textbf{充要条件}。
+
+现在问题很简单了，每个点要么分配最喜欢的房子，要么分配最喜欢的非重要房子，直接倒着跑一遍匈牙利算法即可求出字典序最小的方案或者判断无解，假设有$n$个人和$n$个房子，时间复杂度是$O(n ^ 2)$。
+
+%% 解题报告结束
+
+\end{document}

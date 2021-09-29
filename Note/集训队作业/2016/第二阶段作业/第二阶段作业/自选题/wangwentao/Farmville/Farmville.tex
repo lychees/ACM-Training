@@ -1,0 +1,78 @@
+\documentclass{noiassignment}
+
+\usepackage[colorlinks,citecolor=green,linkcolor=blue,menucolor=red,
+			bookmarksnumbered=false,bookmarksopen=false,
+			%unicode,					%Linux
+			CJKbookmarks,				%windows
+			pdftex]{hyperref}
+
+\begin{document}
+
+%% 解题报告开始
+
+\title{Farmville 解题报告}
+\author{绍兴市第一中学~~王文涛}
+
+\maketitle
+
+\section{试题来源}
+
+\href{https://community.topcoder.com/stat?c=problem_statement&pm=13952}
+{TopCoder SRM 676 Div.1 Level 3 Farmville}
+
+\section{试题大意}
+
+有$n$种植物。种植第$i$种植物的过程中从播种到收获需要$time_i$的时间。同时种植有些植物之前会要求先收获过某些植物。设共有$m$对要求关系。保证这些要求关系没有环。多种植物可以同时种植。对于第$i$ 种植物可以使用$cost_i$块钱使得$time_i$减少1（最多减到0）。现在有$budget$块钱，求最少用多少时间可以种完所有植物。
+
+数据范围：$ n,m \leq 50, ~ time_i \leq 25, ~ cost_i, budget \leq 10^9 $
+
+时间限制：5s
+
+\section{算法介绍}
+
+首先二分答案，设当前二分到的时间为$\lambda$，问题转化为求$\lambda$时间内完成最少需要多少钱。
+
+我们可以把植物抽象成点，题中所述的关系抽象成有向边，那么整张图就是拓扑图。
+
+由于入度为0的点可能有多个，不妨在这张拓扑图上添加不需要时间的起点$S$，起点连向所有入度为0的点；同理添加终点$T$。
+
+设$x_i$为第$i$种植物播种的时间，$y_i$为第$i$种植物收获的时间，$d_i$为第$i$种植物的时间减少的值。
+
+显然，对于第$i$种植物有
+$$ y_i - x_i \geq time_i - d_i $$
+$$ y_i - x_i \geq 0 $$
+
+对于每条边$(u,v)$有
+$$ x_v \geq y_u $$
+
+对于起点和终点有
+$$ y_T - x_S \leq \lambda $$
+
+最小化
+$$ \sum cost_i \cdot d_i $$
+
+其中$d_i \geq 0, ~ x_i,y_i$无限制。
+
+现在我们考虑如何把这个线性规划对偶。
+
+考虑最大费用循环流的线性规划建模。设$f_i$为第$i$条边的流量，$Cap_i$为流量上界，$Cost_i$为费用。对每条边有
+$$ 0 \leq f_i \leq Cap_i $$
+对每个点$x$有流量平衡
+$$ \sum_{v_i=x} f_i - \sum_{u_i=x} f_i = 0 $$
+
+最大化$ \sum Cost_i \cdot f_i $
+
+将其对偶，设前$|E|$个限制对应的变量为$d_i$，后$|V|$个限制对应的变量为$a_i$，则变成如下线性规划：
+对每条边有
+$$ a_{v_i} - a_{u_i} + d_i \geq Cost_i $$
+$a_x$无限制，$d_i \geq 0$
+
+观察式子可以发现，这就是有很多变量，然后给定一些差分的不等式，然后可以花费一定代价放宽某个不等式，要求总代价最小。所以这个模型都可以对偶转化为最大费用循环流。
+
+那么这题的线性规划看起来满足这个模型。我们可以在没有$d_i$的不等式里强行添加上$d_i$，并设其费用为$\infty$。这样就可以把整个问题转化为最大费用循环流，$\infty$的费用对应的是$\infty$的流量限制。
+
+对于最大费用循环流问题，我们可以用消圈算法解决。
+
+%% 解题报告结束
+
+\end{document}

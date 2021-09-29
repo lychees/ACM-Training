@@ -1,0 +1,16 @@
+[A]Bee Breeding
+	建坐标系，预处理位置，直接求距离
+[B]Bullet Hole
+	每个小方块单独考虑，求其最靠下的弹孔。三维直线和平行于坐标轴的正方体面的交点。即 线面求交，判交点是否在正方形内部。（平行可不考虑，和其他面交时可以得到）
+[C]A Dicey Problem
+	模拟骰子的滚动。
+[D]The Fortified Forest
+	枚举砍掉的，剩余求凸包，注意常数。
+[E]Trade on Verweggistan
+	每个场前缀和，求最优解，和最优解一样的均可。维护可行的个数。
+[F]Robot
+	计算几何
+[G]The Letter Carrier's Rounds
+	模拟
+[H]Flooded!
+	从低到高添加有水的面积。

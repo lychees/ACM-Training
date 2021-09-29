@@ -1,0 +1,90 @@
+#include<map>
+#include<cstdio>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<string>
+#include<cstring>
+using namespace std;
+
+typedef long long LL;
+typedef vector<int> VI;
+
+#define REP(i,n) for(int i=0, i##_len=(n); i<i##_len; ++i)
+#define EACH(i,c) for(__typeof((c).begin()) i=(c).begin(),i##_end=(c).end();i!=i##_end;++i)
+
+template<class T> inline void amin(T &a, T b) { if (a>b) a=b; }
+template<class T> inline void amax(T &a, T b) { if (a<b) a=b; }
+
+const LL MOD = 1e9+7;
+inline void add(int &a, const int &b) {
+    a += b;
+    if (a >= MOD) a -= MOD;
+}
+LL fact(LL n) {
+    LL r = 1;
+    REP (i, n) r = r *(i+1) % MOD;
+    return r;
+}
+int T, N, K;
+int dp[16][1<<15];
+bool valid[1<<15];
+int rect[16][16];
+int main() {
+    REP (S, 1<<15) {
+    valid[S] = true;
+    int m = 3;
+    REP (i, 16) {
+        if ((S&m) == m) valid[S] = false;
+        m <<= 1;
+    }
+    }
+
+    for (int a=1; a<=15; a++) {
+    memset(dp, 0, sizeof dp);
+    dp[0][0] = 1;
+    REP (b, 15) {
+        REP (S, 1<<a) if (dp[b][S]) {
+        for (int X=(1<<a)-1-S; ; X=((1<<a)-1-S)&(X-1)) {
+            if (valid[X|S]) add(dp[b+1][X], dp[b][S]);
+            if (X == 0) break;
+        }
+        }
+
+        REP (S, 1<<a) add(rect[a][b+1], dp[b+1][S]);
+    }
+    }
+
+    scanf("%d", &T);
+    REP ($, T) {
+    scanf("%d%d", &N, &K);
+    map<VI, int> mp;
+    REP (R, 1<<N) if (__builtin_popcount(R) == K) { // 6435
+        int p=-1;
+        VI v;
+        REP (i, N) {
+        if (R&(1<<i)) { // rook
+            if (i-p-1) v.push_back(i-p-1);
+            p = i;
+        }
+        }
+        if (N-p-1) v.push_back(N-p-1);
+        sort(v.begin(), v.end());
+        mp[v]++;
+    }
+
+    //cerr << mp.size() << "--\n";
+    int ans = 0;
+    EACH (e, mp) EACH (f, mp) {
+        LL cnt = 1;
+        LL BASE = (LL)e->second * f->second % MOD;
+        EACH (a, e->first) EACH (b, f->first) {
+        cnt = cnt * rect[*a][*b] % MOD;
+        }
+        add(ans, cnt * BASE % MOD);
+    }
+    ans = ans * fact(K) % MOD;
+    printf("%d\n", ans);
+    }
+    return 0;
+}

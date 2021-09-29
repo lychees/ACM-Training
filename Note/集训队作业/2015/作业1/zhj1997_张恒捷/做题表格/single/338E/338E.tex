@@ -1,0 +1,11 @@
+\section{338E Optimize!}
+\subsection*{试题大意}
+n个数$a[1..n]$，m个数$b[1..m]$。求有多少个x满足：$a[x..x+m-1]$与$b[1..m]$存在一种两两配对的方式使得每一对的和都大于h。
+
+$n,m\leq 150000 ai,bi,h\leq 10^9$
+
+\subsection*{算法}
+将b从小到大排序，ai可以与一段b的后缀匹配。假设ai能匹配$b[p_i..m]$。如果$\{ p_x,p_{x+1},\dots ,p_{x+m-1} \}$满足$ \forall j\in N^*,1\leq j \leq n$,有$ (\sum_{1\leq k\leq n,p_k\leq j}1 ) \geq j$，则这是合法的。
+
+这个问题很经典，只要维护一颗线段树就可以判断了。从$a[x..x+m-1]$移到$a[x+1..x+m]$时，只要加减一个数字即可。
+\subsection*{时间复杂度：$O((n+m)logm)$，空间复杂度：$O(n+m)$}

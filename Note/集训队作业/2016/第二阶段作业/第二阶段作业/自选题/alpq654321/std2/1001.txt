@@ -1,0 +1,25 @@
+#include<iostream>
+#include<algorithm>
+#include<cmath>
+#include<cstring>
+#include<cstdio>
+using namespace std;
+int n,k,a[110000];
+void solved(){
+     scanf("%d%d",&n,&k);
+     for(int i=1;i<=n;i++)scanf("%d",&a[i]);
+     sort(a+1,a+n+1);
+     int z=1;
+     long long ans=0;
+     for(int i=2;i<=n;i++){
+       while(a[i]-a[z]>k)++z;
+       ans+=i-z;
+     }
+     cout<<ans<<endl;
+}
+int main(){
+  int T;
+  scanf("%d",&T);
+  while(T--)solved();
+  return 0;
+}

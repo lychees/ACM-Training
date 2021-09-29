@@ -1,0 +1,228 @@
+\documentclass[CJK]{beamer}
+\usetheme{Warsaw}
+\usepackage{CJK}
+\usepackage{amsfonts}
+\usepackage{xypic}
+\begin{document}
+\begin{CJK}{GBK}{kai}
+\title{再探快速傅里叶变换}
+\author{毛啸}
+\institute{长沙市雅礼中学}
+\begin{frame}
+\titlepage
+\end{frame}
+\section{Contents}
+\begin{frame}
+\frametitle{Contents}
+\begin{itemize}[<+->]
+\item 我的论文前两部分是FFT的基本介绍，FFT的基本应用，最后一部分介绍了一个不是很普及的技巧，其中引入了一个仅用4次实数DFT实现$10 ^ 9$级别的任意模数下的卷积的技巧。
+\item 限于时间关系这里只介绍最后一部分。
+\end{itemize}
+\end{frame}
+\section{Introduction}
+\begin{frame}
+\frametitle{Introduction}
+\scriptsize
+为什么要优化FFT的常数。
+\begin{itemize}[<+->]
+\item
+$$\xymatrix@C=0.5cm{
+&&&\text{FFT} \ar[dll]\ar[dl]\ar[d]\ar[dr]\ar[drr]\\
+& \text{卷积} & \text{牛顿迭代} & \text{多点插值} & \text{多点求值} & \cdots
+}$$
+\item
+$$\xymatrix@C=0.5cm{
+& \text{常数太大}\ar[r] & \text{被卡成暴力分}\ar[dr]\\
+\text{写标算}\ar[ur]\ar[dr]& & & \text{滚粗}\\
+& \text{花更长时间}\ar[r] & \text{没时间写别的题}\ar[ur]
+}$$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 卷积的过程：序列长度增倍，对两个序列DFT，乘起来之后IDFT。
+\item 3次2倍长度的DFT。
+\item 我们分两步做优化：2次2倍长度的DFT，3次1倍长度的DFT。
+\item 直观来看，常数分别是原来的$\frac{2}{3}$，$\frac{1}{2}$。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 接下来讨论DFT的次数时我们有时会不区分DFT和IDFT，比如3次IDFT加3次DFT被称为6次DFT。
+\item 我们考虑对长度为$n$的\textbf{实}多项式$A(x)$, $B(x)$进行DFT，假设$n$已经调整为$2$的整数次幂。
+\item
+我们定义：
+\begin{eqnarray*}
+P(x) & = & A(x) + i B(x)\\
+Q(x) & = & A(x) - i B(x)
+\end{eqnarray*}
+\item 这里$i$指$\sqrt{-1}$，设$F_p[k], F_q[k]$分别表示对$P$和$Q$进行DFT之后得到序列的第$k$项，即$F_p[k] = P(\omega ^ k), F_q[k] = Q(\omega ^ k)$，$\omega$是$n$次单位根。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 接下来我们进行一系列推导：
+\item 由于排版问题我们用$X$代替$\frac{2 \pi jk}{2L}$这个式子，每个$X$所对应的$j, k$的含义在上下文中可以看出。$\text{conj}(x)$表示$x$的共轭复数。
+\item
+\begin{align*}
+F_{p}[k] &= A(\omega_{2L}^{k}) + i B(\omega_{2L}^{k}) \\
+& = \sum_{j=0}^{2L-1} A_{j} \omega_{2L}^{jk} + i B_{j} \omega_{2L}^{jk} \\
+& = \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \left(\cos X + i \sin X\right) \\
+& = \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{kj}
+\end{align*}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\scriptsize
+\begin{align*}
+F_{q}[k] &= A(\omega_{2L}^{k}) - i B(\omega_{2L}^{k}) \\
+& = \sum_{j=0}^{2L-1} A_{j} \omega_{2L}^{jk} - i B_{j} \omega_{2L}^{jk} \\
+& = \sum_{j=0}^{2L-1} (A_{j} - i B_{j}) \left(\cos X + i \sin X\right) \\
+& = \sum_{j=0}^{2L-1} \left(A_{j} \cos X + B_{j} \sin X\right) + i \left(A_{j} \sin X - B_{j} \cos X\right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} \left(A_{j} \cos X + B_{j} \sin X\right) - i \left(A_{j} \sin X - B_{j} \cos X\right) \right)
+\end{align*}
+\end{frame}
+\begin{frame}
+\scriptsize
+\begin{align*}
+& = \text{conj} \left( \sum_{j=0}^{2L-1} \left(A_{j} \cos \left(-X\right) - B_{j} \sin \left(-X\right)\right) + i \left(A_{j} \sin \left(-X\right) + B_{j} \cos \left(-X\right)\right) \right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \left(\cos \left(-X\right) + i \sin \left(-X\right)\right)\right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{-jk} \right) \\
+& = \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{(2L-k)j} \right)
+\end{align*}
+\end{frame}
+\begin{frame}
+\begin{itemize} [<+->]
+\item
+\begin{align*}
+F_{p}[k] &= \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{kj}\\
+F_{q}[k] &= \text{conj} \left( \sum_{j=0}^{2L-1} (A_{j} + i B_{j}) \omega_{2L}^{(2L-k)j} \right)
+\end{align*}
+\item $F_{q}[k] = \text{conj}\left( F_{p}[2L - k] \right)$
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 于是我们仅用1次DFT就可以算出$F_p$和$F_q$。
+\item
+令$\text{DFT}(P[k])$表示对$P(x)$进行DFT之后得到的序列的第$k$项，相信大家都知道DFT是线性变换，所以根据$P, Q$的定义：
+\item
+\begin{eqnarray*}
+F_p[k] & = & \text{DFT}(A[k]) + i\text{DFT}(B[k])\\
+F_q[k] & = & \text{DFT}(A[k]) - i\text{DFT}(B[k])
+\end{eqnarray*}
+\item 接下来是激动人心的解二元一次方程：
+\begin{eqnarray}
+\text{DFT}(A[k]) & = & \frac{F_p[k] + F_q[k]}{2}\\
+\text{DFT}(B[k]) & = & i\frac{F_p[k] - F_q[k]}{2}
+\end{eqnarray}
+\item 于是我们将2次DFT合并为了1次，可以减少1次DFT。
+\end{itemize}
+\end{frame}
+\section{Optimization}
+\begin{frame}
+\frametitle{Optimization}
+\begin{itemize}[<+->]
+\item 我们能不能将2次DFT继续往下优化呢？当然能！
+\item 我们设$A_0(x)$是$A(x)$的偶次项的和，$A_1(x)$是奇次项的和，那么$A(x) = A_0(x ^ 2) + xA_1(x ^ 2)$。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\scriptsize
+假设我们要求$A(x)$与$B(x)$的乘积，且两个多项式的次数均为$n - 1$（假设$n$为2的整数次幂），则有：
+\begin{eqnarray*}
+A(x)B(x) & = & (A_0(x ^ 2) + xA_0(x ^ 2))(B_0(x ^ 2) + xB_0(x ^ 2))\\
+& = & A_0(x ^ 2)B_0(x ^ 2) + xA_0(x ^ 2)B_1(x ^ 2) + xA_1(x ^ 2)B_0(x ^2) + x ^ 2A_1(x ^ 2)B_1(x ^ 2)\\
+& = & A_0(x ^ 2)B_0(x ^ 2) + x(A_0(x ^ 2)B_1(x ^ 2) + A_1(x ^ 2)B_0(x ^2)) + x ^ 2A_1(x ^ 2)B_1(x ^ 2)
+\end{eqnarray*}
+\end{frame}
+\begin{frame}
+$A_0(x ^ 2)B_0(x ^ 2) + x(A_0(x ^ 2)B_1(x ^ 2) + A_1(x ^ 2)B_0(x ^2)) + x ^ 2A_1(x ^ 2)B_1(x ^ 2)$
+\begin{itemize}[<+->]
+\item 我们需要做4次多项式乘法，看作关于$x ^ 2$的多项式，那么结果多项式的次数均不超过$n - 1$。
+\item 还记得前面讲的合并DFT吗？只要2次DFT！
+\item IDFT的话，式子右边的第一项和第三项，它们依然只有偶数项有系数。感觉就是能合并的！
+\item 看成关于$x ^ 2$的多项式，就是根据$A(x)$的DFT求$xA(x)$的DFT，$xA(x)$的DFT就是将$A(x)$的DFT的第$k$项乘上$\omega ^ k$。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}[<+->]
+\item 哇！我们只要2次IDFT了啊，要是能合并IDFT多好？
+\item 并不一定所有项都是实数！\includegraphics{3.jpg}
+\item 我们的老朋友：
+\begin{eqnarray*}
+F_p[k] & = & \text{IDFT}(A[k]) + i\text{IDFT}(B[k])\\
+F_q[k] & = & \text{IDFT}(A[k]) - i\text{IDFT}(B[k])
+\end{eqnarray*}
+\item IDFT之后的结果是实数！做完直接取实部和虚部！
+\item 这样，IDFT的次数被减少到了1次。
+\item 3次DFT，但是要做的序列长度只有原来的一半。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\includegraphics[width=4in]{0.png}
+\end{frame}
+\begin{frame}
+普通方法（大约500ms）：
+\includegraphics[width=4in]{2.png}
+\end{frame}
+\begin{frame}
+优化后的方法(最前面的几个是1.5次FFT，后面的几个是2次，300ms左右)：
+\includegraphics[width=4in]{1.png}
+\end{frame}
+\section{Convolution taking modulo by arbitrary numbers}
+\begin{frame}
+\frametitle{Convolution taking modulo by arbitrary numbers}
+\begin{itemize}[<+->]
+\item 假设我们的模数是$M$，$M$是${10} ^ 9$级别。
+\item 我们设$M_0 = \lceil \sqrt{M} \rceil$，根据带余除法我们可以将所有整数$x$表示为$x = k[x]M_0 + b[x]$，其中$k[x]$和$b[x]$都是整数。
+\item $597855228 \times 1294683923 = (18682 \times 32000 + 31228) \times (40458 \times 32000 + 27923)$
+\item 这样拆系数可以起到避免精度问题的作用。
+\end{itemize}
+\end{frame}
+\begin{frame}
+\scriptsize
+\begin{itemize}[<+->]
+\item 我们假设多项式$A(x)$的系数序列为$a_i$，多项式$B(x)$的系数序列为$b_i$，那么我们把$k[a_i], b[a_i], k[b_i], b[b_i]$形成的四个序列两两做1次卷积。
+\item
+\begin{eqnarray*}
+& &(A_0(x) \times 32000 + A_1(x))(B_0(x) \times 32000 + B_1(x))\\
+& = &{32000} ^ 2(A_0(x)B_0(x)) + 32000(A_0(x)B_1(x) + A_1(x)B_0(x)) + A_1(x)B_1(x)
+\end{eqnarray*}
+\item 预处理四个DFT，乘起来之后3个IDFT，用前面所述的合并DFT和IDFT的技巧，容易优化到4次。
+\end{itemize}
+\end{frame}
+\begin{frame}
+一道FFT加快速幂的题目：
+\begin{itemize}[<+->]
+\item 3模数NTT：\includegraphics[width=3in]{7.png}
+\item 无优化：\includegraphics[width=3in]{6.png}
+\item 4次DFT：\includegraphics[width=3in]{5.png}
+\item 优化快速幂：\includegraphics[width=3in]{4.png}
+\end{itemize}
+\end{frame}
+\section{Summary}
+\begin{frame}
+\frametitle{Summary}
+$$\xymatrix@C=0.5cm{
+&&&\text{FFT优化} \ar[dll]\ar[dl]\ar[d]\ar[dr]\ar[drr]\\
+&\text{常数小}\ar[drr] & \text{易实现}\ar[dr] & \text{好理解}\ar[d] & \text{应用广}\ar[dl] & \text{方法新}\ar[dll]\\
+&&&\text{意义重大}
+}$$
+\end{frame}
+\section{Acknowledgements}
+\begin{frame}
+\frametitle{Acknowledgements}
+感谢中国计算机学会提供学习和交流的平台。
+
+感谢雅礼中学的汪星明老师多年来给予的关心和指导。
+
+感谢大家的聆听。
+\end{frame}
+\section{Questions}
+\begin{frame}
+\frametitle{Questions}
+欢迎提问。
+\end{frame}
+\end{CJK}
+\end{document}

@@ -1,0 +1,24 @@
+\section{341E Candies Game}
+\subsection*{试题大意}
+n个盒子，每个盒子里有一些糖$a_i$。有一个操作：选择两个盒子i,j，假如$a_i\leq a_j$，然后从j盒子里拿$a_i$个糖放进i盒子。
+
+游戏的目的是另恰好两个盒子里的糖数不为0。
+
+$n\leq 1000, \sum a_i \leq 10^6$
+\subsection*{算法}
+假设三个盒子里的糖分别为$x,y,z$，假设$x\leq y\leq z$
+
+现在要通过一系列操作使得y最终变成$y~mod~x$，可以知道在log步左右就可以将一个盒子里的糖数变为0。n个盒子的游戏也只要三个三个玩就行了。
+
+流程如下：另$p=\lfloor y/x \rfloor$
+
+\begin{lstlisting}
+    while(p){
+	   if(p&1)y-=x,x+=x;
+	   else z-=x,x+=x;
+	   p/=2;
+    }
+\end{lstlisting}
+
+类似于二进制分解。由于$z\geq y$，因此上述算法是对的。
+\subsection*{时间复杂度：$O(nlog~t_i)$，空间复杂度：$O(nlog~t_i)$}

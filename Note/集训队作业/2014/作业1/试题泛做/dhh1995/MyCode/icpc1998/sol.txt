@@ -1,0 +1,17 @@
+[A]Crystal clear
+	枚举每个圆，判断是否在其内部，然后判断是否穿越。只有中途穿过计数，其他算总度数。
+[B]Flight Planning
+	DP
+[C]Lead or Gold
+	比例式化为三者所占分数，则只有两个关键字，若目标状态在其他状态的凸包内，则可行。
+[D]Page Selection by Keyword Matching
+	枚举询问，枚举网页，暴力比较，求关系强度，排序。
+[E]Petri Net Simulation
+	模拟
+[F]Polygon Intersections
+	求出所有交点，分割为平面图，判断第一个的每条边，判断中点是否在第二个多边形内，按照方向开始绕，类似求平面图域的方法求出区域。
+	注意边重合的情况。
+[G]Spatial Structures
+	模拟
+[H]Towers of Powers
+	划分进制，按题意输出。

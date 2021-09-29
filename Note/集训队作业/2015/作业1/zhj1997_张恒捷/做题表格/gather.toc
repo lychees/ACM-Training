@@ -1,0 +1,102 @@
+\contentsline {chapter}{\numberline {1}codeforces}{5}{chapter.1}
+\contentsline {section}{\numberline {1.1}263E Rhombus}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}293B Distinct Paths}{6}{section.1.2}
+\contentsline {section}{\numberline {1.3}235E Number Challenge}{7}{section.1.3}
+\contentsline {section}{\numberline {1.4}325E The Red Button}{7}{section.1.4}
+\contentsline {section}{\numberline {1.5}260E Dividing Kingdom}{9}{section.1.5}
+\contentsline {section}{\numberline {1.6}317E Princess and Her Shadow}{9}{section.1.6}
+\contentsline {section}{\numberline {1.7}325D Reclamation}{10}{section.1.7}
+\contentsline {section}{\numberline {1.8}360D Levko and Sets}{10}{section.1.8}
+\contentsline {section}{\numberline {1.9}339E Three Swaps}{11}{section.1.9}
+\contentsline {section}{\numberline {1.10}332D Theft of Blueprints}{12}{section.1.10}
+\contentsline {section}{\numberline {1.11}286E Ladies'Shop}{12}{section.1.11}
+\contentsline {section}{\numberline {1.12}335D Rectangles and Square}{13}{section.1.12}
+\contentsline {section}{\numberline {1.13}261D Maxim and Increasing Subsequence}{13}{section.1.13}
+\contentsline {section}{\numberline {1.14}235C Cyclical Quest}{14}{section.1.14}
+\contentsline {section}{\numberline {1.15}311E Biologist}{15}{section.1.15}
+\contentsline {section}{\numberline {1.16}306D Polygon}{15}{section.1.16}
+\contentsline {section}{\numberline {1.17}249E Endless Matrix}{16}{section.1.17}
+\contentsline {section}{\numberline {1.18}295D Greg and Caves}{17}{section.1.18}
+\contentsline {section}{\numberline {1.19}264E Roadside Trees}{18}{section.1.19}
+\contentsline {section}{\numberline {1.20}286D Tourists}{18}{section.1.20}
+\contentsline {section}{\numberline {1.21}258D Little Elephant and Broken Sorting}{19}{section.1.21}
+\contentsline {section}{\numberline {1.22}273D Dima and Figure}{19}{section.1.22}
+\contentsline {section}{\numberline {1.23}283E Cow Tennis Tournament}{20}{section.1.23}
+\contentsline {section}{\numberline {1.24}305D Olya and Graph}{21}{section.1.24}
+\contentsline {section}{\numberline {1.25}354D Transferring Pyramid}{22}{section.1.25}
+\contentsline {section}{\numberline {1.26}261E Maxim and Calculator}{23}{section.1.26}
+\contentsline {section}{\numberline {1.27}253E Printer}{24}{section.1.27}
+\contentsline {section}{\numberline {1.28}309E Sheep}{24}{section.1.28}
+\contentsline {section}{\numberline {1.29}316E3 Summer Homework}{25}{section.1.29}
+\contentsline {section}{\numberline {1.30}243C Colorado Potato Beetle}{26}{section.1.30}
+\contentsline {section}{\numberline {1.31}316G3 Good Substrings}{26}{section.1.31}
+\contentsline {section}{\numberline {1.32}251E Tree and Table}{27}{section.1.32}
+\contentsline {section}{\numberline {1.33}256D Liars and Serge}{29}{section.1.33}
+\contentsline {section}{\numberline {1.34}303D Rotatable Number}{30}{section.1.34}
+\contentsline {section}{\numberline {1.35}338D GCD Table}{32}{section.1.35}
+\contentsline {section}{\numberline {1.36}269E String Theory}{33}{section.1.36}
+\contentsline {section}{\numberline {1.37}332E Binary Key}{34}{section.1.37}
+\contentsline {section}{\numberline {1.38}331E2 Deja Vu}{35}{section.1.38}
+\contentsline {section}{\numberline {1.39}356E Xenia and String Problem}{36}{section.1.39}
+\contentsline {section}{\numberline {1.40}273E Dima and Game}{37}{section.1.40}
+\contentsline {section}{\numberline {1.41}333C Lucky Tickets}{38}{section.1.41}
+\contentsline {section}{\numberline {1.42}240F Torcoder}{39}{section.1.42}
+\contentsline {section}{\numberline {1.43}305E Playing with String}{39}{section.1.43}
+\contentsline {section}{\numberline {1.44}235D Graph Game}{40}{section.1.44}
+\contentsline {section}{\numberline {1.45}342D Xenia and Dominoes}{41}{section.1.45}
+\contentsline {section}{\numberline {1.46}319E Ping-Pong}{41}{section.1.46}
+\contentsline {section}{\numberline {1.47}301C Yaroslav and Algorithm}{42}{section.1.47}
+\contentsline {section}{\numberline {1.48}309D Tennis Rackets}{44}{section.1.48}
+\contentsline {section}{\numberline {1.49}301E Yaroslav and Arrangements}{44}{section.1.49}
+\contentsline {section}{\numberline {1.50}309B Context Advertising}{45}{section.1.50}
+\contentsline {section}{\numberline {1.51}331D3 Escaping on Beaveractor}{46}{section.1.51}
+\contentsline {section}{\numberline {1.52}277D Google Code Jam}{47}{section.1.52}
+\contentsline {section}{\numberline {1.53}341E Candies Game}{48}{section.1.53}
+\contentsline {section}{\numberline {1.54}323B Tournament-graph}{49}{section.1.54}
+\contentsline {section}{\numberline {1.55}248E Piglet's Birthday}{49}{section.1.55}
+\contentsline {section}{\numberline {1.56}325C Monsters and Diamonds}{50}{section.1.56}
+\contentsline {section}{\numberline {1.57}266D BerDonalds}{51}{section.1.57}
+\contentsline {section}{\numberline {1.58}311C Fetch the Treasure}{51}{section.1.58}
+\contentsline {section}{\numberline {1.59}316D PE lesson}{52}{section.1.59}
+\contentsline {section}{\numberline {1.60}323C Two permutations}{53}{section.1.60}
+\contentsline {section}{\numberline {1.61}343E Pumping Stations}{53}{section.1.61}
+\contentsline {section}{\numberline {1.62}267C Berland Traffic}{54}{section.1.62}
+\contentsline {section}{\numberline {1.63}240E Road Repairs}{55}{section.1.63}
+\contentsline {section}{\numberline {1.64}329E Evil}{55}{section.1.64}
+\contentsline {section}{\numberline {1.65}303E Random Ranking}{56}{section.1.65}
+\contentsline {section}{\numberline {1.66}316F3 Suns and Rays}{57}{section.1.66}
+\contentsline {section}{\numberline {1.67}360E Levko and Game}{58}{section.1.67}
+\contentsline {section}{\numberline {1.68}338E Optimize!}{58}{section.1.68}
+\contentsline {section}{\numberline {1.69}285E Positions in Permutations}{59}{section.1.69}
+\contentsline {section}{\numberline {1.70}238D Tape Programming}{59}{section.1.70}
+\contentsline {section}{\numberline {1.71}331C3 The Great Julya Calendar}{60}{section.1.71}
+\contentsline {section}{\numberline {1.72}288E Polo the Penguin and Lucky Numbers}{61}{section.1.72}
+\contentsline {section}{\numberline {1.73}243D Cubes}{62}{section.1.73}
+\contentsline {section}{\numberline {1.74}238E Meeting Her}{62}{section.1.74}
+\contentsline {section}{\numberline {1.75}251D Two Sets}{63}{section.1.75}
+\contentsline {section}{\numberline {1.76}351D The Red Button}{64}{section.1.76}
+\contentsline {section}{\numberline {1.77}293E The Red Button}{64}{section.1.77}
+\contentsline {section}{\numberline {1.78}348E Pilgrims}{65}{section.1.78}
+\contentsline {section}{\numberline {1.79}241E Flights}{65}{section.1.79}
+\contentsline {section}{\numberline {1.80}254D Rats}{66}{section.1.80}
+\contentsline {section}{\numberline {1.81}269D Maximum Waterfall}{67}{section.1.81}
+\contentsline {section}{\numberline {1.82}346E Doodle Jump}{67}{section.1.82}
+\contentsline {section}{\numberline {1.83}264D Colorful Stones}{69}{section.1.83}
+\contentsline {section}{\numberline {1.84}280D k-Maximum Subsequence Sum}{70}{section.1.84}
+\contentsline {section}{\numberline {1.85}243E Matrix}{70}{section.1.85}
+\contentsline {section}{\numberline {1.86}293D Ksusha and Square}{71}{section.1.86}
+\contentsline {section}{\numberline {1.87}306C White, Black and White Again}{71}{section.1.87}
+\contentsline {section}{\numberline {1.88}317C Balance}{72}{section.1.88}
+\contentsline {section}{\numberline {1.89}297E Mystic Carvings}{73}{section.1.89}
+\contentsline {section}{\numberline {1.90}321D Ciel and Flipboard}{73}{section.1.90}
+\contentsline {section}{\numberline {1.91}274C The Last Hole!}{74}{section.1.91}
+\contentsline {section}{\numberline {1.92}319D Have You Ever Heard About the Word?}{75}{section.1.92}
+\contentsline {section}{\numberline {1.93}241D Numbers}{76}{section.1.93}
+\contentsline {section}{\numberline {1.94}314E Sereja and Squares}{76}{section.1.94}
+\contentsline {section}{\numberline {1.95}249D Donkey and Stars}{77}{section.1.95}
+\contentsline {chapter}{\numberline {2}USACO}{78}{chapter.2}
+\contentsline {section}{\numberline {2.1}USACO 2005 December Gold Cow Patterns}{78}{section.2.1}
+\contentsline {section}{\numberline {2.2}USACO Jan 12 CowRun}{79}{section.2.2}
+\contentsline {section}{\numberline {2.3}USACO Mar 12 Cows in a Skyscrape}{80}{section.2.3}
+\contentsline {section}{\numberline {2.4}USACO Dec 12 Cowstantinople}{81}{section.2.4}
+\contentsline {section}{\numberline {2.5}USACO Mar 13 HillWalk}{81}{section.2.5}

@@ -1,0 +1,93 @@
+CHANGE
+http://tsinsen.com/P7754
+这道题目需要用到生成函数相关的知识，我们可以写出函数。
+G(x) = PROD( SUM(x ^ (u * d), 0 ≤ u < ∞), d ∈ D )
+最后的答案就是G(x)中 x^S 项的系数。
+
+通过将 SUM(x ^ (u * d), 0 ≤ u < ∞) 化简，G(x)还可以写成如下形式:
+G(x) = PROD( 1 / (1 - x^d), d ∈ D )
+通过一些变化，我们可以将G(x)进一步写成如下形式:
+G(x) = 1 / (1 - x)^n * PROD(1 / SUM( x^u, 0 ≤ u < d ), d ∈ D)
+我们注意到，对于一些多项式
+	f(x) = SUM(x ^ u, 0 ≤ u < n)
+我们可以使用“n次单位根” Wn
+	Wn = e^(2πi/n)
+我们很容易证明
+	f(Wn^i) = 0, 1 ≤ i < n
+即f(x)有n - 1个根,，分别为 Wn, Wn^2, Wn^3 ... Wn^(n - 1)
+所以f(x)也可以写成
+	f(x) = (x - Wn) (x - Wn^2) (x - Wn^3) ... (x - Wn^(n - 1))
+所以对于G(x)我们还可以将它写成如下形式
+G(x) = 1 / (1 - x)^n * PROD( PROD(1 / (x - Wd^i), 1 ≤ i < d), d ∈ D )
+接下来我们将会关注
+	PROD( PROD(1 / (x - Wd^i), 1 ≤ i < d), d ∈ D )		...(1)
+因为所有的d是互质的，所以我们可以得到一个非常重要的结论：(1)中所有的Wd^i是不同的。
+所以我们可以对原式进行部分分式分解，所以(1)能写成如下形式
+	SUM( SUM( Pd(Wd^i) / (x - Wd^i), 1 ≤ i < d ), d ∈ D )	...(2)
+接下来我们要得到Pd(Wd^i)，注意Pd(Wd^i)的值与d相关。
+我们知道
+	1 / PROD( 1 + x + x^2 + ... + x^(d'- 1), d'∈ D) = SUM( SUM( Pd'(Wd'^j) / (x - Wd'^j), 1 ≤ j < d' ), d' ∈ D )
+我们在等式两边同时乘上 (x - Wd^i)得到
+	(x - Wd^i) / PROD( 1 + x + x^2 + ... + x^(d'- 1), d'∈ D ) = (x - Wd^i) * SUM( SUM( Pd'(Wd'^j) / (x - Wd'^j), 1 ≤ j < d' ), d'∈ D )  ...(3)
+我们发现在 x = Wd^i 时，在(3)中
+	等式左边变成 0/0
+	等式右边变成 Pd(Wd^i)
+因此，我们可以用“洛必达法则”，求出Pd(Wd^i)的值：
+	Pd(Wd^i) = 1 / [( 1 + 2Wd^i + 3Wd^(2i) + ... + (d - 1)Wd^((d - 2)i) ) * PROD( 1 + Wd'^i + Wd'^(2i) + ... + Wd'^((d' - 1)i), d'∈ D NAD d'≠ d )]
+求导过程中，因为 1 + Wd^i + Wd^(2i) + ... + Wd^((d - 1)i) = 0，所以只剩下这一项
+因为
+	Wd^d = 1
+	SUM(Wd^i, 0 ≤ i < d) = 0
+	我们套用 “等差-等比数列”求和公式：
+		Sn = a / (1 - r) - [a + (n - 1)d]r^n / (1 - r) + dr(1 - r^(n - 1)) / (1 - r)^2
+		其中 a 是首项, d 是公差， r是比值， n是项数
+所以
+	Pd(x) = (x * (x - 1)) / (d * PROD( x^i, 0 ≤ i ≤ (d' mod d), d'∈ D ))  x是d次单位根
+
+现在我们回过头来看G(x)
+	G(x) = 1 / (1 - x)^n * SUM( SUM( Pd(Wd^i) / (x - Wd^i), 1 ≤ i < d ), d ∈ D )
+我们可以用下面的公式进一步简化
+	1 / (1 - x)^n * 1 / (x - y) = 1 / ((1 - y)^n * (x - y)) + SUM( 1 / (1 - y)^(n - i + 1) * (x - 1)^i, 1 ≤ i ≤ n )
+这个公式也能用“洛必达法则”证明
+现在G(x)变成了下面这个样子
+	G(x) = SUM( SUM( Pd(Wd^i) / ((1 - Wd^i)^n * (x - Wd^i)) + SUM( Pd(Wd^i) / ((1 - Wd^i)^(n - j) * (x - 1)^j), 0 ≤ j < n ), 1 ≤ i < d ), d ∈ D )
+我们可以使用“广义二项式定理”将这个式子展开，求的x^S项的系数
+最终的答案大概是这样
+	因为
+		1 / (1-x)^(j+1) = SUM( C(m+j,j) * x^m, m = 0, 1, 2, ... )
+		1 / (x-a) = SUM( -a^(-m-1) * x^m, m = 0, 1, 2, ... )
+	所以x^S项系数ans为
+		ans = SUM( SUM( Pd(Wd^i) / (1 - Wd^i)^n * ( -Wd^i * (-S - 1) + SUM( C(S + j, j) * (1 - Wd^i)^j, 0 ≤ j < n ) ), 1 ≤ i < d ), d ∈ D )
+经过一些复杂的转化，我们的答案ans可以写成
+	ans = SUM( SUM( Ud(Wd^i) / Vd(Wd^i), 1 ≤ i < d ), d ∈ D )
+其中
+	Ud(x) = -(x^((-S) mod d) + SUM( C(m + j, j) * (1 - x)^j * x, 0 ≤ j < n )) / d,	m = S mod 10^9 + 7
+	Vd(x) = PROD( 1 - x^(d'mod d), d'∈ D AND d'≠ d )
+令Qd(x) = 1 + x + x^2 + x^3 + ... + x^(d - 1)
+我们会发现 Qd(Wd^i) = 0
+令Zd(x)表示一个最高项指数小于d - 1的多项式并且满足
+Vd(x) * Zd(x) = 1 mod Qd(x)
+这意味着
+	Vd(x) * Zd(x) = 1 + Rd(x) * Qd(x)
+所以
+	1 / Vd(x) = Zd(x) / ( 1 + Rd(x) * Qd(x) )
+而因为 Qd(Wd^i) = 0 所以我们求出Vd(x)关于Qd(x)的逆元即可
+求逆元Zd(x)可以使用拓展欧几里得算法(https://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor#B.C3.A9zout.27s_identity_and_extended_GCD_algorithm)
+令 Td(x) = Zd(x) * Ud(x)
+我们的答案就变成了这样
+	ans = SUM( SUM( Td(Wd^i), 1 ≤ i < d ), d ∈ D )
+但是计算Td(x)会涉及到浮点数的计算，而且最终的答案需要对Mod取模，我们可以使用一种神奇的方法来避开浮点运算。
+	SUM( Td(Wd^i), 1 ≤ i < d )
+		= SUM( tp * SUM( Wd^(i * p), 1 ≤ i < d ), 0 ≤ p < d )		tp表示t中x^p项的系数
+		= SUM( tp * SUM( Wd^(i * p), 1 ≤ i < d ), 1 ≤ p < d ) + t0 * (d - 1)
+	我们知道 Qd(Wd^P) = 0
+	因此 SUM( Wd^i, 1 ≤ i < d ) = -1
+	所以
+		SUM( tp * SUM( Wd^(i * p), 1 ≤ i < d ), 1 ≤ p < d ) + t0 * (d - 1)
+			= SUM( -tp, 1 ≤ p < d) + t0 * (d - 1)
+			= d * t0 - SUM(tp, 0 ≤ p < d)
+			= d * Td(0) - Td(1)
+所以我们只用考虑Td(0)和Td(1)的情况了
+对于这道题目中 S 很大，但是这并没有什么影响，因为 S 在最终答案的式子中仅仅出现在Wd的指数中，我们可以将 S 对 d取模后进行运算。
+最终的ans就是我们所需要的答案
+

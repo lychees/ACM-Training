@@ -1,0 +1,602 @@
+\documentclass{noithesis}
+\usepackage{graphicx}
+\usepackage{picins}
+\usepackage{mathrsfs}
+\usepackage{bm}
+
+\begin{document}
+
+%% 论文开始
+
+\title{浅谈信息学竞赛中的物理问题}
+\author{杭州第二中学~~陈思禹}
+
+\maketitle
+
+\begin{abstract}
+随着近年来学科竞赛的发展，各个学科的关系变得更为密切。一些物理问题也开始出现在信息学竞赛的比赛中。信息学竞赛中的物理问题所用到的物理知识不会太复杂，但给出的数据往往带有信息学色彩，即数据量大而复杂，不太可能用人脑计算。不过经过一些物理推导往往可以使问题大大简化。本文将分别分析信息学竞赛中的运动学、动力学、静力学和电磁学问题，通过一些例题分析其中蕴含的物理知识以及从物理问题到信息学问题的转化关系。
+\end{abstract}
+
+\section{信息学与运动学}
+
+“运动学”这一名称和后面要介绍的“动力学”很相似，但是并不是同一类问题。运动学问题并不涉及物体的受力，主要侧重于位移、速度、加速度、时间之间的关系。信息学中的运动学问题一般需要先从物理上对运动进行分析，而且数据比较复杂，需要用计算机辅助计算。其中需要的许多知识在中学的物理教材中已有涉及，这里就先简单介绍一下。
+
+\subsection*{位移~速度~加速度}
+
+物体在运动过程中的位置$\bm{r}$（加粗表示矢量）随时间$t$的变化关系可表述为：$\bm{r}=\bm{r}(t)$。从$\bm{r}(t)$到$\bm{r}(t+\Delta t)$ 引一矢量称为位移矢量，简称位移。即：
+\begin{eqnarray*}
+\bm{\Delta r}=\bm{r}(t+\Delta t)-\bm{r}(t)
+\end{eqnarray*}
+
+$\bm{\Delta r}$给出的是一段时间内质点运动的总效果，可以引入平均速度$\displaystyle \bm{\bar{v}}=\frac{\bm{\Delta r}}{\Delta t}$。为了更细致地描述运动，取$\Delta t \rightarrow 0$，可以得到瞬时速度，即速度：
+\begin{eqnarray}
+\bm{v}=\frac{d \bm{r}}{dt}
+\end{eqnarray}
+
+同样的，我们可以引入瞬时加速度，即加速度：
+\begin{eqnarray}
+\bm{a}=\frac{d \bm{v}}{dt}=\frac{d^2 \bm{r}}{dt^2}
+\end{eqnarray}
+
+\subsection*{平面曲线运动}
+
+质点在一个平面上运动往往涉及到坐标系的分解，下面将介绍常见的两种方法。
+
+\subsubsection*{直角坐标系分解}
+
+对于一个固定的直角坐标系$Oxy$，质点的位置矢量$\bm{r}$可以分解为：$\bm{r}=x\bm{i}+y\bm{j}$，因此这一运动方程有两个分量式:
+\begin{eqnarray}
+x=x(t),~y=y(t)
+\end{eqnarray}
+
+这就意味着平面运动正交分解为了两个直线运动。同样地我们有：
+\begin{eqnarray}
+v_x=\frac{dx}{dt},~v_y=\frac{dy}{dt},\\
+a_x=\frac{dv_x}{dt},~a_y=\frac{dv_y}{dt}
+\end{eqnarray}
+
+当然速度也可以用两个分速度来合成，即：
+\begin{eqnarray}
+v=\sqrt{v_x^2+v_y^2}
+\end{eqnarray}
+
+\subsubsection*{圆周运动}
+
+圆约束是一种常见的轨道约束。建立极坐标系，质点位置可以由相对圆心转过的角$\theta$和圆的半径$R$唯一确定。这样我们即可引入角速度$\omega$和角加速度$\beta$的概念，即：
+\begin{eqnarray}
+\omega &=& \frac{d \theta}{dt},\\
+\beta &=& \frac{d \omega}{dt}=\frac{d^2 \theta}{dt^2}
+\end{eqnarray}
+
+\centerline{\includegraphics[width=4cm]{10.png}}
+
+现在我们再来讨论位移。圆运动中位移亦为的$d \bm{r}$，常常改为$d \bm{l}$，可以分解为切向和法向（法向会引起半径的变化，但是这里讨论的是无穷小量，可以忽略），其沿切线方向的投影设为$dl_{\tau}$。 利用几何关系$dl_{\tau}=Rd \theta$，并结合$\displaystyle \bm{v}=\frac{d \bm{l}}{dt}$，其沿切线方向的投影设为$v_{\tau}$，可得：
+\begin{eqnarray}
+v_{\tau}=\frac{dl_{\tau}}{dt}=\frac{Rd \theta}{dt}=R \omega
+\end{eqnarray}
+
+利用$\bm{v}=\bm{v_{\tau}}+\bm{v_r}$即可得到法向分量$v_r$。至于加速度这里就不作详细讨论。
+
+下面就将利用以上的公式分析几个比较经典的运动学问题。
+
+\subsection{Just~a~Joke \protect\footnote{hdu 4969, 2014 Multi-University Training Contest 9}}
+
+\subsubsection{题目大意}
+
+在一个半径为$R$的圆上G点在以$v_1$的速率匀速圆周运动。B点从圆心O出发以恒定速率$v_2$（$v_2 \geq v_1$）追赶，且任意时刻G、B、O始终保持在同一直线上。求B点追上G点所需经过的路程$d$。
+
+\subsubsection{分析}
+
+设B点运动的时间为$T$。由于B点作匀速运动，$d=v_2 \cdot T$。
+
+虽然这并不是一个圆周运动，但G点作圆周运动且B点角速度与G点相同。不妨考虑也将B点的运动分解为径向运动和切向运动。G点转动的角速度$\displaystyle\omega=\frac{v_1}{R}$。 所以B点位于距离圆心$r$处时，B点的切向速度$\displaystyle v_{\tau}=\omega \cdot r=\frac{v_1 \cdot r}{R}$。
+
+由于B点速率为$v_2$，其径向速度$\displaystyle v_{r}=\sqrt{v_2^2-v_{\tau}^2}=v_2 \cdot \sqrt{1-\frac{v_1^2 r^2}{v_2^2 R^2}}$。 利用$\displaystyle dt=\frac{dr}{v_r}$，B点的运动时间可以通过下式得出：
+\begin{eqnarray}
+T=\int_0^{R}{\frac{dr}{v_r}}=\left. \frac{R \cdot arcsin \left( \frac{v_1 r}{v_2 R} \right)}{v_1} \right|_0^R = \frac{R \cdot arcsin \left( \frac{v_1}{v_2} \right)}{v_1}
+\end{eqnarray}
+
+因此$\displaystyle d=v_2 \cdot T=\frac{R \cdot v_2 \cdot arcsin \left( \frac{v_1}{v_2} \right)}{v_1}$。
+
+至此，物理部分的分析已经结束。此题信息学的部分较为容易，只需使用推出的公式代入计算即可，单组测试数据时间复杂度$O(1)$。
+
+\subsection{Magic \protect\footnote{POJ Challenge Round 5 A}}
+
+\subsubsection{题目大意}
+
+有$n$个人初始位于一个边长为$l$的正$n$边形的$n$个顶点，以相同的不变速率$v$作追逐游戏，且每个人始终对准他顺时针方向下一个人运动。求追上需要的时间。
+
+在分析之前，不妨先来看一个与此题相关的经典物理问题。
+
+\subsubsection{经典问题}
+
+如下左图所示，有4个人A、B、C、D初始位于一个边长为$l$的正方形的四个顶点，以相同的不变速率$v$作追逐游戏，且每个人始终对准他逆时针方向下一个人运动。求追上需要的时间。
+
+\centerline{\includegraphics[width=9cm]{1.jpg}}
+
+\subsubsection{经典问题解法1}
+
+观察容易发现，4个人始终会处在某个正方形的4个顶点上，只是正方形在变小。最终他们将会相遇于正方形的中心。
+
+这样就只需考虑一个人与中心连线方向的运动。显然这是一个匀速运动，分速度$\displaystyle v_r=v \cdot sin \frac{\pi}{4}$。而与中心的初始距离$\displaystyle d=\frac{l}{2sin \frac{\pi}{4}}$。因此，
+\[t=\frac{d}{v_r}=\frac{l}{v}\]
+
+\subsubsection{经典问题解法2}
+
+另一种思路是只考虑相邻的两个人，他们之间的相对速度即为两个人连线方向分速度之差，即$\displaystyle \Delta v=v-v \cdot cos \frac{2\pi}{4}=v$。因此，
+\[t=\frac{l}{\Delta v}=\frac{l}{v}\]
+
+\subsubsection{再分析}
+
+下面就再回到我们要探讨的例题。
+
+容易看出，只要将上面2种解法角度中的4替换为$n$即可，从而得出以下两种解法。至于信息学的部分，也只需套用公式即可，时间复杂度$O(1)$。
+
+\subsubsection{解法1}
+\begin{eqnarray}
+v_r &=& v \cdot sin \frac{\pi}{n},\\
+d &=& \frac{l}{2sin \frac{\pi}{n}},\\
+t &=& \frac{d}{v_r}=\frac{l}{2v \cdot sin^2 \left( \frac{\pi}{n} \right)}=\frac{l}{v \left( 1-cos \frac{2\pi}{n} \right)}
+\end{eqnarray}
+
+\subsubsection{解法2}
+\begin{eqnarray}
+\Delta v &=& v-v \cdot cos \frac{2\pi}{n},\\
+t &=& \frac{l}{\varDelta v}=\frac{l}{v \left( 1-cos \frac{2\pi}{n} \right)}
+\end{eqnarray}
+
+\subsection{滑行 \protect\footnote{bzoj3695}}
+
+\subsubsection{题目大意}
+
+有一个小滑块要从$(0,0)$出发滑到$(X,Y)$。但这一块地面被划分为$n$个区域，分界线都与$x$轴平行，第$i$个区域限速$v_i$。求到达目标点最少需要用的时间。
+
+同样，不妨也先来看一个物理中的经典问题。
+
+\subsubsection{经典问题}
+
+\parpic{\includegraphics[width=3cm]{2.jpg}}
+
+如左图所示，湖中小岛A与湖岸的距离为$d$，湖岸边有一点B，B湖岸方向与A点距离为$l$。一人自A点出发，要到达B点。已知他在水中游泳的速度为$v_1$，在岸上行走的速度为$v_2$ （$v_1<v_2$）。要求他由A到B所用的时间最短，问此人应当如何选择其运动路线。
+
+\subsubsection{经典问题分析}
+
+此题显然需要在岸上寻找一个转折点C，使得先从A游到C再从C走到B用时最短。设C湖岸方向与A的距离为$x$，则用时$\displaystyle T(x)=\frac{\sqrt{d^2+x^2}}{v_1}+\frac{l-x}{v_2}$。 最短用时应该是该函数在$[0,l]$上的最小值，因此求出此函数的极值点：
+\begin{eqnarray}
+\frac{dT}{dx}=\frac{x}{v_1 \sqrt{d^2+x^2}}-\frac{1}{v_2}=0 \label{eq:1}
+\end{eqnarray}
+
+解得：$\displaystyle x=\frac{v_1 \cdot d}{\sqrt{v_2^2-v_1^2}}$，这是一个极小值点。所以此题答案就出来了：\\
+①若$\displaystyle l \leq \frac{v_1 \cdot d}{\sqrt{v_2^2-v_1^2}}$，则只需直接从A游泳至B；\\
+②若$\displaystyle l>\frac{v_1 \cdot d}{\sqrt{v_2^2-v_1^2}}$，则需先游泳至湖岸方向距离A$\displaystyle \frac{v_1 \cdot d}{\sqrt{v_2^2-v_1^2}}$处再走至B。
+
+当然这是利用导数进行的分析，其实还可以利用一些变换使得结果变得更为简洁。设AC与垂直岸方向的夹角为$\theta$，则(\ref{eq:1}) 可以改写为：$\displaystyle sin \theta=\frac{v_1}{v_2}$。利用$\displaystyle sin \frac{\pi}{2}=1$ 可得：
+\begin{eqnarray}
+\frac{sin \theta}{sin \frac{\pi}{2}}=\frac{v_1}{v_2} \label{eq:2}
+\end{eqnarray}
+
+注意到(\ref{eq:2})与光的折射定律类似。事实上，人的游泳和行走就相当于光在两种介质中的运动，而之前的分析过程就类似于光传播的费马原理，因此这道题的结果也就相当于“折射定律”。
+
+\subsubsection{再分析}
+
+下面就回到要探讨的例题。
+
+根据“折射定律”，为了用时最短，从第$i$个区域穿到第$i+1$个区域时，入射角和折射角应满足$\displaystyle \frac{sin \theta_i}{sin \theta_{i+1}}=\frac{v_i}{v_{i+1}}$。
+
+至此此题只剩下信息编程的部分。容易看出，初始入射角越大，设出第$n$层介质时的横坐标$x_n$越大。因此只需二分初始入射角，找到一个合适的角度使得射出第$n$层介质时$x_n=X$即可。当然注意初始入射角不能过大，要使得对于任意的$1 \leq i \leq n$满足$sin \theta_i<1$，不然在光学中光将会全反射或射至$x$ 轴方向无穷远处。
+
+时间复杂度$O(kn)$，其中$k$为二分次数。
+
+\newpage
+
+\section{信息学与动力学}
+
+不同于运动学，动力学的题目主要分析的是运动和力的关系。信息学竞赛中的动力学的题目一般运动物体数量较多，且常常出现碰撞的问题，看似比较复杂无从下手。下面不妨先来回顾一下碰撞所涉及的一些定律，从而找到解决问题的途径。
+
+\subsection*{动量定理与动量守恒定律}
+
+质量为$m$的质点，在某惯性系的速度为$\bm{v}$，相对此惯性系的动量定义为
+\begin{eqnarray}
+\bm{p}=m\bm{v}
+\end{eqnarray}
+
+质点系动量定理即（$\bm{F}$表示合外力，$\bm{p}=\sum{\bm{p_i}}$）：
+\begin{eqnarray}
+\bm{F}=\frac{d\bm{p}}{dt}
+\end{eqnarray}
+
+于是便有如下的动量守恒定律：
+\newtheorem{theo}{Theorem}
+\begin{theo}
+若过程中$\bm{F}$恒为零，则过程中$\bm{p}$为守恒量。
+\end{theo}
+
+动量守恒定律也有分量单独守恒的情况，即：
+\begin{theo}
+若过程中$F_x$恒为零，则过程中$p_x$为守恒量。
+\end{theo}
+
+\subsection*{动能定理与动能守恒}
+
+相对某惯性系定义质点的动能为：
+\begin{eqnarray}
+E_k=\frac{1}{2} mv^2
+\end{eqnarray}
+
+这里仅写出不考虑内力做功的质点系动能定理。将所有外力做功之和记为$W$，质点系动能增量记为$\Delta E_k$，则：
+\begin{theo}
+\begin{eqnarray}
+dW=dE_k,~W=\Delta E_k
+\end{eqnarray}
+\end{theo}
+
+显然，若过程中$dW$恒为零，则过程中$E_k$为守恒量。
+
+\subsection*{碰撞}
+
+现在就来考虑如何利用以上两个守恒分析两个物体的弹性碰撞，即满足动能守恒的碰撞。
+
+\subsubsection*{一维弹性碰撞}
+
+\centerline{\includegraphics[width=8cm]{8.png}}
+
+质点1和2碰撞前后的状态分别在上图(a)(b)中示出。根据动量守恒和能量守恒可列出下列方程组：
+\[m_1v_1+m_2v_2=m_1v_{10}+m_2v_{20}\]
+\[\frac{1}{2}m_1v_1^2+\frac{1}{2}m_2v_2^2=\frac{1}{2}m_1v_{10}^2+\frac{1}{2}m_2v_{20}^2\]
+
+数学上可得两组解，但物理上其中一组对应碰前运动状态，另一组为碰后的状态，即：
+\begin{eqnarray}
+v_1 &=& \frac{(m_1-m_2)v_{10}+2m_2v_{20}}{m_1+m_2},\\
+v_2 &=& \frac{(m_2-m_1)v_{20}+2m_1v_{10}}{m_1+m_2}
+\end{eqnarray}
+
+下面来看一下特殊情况：\\
+①若$m_1=m_2$，则$v_1=v_{20}$，$v_2=v_{10}$；\\
+②若$m_2 \gg m_1$，且$v_{20}=0$，则$v_1=-v_{10}$，$v_2=0$。
+
+可以发现这些特殊情况十分简洁优美，下面的例题中就将有所应用。
+
+\subsubsection*{二维弹性斜碰撞}
+
+\parpic[r]{\includegraphics[width=4cm]{9.png}}
+
+二维斜碰撞只需将一维的动量守恒方程中的速度改为矢量即可。但是速度矢量$\bm{v_1}$和$\bm{v_2}$的解将具有不定性，原因就在于物体的质点化。
+
+若能根据物体的几何形状确定其碰撞方向，则垂直碰撞方向的速度不变，碰撞方向上看作一个一维弹性碰撞即可。
+
+有了以上方法，下面就来分析几道例题。
+
+\subsection{DZY Loves Physics I \protect\footnote{bzoj3570}}
+
+\subsubsection{题目大意}
+
+有一条无限长的光滑水平轨道，初始有$N$（$N \leq 10^5$）个相同的小球在其中运动，每个小球都有初始位置$x$、初始速率$v$和运动方向（正方向或反方向）。设小球的加速度为$a$，则任意时刻所有小球的运动都满足$a \cdot v=C$（$C$为给定常数），且小球间的碰撞均为弹性碰撞。共有$Q$（$Q \leq 10^5$）次操作，分为两类：①再加入一个小球；②询问时刻$T$第$K$小的速率值。
+
+\subsubsection{分析}
+
+质量相同的小球一维弹性碰撞属于特殊情况①，只会交换速度，速率值不发生变化，而这道题询问的又恰恰是第$K$小的速率，因此碰撞不影响答案，可以忽略。这显然是一个对于问题的巨大简化，这其实就变成了一个运动学的问题。
+
+对于一个小球，$a \cdot v=C$，即$\displaystyle \frac{dv}{dt} \cdot v=C$。由此可得：
+\begin{eqnarray}
+\frac{d(v^2)}{dt}=2C
+\end{eqnarray}
+
+解得$v_T^2=v_0^2+2CT$，也就是说小球速率的平方都是均匀增加的，小球间的速率大小关系其实不会改变。所以要询问的其实是初始速率第$K$小的小球。这个用许多经典的数据结构都可以求出，这里就不详述。
+
+时间复杂度$O((N+Q)log~N)$。
+
+\subsection{Billiards \protect\footnote{POJ Challenge Round 5 C}}
+
+\subsubsection{题目大意}
+
+给出一个$W \times H$的矩形球台以及$n$（$n \leq 22$）个半径为$r$、质量相等的台球的坐标，一开始它们都静止在球台上，并且不会有球和球、球和台边贴合的情况。现在给1号球一个初速度，问在第$m$（$m \leq 50$）次碰撞发生时，所有球的坐标。碰撞包括球和球碰撞、球和任意一条台边碰撞。保证不会有两次碰撞同时发生，且球的质量远小于球台的质量。
+
+\subsubsection{分析}
+
+由于数据范围较小，不妨考虑暴力模拟。直接找出所有可能的碰撞发生的时间，选取最小的一个作为下一次碰撞即可。
+
+剩下的问题就是碰撞时速度的改变。球与球台的碰撞属于特殊情况②。碰撞方向显然垂直于台边，于是垂直台边速度反向，平行台边速度不变即可。球与球的碰撞属于特殊情况①，碰撞方向为球心连线方向，因此碰撞方向交换速度，垂直碰撞方向速度不变。可以看出，物理的推导也极大地简化了此题的分析。
+
+由于每次可能的碰撞数是$n^2$的，时间复杂度$O(n^2m)$。
+
+\newpage
+
+\section{信息学与静力学}
+
+静力学主要分析的是物体的平衡，一般分析方式较为套路，侧重于对物体受力、重心位置等的分析。下面不妨先来看一下物体的平衡条件。
+
+\subsection*{物体平衡条件}
+
+这里我们探讨容易一些的情况，即共点力系作用下物体的平衡条件。这在中学物理教材中也已涉及，即物体所受合外力等于零。解题时往往考虑直角坐标系下的分量形式，即：
+\begin{eqnarray}
+\sum{F_x}=0,~\sum{F_y}=0,~\sum{F_z}=0
+\end{eqnarray}
+
+一般物体的平衡还需合力矩为零，此处就不详述。
+
+\subsection*{重心}
+
+重心一般即质心。质点系所受重力可一等效于作用于质心上的一个力。
+
+设$N$个质点系统各质点的位置矢量为$\bm{r_1},\bm{r_2},...,\bm{r_N}$，第$i$个质点质量为$m_i$，则定义该质点系的质心位置$\bm{r_C}$为：
+\begin{eqnarray}
+\bm{r_C}=\frac{1}{\sum_{i=1}^{N}{m_i}} \sum_{i=1}^{N}{m_i\bm{r_i}}
+\end{eqnarray}
+
+这其实相当于以质量为权重的加权位置平均值。且质心的定义是一个矢量表达式，自然可以写出其分量式，这里就不列出。
+
+值得注意的是，均匀物体的质心就是其几何中心。若是复杂物体的质心，可以考虑将其分解为比较易于求出质心的几部分然后再利用定义求得总体的质心。
+
+下面就利用以上知识来分析两道例题。
+
+\newpage
+
+\subsection{书堆 \protect\footnote{bzoj2048, 2009年集训队作业}}
+
+\subsubsection{题目大意}
+
+$N$（$N \leq 10^{18}$）本相同的长为$M$的书叠放在桌沿，求平衡时最上面的那一本书能伸出桌面的最长长度$L$（书的厚度不计，上方书的重心必须位于下方书或桌面边缘以内）。
+
+\subsubsection{分析}
+
+此题书受力比较简单，平衡主要涉及重心位置的分析。$N$本书的重心恰好落在桌面边缘显然是最优的（但根据题目要求答案可能需要减1）。把$L$ 看作是一个关于$N$ 的函数$L(N)$，$\displaystyle L(1)=\frac{M}{2}$。
+
+假设已经求出了$L(N-1)$。不妨把第$N$本书放在最底层，设其伸出边缘$l$，则为了最优，上方$N-1$本书的重心应恰好落在第$N$ 本书的右边缘，即$L(N)=L(N-1)+l$。 为了使当前$N$本书重心位于桌面边缘，可列出以下方程：（式中$m$ 表示一本书的质量）
+\begin{eqnarray}
+\frac{m \cdot \left( l-\frac{M}{2} \right)+(N-1)m \cdot l}{N \cdot m}=0
+\end{eqnarray}
+
+解得：$\displaystyle l=\frac{M}{2N}$。所以，
+\begin{eqnarray}
+L(N)=\frac{M}{2} \sum_{i=1}^N{\frac{1}{i}}
+\end{eqnarray}
+
+至此此题物理的部分已经结束，剩下的就是设法编程求出$\displaystyle H(N)=\sum_{i=1}^N{\frac{1}{i}}$。 对于较小的$N$ 可以暴力，时间复杂度为$O(N)$；对于较大的$N$，可以利用欧拉常数$\gamma \approx 0.5772156649$ 进行近似，即$H(N) \approx ln~N+\gamma$，时间复杂度为$O(1)$。
+
+\subsection{Water Tanks \protect\footnote{2007 ACM-ICPC World Finals I}}
+
+\subsubsection{题目大意}
+
+有$N$个底面积均为1的圆柱容器自左向右排成一列，高度已知，且除第一个容器开口外剩余的容器均密封。相邻两个容器间有体积可忽略的细管相连，且细管从左到右高度递增。已知外界气压为一个大气压，水面以下$D$处的水压为$0.097D$ 个大气压，封闭气体的气压与体积的乘积恒定。求1 号容器被注满时共注入的水量。
+
+\subsubsection{分析}
+
+不妨设第$i$个容器高$H_i$，其中水位为$h_i$，连接容器$i$和$i+1$的细管高度为$a_i$（由题意$a_i<a_{i+1}$），则：
+
+可以发现，当$h_i<a_i$ 时第$i+1$ 个容器中一定没有水；当$0<h_{i+1}<a_i$时$h_i=a_i$；当$h_{i+1} \geq a_i$（为了保证容器$i+2$中没有水，须满足$a_i<a_{i+1}$）时，第$i$ 个容器中的气体就可以看作是密封的，与后面容器中的气体不再有关系，也可以不再考虑。
+
+因此，可以考虑依次枚举$i$，看$h_{i+1}=a_{i}$时1号容器是否已满。判断方式可以利用压强的平衡，也就是之前所述的某一点处受力平衡：
+
+若1号容器盛满时在高度$a_i$处的水压大于$h_{i+1}=a_i$时$i+1$号容器及之后容器中密封的气体的压强（这些气体压强设为$p$，体积设为$V$），即：
+\[0.097(H_1-a_i)+1>p\]
+则1号容器还未满，可以枚举下一个$i$，$p$和$V$利用乘积恒定的条件相应修改即可；否则1号容器已满，需判断$h_i$是否能达到$a_i$，从而求出最终的$h_i$和$h_{i+1}$。具体判断和求解方法与上面类似，这里就不详述。
+
+这样只需枚举一遍，时间复杂度$O(N)$。
+
+\newpage
+
+\section{信息学与电磁学}
+
+电磁学中恒定电流的题目很适合利用编程解决，也已经数次出现在信息学的比赛中。当然信息学竞赛中的恒定电流题目电路更为复杂，数据也不太具有规律，不容易直接解决。下面也先回顾一下物理解题中常用的一些方法，从而寻找解决问题的途径。
+
+\subsection*{数电压法}
+
+\centerline{\includegraphics[width=9cm]{3.png}}
+
+电路中任意两点间电势下降等于连接这两点的任一支路上各电路元件电势下降的和。例如如上图所示的电路中，取出连接$a$、$b$两点的一条支路。设$a$点电压为$U_a$，$b$点电压为$U_b$，则：
+\begin{eqnarray}
+U_a-U_b=I_1(r_1+R_1)+\mathscr{E}_1-I_2(r_2+R_2)-\mathscr{E}_2+I_3 R_3
+\end{eqnarray}
+
+事实上这对于封闭回路也是正确的，也就是后面要提到的基尔霍夫回路电压方程。
+
+\subsection*{基尔霍夫定律}
+
+\subsubsection*{基尔霍夫第一定律}
+
+\begin{theo}
+汇合于任一节点处的各电流的代数和等于零，即
+\begin{eqnarray}
+\sum{I}=\sum{I_{in}}+\sum{I_{out}}=0
+\end{eqnarray}
+\end{theo}
+以上称为基尔霍夫第一定律，又称节点电流方程。对于一个具有$n$个节点的多回路电路，便可写出$n-1$个独立的节点电流方程。
+
+\subsubsection*{基尔霍夫第二定律}
+
+\begin{theo}
+电路中的任一闭合回路的全部支路上的电压的代数和等于零，即
+\begin{eqnarray}
+\sum{U}=\sum{\left( \pm \mathscr{E} \pm Ir \pm IR \right)}=0
+\end{eqnarray}
+\end{theo}
+以上称为基尔霍夫第二定律，又称回路电压方程。式中$\mathscr{E}$和$I$前面的正负号根据回路绕行方向决定。独立方程的个数等于电路的独立回路的个数。
+
+\subsection*{$Y-\Delta$电路的等效代换}
+
+复杂电路中常常会遇到电阻连成$Y$形或$\Delta$形，如下图所示。若能够将两种连接等效变换，就可能变换出简单的串并联，从而简化计算。
+
+\centerline{\includegraphics[width=10cm]{4.jpg}}
+
+所谓“等效代换”，就应保持电路中其余部分在三个端点的电势$U_1$、$U_2$、$U_3$以及流经三端点的电流$I_1$、$I_2$、$I_3$全部相同。
+
+图(a)中利用数电压法和节点电流方程可得：
+\begin{eqnarray*}
+I_1R_1-I_2R_2 &=& U_1-U_2,\\
+I_1R_1-I_3R_3 &=& U_1-U_3,\\
+I_1+I_2+I_3 &=& 0
+\end{eqnarray*}
+
+可解得：
+\[I_1=\frac{(R_2+R_3)U_1-R_3U_2-R_2U_3}{R_1R_2+R_2R_3+R_3R_1}\]
+
+图(b)中：
+\[I_{12}=\frac{1}{R_{12}}(U_1-U_2),~I_{31}=\frac{1}{R_{31}}(U_3-U_1)\]
+\[I_1=I_{12}-I_{31}=\left( \frac{1}{R_{12}}+\frac{1}{R_{31}} \right)U_1-\frac{U_2}{R_{12}}-\frac{U_3}{R_{31}}\]
+
+为了使$I_1$相同，独立参量$U_1$、$U_2$、$U_3$的系数相等即可。因此有结论：
+\begin{eqnarray}
+R_{12} &=& \frac{R_1R_2+R_2R_3+R_3R_1}{R_3},\\
+R_{31} &=& \frac{R_1R_2+R_2R_3+R_3R_1}{R_2}
+\end{eqnarray}
+
+用类似方法还可以解得：
+\begin{eqnarray}
+R_{23} &=& \frac{R_1R_2+R_2R_3+R_3R_1}{R_1}
+\end{eqnarray}
+
+反变换也容易由此推出，这里就不详述。但是值得注意的是，可以把该变换的结果用电导（电阻的倒数）$g$表示：
+\begin{eqnarray*}
+g_{ij} &=& \frac{g_ig_j}{\sum\limits_{k=1}^3{g_k}}~(1 \leq i,j \leq 3,~i \neq j)
+\end{eqnarray*}
+
+这里就可以感受到物理学的优美之处。模仿上式的形式可以推广得到更易于使用的$n$阶的“$Y-\Delta$变换”，即：
+\begin{eqnarray}
+g_{ij} &=& \frac{g_ig_j}{\sum\limits_{k=1}^n{g_k}}~(1 \leq i,j \leq n,~i \neq j) \label{eq:delta}
+\end{eqnarray}
+
+后文就将应用到这种变换。
+
+有了以上方法，下面就来分析几道例题。
+
+\subsection{电阻 \protect\footnote{poj3532}}
+
+\subsubsection{题目大意}
+
+一块电路板有$N$（$N \leq 100$）个接点和$M$个两端都接在接点上的电阻（电阻为非负整数），求接点1和接点$N$间的等效电阻。
+
+\subsubsection{分析}
+
+求等效电阻可以使用注流法，即在1号点通入$1A$电流，在$N$号点流出，这样即可将问题转化为求$U_{1N}$。令$U_N=0$，则$U_{1N}=U_1$。
+
+首先应合并阻值为0的电阻连接的接点，直接并联的电阻也可合并。然后考虑列出方程。鉴于列回路电压方程较为复杂，还是考虑结合数电压法和节点电流方程。为了表示简便不妨使用电导。
+
+设连接$i$、$j$接点的电阻上流过的电流为$I_{ij}$，则根据数电压法，有$I_{ij}=(U_i-U_j)g_{ij}$。考虑接点$i$的节点电流方程可得：
+\begin{eqnarray}
+\sum_{j \neq i}{U_jg_{ij}}-U_i\sum_{j \neq i}{g_{ij}}=-I_i~(1 \leq i<N)
+\end{eqnarray}
+
+其中$I_1=1A$，对于其它的$i$，$I_i=0$。这样共有$N-1$个未知数和$N-1$个方程，用高斯消元即可解得$U_1$。时间复杂度$O(M+N^3)$。
+
+\subsection{电阻网络 \protect\footnote{bzoj2805, CTSC2012 day1}}
+
+\subsubsection{题目大意}
+
+在一个有$N$（$N \leq 50000$）个节点的树中，每条边上都有一个阻值为$R=10000 \Omega$的电阻，所有叶子节点都通过一个阻值同样为$R$的电阻接地。已知树的最长链长度不超过50。共有$M$（$M \leq 50000$）次操作，分为两种：\\
+①在$u$和$v$的连边上串联一个大小为$w$伏且负极指向$u$的电源；\\
+②询问点$u$当前的电压（设接地处电压为0）。
+
+\subsubsection{分析}
+
+此题最主要的区别是加入了电源，但依旧可以用类似的方法列式分析。
+
+首先由于叶子节点接地电势已知，不妨将根换为任意一个叶子节点，设为$root$。设此时点$i$的孩子集合为$son_i$，父亲为$fa_i$，度数为$deg_i$，电势为$U_i$，连接$fa_i$与$i$的边上电源电势为$W_i$，负极指向$i$，由$fa_i$流向$i$的电流为$I_i$。不妨先考虑$son_i \neq \varnothing$的情况，边界情况放到最后考虑。由数电压法和节点电流方程：
+\begin{eqnarray*}
+I_iR+W_i &=& U_{fa_i}-U_i,\\
+I_xR+W_x &=& U_i-U_x(x \in son_i),\\
+\sum_{x \in son_i}{I_x} &=& I_i
+\end{eqnarray*}
+
+消去$I$解得：
+\begin{eqnarray}
+U_i=\frac{1}{deg_i} \left( U_{fa_i}-W_i+\sum_{x \in son_i}{(U_x+W_x)} \right) \label{eq:3}
+\end{eqnarray}
+
+可以注意到$U_i$同时与父亲的$U_{fa_i}$和孩子的$U_x$相关，询问的时候不容易直接求出。于是转而考虑能否推出一个$U_{fa_i}$到$U_i$ 的递推关系式，因为那样询问的时候就可以直接从根节点$root$开始暴力递推了。容易看出$U_i$和$U_{fa_i}$应是线性的关系，设$U_i=K_iU_{fa_i}+B_i$，其中$K_i$ 和$B_i$是只与$i$和$i$的孩子相关的可预先求出的系数。显然$U_x=K_xU_i+B_x$（$x \in son_i$），那么代入(\ref{eq:3}) 可得：
+\[U_i=\frac{1}{deg_i} \left( U_{fa_i}-W_i+\sum_{x \in son_i}{(K_xU_i+B_x+W_x)} \right)\]
+
+解得：
+\begin{eqnarray*}
+U_i=\frac{1}{deg_i-\sum_{x \in son_i}{K_x}}U_{fa_i}+\frac{\sum_{x \in son_i}{(B_x+W_x)}-W_i}{deg_i-\sum_{x \in son_i}{K_x}}
+\end{eqnarray*}
+\begin{eqnarray}
+\Rightarrow~K_i=\frac{1}{deg_i-\sum_{x \in son_i}{K_x}},~B_i=\frac{\sum_{x \in son_i}{(B_x+W_x)}-W_i}{deg_i-\sum_{x \in son_i}{K_x}}
+\end{eqnarray}
+
+最后还有边界的问题，即对于以$root$为根的树的叶子节点$i$，其实$i$的下方相当于接了一个电势为0的节点，即$deg_i=2$，$\displaystyle \sum_{x \in son_i}{(U_x+W_x)}=0$，所以有：
+\begin{eqnarray*}
+U_i=\frac{1}{2}U_{fa_i}-\frac{W_i}{2}
+\end{eqnarray*}
+\begin{eqnarray}
+\Rightarrow~K_i=\frac{1}{2},~B_i=-\frac{W_i}{2}
+\end{eqnarray}
+
+这样所有$K$和$B$都可以事先递推出来，询问的时候可以每次$O(L)$（$L$为树的最长链长度）递推$U_i$，而修改$W_i$的时候只需在修改点$u$到根的路径上暴力重新递推$K$和$B$即可，单次递推也可以做到$O(L)$。
+
+总时间复杂度$O(N+QL)$。
+
+\subsection{插线板 \protect\footnote{bzoj3556, CTSC2014 day1}}
+
+\subsubsection{题目大意}
+
+有一棵$N$（$N \leq 10000$）个节点且每个节点都是一个插线板的树，每个插线板由三条可忽略电阻的导线（或小节点）组成，树的每条边就是父亲的三条导线与孩子的三条导线两两连电阻组成的$3 \times 3$的电阻网络。共有$Q$（$Q \leq 10000$）次操作，分为两种：\\
+①修改某个电阻的阻值；\\
+②询问某两条导线之间的等效电阻。
+
+其中阻值均以电导$g$（$0<g \leq 10$）的形式给出。
+
+\subsubsection{解法1}
+
+可以解方程暴力求解等效电阻，方法同例4.1。时间复杂度$O(Q \cdot 27N^3)$。
+
+\subsubsection{解法2}
+
+解法1的问题在于电路图点数过多。现考虑能否通过$n$阶“$Y-\Delta$变换”使得询问的两个插线板直接相连。
+
+定义与导线$x$相连的导线集合为$S(x)$，$Transform(x)$表示以$x$为中心进行一次“$Y-\Delta$变换”，使得$x$不与任何导线相连且$S(x)$中的导线两两连电阻构成一张完全图。具体变换方式见(\ref{eq:delta})。根据电导的性质，两个不连通的点可以看作接有电导为0的电阻，两点间并联多个电阻只需将电导相加。利用这两点，这个“$Y-\Delta$变换”可以很容易地用程序实现。
+
+为了方便，先只考虑树是一条链并且询问的两个插线板在这条链的两端的情况。
+
+\parpic[r]{\includegraphics[width=4cm]{5.jpg}}
+
+如右图所示为一棵只有三个插线板的树。点A、B、C、D、E、F、G、H、I均为插线板的导线，蓝色的连边是本来的电阻，而紫色的连边是新增的电阻（可以看作初始电导为0的电阻）。当$Transform(D)$时，容易发现电路会变为下左图所示（当然连边电导会有增加）。此时再$Tranform(E)$和$Transform(F)$，就会发现会变为下右图所示，也正是理想的效果——A、B、C三点直接与G、H、I三点相连。所以对于一条插线板数大于3 的链，也只需多次进行上述变换过程即可使得询问的两个插线板直接相连。此时只要解一个$5 \times 5$的方程组即可得到等效电阻。
+
+\centerline{\includegraphics[width=9cm]{6.png}}
+
+于是现在问题变为如何将一棵树变为一条询问的两个插线板位于两端的链。其实这与上面的过程也是类似的。如下左图所示，从叶子节点（设导线为D、E、F）开始依次$Transform(D)$、$Transform(E)$、$Transform(F)$，就会发现叶子节点类似于“收缩”到了父亲节点上，结果如下右图所示。因此只要把询问的链连出的子树全部“收缩”到询问的链上即可。
+
+\centerline{\includegraphics[width=9cm]{7.png}}
+
+由于$Transform$过程有一定的常数$k$（这里要用到最高为8阶的“$Y-\Delta$变换”，而$n$阶的时间复杂度为$O(n^2)$），整个算法的时间复杂度为$O(Q \cdot (kN+5^3))$。
+
+\subsubsection{解法3}
+
+其实通过解法2，已经可以发现这个问题就是一个修改边、维护子树信息和链信息的题目。不妨考虑使用$Link-Cut~~Tree$来进行优化。
+
+为了方便，可以在$Link-Cut~~Tree$中加入$N-1$个表示边的点。表示边的点维护$3 \times 3$的电阻边，表示插线板的点维护3条导线之间连接的3 个电阻即可。另外对于每个点还需要维护虚边连的点“收缩”后产生的等效电阻，这样就可以维护子树信息了。询问的时候与其它题目$Link-Cut~~Tree$的链询问也没有太大的区别，只是链上的信息较为复杂，合并信息代码较长。最后依旧用高斯消元解一下方程组即可。
+
+时间复杂度$O(k(N+Q)log~N+5^3Q)$，可以通过全部测试数据。
+
+\section{总结}
+
+由以上几部分的例题可以看出，信息学中的物理问题看上去确实较为复杂，但是经过一些物理（可能用到一定的高等数学）推导就可以使问题直接用一个公式解决或者转化为信息学中的经典问题，从而使原问题得以快速地解决。这既体现了物理学的优美，也体现了信息学的准确高效。
+
+这样看来，学科与学科之间的界限其实并没有那么分明，不同学科的结合也许会使更多新思路、新方法产生。这或许将给我们此后的学习带来一些启示。
+
+\newpage
+
+\section*{参考文献}
+\begin{enumerate}[\lbrack 1\rbrack]
+\item 刘汝佳，《算法竞赛入门经典》，清华大学出版社。
+\item 程稼夫，《中学奥林匹克竞赛物理教程$\cdot$力学篇》，中国科学技术大学出版社。
+\item 舒幼生，《力学（物理类）》，北京大学出版社。
+\item 程稼夫，《中学奥林匹克竞赛物理教程$\cdot$电磁学篇》，中国科学技术大学出版社。
+\end{enumerate}
+
+\section*{例题网址}
+\begin{enumerate}[\lbrack 1\rbrack]
+\item 例1.1，http://acm.hdu.edu.cn/showproblem.php?pid=4969
+\item 例1.2，http://poj.openjudge.cn/challenge5/A/
+\item 例1.3，http://www.lydsy.com/JudgeOnline/problem.php?id=3695
+\item 例2.1，http://www.lydsy.com/JudgeOnline/problem.php?id=3570
+\item 例2.2，http://poj.openjudge.cn/challenge5/C/
+\item 例3.1，http://www.lydsy.com/JudgeOnline/problem.php?id=2048
+\item 例3.2，http://icpc.baylor.edu/download/worldfinals/problems/2007WorldFinalProblemSet.pdf
+\item 例4.1，http://poj.org/problem?id=3532
+\item 例4.2，http://www.lydsy.com/JudgeOnline/problem.php?id=2805
+\item 例4.3，http://www.lydsy.com/JudgeOnline/problem.php?id=3556
+\end{enumerate}
+
+%% 论文结束
+
+\end{document}

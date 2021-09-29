@@ -1,0 +1,123 @@
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <cstring>
+#include <map>
+#include <set>
+#include <vector>
+using namespace std;
+int o,i,j,n,head[3005],H[3005],head2[10005],next2[10005],e2[10005],chang[10005],next[5000000],fa[3005],AA,dp[3005],X[3005],Q[3005],ans,T,A[3005],B[3005],C[3005],cnt;
+bool v[3005];
+bool V[5000000];
+int f[3005],O,now,t[3005];
+short LCA[3005][3005],e[5000000],E[5000000];
+void add(int a,int b,int c,int d) {e[a]=c; E[a]=d; next[a]=head[b];head[b]=a;}
+const int MOD=1000000007;
+int quick(int a,int b)
+{
+    int ans=1;
+    while (b) {if (b&1) ans=1ll*ans*a%MOD; a=1ll*a*a%MOD; b>>=1;}
+    return ans;
+}
+void dfs(int x,int y)
+{
+    int now=head2[x];
+    dp[x]=y;
+    while (now!=0)
+    {
+        if (!v[e2[now]])
+        {
+            v[e2[now]]=true;
+            fa[e2[now]]=x; H[e2[now]]=chang[now];
+            dfs(e2[now],y+1);
+        }
+        now=next2[now];
+    }
+}
+void ADD(int a,int b,int c,int d)
+{
+    e2[a]=c;
+    next2[a]=head2[b];
+    head2[b]=a;
+    chang[a]=d;
+}
+int cmp(int i,int j) {return dp[i]<dp[j];}
+void dfs2(int x)
+{
+    int now=head2[x];
+    while (now!=0)
+    {
+        if (!v[e2[now]])
+        {
+            v[e2[now]]=true;
+            dfs2(e2[now]);
+            X[x]+=X[e2[now]];
+        }
+        now=next2[now];
+    }
+    if (H[x]==i && X[x]) Q[x]=0;
+}
+int getf(int k) {return f[k]==k?f[k]:f[k]=getf(f[k]);}
+int main()
+{
+    scanf("%d",&T);
+    while (T--)
+    {
+        scanf("%d",&n);
+        for (i=1; i<=n; i++)
+          for (j=i+1; j<=n; j++)
+          {
+              scanf("%d",&AA);
+              add(++o,AA,i,j);
+          }
+        for (i=1; i<=o; i++) V[i]=false;
+        for (i=1; i<=n; i++) f[i]=i; cnt=0;
+        for (i=1; i<=3000; i++)
+        {
+            now=head[i];
+            while (now!=0)
+            {
+                if (getf(e[now])!=getf(E[now]))
+                {
+                    A[++cnt]=e[now]; B[cnt]=E[now]; C[cnt]=i;
+                    f[getf(e[now])]=getf(E[now]);
+                    V[now]=true;
+                }
+                now=next[now];
+            }
+        }
+        for (i=1; i<=cnt; i++) {ADD(++O,A[i],B[i],C[i]); ADD(++O,B[i],A[i],C[i]);}
+        for (i=1; i<=n; i++) v[i]=false; v[1]=true;
+        dfs(1,1);
+        for (i=1; i<=n; i++) t[i]=i;
+        for (i=1; i<=n; i++) LCA[i][i]=i;
+        sort(t+1,t+n+1,cmp);
+        for (i=1; i<=n; i++) for (j=1; j<=n; j++) if (i!=j) {if (dp[LCA[t[i]][fa[t[j]]]]>dp[LCA[fa[t[i]]][t[j]]]) LCA[t[i]][t[j]]=LCA[t[i]][fa[t[j]]]; else LCA[t[i]][t[j]]=LCA[fa[t[i]]][t[j]];}
+        for (i=1; i<=n; i++) Q[i]=1;
+        for (i=1; i<=3000; i++)
+        {
+            now=head[i];
+            for (j=1; j<=n; j++) X[j]=0,v[j]=false;
+            while (now!=0)
+            {
+                if (!V[now])
+                {
+                    X[e[now]]++; X[E[now]]++; X[LCA[e[now]][E[now]]]-=2;
+                }
+                now=next[now];
+            }
+            v[1]=true;
+            dfs2(1);
+        }
+        for (i=2; i<=n; i++) ans+=Q[i];
+        cout<<ans<<endl;
+        ans=0;
+        for (i=1; i<=o; i++) next[i]=e[i]=E[i]=0;
+        for (i=1; i<=3000; i++) head[i]=0;
+        for (i=1; i<=max(n,O); i++) head2[i]=next2[i]=e2[i]=chang[i]=0; o=O=0;
+    }
+    return 0;
+}

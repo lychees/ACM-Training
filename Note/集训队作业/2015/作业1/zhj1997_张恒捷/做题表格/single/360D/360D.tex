@@ -1,0 +1,13 @@
+\section{360D Levko and Sets}
+\subsection*{试题大意}
+有n个数ai ，m个数bi。对于一个ai，最初集合中只有1这个数字，然后每次从集合中挑出一个数字x，如果$x\times ai^{bj} mod~p$ 不在集合中，则加入。最后求这n个集合的并有多少个元素。
+
+p是质数。
+
+$n \leq 10000$，$m \leq 1000000$
+\subsection*{算法}
+对于ai来说，任何一个集合中的元素都可以表示成：$ai^{\sum{bj*cj}}mod~p$，设$t=gcd(b1,b2,…,bj,p-1)$，上式可以写成$ai^{kt} ~mod~p$，设g是p的一个原根，上式又等于$g^{ri*k*t}~mod ~p$，另$qi=gcd(ri*t,p-1)$，$g^{k*qi}~mod~p$。
+问题就成了$k*qi~mod~ (p-1)$有多少。容斥一下即可。
+这时我们并不需要求出g再求qi，发现i这个集合中有$(p-1)/qi$个元素。我们只要找到最小的d使得$(ai^t)^d~ mod~ p=1$，就说明i集合元素为d个。所以$qi=(p-1)/d$。d只要枚举p-1的约数即可。
+
+\subsection*{时间复杂度：$O(\text{约数个数}^2 + nlogn)$，空间复杂度：$O(n+ \text{约数个数})$}

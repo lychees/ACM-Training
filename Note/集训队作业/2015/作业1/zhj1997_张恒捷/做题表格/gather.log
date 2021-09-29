@@ -1,0 +1,1193 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2014.6.28)  12 JAN 2015 10:37
+entering extended mode
+**C:/Users/Administrator/Desktop/做题表格/gather.tex
+(C:/Users/Administrator/Desktop/做题表格/gather.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for loaded.
+(C:\CTEX\MiKTeX\tex\latex\base\report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(C:\CTEX\MiKTeX\tex\latex\base\size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(C:\CTEX\MiKTeX\tex\latex\fancyhdr\fancyhdr.sty
+\fancy@headwidth=\skip43
+\f@ncyO@elh=\skip44
+\f@ncyO@erh=\skip45
+\f@ncyO@olh=\skip46
+\f@ncyO@orh=\skip47
+\f@ncyO@elf=\skip48
+\f@ncyO@erf=\skip49
+\f@ncyO@olf=\skip50
+\f@ncyO@orf=\skip51
+)
+(C:\CTEX\MiKTeX\tex\latex\fancyhdr\extramarks.sty
+\@temptokenb=\toks14
+)
+(C:\CTEX\MiKTeX\tex\latex\titling\titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip52
+\thanksmargin=\skip53
+\droptitle=\skip54
+)
+(C:\CTEX\MiKTeX\tex\latex\tools\indentfirst.sty
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+)
+(C:\CTEX\MiKTeX\tex\latex\hyperref\hyperref.sty
+Package: hyperref 2012/02/06 v6.82o Hypertext links for LaTeX
+
+(C:\CTEX\MiKTeX\tex\generic\oberdiek\hobsub-hyperref.sty
+Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
+
+(C:\CTEX\MiKTeX\tex\generic\oberdiek\hobsub-generic.sty
+Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
+Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
+Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provides unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/01/30 v1.0 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/04/23 v1.7 Hooks at very end of document (HO)
+Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
+Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
+)
+(C:\CTEX\MiKTeX\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(C:\CTEX\MiKTeX\tex\generic\ifxetex\ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(C:\CTEX\MiKTeX\tex\latex\oberdiek\kvoptions.sty
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+)
+\@linkdim=\dimen103
+\Hy@linkcounter=\count88
+\Hy@pagecounter=\count89
+
+(C:\CTEX\MiKTeX\tex\latex\hyperref\pd1enc.def
+File: pd1enc.def 2012/02/06 v6.82o Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count90
+
+(C:\CTEX\MiKTeX\tex\latex\00miktex\hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 3925.
+Package hyperref Info: Option `CJKbookmarks' set `true' on input line 3925.
+Package hyperref Info: Hyper figures OFF on input line 4046.
+Package hyperref Info: Link nesting OFF on input line 4051.
+Package hyperref Info: Hyper index ON on input line 4054.
+Package hyperref Info: Plain pages OFF on input line 4061.
+Package hyperref Info: Backreferencing OFF on input line 4066.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4284.
+\c@Hy@tempcnt=\count91
+
+(C:\CTEX\MiKTeX\tex\latex\ltxmisc\url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4637.
+\Fld@menulength=\count92
+\Field@Width=\dimen104
+\Fld@charsize=\dimen105
+Package hyperref Info: Hyper figures OFF on input line 5757.
+Package hyperref Info: Link nesting OFF on input line 5762.
+Package hyperref Info: Hyper index ON on input line 5765.
+Package hyperref Info: backreferencing OFF on input line 5772.
+Package hyperref Info: Link coloring ON on input line 5775.
+Package hyperref Info: Link coloring with OCG OFF on input line 5782.
+Package hyperref Info: PDF/A mode OFF on input line 5787.
+LaTeX Info: Redefining \ref on input line 5827.
+LaTeX Info: Redefining \pageref on input line 5831.
+\Hy@abspage=\count93
+\c@Item=\count94
+\c@Hfootnote=\count95
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(C:\CTEX\MiKTeX\tex\latex\hyperref\hpdftex.def
+File: hpdftex.def 2012/02/06 v6.82o Hyperref driver for pdfTeX
+\Fld@listcount=\count96
+\c@bookmark@seq@number=\count97
+
+(C:\CTEX\MiKTeX\tex\latex\oberdiek\rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip55
+)
+(C:\CTEX\MiKTeX\tex\latex\base\makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+(C:\CTEX\MiKTeX\tex\latex\tools\array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen106
+\extrarowheight=\dimen107
+\NC@list=\toks16
+\extratabsurround=\skip56
+\backup@length=\skip57
+)
+(C:\CTEX\MiKTeX\tex\latex\isomath\isomath.sty
+Package: isomath 2011/02/01 v0.5 ISO math style
+
+(C:\CTEX\MiKTeX\tex\latex\was\fixmath.sty
+Package: fixmath 2000/04/11 v0.9 (WaS)
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 27.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 28.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 29.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 30.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 31.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 32.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 33.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 34.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 35.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 36.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 37.
+LaTeX Font Info:    Redeclaring math symbol \alpha on input line 38.
+LaTeX Font Info:    Redeclaring math symbol \beta on input line 39.
+LaTeX Font Info:    Redeclaring math symbol \gamma on input line 40.
+LaTeX Font Info:    Redeclaring math symbol \delta on input line 41.
+LaTeX Font Info:    Redeclaring math symbol \epsilon on input line 42.
+LaTeX Font Info:    Redeclaring math symbol \zeta on input line 43.
+LaTeX Font Info:    Redeclaring math symbol \eta on input line 44.
+LaTeX Font Info:    Redeclaring math symbol \theta on input line 45.
+LaTeX Font Info:    Redeclaring math symbol \iota on input line 46.
+LaTeX Font Info:    Redeclaring math symbol \kappa on input line 47.
+LaTeX Font Info:    Redeclaring math symbol \lambda on input line 48.
+LaTeX Font Info:    Redeclaring math symbol \mu on input line 49.
+LaTeX Font Info:    Redeclaring math symbol \nu on input line 50.
+LaTeX Font Info:    Redeclaring math symbol \xi on input line 51.
+LaTeX Font Info:    Redeclaring math symbol \pi on input line 52.
+LaTeX Font Info:    Redeclaring math symbol \rho on input line 53.
+LaTeX Font Info:    Redeclaring math symbol \sigma on input line 54.
+LaTeX Font Info:    Redeclaring math symbol \tau on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \upsilon on input line 56.
+LaTeX Font Info:    Redeclaring math symbol \phi on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \chi on input line 58.
+LaTeX Font Info:    Redeclaring math symbol \psi on input line 59.
+LaTeX Font Info:    Redeclaring math symbol \omega on input line 60.
+LaTeX Font Info:    Redeclaring math symbol \varepsilon on input line 61.
+LaTeX Font Info:    Redeclaring math symbol \vartheta on input line 62.
+LaTeX Font Info:    Redeclaring math symbol \varpi on input line 63.
+LaTeX Font Info:    Redeclaring math symbol \varphi on input line 64.
+LaTeX Font Info:    Redeclaring math symbol \varrho on input line 65.
+LaTeX Font Info:    Redeclaring math symbol \varsigma on input line 66.
+))
+(C:\CTEX\MiKTeX\tex\latex\multirow\multirow.sty
+\bigstrutjot=\dimen108
+)
+(C:\CTEX\MiKTeX\tex\latex\makecell\makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen109
+\c@nlinenum=\count98
+\TeXr@lab=\toks17
+)
+(C:\CTEX\MiKTeX\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\CTEX\MiKTeX\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\CTEX\MiKTeX\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(C:\CTEX\MiKTeX\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(C:\CTEX\MiKTeX\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+\Gread@gobject=\count99
+))
+\Gin@req@height=\dimen110
+\Gin@req@width=\dimen111
+)
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip58
+
+For additional information on amsmath, use the `?' option.
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks18
+\ex@=\dimen112
+))
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen113
+)
+(C:\CTEX\MiKTeX\tex\latex\ams\math\amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count100
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count101
+\leftroot@=\count102
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count103
+\DOTSCASE@=\count104
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen114
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count105
+\c@MaxMatrixCols=\count106
+\dotsspace@=\muskip11
+\c@parentequation=\count107
+\dspbrk@lvl=\count108
+\tag@help=\toks19
+\row@=\count109
+\column@=\count110
+\maxfields@=\count111
+\andhelp@=\toks20
+\eqnshift@=\dimen115
+\alignsep@=\dimen116
+\tagshift@=\dimen117
+\tagwidth@=\dimen118
+\totwidth@=\dimen119
+\lineht@=\dimen120
+\@envbody=\toks21
+\multlinegap=\skip59
+\multlinetaggap=\skip60
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(C:\CTEX\MiKTeX\tex\latex\base\latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(C:\CTEX\MiKTeX\tex\latex\listings\listings.sty
+\lst@mode=\count112
+\lst@gtempboxa=\box28
+\lst@token=\toks23
+\lst@length=\count113
+\lst@currlwidth=\dimen121
+\lst@column=\count114
+\lst@pos=\count115
+\lst@lostspace=\dimen122
+\lst@width=\dimen123
+\lst@newlines=\count116
+\lst@lineno=\count117
+\lst@maxwidth=\dimen124
+
+(C:\CTEX\MiKTeX\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count118
+\lst@skipnumbers=\count119
+\lst@framebox=\box29
+)
+(C:\CTEX\MiKTeX\tex\latex\listings\listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+\@indexfile=\write3
+
+Writing index file gather.idx
+(C:\CTEX\MiKTeX\tex\latex\psnfss\courier.sty
+Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(C:\CTEX\MiKTeX\tex\latex\ctex\ctex.sty
+Package: ctex 2011/03/11 v1.02c ctex macros package
+
+(C:\CTEX\MiKTeX\tex\latex\ctex\opt\ctex-common-opts.def)
+(C:\CTEX\CTeX\tex\latex\ctex\cfg\ctexopts.cfg)
+(C:\CTEX\MiKTeX\tex\latex\ctex\def\ctex-common.def
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\expl3.sty
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3names.sty
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3bootstrap.sty
+Package: l3bootstrap 2011/12/29 v3110 L3 Experimental bootstrap code
+)
+Package: l3names 2011/12/30 v3113 L3 Experimental namespace for primitives
+)
+(C:\CTEX\MiKTeX\tex\latex\misc\etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count120
+)
+Package: expl3 2012/02/26 v3471 L3 Experimental code bundle wrapper
+
+(C:\CTEX\MiKTeX\tex\latex\graphics\color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(C:\CTEX\MiKTeX\tex\latex\00miktex\color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3basics.sty
+Package: l3basics 2012/02/26 v3460 L3 Experimental basic definitions
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3expan.sty
+Package: l3expan 2012/02/26 v3460 L3 Experimental argument expansion
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3tl.sty
+Package: l3tl 2012/02/26 v3460 L3 Experimental token lists
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3seq.sty
+Package: l3seq 2012/01/09 v3158 L3 Experimental sequences and stacks
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3int.sty
+Package: l3int 2012/02/26 v3460 L3 Experimental integers
+\c_max_int=\count121
+\l_tmpa_int=\count122
+\l_tmpb_int=\count123
+\l_tmpc_int=\count124
+\g_tmpa_int=\count125
+\g_tmpb_int=\count126
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3quark.sty
+Package: l3quark 2012/02/12 v3384 L3 Experimental quarks
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3prg.sty
+Package: l3prg 2012/02/26 v3464 L3 Experimental control structures
+\g_prg_map_int=\count127
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3clist.sty
+Package: l3clist 2012/02/26 v3460 L3 Experimental comma separated lists
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3token.sty
+Package: l3token 2012/02/26 v3460 L3 Experimental token manipulation
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3prop.sty
+Package: l3prop 2012/02/26 v3460 L3 Experimental property lists
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3msg.sty
+Package: l3msg 2012/02/26 v3470 L3 Experimental messages
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3file.sty
+Package: l3file 2012/02/26 v3464 L3 Experimental file and I/O operations
+\l_iow_stream_int=\count128
+\l_iow_line_length_int=\count129
+\l_iow_target_length_int=\count130
+\l_iow_current_line_int=\count131
+\l_iow_current_word_int=\count132
+\l_iow_current_indentation_int=\count133
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3skip.sty
+Package: l3skip 2012/02/26 v3460 L3 Experimental dimensions and skips
+\l_tmpa_dim=\dimen125
+\l_tmpb_dim=\dimen126
+\l_tmpc_dim=\dimen127
+\g_tmpa_dim=\dimen128
+\g_tmpb_dim=\dimen129
+\l_tmpa_skip=\skip61
+\l_tmpb_skip=\skip62
+\l_tmpc_skip=\skip63
+\g_tmpa_skip=\skip64
+\g_tmpb_skip=\skip65
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3keys.sty
+Package: l3keys 2011/12/22 v3086 L3 Experimental key-value interfaces
+\g_keyval_level_int=\count134
+\l_keys_choice_int=\count135
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3fp.sty
+Package: l3fp 2012/02/06 v3315 L3 Experimental floating-point operations
+\c_one_million=\count136
+\c_one_hundred_million=\count137
+\c_five_hundred_million=\count138
+\c_one_thousand_million=\count139
+\c_fp_pi_by_four_decimal_int=\count140
+\c_fp_pi_by_four_extended_int=\count141
+\c_fp_pi_decimal_int=\count142
+\c_fp_pi_extended_int=\count143
+\c_fp_two_pi_decimal_int=\count144
+\c_fp_two_pi_extended_int=\count145
+\l_fp_count_int=\count146
+\l_fp_div_offset_int=\count147
+\l_fp_exp_integer_int=\count148
+\l_fp_exp_decimal_int=\count149
+\l_fp_exp_extended_int=\count150
+\l_fp_exp_exponent_int=\count151
+\l_fp_input_a_sign_int=\count152
+\l_fp_input_a_integer_int=\count153
+\l_fp_input_a_decimal_int=\count154
+\l_fp_input_a_exponent_int=\count155
+\l_fp_input_b_sign_int=\count156
+\l_fp_input_b_integer_int=\count157
+\l_fp_input_b_decimal_int=\count158
+\l_fp_input_b_exponent_int=\count159
+\l_fp_input_a_extended_int=\count160
+\l_fp_input_b_extended_int=\count161
+\l_fp_mul_a_i_int=\count162
+\l_fp_mul_a_ii_int=\count163
+\l_fp_mul_a_iii_int=\count164
+\l_fp_mul_a_iv_int=\count165
+\l_fp_mul_a_v_int=\count166
+\l_fp_mul_a_vi_int=\count167
+\l_fp_mul_b_i_int=\count168
+\l_fp_mul_b_ii_int=\count169
+\l_fp_mul_b_iii_int=\count170
+\l_fp_mul_b_iv_int=\count171
+\l_fp_mul_b_v_int=\count172
+\l_fp_mul_b_vi_int=\count173
+\l_fp_mul_output_int=\count174
+\l_fp_output_sign_int=\count175
+\l_fp_output_integer_int=\count176
+\l_fp_output_decimal_int=\count177
+\l_fp_output_exponent_int=\count178
+\l_fp_output_extended_int=\count179
+\l_fp_round_position_int=\count180
+\l_fp_round_target_int=\count181
+\l_fp_split_sign_int=\count182
+\l_fp_internal_int=\count183
+\l_fp_trig_octant_int=\count184
+\l_fp_trig_sign_int=\count185
+\l_fp_trig_decimal_int=\count186
+\l_fp_trig_extended_int=\count187
+\l_fp_internal_dim=\dimen130
+\l_fp_internal_skip=\skip66
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3box.sty
+Package: l3box 2012/02/18 v3432 L3 Experimental boxes
+\l_tmpb_box=\box30
+\l_box_top_dim=\dimen131
+\l_box_bottom_dim=\dimen132
+\l_box_left_dim=\dimen133
+\l_box_right_dim=\dimen134
+\l_box_top_new_dim=\dimen135
+\l_box_bottom_new_dim=\dimen136
+\l_box_left_new_dim=\dimen137
+\l_box_right_new_dim=\dimen138
+\l_box_internal_box=\box31
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3coffins.sty
+Package: l3coffins 2012/02/26 v3460 L3 Experimental coffin code layer
+\l_coffin_internal_box=\box32
+\l_coffin_internal_dim=\dimen139
+\l_coffin_offset_x_dim=\dimen140
+\l_coffin_offset_y_dim=\dimen141
+\l_coffin_x_dim=\dimen142
+\l_coffin_y_dim=\dimen143
+\l_coffin_x_prime_dim=\dimen144
+\l_coffin_y_prime_dim=\dimen145
+\l_coffin_Depth_dim=\dimen146
+\l_coffin_Height_dim=\dimen147
+\l_coffin_TotalHeight_dim=\dimen148
+\l_coffin_Width_dim=\dimen149
+\c_empty_coffin=\box33
+\l_coffin_aligned_coffin=\box34
+\l_coffin_aligned_internal_coffin=\box35
+\l_coffin_bounding_shift_dim=\dimen150
+\l_coffin_left_corner_dim=\dimen151
+\l_coffin_right_corner_dim=\dimen152
+\l_coffin_bottom_corner_dim=\dimen153
+\l_coffin_top_corner_dim=\dimen154
+\l_coffin_scaled_total_height_dim=\dimen155
+\l_coffin_scaled_width_dim=\dimen156
+\l_coffin_display_coffin=\box36
+\l_coffin_display_coord_coffin=\box37
+\l_coffin_display_pole_coffin=\box38
+\l_coffin_display_offset_dim=\dimen157
+\l_coffin_display_x_dim=\dimen158
+\l_coffin_display_y_dim=\dimen159
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3color.sty
+Package: l3color 2011/09/07 v2776 L3 Experimental colour support
+)
+(C:\CTEX\MiKTeX\tex\latex\l3kernel\l3luatex.sty
+Package: l3luatex 2012/02/09 v3355 L3 Experimental LuaTeX-specific functions
+\g_cctab_allocate_int=\count188
+\g_cctab_stack_int=\count189
+))
+(C:\CTEX\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
+\etb@tempcnta=\count190
+)
+(C:\CTEX\MiKTeX\tex\latex\base\fix-cm.sty
+Package: fix-cm 2006/09/13 v1.1m fixes to LaTeX
+
+(C:\CTEX\MiKTeX\tex\latex\base\ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+))
+(C:\CTEX\MiKTeX\tex\latex\ctex\engine\ctex-cjk-engine.def
+(C:\CTEX\MiKTeX\tex\latex\cjk\CJK.sty
+Package: CJK 2008/12/29 4.8.2
+
+(C:\CTEX\MiKTeX\tex\latex\cjk\mule\MULEenc.sty
+Package: MULEenc 2008/12/29 4.8.2
+)
+(C:\CTEX\MiKTeX\tex\latex\cjk\CJK.enc
+File: CJK.enc 2008/12/29 4.8.2
+)
+LaTeX Info: Redefining \selectfont on input line 756.
+\CJK@indent=\box39
+)
+(C:\CTEX\CTeX\tex\latex\CJKpunct\CJKpunct.sty
+Package: CJKpunct 2010/02/21 4.8.2-2
+\CJKpunct@cnta=\count191
+\CJKpunct@cntb=\count192
+\CJKpunct@cntc=\count193
+\CJKpunct@cntd=\count194
+\CJKpunct@cnte=\count195
+
+(C:\CTEX\CTeX\tex\latex\CJKpunct\CJKpunct.spa))
+(C:\CTEX\MiKTeX\tex\latex\ctex\engine\ctex-cjk-common.def
+\ccwd=\dimen160
+)
+(C:\CTEX\MiKTeX\tex\latex\ctex\fontset\ctex-cjk-winfonts.def
+(C:\CTEX\MiKTeX\tex\generic\zhmetrics\zhwinfonts.tex
+(C:\CTEX\MiKTeX\tex\generic\oberdiek\ifpdf.sty
+Package ifpdf Info: The package is already loaded, stopped on input line 64.
+){C:/CTEX/UserData/pdftex/config/pdftex.map{Unicode.sfd}{UGBK.sfd}})))
+\CTEX@q=\count196
+\CTEX@r=\count197
+))
+(C:\CTEX\MiKTeX\tex\latex\ctex\def\ctex-gbk.def)
+(C:\CTEX\MiKTeX\tex\latex\ctex\cfg\ctex.cfg)
+(C:\CTEX\MiKTeX\tex\latex\tools\verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks24
+\verbatim@line=\toks25
+\verbatim@in@stream=\read1
+)
+(C:\Users\Administrator\Desktop\做题表格\gather.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+\AtBeginShipoutBox=\box40
+Package hyperref Info: Link coloring ON on input line 59.
+
+(C:\CTEX\MiKTeX\tex\latex\hyperref\nameref.sty
+Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+
+(C:\CTEX\MiKTeX\tex\generic\oberdiek\gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count198
+)
+LaTeX Info: Redefining \ref on input line 59.
+LaTeX Info: Redefining \pageref on input line 59.
+LaTeX Info: Redefining \nameref on input line 59.
+
+(C:\Users\Administrator\Desktop\做题表格\gather.out)
+(C:\Users\Administrator\Desktop\做题表格\gather.out)
+\@outlinefile=\write4
+
+(C:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count199
+\scratchdimen=\dimen161
+\scratchbox=\box41
+\nofMPsegments=\count200
+\nofMParguments=\count201
+\everyMPshowfont=\toks26
+Normal \count register pool exhausted, switching to extended pool.
+\MPscratchCnt=\count277
+\MPscratchDim=\dimen162
+\MPnumerator=\count278
+\makeMPintoPDFobject=\count279
+\everyMPtoPDFconversion=\toks27
+)
+\c@lstlisting=\count280
+ (C:\CTEX\MiKTeX\tex\latex\cjk\standard.bdg
+File: standard.bdg 2008/12/29 4.8.2
+)
+(C:\CTEX\MiKTeX\tex\latex\cjk\extended.enc
+File: extended.enc 2008/12/29 4.8.2
+)
+(C:\CTEX\MiKTeX\tex\latex\cjk\extended.chr
+File: extended.chr 2008/12/29 4.8.2
+)
+LaTeX Font Info:    Try loading font information for C19+rm on input line 65.
+
+(C:\CTEX\MiKTeX\tex\latex\ctex\fd\c19rm.fd
+File: c19rm.fd 2007/05/06 v0.8a ctex font definition file
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 65.
+
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 65.
+
+(C:\CTEX\MiKTeX\tex\latex\amsfonts\umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+) [1
+
+]
+(C:\Users\Administrator\Desktop\做题表格\gather.tocpdfTeX warning (ext4): d
+estination with the same identifier (name{page.1}) has been already used, dupli
+cate ignored
+<to be read again> 
+                   \relax 
+l.22 ...hant and Broken Sorting}{19}{section.1.21}
+                                                   [1
+
+] [2] [3])
+\tf@toc=\write5
+ [4]
+Chapter 1.
+(C:\Users\Administrator\Desktop\做题表格\single/263E/263E.tex
+Package CJKpunct Info: punctuation spaces for family 'zhsong' do not exist. Use
+ family 'def' instead. on input line 4.
+
+<single/263E/gongshi.png, id=549, 431.6125pt x 23.08624pt>
+File: single/263E/gongshi.png Graphic file (type png)
+
+<use single/263E/gongshi.png>
+Package pdftex.def Info: single/263E/gongshi.png used on input line 6.
+(pdftex.def)             Requested size: 341.43306pt x 18.26328pt.
+ <single/263E/1.png, id=551, 192.72pt x 192.72pt>
+File: single/263E/1.png Graphic file (type png)
+
+<use single/263E/1.png>
+Package pdftex.def Info: single/263E/1.png used on input line 15.
+(pdftex.def)             Requested size: 99.58464pt x 99.58272pt.
+ [5
+
+ <C:/Users/Administrator/Desktop/做题表格/single/263E/gongshi.png> <C:/User
+s/Administrator/Desktop/做题表格/single/263E/1.png>] <single/263E/2.png, id
+=579, 193.47281pt x 191.9672pt>
+File: single/263E/2.png Graphic file (type png)
+
+<use single/263E/2.png>
+Package pdftex.def Info: single/263E/2.png used on input line 21.
+(pdftex.def)             Requested size: 99.58464pt x 98.81001pt.
+ <single/263E/3.png, id=580, 230.36063pt x 224.33812pt>
+File: single/263E/3.png Graphic file (type png)
+
+<use single/263E/3.png>
+Package pdftex.def Info: single/263E/3.png used on input line 25.
+(pdftex.def)             Requested size: 99.58464pt x 96.9804pt.
+Package CJKpunct Info: punctuation spaces for family 'zhhei' do not exist. Use 
+family 'def' instead. on input line 29.
+)
+(C:\Users\Administrator\Desktop\做题表格\single/293B/293B.tex [6 <C:/Users/
+Administrator/Desktop/做题表格/single/263E/2.png> <C:/Users/Administrator/D
+esktop/做题表格/single/263E/3.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/235E/235E.tex
+Overfull \hbox (16.144pt too wide) in paragraph at lines 9--9
+[][]\C19/rm/bx/n/14.4/55 � \C19/rm/bx/n/14.4/45 m \C19/rm/bx/n/14.4/42 E \C19/r
+m/bx/n/14.4/63 , \C19/rm/bx/n/14.4/40 �|\C19/rm/bx/n/14.4/26 �| $\OML/cmm/m/it/
+14.4 O\OT1/cmr/m/n/14.4 ([]\OML/cmm/m/it/14.4 log\OT1/cmr/m/n/14.4 ([]) \OMS/cm
+sy/m/n/14.4  \OT1/cmr/m/n/14.4 14)$ \C19/rm/bx/n/14.4/52 � \C19/rm/bx/n/14.4/6
+4 �$\OT1/cmr/m/n/14.4 14$ \C19/rm/bx/n/14.4/58 �$[]$|\C19/rm/bx/n/14.4/26 �|
+ []
+
+) (C:\Users\Administrator\Desktop\做题表格\single/325E/325E.tex [7])
+(C:\Users\Administrator\Desktop\做题表格\single/260E/260E.tex [8])
+(C:\Users\Administrator\Desktop\做题表格\single/317E/317E.tex [9])
+(C:\Users\Administrator\Desktop\做题表格\single/325D/325D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/360D/360D.tex [10])
+(C:\Users\Administrator\Desktop\做题表格\single/339E/339E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/332D/332D.tex [11])
+(C:\Users\Administrator\Desktop\做题表格\single/286E/286E.tex [12])
+(C:\Users\Administrator\Desktop\做题表格\single/335D/335D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/261D/261D.tex
+Overfull \hbox (9.84366pt too wide) in paragraph at lines 1--1
+[]\OT1/cmr/bx/n/17.28 261D Max-im and In-creas-ing Sub-se-quence 
+ []
+
+[13]) (C:\Users\Administrator\Desktop\做题表格\single/235C/235C.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/311E/311E.tex [14])
+(C:\Users\Administrator\Desktop\做题表格\single/306D/306D.tex [15])
+(C:\Users\Administrator\Desktop\做题表格\single/249E/249E.tex
+<single/249E/1.png, id=694, 218.31563pt x 134.00063pt>
+File: single/249E/1.png Graphic file (type png)
+ <use single/249E/1.png>
+Package pdftex.def Info: single/249E/1.png used on input line 5.
+(pdftex.def)             Requested size: 218.31508pt x 134.00027pt.
+
+[16 <C:/Users/Administrator/Desktop/做题表格/single/249E/1.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/295D/295D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/264E/264E.tex [17])
+(C:\Users\Administrator\Desktop\做题表格\single/286D/286D.tex [18])
+(C:\Users\Administrator\Desktop\做题表格\single/258D/258D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/273D/273D.tex [19])
+(C:\Users\Administrator\Desktop\做题表格\single/283E/283E.tex [20])
+(C:\Users\Administrator\Desktop\做题表格\single/305D/305D.tex [21])
+(C:\Users\Administrator\Desktop\做题表格\single/354D/354D.tex
+<single/354D/1.png, id=744, 121.20282pt x 109.91063pt>
+File: single/354D/1.png Graphic file (type png)
+ <use single/354D/1.png>
+Package pdftex.def Info: single/354D/1.png used on input line 3.
+(pdftex.def)             Requested size: 121.20251pt x 109.91034pt.
+
+[22 <C:/Users/Administrator/Desktop/做题表格/single/354D/1.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/261E/261E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/253E/253E.tex [23])
+(C:\Users\Administrator\Desktop\做题表格\single/309E/309E.tex [24])
+(C:\Users\Administrator\Desktop\做题表格\single/316E3/316E3.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/243C/243C.tex [25])
+(C:\Users\Administrator\Desktop\做题表格\single/316G3/316G3.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/251E/251E.tex [26]
+<single/251E/5.png, id=790, 255.20343pt x 106.14656pt>
+File: single/251E/5.png Graphic file (type png)
+ <use single/251E/5.png>
+Package pdftex.def Info: single/251E/5.png used on input line 13.
+(pdftex.def)             Requested size: 205.23389pt x 85.35826pt.
+
+<single/251E/1.png, id=791, 255.20343pt x 106.14656pt>
+File: single/251E/1.png Graphic file (type png)
+ <use single/251E/1.png>
+Package pdftex.def Info: single/251E/1.png used on input line 19.
+(pdftex.def)             Requested size: 205.23389pt x 85.35826pt.
+
+[27 <C:/Users/Administrator/Desktop/做题表格/single/251E/5.png>]
+<single/251E/2.png, id=800, 292.84406pt x 103.88812pt>
+File: single/251E/2.png Graphic file (type png)
+ <use single/251E/2.png>
+Package pdftex.def Info: single/251E/2.png used on input line 25.
+(pdftex.def)             Requested size: 240.62073pt x 85.35826pt.
+
+<single/251E/3.png, id=801, 293.59688pt x 104.64093pt>
+File: single/251E/3.png Graphic file (type png)
+ <use single/251E/3.png>
+Package pdftex.def Info: single/251E/3.png used on input line 29.
+(pdftex.def)             Requested size: 239.49213pt x 85.35826pt.
+
+<single/251E/4.png, id=802, 289.08pt x 294.34969pt>
+File: single/251E/4.png Graphic file (type png)
+ <use single/251E/4.png>
+Package pdftex.def Info: single/251E/4.png used on input line 33.
+(pdftex.def)             Requested size: 289.07928pt x 294.34895pt.
+
+[28 <C:/Users/Administrator/Desktop/做题表格/single/251E/1.png> <C:/Users/A
+dministrator/Desktop/做题表格/single/251E/2.png> <C:/Users/Administrator/De
+sktop/做题表格/single/251E/3.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/256D/256D.tex [29 <C:/Users
+/Administrator/Desktop/做题表格/single/251E/4.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/303D/303D.tex [30]
+Overfull \hbox (11.73851pt too wide) in paragraph at lines 21--22
+[]\C19/rm/m/n/12/44 � \C19/rm/m/n/12/40  \C19/rm/m/n/12/63  \C19/rm/m/n/12/57
+ K|\C19/rm/m/n/12/26 �| \C19/rm/m/n/12/62 d u\OT1/cmr/m/n/12 b\C19/rm/m/n/12/61
+ � \C19/rm/m/n/12/55 �\OT1/cmr/m/n/12 n+1\C19/rm/m/n/12/40  \C19/rm/m/n/12/63 
+ \C19/rm/m/n/12/42 �|\C19/rm/m/n/12/26 �| \C19/rm/m/n/12/56 � \C19/rm/m/n/12/6
+1 � \C19/rm/m/n/12/39 l � \C19/rm/m/n/12/40  \C19/rm/m/n/12/60  \C19/rm/m/n/1
+2/64 � \C19/rm/m/n/12/61 � \C19/rm/m/n/12/50 q \C19/rm/m/n/12/46 � \C19/rm/m/n/
+12/65 � \C19/rm/m/n/12/40 �\OT1/cmr/m/n/12 n+1\C19/rm/m/n/12/42 �\OT1/cmr/m/n/1
+2 b\C19/rm/m/n/12/46 ?
+ []
+
+) (C:\Users\Administrator\Desktop\做题表格\single/338D/338D.tex [31])
+(C:\Users\Administrator\Desktop\做题表格\single/269E/269E.tex [32]
+<single/269E/2.png, id=838, 367.3725pt x 123.46124pt>
+File: single/269E/2.png Graphic file (type png)
+ <use single/269E/2.png>
+Package pdftex.def Info: single/269E/2.png used on input line 7.
+(pdftex.def)             Requested size: 367.37158pt x 123.46092pt.
+
+Overfull \hbox (1.37158pt too wide) in paragraph at lines 7--8
+[][] 
+ []
+
+<single/269E/1.png, id=839, 234.1247pt x 190.46156pt>
+File: single/269E/1.png Graphic file (type png)
+ <use single/269E/1.png>
+Package pdftex.def Info: single/269E/1.png used on input line 15.
+(pdftex.def)             Requested size: 234.12411pt x 190.46107pt.
+
+[33 <C:/Users/Administrator/Desktop/做题表格/single/269E/2.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/332E/332E.tex [34 <C:/Users
+/Administrator/Desktop/做题表格/single/269E/1.png>]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 9.
+
+(C:\CTEX\MiKTeX\tex\latex\psnfss\ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 19.
+
+(C:\CTEX\MiKTeX\tex\latex\psnfss\omspcr.fd
+File: omspcr.fd 
+)
+LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10.5> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
+
+Overfull \hbox (27.90019pt too wide) in paragraph at lines 21--22
+[]\OT1/pcr/m/n/10.5 if q[j] == 1, then add to the right of string s character p
+[i]; 
+ []
+
+
+Overfull \hbox (21.60019pt too wide) in paragraph at lines 25--26
+[]\OT1/pcr/m/n/10.5 if the value of the variable j equals the length of the str
+ing
+ []
+
+) (C:\Users\Administrator\Desktop\做题表格\single/331E2/331E2.tex [35])
+(C:\Users\Administrator\Desktop\做题表格\single/356E/356E.tex [36]
+Overfull \hbox (1.11226pt too wide) in paragraph at lines 24--25
+[]\C19/rm/m/n/12/54 e \C19/rm/m/n/12/58 � \C19/rm/m/n/12/50 � \C19/rm/m/n/12/60
+ ? \C19/rm/m/n/12/42 U \C19/rm/m/n/12/49 
+\OT1/cmr/m/n/12 i\C19/rm/m/n/12/63 � \C19/rm/m/n/12/42 � \C19/rm/m/n/12/58 � \C
+19/rm/m/n/12/64 � \C19/rm/m/n/12/40  \C19/rm/m/n/12/65 i \C19/rm/m/n/12/41 �|\
+C19/rm/m/n/12/26 �| \C19/rm/m/n/12/63 K \C19/rm/m/n/12/51 @ \C19/rm/m/n/12/60 
+ \C19/rm/m/n/12/36 � \C19/rm/m/n/12/43 �\OT1/cmr/m/n/12 i\C19/rm/m/n/12/58 � \C
+19/rm/m/n/12/64 � \C19/rm/m/n/12/53 �\OT1/cmr/m/n/12 i\C19/rm/m/n/12/37 � \C19/
+rm/m/n/12/55 � \C19/rm/m/n/12/64 � \C19/rm/m/n/12/60 % \C19/rm/m/n/12/40 \OT1/
+cmr/m/n/12 gary\C19/rm/m/n/12/39 G
+ []
+
+) (C:\Users\Administrator\Desktop\做题表格\single/273E/273E.tex
+Overfull \hbox (12.36664pt too wide) in paragraph at lines 3--4
+[]\OT1/cmr/m/n/12 Dima\C19/rm/m/n/12/43 �\OT1/cmr/m/n/12 Anya\C19/rm/m/n/12/59 
+U \C19/rm/m/n/12/44 � \C19/rm/m/n/12/58  \C19/rm/m/n/12/42 � \C19/rm/m/n/12/64
+ � \C19/rm/m/n/12/62 i \C19/rm/m/n/12/59 Z|\C19/rm/m/n/12/25 "| \C19/rm/m/n/12/
+59 y \C19/rm/m/n/12/63 3\OT1/cmr/m/n/12 Dima\C19/rm/m/n/12/59 � \C19/rm/m/n/12/
+38 � \C19/rm/m/n/12/49 
+ \C19/rm/m/n/12/61 � \C19/rm/m/n/12/42 � \C19/rm/m/n/12/60 # \C19/rm/m/n/12/62 
+i \C19/rm/m/n/12/59 Z � \C19/rm/m/n/12/43 �\OT1/cmr/m/n/12 Anya\C19/rm/m/n/12/5
+8 |\C19/rm/m/n/12/25 "|
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
+[37]) (C:\Users\Administrator\Desktop\做题表格\single/333C/333C.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/240F/240F.tex [38])
+(C:\Users\Administrator\Desktop\做题表格\single/305E/305E.tex [39])
+(C:\Users\Administrator\Desktop\做题表格\single/235D/235D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/342D/342D.tex [40])
+(C:\Users\Administrator\Desktop\做题表格\single/319E/319E.tex [41])
+(C:\Users\Administrator\Desktop\做题表格\single/301C/301C.tex [42]
+(C:\CTEX\MiKTeX\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+(C:\CTEX\MiKTeX\tex\latex\listings\lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+(C:\CTEX\MiKTeX\tex\latex\listings\lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+)
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 29.
+
+(C:\CTEX\MiKTeX\tex\latex\base\omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 29.
+ [43])
+(C:\Users\Administrator\Desktop\做题表格\single/309D/309D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/301E/301E.tex [44])
+(C:\Users\Administrator\Desktop\做题表格\single/309B/309B.tex [45])
+(C:\Users\Administrator\Desktop\做题表格\single/331D3/331D3.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/277D/277D.tex [46])
+(C:\Users\Administrator\Desktop\做题表格\single/341E/341E.tex [47]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 16.
+
+(C:\CTEX\MiKTeX\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
+)
+(C:\Users\Administrator\Desktop\做题表格\single/323B/323B.tex
+Overfull \hbox (1.02644pt too wide) in paragraph at lines 3--4
+[]\C19/rm/m/n/12/51 \ \C19/rm/m/n/12/61 � \C19/rm/m/n/12/43  \C19/rm/m/n/12/63
+ E \C19/rm/m/n/12/61 � \C19/rm/m/n/12/42 � \C19/rm/m/n/12/62 k\OT1/cmr/m/n/12 N
+\C19/rm/m/n/12/42 � \C19/rm/m/n/12/46 ( \C19/rm/m/n/12/40 :  \C19/rm/m/n/12/46
+ � \C19/rm/m/n/12/54 m \C19/rm/m/n/12/57 �|\C19/rm/m/n/12/26 �| \C19/rm/m/n/12/
+55 � \C19/rm/m/n/12/40  � \C19/rm/m/n/12/54 ? \C19/rm/m/n/12/61 � \C19/rm/m/n/
+12/48 � \C19/rm/m/n/12/42 � \C19/rm/m/n/12/46 ( \C19/rm/m/n/12/40 :\OT1/cmr/m/n
+/12 u\C19/rm/m/n/12/43 �\OT1/cmr/m/n/12 v |\C19/rm/m/n/12/26 �|\OT1/cmr/m/n/12 
+u\C19/rm/m/n/12/25 X\OT1/cmr/m/n/12 v|\C19/rm/m/n/12/26 �||�|
+ []
+
+[48]) (C:\Users\Administrator\Desktop\做题表格\single/248E/248E.tex
+[49]) (C:\Users\Administrator\Desktop\做题表格\single/325C/325C.tex
+[50]) (C:\Users\Administrator\Desktop\做题表格\single/266D/266D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/311C/311C.tex [51])
+(C:\Users\Administrator\Desktop\做题表格\single/316D/316D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/323C/323C.tex [52])
+(C:\Users\Administrator\Desktop\做题表格\single/343E/343E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/267C/267C.tex [53])
+(C:\Users\Administrator\Desktop\做题表格\single/240E/240E.tex [54])
+(C:\Users\Administrator\Desktop\做题表格\single/329E/329E.tex [55])
+(C:\Users\Administrator\Desktop\做题表格\single/303E/303E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/316F3/316F3.tex [56])
+(C:\Users\Administrator\Desktop\做题表格\single/360E/360E.tex [57])
+(C:\Users\Administrator\Desktop\做题表格\single/338E/338E.tex
+Overfull \hbox (12.64249pt too wide) in paragraph at lines 3--4
+[]\OT1/cmr/m/n/12 n\C19/rm/m/n/12/42 � \C19/rm/m/n/12/55 �$\OML/cmm/m/it/12 a\O
+T1/cmr/m/n/12 [1\OML/cmm/m/it/12 ::n\OT1/cmr/m/n/12 ]$|\C19/rm/m/n/12/26 �| \OT
+1/cmr/m/n/12 m\C19/rm/m/n/12/42 � \C19/rm/m/n/12/55 �$\OML/cmm/m/it/12 b\OT1/cm
+r/m/n/12 [1\OML/cmm/m/it/12 ::m\OT1/cmr/m/n/12 ]$|\C19/rm/m/n/12/25 "| \C19/rm/
+m/n/12/53 � \C19/rm/m/n/12/62 k \C19/rm/m/n/12/40 � \C19/rm/m/n/12/55  \C19/rm
+/m/n/12/42 �\OT1/cmr/m/n/12 x\C19/rm/m/n/12/49 � \C19/rm/m/n/12/65 v|\C19/rm/m/
+n/12/26 �| $\OML/cmm/m/it/12 a\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 x::x \OT1/cmr/m
+/n/12 + \OML/cmm/m/it/12 m \OMS/cmsy/m/n/12   \OT1/cmr/m/n/12 1]$\C19/rm/m/n/12
+/62 �$\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 [1\OML/cmm/m/it/12 ::m\OT1/cmr/m/n/12 ]
+$\C19/rm/m/n/12/39 
+ []
+
+[58]) (C:\Users\Administrator\Desktop\做题表格\single/285E/285E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/238D/238D.tex
+Missing character: There is no � in font cmr12!
+Missing character: There is no � in font cmr12!
+ [59])
+(C:\Users\Administrator\Desktop\做题表格\single/331C3/331C3.tex [60])
+(C:\Users\Administrator\Desktop\做题表格\single/288E/288E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/243D/243D.tex
+Overfull \hbox (2.07611pt too wide) in paragraph at lines 3--4
+[]\C19/rm/m/n/12/61 � \C19/rm/m/n/12/42 �\OT1/cmr/m/n/12 n*n\C19/rm/m/n/12/40 
+ \C19/rm/m/n/12/64  \C19/rm/m/n/12/41 � \C19/rm/m/n/12/60 / \C19/rm/m/n/12/40 
+/ \C19/rm/m/n/12/44 �|\C19/rm/m/n/12/26 �||�|\OT1/cmr/m/n/12 i,j|\C19/rm/m/n/12
+/26 �| \C19/rm/m/n/12/54 � \C19/rm/m/n/12/62 k \C19/rm/m/n/12/61 � \C19/rm/m/n/
+12/65 � \C19/rm/m/n/12/42 p \C19/rm/m/n/12/58 �$\OML/cmm/m/it/12 w[]$\C19/rm/m/
+n/12/40  \C19/rm/m/n/12/56 �|\C19/rm/m/n/12/26 �| \C19/rm/m/n/12/56 � \C19/rm/
+m/n/12/40 � \C19/rm/m/n/12/55 � \C19/rm/m/n/12/62 d\OT1/cmr/m/n/12 1*1*1\C19/rm
+/m/n/12/40 
+ []
+
+[61]) (C:\Users\Administrator\Desktop\做题表格\single/238E/238E.tex
+[62]) (C:\Users\Administrator\Desktop\做题表格\single/251D/251D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/351D/351D.tex [63])
+(C:\Users\Administrator\Desktop\做题表格\single/293E/293E.tex [64])
+(C:\Users\Administrator\Desktop\做题表格\single/348E/348E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/241E/241E.tex [65])
+(C:\Users\Administrator\Desktop\做题表格\single/254D/254D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/269D/269D.tex [66])
+(C:\Users\Administrator\Desktop\做题表格\single/346E/346E.tex [67]
+<single/346E/1.png, id=1159, 183.68625pt x 111.41624pt>
+File: single/346E/1.png Graphic file (type png)
+
+<use single/346E/1.png>
+Package pdftex.def Info: single/346E/1.png used on input line 27.
+(pdftex.def)             Requested size: 183.68578pt x 111.41597pt.
+)
+(C:\Users\Administrator\Desktop\做题表格\single/264D/264D.tex [68 <C:/Users
+/Administrator/Desktop/做题表格/single/346E/1.png>])
+(C:\Users\Administrator\Desktop\做题表格\single/280D/280D.tex [69])
+(C:\Users\Administrator\Desktop\做题表格\single/243E/243E.tex [70])
+(C:\Users\Administrator\Desktop\做题表格\single/293D/293D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/306C/306C.tex [71])
+(C:\Users\Administrator\Desktop\做题表格\single/317C/317C.tex [72])
+(C:\Users\Administrator\Desktop\做题表格\single/297E/297E.tex
+<single/297E/1.png, id=1200, 490.83376pt x 100.12407pt>
+File: single/297E/1.png Graphic file (type png)
+
+<use single/297E/1.png>
+Package pdftex.def Info: single/297E/1.png used on input line 7.
+(pdftex.def)             Requested size: 341.43306pt x 69.65094pt.
+)
+(C:\Users\Administrator\Desktop\做题表格\single/321D/321D.tex [73 <C:/Users
+/Administrator/Desktop/做题表格/single/297E/1.png>]
+Overfull \hbox (41.99982pt too wide) in paragraph at lines 11--11
+[]\OT1/pcr/m/n/12 1.For any i, any j<=x: setUp[i][j]^setUp[i][x]^setUp[i][j+x][
+] 
+ []
+
+
+Overfull \hbox (41.99982pt too wide) in paragraph at lines 13--13
+[]\OT1/pcr/m/n/12 2.For any i, any j<=x: setUp[j][i]^setUp[x][i]^setUp[j+x][i][
+] 
+ []
+
+
+Overfull \hbox (56.39981pt too wide) in paragraph at lines 15--15
+[]\OT1/pcr/m/n/12 It's quite easy to proof than find that: after each operation
+,[] 
+ []
+
+) (C:\Users\Administrator\Desktop\做题表格\single/274C/274C.tex [74])
+(C:\Users\Administrator\Desktop\做题表格\single/319D/319D.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/241D/241D.tex [75])
+(C:\Users\Administrator\Desktop\做题表格\single/314E/314E.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/249D/249D.tex [76])
+[77]
+Chapter 2.
+
+(C:\Users\Administrator\Desktop\做题表格\single/CowPatterns/CowPatterns.tex
+[78
+
+]) (C:\Users\Administrator\Desktop\做题表格\single/CowRun/CowRun.tex
+[79])
+(C:\Users\Administrator\Desktop\做题表格\single/CowsinaSkyscrape/CowsinaSky
+scrape.tex)
+(C:\Users\Administrator\Desktop\做题表格\single/Cowstantinople/Cowstantinop
+le.tex [80])
+(C:\Users\Administrator\Desktop\做题表格\single/HillWalk/HillWalk.tex
+[81]) [82]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 196.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 196.
+ (C:\Users\Administrator\Desktop\做题表格\gather.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 196.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 196.
+Package rerunfilecheck Info: File `gather.out' has not changed.
+(rerunfilecheck)             Checksum: C3B67F3BE8941174A8B728B70C031E30;7014.
+ ) 
+Here is how much of TeX's memory you used:
+ 16983 strings out of 495354
+ 274205 string characters out of 3183859
+ 339273 words of memory out of 3000000
+ 18797 multiletter control sequences out of 15000+200000
+ 36645 words of font info for 134 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 34i,8n,58p,883b,1166s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Windows/Fonts/simsun.ttc>{C:/CTEX/MiKTeX/fonts/enc/dvips/fontname/8r.enc}
+<C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/sim
+hei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simsun.ttc><C:/Windows/F
+onts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/W
+indows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.t
+tf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/
+simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Window
+s/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C
+:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsu
+n.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fon
+ts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simsun.ttc><C:/Win
+dows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc
+><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/si
+mhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/Fonts/simhei.ttf><C:/Windows/
+Fonts/simhei.ttf><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/
+Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.
+ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts
+/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windo
+ws/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><C:/Windows/Fonts/simsun.ttc><
+C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/CTEX/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmex10.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts
+/cmextra/cmex8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C
+:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/CTEX/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmmi6.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmmi8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/CTEX/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/CTEX/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr8.pfb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb><C:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/CTEX/MiKTeX/fon
+ts/type1/urw/courier/ucrr8a.pfb>
+Output written on gather.pdf (83 pages, 897388 bytes).
+PDF statistics:
+ 1583 PDF objects out of 1728 (max. 8388607)
+ 519 named destinations out of 1000 (max. 500000)
+ 892 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,25 @@
+\section{321D Ciel and Flipboard}
+\subsection*{试题大意}
+一个n*n的方阵，保证n是奇数。令$x=(n+1)/2$。每次操作可以将一个x*x的方阵中的数字取反。求方阵中数字和的最大值。
+
+$n\leq 33$
+\subsection*{算法}
+令$setUp[x][y]$表示$(x,y)$是否被取反
+
+有如下2个性质
+
+\begin{verbatim}
+1.For any i, any j<=x: setUp[i][j]^setUp[i][x]^setUp[i][j+x]
+ will be 0.
+2.For any i, any j<=x: setUp[j][i]^setUp[x][i]^setUp[j+x][i]
+ will be 0.
+It's quite easy to proof than find that: after each operation,
+ there always be 0 or 2 cells lay in
+ {setUp[i][j], setUp[i][x], setUp[i][j+x]} or
+ {setUp[j][i], setUp[x][i], setUp[j+x][i]}.
+
+\end{verbatim}
+
+只要枚举setUp[i][x](for any $i<=x$)，其他的贪心就可以了。
+
+\subsection*{时间复杂度：$O(2^x*n^2)$，空间复杂度：$O(n^2)$}

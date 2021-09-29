@@ -1,0 +1,139 @@
+\documentclass{cctart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[centerlast]{caption}
+\usepackage[bf, small]{titlesec}
+\usepackage{color}
+%\usepackage{indentfirst}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{ulem}
+\usepackage[linewidth=1pt]{mdframed}
+\geometry{left=2.5cm,right=2.5cm,top=2cm,bottom=2cm}
+
+\title{Sereja and Equality解题报告}
+\author{长郡中学\ 任瀚林}
+\date{1s,1024MB}
+\begin{document}
+\maketitle
+%\vskip 0.1in
+%\begin{center}
+%\begin{minipage}{4.7in}
+%\end{minipage}
+%\end{center}
+
+%\titleformat{\section}{\bf\large}{\thesection.\,}{0.24em}{}
+%\titlespacing{\section}{0cm}{*1.5}{*1.1}
+%\titleformat{\subsection}{\it}{\thesubsection.\enspace}{0.5em}{}
+%\titlespacing{\subsection}{0.5cm}{*4}{*1.5}
+
+
+
+\section{题面}
+\subsection{问题描述}
+(注：这是codechef上的官方翻译)
+
+佳佳称两个长度为$n$的数组$A,B$相似，如果对于所有$i(1\le i\le n)$，满足$C(A,A_i)=C(B,B_i)$。其中$C(X,x)$等于满足$X[j]<x(1\le j\le n)$的$j$的数目。
+
+对于两个排列$P_1,P_2$，佳佳定义函数$F(P_1,P_2)$等于满足$P_1[l\dots r]$相似于$P_2[l\dots r](1\le l\le r\le n)$并且$P_1[l\dots r]$包含不超过$E$个逆序对的数对$(l,r)$的数目。
+
+现在佳佳对下面这个问题发生了兴趣：对$P_1,P_2$取遍所有$n$个元素的排列$F(P_1,P_2)$的总和是多少。
+\subsection{输入格式}
+输入数据的第一行包含一个整数$T$——测试数据的组数。
+
+对于每组测试数据，仅包含一行两个整数$n,E$。
+\subsection{输出格式}
+对于每组测试数据，输出一行表示结果。答案对$10^9+7$取模。
+\subsection{样例输入}
+\begin{mdframed}
+\begin{verbatim}
+4
+2 2
+2 1
+2 0
+1 1
+\end{verbatim}
+\end{mdframed}
+\subsection{样例输出}
+\begin{mdframed}
+\begin{verbatim}
+10
+10
+9
+1
+\end{verbatim}
+\end{mdframed}
+\subsection{数据规模和约定}
+\begin{center}
+\begin{tabular}[b]{|c|c|c|c|}
+\hline
+测试点比例 & $T\le$ & $n\le$ & $E\le$\\
+\hline
+$6\%$ & $25$ & $5$ & $10$\\
+\hline
+$4\%$ & $10^4$ & $5$ & $10$\\
+\hline
+$10\%$ & $10$ & $10$ & $50$\\
+\hline
+$10\%$ & $10$ & $20$ & $200$\\
+\hline
+$10\%$ & $10$ & $100$ & $5000$\\
+\hline
+$10\%$ & $10$ & $500$ & $2000$\\
+\hline
+$10\%$ & $10$ & $500$ & $10^6$\\
+\hline
+$10\%$ & $10^4$ & $50$ & $10^6$\\
+\hline
+$30\%$ & $10^4$ & $500$ & $10^6$\\
+\hline
+\end{tabular}
+\end{center}
+\section{解题报告}
+\subsection{算法1}
+按照题面暴力模拟。
+
+复杂度$O(T(n!)^2n^4)$，期望得分$6$分。见\texttt{source$\backslash$SEAEQ1$\backslash$SEAEQ.cpp}。
+\subsection{算法2}
+令$Perm(n)$表示$1\dots n$的排列的全集，$inv(p)$表示排列$p$的逆序对数，$p[l\dots r]$表示序列$p$的第$l$项到第$r$项之间的元素依次组成的新序列。对于一个没有重复元素的序列$p$，$f(p)$表示一个$1\dots n$的排列满足$f(p)_i=C(p,p_i)+1$。
+
+我们要求的便是
+
+\begin{eqnarray}
+\text{要求} &=& \sum_{P_1\in Perm(n)}\sum_{P_2\in Perm(n)}\sum_{1\le l\le r\le n}[f(P_1[l\dots r])=f(P_2[l\dots r])][inv(f(P_1[l\dots r]))\le E]\nonumber\\
+&=& \sum_{1\le l\le r\le n}\sum_{p\in Perm(r-l+1)}[inv(p)\le E]\biggl(\sum_{P_1\in Perm(n)}[f(P_1[l\dots r])=p]\biggr)^2\nonumber\\
+&=& \sum_{x=1}^n(n-x+1)\sum_{p\in Perm(x)}[inv(p)\le E]\biggl(\frac{n!}{x!}\biggr)^2\nonumber\\
+&=& \sum_{x=1}^n(n-x+1)\biggl(\sum_{i=0}^Ecnt_{x,i}\biggr)\biggl(\frac{n!}{x!}\biggr)^2\nonumber
+\end{eqnarray}
+
+其中$cnt_{x,E}$表示长度为$x$的排列中，逆序对数为$E$的排列个数。
+
+这一部分暴力预处理，复杂度是$O(n^2n!+Tn^2)$的，期望得分$20$分。见\texttt{source$\backslash$SEAEQ2$\backslash$SEAEQ.cpp}。
+\subsection{算法3}
+注意到$cnt_{x,E}$是可以dp的。考虑长度为$x$，逆序对数为$E$的排列$p$的个数，我们只要枚举$E_0=C(x_{2\dots n},x_1)$。那么$f(p[2\dots n])$一定是一个$E-E_0$个逆序对的排列。我们得到了dp方程：
+$$cnt_{x,E}=\sum_{E_0\le \min(n-1,E)}cnt_{x-1,E-E_0}$$
+
+初始状态为$cnt_{1,0}=1$。
+
+而dp的状态量为$O(n^3)$，转移复杂度$O(n)$，所以预处理复杂度为$O(n^4)$，总复杂度$O(n^4+Tn^2)$，期望得分$40\sim 60$分，根据实现的优劣而定。见\texttt{source$\backslash$SEAEQ3$\backslash$SEAEQ.cpp}。
+\subsection{算法4}
+这个dp显然可以用前缀和优化，具体地就是记$Scnt_{x,E}=\sum_{i=1}^E cnt_{x,i}$。在求完$cnt_{x-1}$之后，可以用$O(E)$的时间求得$Scnt_{x-1}$，而
+\begin{equation}
+cnt_{x,E}=\begin{cases}
+Scnt_{x-1,E}-Scnt_{x-1,E-n} & E\ge n\\
+Scnt_{x-1,E} & E<n
+\end{cases}
+\nonumber
+\end{equation}
+
+这样就可以$O(1)$转移了。
+
+求答案的时候，$\sum_{i=0}^Ecnt_{x,i}$可以直接套用$Scnt$数组，复杂度变成了每次询问$O(n)$。
+
+复杂度等于状态量$O(n^3)$。总复杂度$O(n^3+Tn)$，由于隐藏的常数因子很小所以可以通过本题，期望得分$100$分。见\texttt{source$\backslash$SEAEQ4$\backslash$SEAEQ.cpp}。
+\section{数据生成}
+本题的随机数据就已经比较强，可以检验一个程序的正确性。
+
+此外也可以考虑一个测试点包含满足$n\le N$的全部数据。
+\end{document}

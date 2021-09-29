@@ -1,0 +1,17 @@
+\section{261D Maxim and Increasing Subsequence}
+\subsection*{试题大意}
+将一个n个元素的序列自我复制t遍后得到序列b，求其最长上升子序列。
+
+$n \times max{b_i}\leq 10^7 ,n,max{b_i}\leq 10^5, t\leq10^9$
+
+\subsection*{算法1}
+DP , $f[i][j]$表示当前最长上升子序列长度为i，末尾以数字j结尾，其末尾最近的位置。可以用前缀和转移。
+
+第一维大小为n，第二维大小为$max{b_i}$，转移$O(1)$
+
+\subsection*{时间复杂度：$O(n \times max{b_i})$，空间复杂度：$O(n \times max{b_i})$}
+
+\subsection*{算法2}
+使用经典的二分算最长上升子序列的思想，用$f_i$表示长度为i的上升子序列其末尾最小的数字。由于题目的特殊性，可以直接维护一张表G，$G_i$表示数字i加入后会二分到哪个地方。G的维护是$O(ans \times maxb_i)$的。
+
+\subsection*{时间复杂度：$O(n \times max{b_i})$，空间复杂度：$O(n)$}

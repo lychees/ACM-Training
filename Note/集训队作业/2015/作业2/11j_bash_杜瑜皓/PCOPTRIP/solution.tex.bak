@@ -1,0 +1,69 @@
+\documentclass{noiassignment}
+\usepackage[bookmarks=false, colorlinks, linkcolor=red, anchorcolor=red, citecolor=red, urlcolor=red]{hyperref}
+
+\begin{document}
+
+\title{Counting Pairwise Coprime Triples 解题报告}
+\author{浙江省镇海中学~~杜瑜皓}
+
+\maketitle
+
+\section{试题来源}
+
+\href{http://www.spoj.com/problems/PCOPTRIP/}{SPOJ PCOPTRIP}
+
+\section{试题大意}
+
+求两两互质三元组$(a,b,c)$个数满足$1\leq a,b,c\leq n$。
+
+数据限制$n\leq 10^5$。
+
+\section{算法介绍}
+
+如果$n$很小可以使用bitset之类的做法优化，时间复杂度为$O(n^3)$。
+
+还有一个显然的做法，枚举$a,b$，然后可以使用容斥算出$c$的个数。时间复杂度为$O(n^2\log n)$。
+
+当然第二个做法比第一个做法更有推广价值，能解决更一般的问题。比如给每个数一个权值$P_i$，对所有两两互质三元组$(a,b,c)$求$P_a*P_b*P_c$然后求和。具体做法在容斥中稍微改动一下就行了。
+
+当然在$n=10^5$的条件下这是不可能过得去的。
+
+考虑这类数论题的一般做法反演。
+
+\begin{displaymath}
+    \sum [(a,b)=1][(b,c)=1][(c,a)=1]=\sum_{d|a,d|b,e|b,e|c,f|c,f|a} \mu(d)\mu(e)\mu(f)=\sum_{[d,f]|a,[d,e]|b,[e,f]|c} \mu(d)\mu(e)\mu(f)
+\end{displaymath}
+
+记$f(x)$表示$[\frac{n}{x}]$，那么上式相当于$\sum \mu(d)\mu(e)\mu(f) f([d,f])f([d,e])f([e,f])$。
+
+因为这有三个变量，如果再只用数论手段做式子将会变得越来越复杂。
+
+注意到一个事实，当$x>n$是$f(x)=0$，所以只要枚举$[d,e],[d,f],[e,f]\leq n$的三元组就行了。
+
+首先对$[d,e]\leq n$的数对个数一个估价，假设$(d,e)$公约数为$g,d'=d/g,e'=e/g$，那么$[d,e]=gd'e'$。所以这样数对个数不会超过$abc\leq n$的对数。
+
+假设$g(x)$为$ab\leq x$的对数，$g(x)=\sum_{1\leq i\leq x} [\frac{x}{y}]=x\log x+O(x)$。
+
+那么$abc\leq n$的对数为$\sum_{1\leq i\leq n} g([\frac{n}{i}])=O(n\log^2 n)$。
+
+所以$[d,e]\leq n$的对数是$O(n\log ^2 n)$的。
+
+将每个数看成一个点，两个数$x,y$之间连条权值为$f([x,y])$的边，那么问题就变成了枚举所有三元环，然后计数。
+
+首先一个$E$条边的图中三元环个数为$O(E\sqrt{E})$，并且可以在这个复杂度内枚举出所有的三元环。这个结论过于经典所以不证了。
+
+于是就在$O(n^{1.5} \log ^3n)$的时间复杂度内解决了。
+
+由于这个题的图是根据特殊条件建的，所以远远达不到上界，可以在时限内跑出来。
+
+如果每个数加一个权值$P_i$，是要讲$f(x)$变成$\sum_{x|d} P_d$就行了。
+
+\section{总结}
+
+这个题在SPOJ上目前只有2个人A，所以看上去还是个有难度的题。
+
+事实上，我选这个题
+
+%% 解题报告结束
+
+\end{document}

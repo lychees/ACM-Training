@@ -1,0 +1,79 @@
+\documentclass{noiassignment}
+\renewcommand\familydefault{cmr}
+\normalfont
+\SetSymbolFont{operators}   {normal}{OT1}{cmr} {m}{n}
+\SetSymbolFont{letters}     {normal}{OML}{cmm} {m}{it}
+\SetSymbolFont{symbols}     {normal}{OMS}{cmsy}{m}{n}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}   {bold}  {OT1}{cmr} {bx}{n}
+\SetSymbolFont{letters}     {bold}  {OML}{cmm} {b}{it}
+\SetSymbolFont{symbols}     {bold}  {OMS}{cmsy}{b}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{cmss}{m}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{cmr}{m}{it}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{cmtt}{m}{n}
+\SetMathAlphabet{\mathbf}{bold}  {OT1}{cmr}{bx}{n}
+\SetMathAlphabet{\mathsf}{bold}  {OT1}{cmss}{bx}{n}
+\SetMathAlphabet{\mathit}{bold}  {OT1}{cmr}{bx}{it}
+\SetMathAlphabet{\mathtt}{bold}  {OT1}{cmtt}{m}{n}
+\begin{document}
+
+\title{《王国》解题报告}
+\author{杭州学军中学~~金策}
+
+\maketitle
+
+\section{试题来源}
+
+PA 2014 Final Kr\'{o}lestwo
+
+提交地址：http://main.edu.pl/pl/archive/pa/2014/kro
+
+BZOJ：http://www.lydsy.com/JudgeOnline/problem.php?id=3724
+\section{试题大意}
+
+给定一个无向连通图$G$，点数为$n$，边数为$m$，其中$m$是偶数。每条边的长度为$1$。
+
+定义奇点为图中度数为奇数的点。假设图中有$k$个奇点，则$k$显然是偶数。
+
+你需要把这$k$个奇点配成$k/2$个点对。对于每个点对$(u,v)$，你需要用一条长度为偶数的路径将$u$和$v$连接。每条路径允许经过重复的点，但不允许经过重复的边。这$k/2$条路径之间也不能有重复的边。
+
+数据规模：$2\leq n,m \leq 250000$。
+
+\section{算法介绍}
+根据样例的提示，以及对手画小数据的研究，我们猜想一定能够存在某种方案，使得每条边都可以恰好被覆盖到一次。由此容易联想到构造欧拉回路。
+
+\subsection{尝试构造欧拉回路}
+
+为了构造一条欧拉回路，我们需要把奇点都消灭掉。于是自然地考虑加一个新点$X$，并将$X$与每个奇点连一条边。这样，每个点的度数都变成了偶数，存在一条欧拉回路。把这条回路在所有经过$X$点的位置断开，显然会得到原图中的$k/2$条路径，且每条路径两端为一对奇点。
+
+遗憾的是，这个做法唯一不满足题意的地方在于未能保证每条路径的长度都为偶数。
+
+\subsection{修正这个做法}
+
+为了限制路经长度为偶数，我们尝试使用类似奇偶染色的方法。
+\subsubsection{拆点}
+建一张新的无向图$G'$。对于原图的每一个点$u$，在新图中放两个点$u_A,u_B$。对于原图的每一条边$(u,v)$，在新图中连边$(u_A,v_B)$或者$(u_B,v_A)$（具体是两者中的哪一个，我们在下一小节中决定）。
+
+同样也新建一个点$X$，对于原图中的每个奇点$u$，在新图中连边$(X,u_A)$。
+
+假如这个新图中存在欧拉回路的话，我们仍像刚才那样在回路中所有$X$点处断开。由于我们的连边方式保证了新图中路径上的点是ABAB交替出现的，因此这样得到的每一条路径都是偶数长度的，将它对应到原图中去就可以得到一组答案。
+
+\subsubsection{如何连边}
+所以现在的问题就转化为怎样对于每条边$(u,v)$决定是连$(u_A,v_B)$还是$(u_B,v_A)$。
+
+为保证新图存在欧拉回路，每个点度数须为偶数。那么对于原图中的奇点$u$，已经连有一条边$(u_A,X)$，而$u_A$度数为偶数，所以还需要奇数条形如$(u_A,v_B)$的边；同理，对于原图中的偶点$u$，则需要偶数条形如$(u_A,v_B)$的边。
+
+这个要求其实很容易满足。取原图$G$的一棵生成树$T$，对于不在$T$上的边$(u,v)$，随意决定即可。然后考虑树上的边：把$T$看成有根树并从下往上递推，使得每个点对应的$u_A$度数为偶数即可。由于题中限制边数$m$为偶数，容易证明这样构造到最后是不会矛盾的。
+\subsection{时空复杂度}
+我们需要遍历$G$的一棵生成树，并建出新图$G'$。然后求出新图$G'$的欧拉回路。
+
+这两个步骤都可以在$O(n+m)$ 时间内完成。
+
+时空复杂度均为$O(n+m)$。
+\section{总结}
+本题是一道构造题。通过猜想与发现，将题目要求与我们熟悉的算法模型联系起来，并加以构造，是一个不错的解题思路。
+\end{document}
+
+
