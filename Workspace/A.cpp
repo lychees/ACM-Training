@@ -254,6 +254,8 @@ inline DB csc(DB x){return 1./sin(x);};
 
 //}
 
+template<class T> inline T low_bit(T x) {return x & -x;}
+
 //}
 
 
@@ -298,347 +300,132 @@ inline char* RS(char *s){
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
-    //printf("%lld\n", x);
+    printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
     //printf("%d\n", x);
-    cout << x << endl;
+    //cout << x << endl;
     //last_ans = x;
 }
 
-
 //}/* .................................................................................................................................. */
 
+const int N = int(1e5) + 9, LV = 25;
 
-////////////////////////////////////////////////////////////////////////////////
-template <unsigned M_> struct ModInt {
-  static constexpr unsigned M = M_;
-  unsigned x;
-  constexpr ModInt() : x(0U) {}
-  constexpr ModInt(unsigned x_) : x(x_ % M) {}
-  constexpr ModInt(unsigned long long x_) : x(x_ % M) {}
-  constexpr ModInt(int x_) : x(((x_ %= static_cast<int>(M)) < 0) ? (x_ + static_cast<int>(M)) : x_) {}
-  constexpr ModInt(long long x_) : x(((x_ %= static_cast<long long>(M)) < 0) ? (x_ + static_cast<long long>(M)) : x_) {}
-  ModInt &operator+=(const ModInt &a) { x = ((x += a.x) >= M) ? (x - M) : x; return *this; }
-  ModInt &operator-=(const ModInt &a) { x = ((x -= a.x) >= M) ? (x + M) : x; return *this; }
-  ModInt &operator*=(const ModInt &a) { x = (static_cast<unsigned long long>(x) * a.x) % M; return *this; }
-  ModInt &operator/=(const ModInt &a) { return (*this *= a.inv()); }
-  ModInt pow(long long e) const {
-    if (e < 0) return inv().pow(-e);
-    ModInt a = *this, b = 1U; for (; e; e >>= 1) { if (e & 1) b *= a; a *= a; } return b;
-  }
-  ModInt inv() const {
-    unsigned a = M, b = x; int y = 0, z = 1;
-    for (; b; ) { const unsigned q = a / b; const unsigned c = a - q * b; a = b; b = c; const int w = y - static_cast<int>(q) * z; y = z; z = w; }
-    assert(a == 1U); return ModInt(y);
-  }
-  ModInt operator+() const { return *this; }
-  ModInt operator-() const { ModInt a; a.x = x ? (M - x) : 0U; return a; }
-  ModInt operator+(const ModInt &a) const { return (ModInt(*this) += a); }
-  ModInt operator-(const ModInt &a) const { return (ModInt(*this) -= a); }
-  ModInt operator*(const ModInt &a) const { return (ModInt(*this) *= a); }
-  ModInt operator/(const ModInt &a) const { return (ModInt(*this) /= a); }
-  template <class T> friend ModInt operator+(T a, const ModInt &b) { return (ModInt(a) += b); }
-  template <class T> friend ModInt operator-(T a, const ModInt &b) { return (ModInt(a) -= b); }
-  template <class T> friend ModInt operator*(T a, const ModInt &b) { return (ModInt(a) *= b); }
-  template <class T> friend ModInt operator/(T a, const ModInt &b) { return (ModInt(a) /= b); }
-  explicit operator bool() const { return x; }
-  bool operator==(const ModInt &a) const { return (x == a.x); }
-  bool operator!=(const ModInt &a) const { return (x != a.x); }
-  friend std::ostream &operator<<(std::ostream &os, const ModInt &a) { return os << a.x; }
-};
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-constexpr unsigned MO = 998244353U;
-constexpr unsigned MO2 = 2U * MO;
-constexpr int FFT_MAX = 23;
-using Mint = ModInt<MO>;
-constexpr Mint FFT_ROOTS[FFT_MAX + 1] = {1U, 998244352U, 911660635U, 372528824U, 929031873U, 452798380U, 922799308U, 781712469U, 476477967U, 166035806U, 258648936U, 584193783U, 63912897U, 350007156U, 666702199U, 968855178U, 629671588U, 24514907U, 996173970U, 363395222U, 565042129U, 733596141U, 267099868U, 15311432U};
-constexpr Mint INV_FFT_ROOTS[FFT_MAX + 1] = {1U, 998244352U, 86583718U, 509520358U, 337190230U, 87557064U, 609441965U, 135236158U, 304459705U, 685443576U, 381598368U, 335559352U, 129292727U, 358024708U, 814576206U, 708402881U, 283043518U, 3707709U, 121392023U, 704923114U, 950391366U, 428961804U, 382752275U, 469870224U};
-constexpr Mint FFT_RATIOS[FFT_MAX] = {911660635U, 509520358U, 369330050U, 332049552U, 983190778U, 123842337U, 238493703U, 975955924U, 603855026U, 856644456U, 131300601U, 842657263U, 730768835U, 942482514U, 806263778U, 151565301U, 510815449U, 503497456U, 743006876U, 741047443U, 56250497U, 867605899U};
-constexpr Mint INV_FFT_RATIOS[FFT_MAX] = {86583718U, 372528824U, 373294451U, 645684063U, 112220581U, 692852209U, 155456985U, 797128860U, 90816748U, 860285882U, 927414960U, 354738543U, 109331171U, 293255632U, 535113200U, 308540755U, 121186627U, 608385704U, 438932459U, 359477183U, 824071951U, 103369235U};
-
-// as[rev(i)] <- \sum_j \zeta^(ij) as[j]
-void fft(Mint *as, int n) {
-  assert(!(n & (n - 1))); assert(1 <= n); assert(n <= 1 << FFT_MAX);
-  int m = n;
-  if (m >>= 1) {
-    for (int i = 0; i < m; ++i) {
-      const unsigned x = as[i + m].x;  // < MO
-      as[i + m].x = as[i].x + MO - x;  // < 2 MO
-      as[i].x += x;  // < 2 MO
+namespace SBT{
+    const int NN = N*LV;
+    int c[2][NN], sz[NN], ky[NN], tot;
+#define lx l[x]
+#define rx r[x]
+#define l c[d]
+#define r c[!d]
+#define kx ky[x]
+#define sx sz[x]
+#define d 0
+    int new_node(int v = 0){
+        int x=++tot;lx=rx=0;
+        sx=1;kx=v;
+        return x;
     }
-  }
-  if (m >>= 1) {
-    Mint prod = 1U;
-    for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-      for (int i = i0; i < i0 + m; ++i) {
-        const unsigned x = (prod * as[i + m]).x;  // < MO
-        as[i + m].x = as[i].x + MO - x;  // < 3 MO
-        as[i].x += x;  // < 3 MO
-      }
-      prod *= FFT_RATIOS[__builtin_ctz(++h)];
+
+    void upd(int x){
+        sx=sz[lx]+1+sz[rx];
     }
-  }
-  for (; m; ) {
-    if (m >>= 1) {
-      Mint prod = 1U;
-      for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-        for (int i = i0; i < i0 + m; ++i) {
-          const unsigned x = (prod * as[i + m]).x;  // < MO
-          as[i + m].x = as[i].x + MO - x;  // < 4 MO
-          as[i].x += x;  // < 4 MO
+#undef d
+    void rot(int &x,int d){
+        int y=rx;rx=l[y];l[y]=x;
+        upd(x),upd(y),x=y;
+    }
+
+    void fix(int &x,int d){
+        if (sz[l[lx]] > sz[rx]) rot(x,!d);
+        else{
+            if (sz[r[lx]] > sz[rx]) rot(lx,d),rot(x,!d);
+            else return;
         }
-        prod *= FFT_RATIOS[__builtin_ctz(++h)];
-      }
+        d=0,fix(lx,0),fix(rx,1);
+        fix(x,0),fix(x,1);
     }
-    if (m >>= 1) {
-      Mint prod = 1U;
-      for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-        for (int i = i0; i < i0 + m; ++i) {
-          const unsigned x = (prod * as[i + m]).x;  // < MO
-          as[i].x = (as[i].x >= MO2) ? (as[i].x - MO2) : as[i].x;  // < 2 MO
-          as[i + m].x = as[i].x + MO - x;  // < 3 MO
-          as[i].x += x;  // < 3 MO
+#define d 0
+    void Ins(int &x,int v){
+        if(!x) x = new_node(v);
+        else{
+            ++sz[x]; Ins(c[v>kx][x],v);
+            fix(x,v>=kx);
         }
-        prod *= FFT_RATIOS[__builtin_ctz(++h)];
-      }
     }
-  }
-  for (int i = 0; i < n; ++i) {
-    as[i].x = (as[i].x >= MO2) ? (as[i].x - MO2) : as[i].x;  // < 2 MO
-    as[i].x = (as[i].x >= MO) ? (as[i].x - MO) : as[i].x;  // < MO
-  }
-}
 
-// as[i] <- (1/n) \sum_j \zeta^(-ij) as[rev(j)]
-void invFft(Mint *as, int n) {
-  assert(!(n & (n - 1))); assert(1 <= n); assert(n <= 1 << FFT_MAX);
-  int m = 1;
-  if (m < n >> 1) {
-    Mint prod = 1U;
-    for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-      for (int i = i0; i < i0 + m; ++i) {
-        const unsigned long long y = as[i].x + MO - as[i + m].x;  // < 2 MO
-        as[i].x += as[i + m].x;  // < 2 MO
-        as[i + m].x = (prod.x * y) % MO;  // < MO
-      }
-      prod *= INV_FFT_RATIOS[__builtin_ctz(++h)];
+    int d_key; void Del(int &x,int v){
+        --sx;if(kx==v||(v<kx&&!lx)||(v>kx&&!rx)){
+            if(!lx||!rx) d_key = kx, x = lx | rx;
+            else Del(lx,v+1), kx = d_key;
+        }
+        else Del(c[v>kx][x],v);
     }
-    m <<= 1;
-  }
-  for (; m < n >> 1; m <<= 1) {
-    Mint prod = 1U;
-    for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-      for (int i = i0; i < i0 + (m >> 1); ++i) {
-        const unsigned long long y = as[i].x + MO2 - as[i + m].x;  // < 4 MO
-        as[i].x += as[i + m].x;  // < 4 MO
-        as[i].x = (as[i].x >= MO2) ? (as[i].x - MO2) : as[i].x;  // < 2 MO
-        as[i + m].x = (prod.x * y) % MO;  // < MO
-      }
-      for (int i = i0 + (m >> 1); i < i0 + m; ++i) {
-        const unsigned long long y = as[i].x + MO - as[i + m].x;  // < 2 MO
-        as[i].x += as[i + m].x;  // < 2 MO
-        as[i + m].x = (prod.x * y) % MO;  // < MO
-      }
-      prod *= INV_FFT_RATIOS[__builtin_ctz(++h)];
+
+    int Rank(int x,int v){
+        int z=0;while(x){
+            if(kx<v){
+                z+=sz[lx]+1;
+                x=rx;
+            }
+            else{
+                x=lx;
+            }
+        }
+        return z;
     }
-  }
-  if (m < n) {
-    for (int i = 0; i < m; ++i) {
-      const unsigned y = as[i].x + MO2 - as[i + m].x;  // < 4 MO
-      as[i].x += as[i + m].x;  // < 4 MO
-      as[i + m].x = y;  // < 4 MO
+
+    bool Find(int x,int v){
+        if (!x) return 0;if (kx==v) return 1;
+        return Find(c[v>kx][x],v);
     }
-  }
-  const Mint invN = Mint(n).inv();
-  for (int i = 0; i < n; ++i) {
-    as[i] *= invN;
-  }
-}
 
-void fft(vector<Mint> &as) {
-  fft(as.data(), as.size());
-}
-void invFft(vector<Mint> &as) {
-  invFft(as.data(), as.size());
-}
-
-vector<Mint> convolve(vector<Mint> as, vector<Mint> bs) {
-  if (as.empty() || bs.empty()) return {};
-  const int len = as.size() + bs.size() - 1;
-  int n = 1;
-  for (; n < len; n <<= 1) {}
-  as.resize(n); fft(as);
-  bs.resize(n); fft(bs);
-  for (int i = 0; i < n; ++i) as[i] *= bs[i];
-  invFft(as);
-  as.resize(len);
-  return as;
-}
-vector<Mint> square(vector<Mint> as) {
-  if (as.empty()) return {};
-  const int len = as.size() + as.size() - 1;
-  int n = 1;
-  for (; n < len; n <<= 1) {}
-  as.resize(n); fft(as);
-  for (int i = 0; i < n; ++i) as[i] *= as[i];
-  invFft(as);
-  as.resize(len);
-  return as;
-}
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// inv: log, exp, pow
-constexpr int LIM_INV = 1 << 20;  // @
-Mint inv[LIM_INV], fac[LIM_INV], invFac[LIM_INV];
-struct ModIntPreparator {
-  ModIntPreparator() {
-    inv[1] = 1;
-    for (int i = 2; i < LIM_INV; ++i) inv[i] = -((Mint::M / i) * inv[Mint::M % i]);
-    fac[0] = 1;
-    for (int i = 1; i < LIM_INV; ++i) fac[i] = fac[i - 1] * i;
-    invFac[0] = 1;
-    for (int i = 1; i < LIM_INV; ++i) invFac[i] = invFac[i - 1] * inv[i];
-  }
-} preparator;
-
-// polyWork0: *, inv, div, divAt, log, exp, pow, sqrt
-// polyWork1: inv, div, divAt, log, exp, pow, sqrt
-// polyWork2: divAt, exp, pow, sqrt
-// polyWork3: exp, pow, sqrt
-static constexpr int LIM_POLY = 1 << 20;  // @
-static_assert(LIM_POLY <= 1 << FFT_MAX, "Poly: LIM_POLY <= 1 << FFT_MAX must hold.");
-static Mint polyWork0[LIM_POLY], polyWork1[LIM_POLY], polyWork2[LIM_POLY], polyWork3[LIM_POLY];
-
-struct Poly : public vector<Mint> {
-  Poly() {}
-  explicit Poly(int n) : vector<Mint>(n) {}
-  Poly(const vector<Mint> &vec) : vector<Mint>(vec) {}
-  Poly(std::initializer_list<Mint> il) : vector<Mint>(il) {}
-  int size() const { return vector<Mint>::size(); }
-  Mint at(long long k) const { return (0 <= k && k < size()) ? (*this)[k] : 0U; }
-  int ord() const { for (int i = 0; i < size(); ++i) if ((*this)[i]) return i; return -1; }
-  int deg() const { for (int i = size(); --i >= 0; ) if ((*this)[i]) return i; return -1; }
-  Poly mod(int n) const { return Poly(vector<Mint>(data(), data() + min(n, size()))); }
-  friend std::ostream &operator<<(std::ostream &os, const Poly &fs) {
-    os << "[";
-    for (int i = 0; i < fs.size(); ++i) { if (i > 0) os << ", "; os << fs[i]; }
-    return os << "]";
-  }
-
-  Poly &operator+=(const Poly &fs) {
-    if (size() < fs.size()) resize(fs.size());
-    for (int i = 0; i < fs.size(); ++i) (*this)[i] += fs[i];
-    return *this;
-  }
-  Poly &operator-=(const Poly &fs) {
-    if (size() < fs.size()) resize(fs.size());
-    for (int i = 0; i < fs.size(); ++i) (*this)[i] -= fs[i];
-    return *this;
-  }
-  // 3 E(|t| + |f|)
-  Poly &operator*=(const Poly &fs) {
-    if (empty() || fs.empty()) return *this = {};
-    const int nt = size(), nf = fs.size();
-    int n = 1;
-    for (; n < nt + nf - 1; n <<= 1) {}
-    assert(n <= LIM_POLY);
-    resize(n);
-    fft(data(), n);  // 1 E(n)
-    memcpy(polyWork0, fs.data(), nf * sizeof(Mint));
-    memset(polyWork0 + nf, 0, (n - nf) * sizeof(Mint));
-    fft(polyWork0, n);  // 1 E(n)
-    for (int i = 0; i < n; ++i) (*this)[i] *= polyWork0[i];
-    invFft(data(), n);  // 1 E(n)
-    resize(nt + nf - 1);
-    return *this;
-  }
-
-  Poly &operator*=(const Mint &a) {
-    for (int i = 0; i < size(); ++i) (*this)[i] *= a;
-    return *this;
-  }
-  Poly &operator/=(const Mint &a) {
-    const Mint b = a.inv();
-    for (int i = 0; i < size(); ++i) (*this)[i] *= b;
-    return *this;
-  }
-  Poly operator+() const { return *this; }
-  Poly operator-() const {
-    Poly fs(size());
-    for (int i = 0; i < size(); ++i) fs[i] = -(*this)[i];
-    return fs;
-  }
-  Poly operator+(const Poly &fs) const { return (Poly(*this) += fs); }
-  Poly operator-(const Poly &fs) const { return (Poly(*this) -= fs); }
-  Poly operator*(const Poly &fs) const { return (Poly(*this) *= fs); }
-
-  // 10 E(n)
-  // f <- f - (t f - 1) f
-  Poly inv(int n) const {
-    assert(!empty()); assert((*this)[0]); assert(1 <= n);
-    assert(n == 1 || 1 << (32 - __builtin_clz(n - 1)) <= LIM_POLY);
-    Poly fs(n);
-    fs[0] = (*this)[0].inv();
-    for (int m = 1; m < n; m <<= 1) {
-      memcpy(polyWork0, data(), min(m << 1, size()) * sizeof(Mint));
-      memset(polyWork0 + min(m << 1, size()), 0, ((m << 1) - min(m << 1, size())) * sizeof(Mint));
-      fft(polyWork0, m << 1);  // 2 E(n)
-      memcpy(polyWork1, fs.data(), min(m << 1, n) * sizeof(Mint));
-      memset(polyWork1 + min(m << 1, n), 0, ((m << 1) - min(m << 1, n)) * sizeof(Mint));
-      fft(polyWork1, m << 1);  // 2 E(n)
-      for (int i = 0; i < m << 1; ++i) polyWork0[i] *= polyWork1[i];
-      invFft(polyWork0, m << 1); // 2 E(n)
-      memset(polyWork0, 0, m * sizeof(Mint));
-      fft(polyWork0, m << 1); // 2 E(n)
-      for (int i = 0; i < m << 1; ++i) polyWork0[i] *= polyWork1[i];
-      invFft(polyWork0, m << 1); // 2 E(n)
-      for (int i = m, i0 = min(m << 1, n); i < i0; ++i) fs[i] = -polyWork0[i];
+    void Init(){
+        tot = 0;
     }
-    return fs;
-  }
+
+#undef d
+#undef l
+#undef r
+#undef lx
+#undef rx
+#undef sx
+#undef kx
 };
 
+LL res;
+int n, m;
 
-const int N = int(1e5) + 9;
+namespace BIT{
+    int C[N];
+    void Ins(int x, int v){
+        for (;x<=n;x+=low_bit(x)) SBT::Ins(C[x],v);
+    }
+    void Del(int x, int v){
+        for (;x<=n;x+=low_bit(x)) SBT::Del(C[x],v);
+    }
+    int Rank(int x, int v){
+        int res = 0; for (;x;x^=low_bit(x)) res += SBT::Rank(C[x],v);
+        return res;
+    }
+    int Count(int x){
+        int res = 0; for (;x;x^=low_bit(x)) res += SBT::sz[C[x]];
+        return res;
+    }
+    void Init(){
+        fill(C+1, C+n+1, 0);
+    }
+};
 
-Poly F, G;
-int n;
+int pos[N];
 
-void cdq(int l, int r) {
-    if (l + 32 > r) {
-        FOR(i, l, r) {
-            FOR(j, l, i) F[i] += F[j] * G[i-j] + (l > 1 ? G[j] * F[i-j] : 0);
-            if (i > 1) F[i] /= i-1; Mint f = F[i] * i;
-            for (int j=i;j<=n;j+=i) G[j] += f;
-        }
-    } else {
-    	int m = l + r + 1 >> 1;
-
-    	// cout << l <<" "<< r << endl;
-
-        cdq(l, m);
-        auto update = [&] (Poly& F,int o,int an,Poly &G,int bn) {
-            Poly A(an),B(bn);
-            REP(i, an) A[i] = F[i+o];
-            REP(i, bn) B[i] = G[i];
-            A = A * B;
-
-            /*fft(a, 1), fft(b, 1);
-            for (int i = 0; i < lim; ++i) a[i] = (LL) a[i] * b[i] % mod;
-            fft(a, 0);
-            for (int i = mid; i < r; ++i) reduce(::f[i] += a[i - l] - mod);*/
-
-            FOR(i, m, r) if (i-l < SZ(A)) ::F[i] += A[i-l];
-        };
-        if (l > 1) update(F,l,m-l,G,r-l);
-        update(G,l,m-l,F,l==1?m:r-l);
-        cdq(m, r);
-
-
+void Init(){
+    SBT::Init(); BIT::Init(); res = 0;
+    REP_1(i, n) {
+        int x; pos[RD(x)] = i;
+        res += i-1-BIT::Rank(n,x);
+        BIT::Ins(i, x);
     }
 }
 
@@ -646,14 +433,20 @@ int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n); F.resize(n+1); G.resize(n+1);
-    F[1] = 1; cdq(1, n+1);
+//#define a A[x]
+//#define delta ((x-1)-BIT::Rank(x,a+1)+BIT::Rank(n,a)-BIT::Rank(x,a))
 
-    Mint z = F[n];
-    FOR(i, n/2+1, n)  z -= F[i]*F[n-i];
-    if (!(n&1)) z -= F[n/2] * (F[n/2]-1) / 2;
-    cout << z << endl;
+
+
+    RD(n, m); Init();
+    DO(m) {
+        OT(res); int x; RD(x);
+        BIT::Del(pos[x], x);
+        res -= (BIT::Rank(pos[x],n+1)-BIT::Rank(pos[x],x))+(BIT::Rank(n,x)-BIT::Rank(pos[x],x));
+    }
+
+    ////int x, aa; RD(x, aa); BIT::Del(x, a);
 }
