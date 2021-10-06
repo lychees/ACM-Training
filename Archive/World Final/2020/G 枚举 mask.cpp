@@ -507,41 +507,32 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //last_ans = x;
 }
 
+
 //}/* .................................................................................................................................. */
 
-const int N = int(1e7) + 9;
-char s[N], ss[N]; int rr[N];
-int l[N], r[N];
-int n, nn;
+const int N = int(2e5) + 9;
+int x[N],y[N],z[N]; LL mx[8], ms[N];
+int n;
 
-void Manacher(const char ss[], int nn, char s[], int& n, int r[]) {
-    n = 2*nn+2; s[0] = '$'; REP(i, nn)s[i*2+1]='.',s[i*2+2]=ss[i];s[n-1]='.';s[n] = 0;
-
-    int mx=0,mi=0;FOR(i,1,n){
-        for (r[i]=mx>i?min(r[2*mi-i],mx-i):1;s[i+r[i]]==s[i-r[i]];++r[i]);
-        if (i+r[i]>mx)mx=i+r[i],mi=i;
-    }
+LL ss(int s, int i){
+    LL res = 0;
+    if (s&1) res += x[i];
+    if (s&2) res += y[i];
+    if (s&4) res += z[i];
+    return res;
 }
 
-
-int main() {
+int main(){
 
 #ifndef ONLINE_JUDGE
     //freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RS(s); n = strlen(s);
-    Manacher(s,n,ss,nn,rr);
-
-    //REP(i, nn) cout << ss[i] << " "; cout << endl;
-    //REP(i, nn) cout << rr[i] << " "; cout << endl;
-
-    FOR(i, 1, n) l[i] = i - rr[2*i+1]/2 <= l[i-1] ? i : l[i-1]; r[n-1] = n-1;
-    DWN(i, n-1, 0) r[i] = i + rr[2*i+3]/2 >= r[i+1] ? i : r[i+1];
-
-    //REP(i, n) cout << g[i] << " " << f[i] << endl;
-
-    int z = INF; REP(i, n) checkMin(z, r[i] - l[i] + 1);
-    cout << z << endl;
+    RD(n);
+    REP(i, n) RD(x[i],y[i],z[i]);
+    REP(s, 8) REP(i, n) checkMax(mx[s], ss(s,i));
+    REP(s, 8) REP(i, n) checkMax(ms[i], mx[s]-ss(s,i));
+    int id = min_element(ms,ms+n)-ms;
+    cout << ms[id] << " " << id+1 <<endl;
 }
