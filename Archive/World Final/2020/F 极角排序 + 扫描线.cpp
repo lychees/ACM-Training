@@ -529,15 +529,24 @@ int main(){
     int z = 2; REP(a, n) {
         vector<pair<DB, int>> E;
         int s = 1; REP(b, n) if (b != a){
+
+
             Po v = P[b] - P[a]; DB d = v.len();
-            DB a = v.arg(), b = asin(r/d);
-            E.PB({a, 1}); E.PB({a + PI, -1});
+            DB a = v.arg();
+            E.PB({a, 1});
+            E.PB({a + PI, -1});
+
             if (d > r) {
+                DB b = asin(r/d);
                 E.PB({a + b, -1});
                 E.PB({a + PI - b, 1});
             }
         }
-        SRT(E); for (auto e: E) checkMax(z, s += e.se);
+
+        SRT(E); for (auto e: E) {
+            if (e.fi > PI/2) break;
+            checkMax(z, s += e.se);
+        }
     }
     cout << z << endl;
 }

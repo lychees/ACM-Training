@@ -513,31 +513,94 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(3e3) + 9;
-Po P[N];
-int n, r;
+const int N = int(2e5) + 9;
+
+namespace DSU{ // Disjoint Set Union
+    int P[N], R[N], C[N], n;
+    inline void Make(int x){
+        P[x] = x, R[x] = 0, C[x] = 1;
+    }
+    inline int Find(int x){
+        return P[x] == x ? x : P[x] = Find(P[x]);
+    }
+    inline void Unionn(int x, int y){
+        if (R[x] == R[y]) ++R[x];
+        else if (R[x] < R[y]) swap(x, y);
+        C[x] += C[y];
+        P[y] = x;
+    }
+    inline void Union(int x, int y){
+        x = Find(x), y = Find(y);
+        if (x != y) Unionn(x, y);
+    }
+    inline void Init(){
+        REP_1(i, n) Make(i);
+    }
+} using namespace DSU;
+
+char s[109];
+VI adj[N]; int col[N];
+
+bool dfs(int u, int& a, int& b) {
+
+
+
+    if (col[u] == 1) a += C[u]; else b += C[u];
+
+    //cout << u << " " << C[u] << " " << a << " " << b <<endl;
+#define v Find(_v)
+    for (auto _v: adj[u]) if (!col[v]) {
+        col[v] = -col[u];
+        if (!dfs(v,a,b)) return 0;
+    } else if (col[v] == col[u]) {
+        return 0;
+    }
+#undef v
+    return 1;
+}
 
 int main(){
 
 #ifndef ONLINE_JUDGE
-    //freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RD(n, r); REP(i, n) P[i].in();
-
-    int z = 2; REP(a, n) {
-        vector<pair<DB, int>> E;
-        int s = 1; REP(b, n) if (b != a){
-            Po v = P[b] - P[a]; DB d = v.len();
-            DB a = v.arg(), b = asin(r/d);
-            E.PB({a, 1}); E.PB({a + PI, -1});
-            if (d > r) {
-                E.PB({a + b, -1});
-                E.PB({a + PI - b, 1});
+    Rush {
+        int m; RD(n, m); Init();
+        REP_1(i, n) adj[i].clear(), col[i] = 0;
+        DO(m) {
+            int a, b; RD(a, b); RS(s);
+            if (s[0] == 'i') {
+                adj[a].PB(b);
+                adj[b].PB(a);
+            } else {
+                Union(a, b);
             }
         }
-        SRT(E); for (auto e: E) checkMax(z, s += e.se);
+
+        REP_1(_i, n) {
+            int i = Find(_i);
+            if (i != _i) {
+                for (auto v: adj[_i]) adj[i].PB(v);
+            }
+        }
+
+        int z = 0;
+        REP_1(_i, n) {
+            int i = Find(_i); if (!col[i]) {
+                int a = 0, b = 0;
+                col[i] = 1;
+                if (!dfs(i,a,b)) {
+                    z = -1;
+                    break;
+                }
+                //cout <<z <<" " << a << " " <<b <<endl;
+                z += max(a, b);
+            }
+        }
+        cout << z <<endl;
     }
-    cout << z << endl;
+
+
 }
