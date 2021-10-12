@@ -414,203 +414,59 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e6) + 9;
+const int N = int(2e6) + 9;
 
-set<int> all_open; int cnt_open[N];
-int n;
+Int C2(int n){
+    return (Int)n*(n-1)/2;
+}
 
-namespace SegmentTree{
-
-#define lx (x<<1)
-#define rx (lx|1)
-#define ml (l+r>>1)
-#define mr (ml+1)
-#define lc lx, l, ml
-#define rc rx, mr, r
-#define xx x, l, r
-#define root 1, 0, n-1
-
-    const int NN = 4*N;
-    int T[NN+1][3][3];
-    int a, b;
-
-    void _upd(int x, int a, int b) {
-        REP(i, 3) REP(j, 3) REP(k, 3)
-            checkMin(T[x][i][j], T[a][i][k] + T[b][k][j] + 1);
+namespace DSU{ // Disjoint Set Union
+    int P[N], R[N], l[N], r[N], n;
+    inline void Make(int x){
+        P[x] = x, R[x] = 0; l[x] = r[x] = x;
     }
-
-    void upd(int x) {
-        _upd(x,lx,rx);
+    inline int Find(int x){
+        return P[x] == x ? x : P[x] = Find(P[x]);
     }
-
-    void query(int x, int l, int r) {
-        if (b < l || r < a) return;
-        if (a <= l && r <= b) {
-            if (a == l) {
-
-                //cout <<l << "!!!" <<r <<" "<< T[x][0][0] << " " <<T[x][2][2] <<endl;
-
-                CPY(T[NN],T[x]);
-            } else {
-                CPY(T[NN-1],T[NN]); FLC(T[NN], 0x3f);
-                _upd(NN,NN-1,x);
-            }
-        } else {
-            query(lc);
-            query(rc);
-        }
+    inline void Unionn(int x, int y){
+        if (R[x] == R[y]) ++R[x];
+        else if (R[x] < R[y]) swap(x, y);
+        P[y] = x;
+        checkMin(l[x], l[y]);
+        checkMax(r[x], r[y]);
     }
-
-    int query(int r1, int c1, int r2, int c2, bool direct = false) {
-
-
-        int z = INF;
-        a = r1; b = r2; query(root);
-
-        //cout << "query: " << r1 << " " << c1 << " " << r2 << " "<<c2 << ": " << T[NN][c1][c2] << endl;
-
-
-        /*REP(cc1, 3) REP(cc2, 3) {
-            cout << T[NN][cc1][cc2] << " ";
-        }
-        cout <<endl;*/
-
-        if (direct) return T[NN][c1][c2];
-
-        CPY(T[NN-2], T[NN]);
-
-        REP(c11, 3) {
-            if (c1 == c11 || c1 + c11 == 2) {
-                int w1 = INF;
-                if (c1 != c11) {
-                    auto ll = all_open.lower_bound(r1);
-                    if (ll != all_open.begin()) {
-                        --ll;
-                        w1 = query(*ll, 0, r1, 0, 1) + query(*ll, 2, r1, 2, 1) + 2;
-                    }
-                } else {
-                    w1 = 0;
-                }
-
-                REP(c22, 3) {
-                    if (c2 == c22 || c2 + c22 == 2) {
-
-
-                            //cout << c2 << " "<<c22 <<"!!!!!!!!!!!!!!" <<endl;
-
-                        int w2 = INF;
-                        if (c2 != c22) {
-                            auto rr = all_open.upper_bound(r2);
-
-
-                            if (rr != all_open.end()) {
-                                w2 = query(r2, 0, *rr, 0, 1) + query(r2, 2, *rr, 2, 1) + 2;
-                            }
-                        } else {
-                            w2 = 0;
-                        }
-                        //cout << "query:   " << r1 << " " << c11 << " " << r2 << " "<<c22 << " "<< T[NN][c11][c22] << " " << w1 << " " << w2 << "" <<endl;
-                        if (w1 >= INF || w2 >= INF || T[NN-2][c11][c22] >= INF) continue;
-
-
-                        checkMin(z, T[NN-2][c11][c22] + w1 + w2);
-                    }
-                }
-            }
-        }
-
-        return z;
+    inline void Union(int x, int y){
+        x = Find(x), y = Find(y);
+        Unionn(x, y);
     }
-
-    void open(int x, int l, int r) {
-        if (l == r) {
-            //cout << a << " "<<b << " ??? " << endl;
-            T[x][b][b] = 0; if (++cnt_open[l] == 3) all_open.insert(l);
-
-            REP(i, 3) FOR(j, i+1, 3) {
-                bool ok = 1; FOR_1(k,i,j) ok &= T[x][k][k] == 0;
-                T[x][i][j] = ok ? j-i : INF;
-                T[x][j][i] = T[x][i][j];
-            }
-
-            /*if (cnt_open)
-            auto rr = all_open.lower_bound(l);
-            if (rr != all_open.end()) {
-                checkMin(T[x][0][2], query(l, 0, *rr, 0) + query(l, 2, *rr, 2) + 2);
-            }
-            auto ll = all_open.upper_bound(l);
-            if (ll != all_open.begin()) {
-                --ll;
-                checkMin(T[x][0][2], query(*ll, 0, l, 0) + query(*ll, 2, l, 2) + 2);
-            }
-            T[x][2][0] = T[x][0][2];*/
-        } else {
-            if (a < mr) open(lc);
-            else open(rc);
-            upd(x);
-        }
+    inline void Init(){
+        REP_1(i, n) Make(i);
     }
-
-    void Build(int x, int l, int r) {
-        FLC(T[x], 0x3f);
-        if (l < r) {
-            Build(lc);
-            Build(rc);
-        }
+    inline int c2(int x) {
+        return C2(r[x]-l[x]+1);
     }
-
-} //using namespace SegmentTree;
-
-
-PII o[N*3];
-int A[N][3], oi;
-
-struct Query {
-    int r1,c1,r2,c2,l;
-    void in() {
-        RD(r1,c1,r2,c2,l);--r1,--c1,--r2,--c2;
-        if (r1 > r2) swap(r1, r2), swap(c1, c2);
-    }
-    bool operator <(const Query& r) const{
-        return l < r.l;
-    }
-    int gao() {
-        using namespace SegmentTree;
-        while (oi < n*3 && A[o[oi].fi][o[oi].se] <= l) {
-            a = o[oi].fi; b = o[oi].se; open(root);
-            //cout << a <<" " << b << " " << A[o[oi].fi][o[oi].se] << " " << l << endl;
-            ++oi;
-        }
-        //a = r1; b = r2; query(root);
-        //cout <<" " << a << " "<< b << " " << T[NN][c1][c2] << endl;
-        int z = query(r1,c1,r2,c2);
-
-        //cout << ' ' << z << endl;
-        if (z == INF) z = 1;
-
-        return z;
-    }
-} Q[N];
-
+} using namespace DSU;
 
 int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("out.txt", "w", stdout);
+    freopen("out.txt", "w", stdout);
 #endif
     Rush {
-        int m; RD(n, m);
-        all_open.clear(); REP(i, n) cnt_open[i] = 0;
-        REP(i, n) REP(j, 3) RD(A[i][j]);
-        REP(i, m) Q[i].in(); sort(Q, Q+m); SegmentTree::Build(root);
-        REP(i, n) REP(j, 3) o[i*3+j] = {i,j};
+        RD(n); Int zz = C2(n), z = 1;
 
-        sort(o, o+3*n, [&](const PII a, const PII b){
-            return A[a.fi][a.se] < A[b.fi][b.se];
-        });
+        Init(); Rush {
+            int a, b; RD(a, b); if (a > b) swap(a, b);
+            int x = Find(a); zz -= c2(x);
 
-        Int z = 1; oi = 0; REP(i, m) z *= Q[i].gao();
+            while (true) {
+                if (b <= r[x]) break;
+                int y = Find(r[x]+1); zz -= c2(y);
+                Unionn(x, y); x = Find(x);
+            }
+            z *= zz += c2(x);
+        }
         OT(z);
     }
 }
