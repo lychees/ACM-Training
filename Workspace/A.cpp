@@ -513,12 +513,16 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
+const int N = int(1e3) + 9;
+const int NN = N*N;
+
+vector<int> H[N], S[N]; vector<bool> vis[N];
+int n, m;
 
 namespace DSU{ // Disjoint Set Union
-    int P[N], R[N], C[N], n;
+    int P[NN], R[NN]; int t[NN];
     inline void Make(int x){
-        P[x] = x, R[x] = 0, C[x] = 1;
+        P[x] = x, R[x] = 0;
     }
     inline int Find(int x){
         return P[x] == x ? x : P[x] = Find(P[x]);
@@ -526,81 +530,100 @@ namespace DSU{ // Disjoint Set Union
     inline void Unionn(int x, int y){
         if (R[x] == R[y]) ++R[x];
         else if (R[x] < R[y]) swap(x, y);
-        C[x] += C[y];
         P[y] = x;
+        checkMax(t[x], t[y]);
     }
     inline void Union(int x, int y){
         x = Find(x), y = Find(y);
         if (x != y) Unionn(x, y);
     }
     inline void Init(){
-        REP_1(i, n) Make(i);
+        REP(i, n*m) Make(i);
     }
 } using namespace DSU;
 
-char s[109];
-VI adj[N]; int col[N];
+bool found;
 
-bool dfs(int u, int& a, int& b) {
-
-
-
-    if (col[u] == 1) a += C[u]; else b += C[u];
-
-    //cout << u << " " << C[u] << " " << a << " " << b <<endl;
-#define v Find(_v)
-    for (auto _v: adj[u]) if (!col[v]) {
-        col[v] = -col[u];
-        if (!dfs(v,a,b)) return 0;
-    } else if (col[v] == col[u]) {
-        return 0;
+void dfs(int x, int y, int t) {
+    //cout << " " << x << " " <<y << " " << t << endl;
+    vis[x][y] = 1;
+    REP(d, 4) {
+        int xx = x + dx[d], yy = y + dy[d];
+        if (xx < 0 || yy < 0 || xx >= n || yy >= m) continue;
+        if (H[xx][yy] <= t) continue;
+        Union(x*m+y, xx*m+yy);
+        if (vis[xx][yy]) continue;
+        dfs(xx, yy, t);
     }
-#undef v
-    return 1;
+}
+
+int Q[NN], cz, op;
+void bfs(int x, int y, int t) {
+    cz = 0, op = 1; Q[cz] = x*m+y;
+    while (cz < op) {
+        int x = Q[cz] / m, y = Q[cz] % m;
+        vis[x][y] = 1;
+        REP(d, 4) {
+            int xx = x + dx[d], yy = y + dy[d];
+            if (xx < 0 || yy < 0 || xx >= n || yy >= m) continue;
+            if (H[xx][yy] <= t) continue;
+            Union(x*m+y, xx*m+yy);
+            if (vis[xx][yy]) continue;
+            Q[op++] = xx * m + yy;
+        }
+        ++cz;
+    }
 }
 
 int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
     Rush {
-        int m; RD(n, m); Init();
-        REP_1(i, n) adj[i].clear(), col[i] = 0;
-        DO(m) {
-            int a, b; RD(a, b); RS(s);
-            if (s[0] == 'i') {
-                adj[a].PB(b);
-                adj[b].PB(a);
-            } else {
-                Union(a, b);
-            }
+        RD(n, m); bool is_swap = false; if (n > m) swap(n, m), is_swap = true;
+        REP(i, n) H[i].resize(m), S[i].resize(m), vis[i].resize(m);
+
+        if (is_swap) {
+            REP(i, m) REP(j, n) RD(H[j][i]);
+            REP(i, m) REP(j, n) RD(S[j][i]);
+        } else {
+            REP(i, n) REP(j, m) RD(H[i][j]);
+            REP(i, n) REP(j, m) RD(S[i][j]);
         }
 
-        REP_1(_i, n) {
-            int i = Find(_i);
-            if (i != _i) {
-                for (auto v: adj[_i]) adj[i].PB(v);
+        vector<int> o; REP(i, n) REP(j, m) {
+            vis[i][j] = 0;
+            int t = i*m+j;
+            if (H[i][j] > S[i][j]) {
+                o.PB(t);
+                ::t[t] = S[i][j];
+            } else {
+                ::t[t] = 0;
             }
         }
+        printf("Case #%d: %d ", ++Case, SZ(o));
+
+        sort(ALL(o), [&](int a, int b){
+             int x0 = a/m, y0 = a%m;
+             int x1 = b/m, y1 = b%m;
+             return S[x0][y0] > S[x1][y1];
+        });
+
+        Init();
 
         int z = 0;
-        REP_1(_i, n) {
-            int i = Find(_i); if (!col[i]) {
-                int a = 0, b = 0;
-                col[i] = 1;
-                if (!dfs(i,a,b)) {
-                    z = -1;
-                    break;
-                }
-                //cout <<z <<" " << a << " " <<b <<endl;
-                z += max(a, b);
-            }
+
+        for (auto i: o) {
+            int x = i/m, y = i%m;
+            if (vis[x][y]) continue;
+            dfs(x, y, S[x][y]);
+            //bfs(x, y, S[x][y]);
+            z += t[Find(i)] == S[x][y];
         }
-        cout << z <<endl;
+
+        printf("%d\n", z);
     }
-
-
 }
