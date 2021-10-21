@@ -468,31 +468,45 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e6) + 9;
 char s[N];
-int n;
+int n; Int z;
+
+int C[N];
+
+
+
+void gao(int l, int r) {
+
+    if (l + 1 == r) return;
+    char sl = '-'; int la = -1;
+    REP(i, n) if(s[i]!='F'){
+        if(sl != s[i]) {
+            sl = s[i];
+            if(la != -1) {
+                // cout <<la << " " << i << endl;
+                z += Int(la+1) * (n-i);
+			}
+		}
+        la = i;
+    }
+}
 
 int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt","r",stdin);
-    freopen("out.txt","w",stdout);
+    //freopen("out.txt","w",stdout);
 #endif
 
     Rush {
         RD(n); RS(s);
-        Int z = 0;
-        char lc = '?'; // 上一个字符
-        int lp = 0; // 上一个字符的位置
-
+        /*char c = 't'; int z = -1;
         REP(i, n) {
-            char c = s[i];
-            if(c != 'F') {
-                if (lc != c) {
-                    if(lc != '?') z += Int(lp) * (n-i);
-                    lc = c;
-                }
-                lp = i+1;
-            }
+            if (s[i] == 'F') continue;
+            if (s[i] == c) continue;
+            c = s[i]; ++z;
         }
+        checkMax(z, 0);*/
+        z = 0; gao(0, n);
         OT(z);
     }
 }

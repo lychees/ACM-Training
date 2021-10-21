@@ -479,20 +479,13 @@ int main() {
 
     Rush {
         RD(n); RS(s);
-        Int z = 0;
-        char lc = '?'; // 上一个字符
-        int lp = 0; // 上一个字符的位置
-
+        char c = 't'; int z = -1;
         REP(i, n) {
-            char c = s[i];
-            if(c != 'F') {
-                if (lc != c) {
-                    if(lc != '?') z += Int(lp) * (n-i);
-                    lc = c;
-                }
-                lp = i+1;
-            }
+            if (s[i] == 'F') continue;
+            if (s[i] == c) continue;
+            c = s[i]; ++z;
         }
+        checkMax(z, 0);
         OT(z);
     }
 }
