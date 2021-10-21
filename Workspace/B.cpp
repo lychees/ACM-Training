@@ -1,528 +1,573 @@
-#include<bits/stdc++.h>
+/*
+    This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
+    Template Date: 2015.10.12
+    Note: ...
+*/
+
+#pragma comment(linker, "/STACK:36777216")
+//#pragma GCC optimize ("O2")
+#define LOCAL
+#include <functional>
+#include <algorithm>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <numeric>
+#include <cstring>
+#include <climits>
+#include <cassert>
+#include <complex>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <bitset>
+#include <queue>
+#include <stack>
+#include <cmath>
+#include <ctime>
+#include <list>
+#include <set>
+#include <map>
+
+//#include <tr1/unordered_set>
+//#include <tr1/unordered_map>
+//#include <array>
+
 using namespace std;
-#define For(i,n) for(int i=1;i<=n;i++)
-#define Fork(i,k,n) for(int i=k;i<=n;i++)
-#define Rep(i,n) for(int i=0;i<n;i++)
-#define ForD(i,n) for(int i=n;i;i--)
-#define ForkD(i,k,n) for(int i=n;i>=k;i--)
-#define RepD(i,n) for(int i=n;i>=0;i--)
-#define Forp(x) for(int p=Pre[x];p;p=Next[p])
-#define Forpiter(x) for(int &p=iter[x];p;p=Next[p])
-#define Lson (o<<1)
-#define Rson ((o<<1)+1)
-#define MEM(a) memset(a,0,sizeof(a));
-#define MEMI(a) memset(a,127,sizeof(a));
-#define MEMi(a) memset(a,128,sizeof(a));
-#define INF (2139062143)
-#define F (100000007)
-#define pb push_back
-#define mp make_pair
+
+#define REP(i, n) for (int i=0;i<n;++i)
+#define FOR(i, a, b) for (int i=a;i<b;++i)
+#define DWN(i, b, a) for (int i=b-1;i>=a;--i)
+#define REP_1(i, n) for (int i=1;i<=n;++i)
+#define FOR_1(i, a, b) for (int i=a;i<=b;++i)
+#define DWN_1(i, b, a) for (int i=b;i>=a;--i)
+#define REP_C(i, n) for (int n____=n,i=0;i<n____;++i)
+#define FOR_C(i, a, b) for (int b____=b,i=a;i<b____;++i)
+#define DWN_C(i, b, a) for (int a____=a,i=b-1;i>=a____;--i)
+#define REP_N(i, n) for (i=0;i<n;++i)
+#define FOR_N(i, a, b) for (i=a;i<b;++i)
+#define DWN_N(i, b, a) for (i=b-1;i>=a;--i)
+#define REP_1_C(i, n) for (int n____=n,i=1;i<=n____;++i)
+#define FOR_1_C(i, a, b) for (int b____=b,i=a;i<=b____;++i)
+#define DWN_1_C(i, b, a) for (int a____=a,i=b;i>=a____;--i)
+#define REP_1_N(i, n) for (i=1;i<=n;++i)
+#define FOR_1_N(i, a, b) for (i=a;i<=b;++i)
+#define DWN_1_N(i, b, a) for (i=b;i>=a;--i)
+#define REP_C_N(i, n) for (int n____=(i=0,n);i<n____;++i)
+#define FOR_C_N(i, a, b) for (int b____=(i=0,b);i<b____;++i)
+#define DWN_C_N(i, b, a) for (int a____=(i=b-1,a);i>=a____;--i)
+#define REP_1_C_N(i, n) for (int n____=(i=1,n);i<=n____;++i)
+#define FOR_1_C_N(i, a, b) for (int b____=(i=a,b);i<=b____;++i)
+#define DWN_1_C_N(i, b, a) for (int a____=(i=b,a);i>=a____;--i)
+
+#define ECH(it, A) for (__typeof((A).begin()) it=(A).begin(); it != (A).end(); ++it)
+#define rECH(it, A) for (__typeof((A).rbegin()) it=(A).rbegin(); it != (A).rend(); ++it)
+#define REP_S(i, str) for (char*i=str;*i;++i)
+#define REP_L(i, hd, suc) for (int i=hd;i;i=suc[i])
+#define REP_G(i, u) REP_L(i,hd[u],suc)
+#define REP_SS(x, s) for (int x=s;x;x=(x-1)&s)
+#define DO(n) for ( int ____n = n; ____n-->0; )
+#define REP_2(i, j, n, m) REP(i, n) REP(j, m)
+#define REP_2_1(i, j, n, m) REP_1(i, n) REP_1(j, m)
+#define REP_3(i, j, k, n, m, l) REP(i, n) REP(j, m) REP(k, l)
+#define REP_3_1(i, j, k, n, m, l) REP_1(i, n) REP_1(j, m) REP_1(k, l)
+#define REP_4(i, j, k, ii, n, m, l, nn) REP(i, n) REP(j, m) REP(k, l) REP(ii, nn)
+#define REP_4_1(i, j, k, ii, n, m, l, nn) REP_1(i, n) REP_1(j, m) REP_1(k, l) REP_1(ii, nn)
+
+#define ALL(A) A.begin(), A.end()
+#define LLA(A) A.rbegin(), A.rend()
+#define CPY(A, B) memcpy(A, B, sizeof(A))
+#define INS(A, P, B) A.insert(A.begin() + P, B)
+#define ERS(A, P) A.erase(A.begin() + P)
+#define LBD(A, x) (lower_bound(ALL(A), x) - A.begin())
+#define UBD(A, x) (upper_bound(ALL(A), x) - A.begin())
+#define CTN(T, x) (T.find(x) != T.end())
+#define SZ(A) int((A).size())
+#define PB push_back
+#define MP(A, B) make_pair(A, B)
+#define PTT pair<T, T>
+#define Ts *this
+#define rTs return Ts
 #define fi first
 #define se second
-#define vi vector<int>
-#define pi pair<int,int>
-#define SI(a) ((a).size())
-#define ALL(x) (x).begin(),(x).end()
-typedef long long ll;
-typedef long double ld;
-typedef unsigned long long ull;
-ll mul(ll a,ll b){return (a*b)%F;}
-ll add(ll a,ll b){return (a+b)%F;}
-ll sub(ll a,ll b){return (a-b+llabs(a-b)/F*F+F)%F;}
-void upd(ll &a,ll b){a=(a%F+b%F)%F;}
-int read()
-{
-	int x=0,f=1; char ch=getchar();
-	while(!isdigit(ch)) {if (ch=='-') f=-1; ch=getchar();}
-	while(isdigit(ch)) { x=x*10+ch-'0'; ch=getchar();}
-	return x*f;
-}
-ll sqr(ll a){return a*a;}
-ld sqr(ld a){return a*a;}
-double sqr(double a){return a*a;}
-const double eps=1e-6;
-int dcmp(double x) {
-	if (fabs(x)<eps) return 0; else return x<0 ? -1 : 1;
-}
-ld PI = 3.141592653589793238462643383;
-class P{
-public:
-	double x,y;
-	P(double x=0,double y=0):x(x),y(y){}
-	friend ld dis2(P A,P B){return sqr(A.x-B.x)+sqr(A.y-B.y);	}
-	friend ld Dot(P A,P B) {return A.x*B.x+A.y*B.y; }
-	friend ld Length(P A) {return sqrt(Dot(A,A)); }
-	friend ld Angle(P A,P B) {
-		if (dcmp(Dot(A,A))==0||dcmp(Dot(B,B))==0||dcmp(Dot(A-B,A-B))==0) return 0;
-		return acos(max((ld)-1.0, min((ld)1.0, Dot(A,B) / Length(A) / Length(B) )) );
-	}
+#define re real()
+#define im imag()
 
-	friend P operator- (P A,P B) { return P(A.x-B.x,A.y-B.y); }
-	friend P operator+ (P A,P B) { return P(A.x+B.x,A.y+B.y); }
-	friend P operator* (P A,double p) { return P(A.x*p,A.y*p); }
-	friend P operator/ (P A,double p) { return P(A.x/p,A.y/p); }
-	friend bool operator< (const P& a,const P& b) {return dcmp(a.x-b.x)<0 ||(dcmp(a.x-b.x)==0&& dcmp(a.y-b.y)<0 );}
-
-};
-P read_point() {
-	P a;
-	scanf("%lf%lf",&a.x,&a.y);
-	return a;
+#define Rush for(int ____T=RD(); ____T--;)
+#define Display(A, n, m) {                      \
+  REP(i, n){		                            \
+        REP(j, m-1) cout << A[i][j] << " ";     \
+        cout << A[i][m-1] << endl;		        \
+	}						                    \
 }
-bool operator==(const P& a,const P& b) {
-	return dcmp(a.x-b.x)==0 && dcmp(a.y-b.y) == 0;
-}
-typedef P V;
-
-double Cross(V A,V B) {return A.x*B.y - A.y*B.x;}
-double Area2(P A,P B,P C) {return Cross(B-A,C-A);}
-V Rotate(V A,double rad) {
-	return V(A.x*cos(rad)-A.y*sin(rad),A.x*sin(rad)+A.y*cos(rad));
-}
-// A 不是 0向量
-V Normal(V A) {
-	double L = Length(A);
-	return V(-A.y/L , A.x/L);
+#define Display_1(A, n, m) {                    \
+	REP_1(i, n){		                        \
+        REP_1(j, m-1) cout << A[i][j] << " ";   \
+        cout << A[i][m] << endl;		        \
+	}						                    \
 }
 
-namespace complex_G{
-	typedef complex<double> Point;
-	//real(p):实部 imag(p):虚部 conj(p):共轭
-	typedef Point Vector;
-	double Dot(Vector A,Vector B) {return real(conj(A)*B); }
-	double Cross(Vector A,Vector B) {return imag(conj(A)*B); }
-	Vector Rotate(Vector A,double rad) {return A*exp(Point(0,rad));	}
-}
-//Cross(v,w)==0(平行)时,不能调这个函数
-P GetLineIntersection(P p,V v,P Q,V w){
-	V u = p-Q;
-	double t = Cross(w,u)/Cross(v,w);
-	return p+v*t;
-}
-P GetLineIntersectionB(P p,V v,P Q,V w){
-	return GetLineIntersection(p,v-p,Q,w-Q);
-}
+typedef long long LL;
+//typedef long double DB;
+typedef double DB;
+typedef unsigned uint;
+typedef unsigned long long uLL;
 
-double DistanceToLine(P p,P A,P B) {
-	V v1 = B-A, v2 = p-A;
-	return fabs(Cross(v1,v2))/Length(v1);
-}
-double DistanceToSegment(P p,P A,P B) {
-	if (A==B) return Length(p-A);
-	V v1 = B-A, v2 = p-A, v3 = p - B;
-	if (dcmp(Dot(v1,v2))<0) return Length(v2);
-	else if (dcmp(Dot(v1,v3))>0 ) return Length(v3);
-	else return fabs(Cross(v1,v2) ) / Length(v1);
-}
-P GetLineProjection(P p,P A,P B) {
-	V v=B-A;
-	return A+v*(Dot(v,p-A)/Dot(v,v));
-}
-//规范相交-线段相交且交点不在端点
-bool SegmentProperIntersection(P a1,P a2,P b1,P b2) {
-	double  c1 = Cross(a2-a1,b1-a1) , c2 = Cross(a2-a1,b2-a1),
-			c3 = Cross(b2-b1,a1-b1) , c4 = Cross(b2-b1,a2-b1);
-	return dcmp(c1)*dcmp(c2)<0 && dcmp(c3)*dcmp(c4)<0;
-}
-//点在线段上（不包含端点）
-bool OnSegment(P p,P a1,P a2) {
-	return dcmp(Cross(a1-p,a2-p)) == 0 && dcmp(Dot(a1-p,a2-p))<0;
-}
-double PolygonArea(P *p,int n) {
-	double area=0;
-	For(i,n-2) area+=Cross(p[i]-p[0],p[i+1]-p[0]);
-	return area/2;
-}
-/*欧拉公式： V+F-E=2
-V-点数 F面数 E边数 */
-struct C{
-	P c;
-	double r,x,y;
-	C(P c,double r):c(c),r(r),x(c.x),y(c.y){}
-	P point(double a) {
-		return P(c.x+cos(a)*r,c.y+sin(a)*r);
-	}
-};
+typedef vector<int> VI;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef vector<LL> VL;
+typedef vector<DB> VF;
+typedef set<int> SI;
+typedef set<string> SS;
+typedef map<int, int> MII;
+typedef map<string, int> MSI;
+typedef pair<int, int> PII;
+typedef pair<LL, LL> PLL;
+typedef vector<PII> VII;
+typedef vector<VI> VVI;
+typedef vector<VII> VVII;
 
-struct Line{
-	P p;
-	V v;
-	double ang;
-	Line(){}
-	Line(P p,V v):p(p),v(v) {ang=atan2(v.y,v.x); }
-	bool operator<(const Line & L) const {
-		return ang<L.ang;
-	}
-	P point(double a) {
-		return p+v*a;
-	}
-};
-int getLineCircleIntersection(Line L,C cir,double &t1,double &t2,vector<P> & sol) {
-	if (dcmp(DistanceToLine(cir.c,L.p,L.p+L.v)-cir.r)==0) {
-		P A=GetLineProjection(cir.c,L.p,L.p+L.v);
-		sol.pb(A);
-		t1 = (A-L.p).x / L.v.x;
-		return 1;
-	}
+template<class T> inline T& RD(T &);
+template<class T> inline void OT(const T &);
+//inline int RD(){int x; return RD(x);}
+inline LL RD(){LL x; return RD(x);}
+inline DB& RF(DB &);
+inline DB RF(){DB x; return RF(x);}
+inline char* RS(char *s);
+inline char& RC(char &c);
+inline char RC();
+inline char& RC(char &c){scanf(" %c", &c); return c;}
+inline char RC(){char c; return RC(c);}
+//inline char& RC(char &c){c = getchar(); return c;}
+//inline char RC(){return getchar();}
 
-	double a = L.v.x, b = L.p.x - cir.c.x, c = L.v.y, d= L.p.y - cir.c.y;
-	double e = a*a+c*c, f = 2*(a*b + c*d), g = b*b+d*d-cir.r*cir.r;
-	double delta = f*f - 4*e*g;
-	if (dcmp(delta)<0) return 0;
-	else if (dcmp(delta)==0) {
-		t1 = t2 = -f / (2*e); sol.pb(L.point(t1));
-		return 1;
-	}
-	t1 = (-f - sqrt(delta)) / (2*e); sol.pb(L.point(t1));
-	t2 = (-f + sqrt(delta)) / (2*e); sol.pb(L.point(t2));
-	return 2;
-}
-double angle(V v) {return atan2(v.y,v.x);}
-int getCircleCircleIntersection(C C1,C C2,vector<P>& sol) {
-	double d = Length(C1.c-C2.c);
-	if (dcmp(d)==0) {
-		if (dcmp(C1.r - C2.r)==0) return -1; //2圆重合
-		return 0;
-	}
-	if (dcmp(C1.r+C2.r-d)<0) return 0;
-	if (dcmp(fabs(C1.r-C2.r)-d)>0) return 0;
+template<class T> inline T& RDD(T &);
+inline LL RDD(){LL x; return RDD(x);}
 
-	double a = angle(C2.c-C1.c);
-	double da = acos((C1.r*C1.r+d*d - C2.r*C2.r)/ (2*C1.r*d));
-	P p1 = C1.point(a-da), p2 = C1.point(a+da);
-	sol.pb(p1);
-	if (p1==p2) return 1;
-	sol.pb(p2);
-	return 2;
-}
-// Tangents-切线
-int getTangents(P p,C c,V* v) {
-	V u= c.c-p;
-	double dist = Length(u);
-	if (dist<c.r) return 0;
-	else if (dcmp(dist-c.r)==0) {
-		v[0]=Rotate(u,PI/2);
-		return 1;
-	} else {
-		double ang = asin(c.r / dist);
-		v[0]=Rotate(u,-ang);
-		v[1]=Rotate(u,ang);
-		return 2;
-	}
-}
-int getTangentsPoint(P p,C c,P *point) {
-	V u= c.c-p;
-	double dist = Length(u);
-	if (dist<c.r) return 0;
-	else if (dcmp(dist-c.r)==0) {
-		point[0]=p;
-		return 1;
-	} else {
-		V v[2];
-		double ang = asin(c.r / dist);
-		v[0]=Rotate(u,-ang);point[0]=GetLineProjection(c.c,p,p+v[0]);
-		v[1]=Rotate(u,ang); point[1]=GetLineProjection(c.c,p,p+v[1]);
-		return 2;
-	}
-}
-//这个函数假设整数坐标和整数半径
-//double时要把int改成double
-int getTangents(C A,C B,P* a,P* b) {
-	int cnt=0;
-	if (A.r<B.r) {swap(A,B),swap(a,b);}
-	int d2 = (A.c.x-B.c.x)*(A.c.x-B.c.x) + (A.c.y-B.c.y)*(A.c.y-B.c.y);
-	int rdiff = A.r-B.r;
-	int rsum = A.r+B.r;
-	if (d2<rdiff*rdiff) return 0;
-	double base = atan2(B.y-A.y,B.x-A.x);
-	if (d2==0 && A.r == B.r) return -1;
-	if (d2 == rdiff*rdiff) {
-		a[cnt] = A.point(base); b[cnt] = B.point(base); ++cnt;
-		return 1;
-	}
-	double ang = acos((A.r-B.r)/sqrt(d2));
-	a[cnt] = A.point(base+ang); b[cnt] = B.point(base+ang); ++cnt;
-	a[cnt] = A.point(base-ang); b[cnt] = B.point(base-ang); ++cnt;
-	if (d2==rsum*rsum) {
-		a[cnt] = A.point(base); b[cnt] = B.point(PI+base); ++cnt;
-	}
-	else if (d2>rsum*rsum) {
-		double ang = acos((A.r+B.r)/sqrt(d2));
-		a[cnt] = A.point(base+ang); b[cnt] = B.point(PI+base+ang); ++cnt;
-		a[cnt] = A.point(base-ang); b[cnt] = B.point(PI+base-ang); ++cnt;
-	}
-	return cnt;
-}
-//Circumscribed-外接
-C CircumscribedCircle(P p1,P p2,P p3) {
-	double Bx = p2.x-p1.x, By= p2.y-p1.y;
-	double Cx = p3.x-p1.x, Cy= p3.y-p1.y;
-	double D = 2*(Bx*Cy-By*Cx);
-	double cx = (Cy*(Bx*Bx+By*By)-By*(Cx*Cx+Cy*Cy))/D + p1.x;
-	double cy = (Bx*(Cx*Cx+Cy*Cy)-Cx*(Bx*Bx+By*By))/D + p1.y;
-	P p =P(cx,cy);
-	return C(p,Length(p1-p));
-}
-//Inscribed-内接
-C InscribedCircle(P p1,P p2,P p3) {
-	double a = Length(p2-p3);
-	double b = Length(p3-p1);
-	double c = Length(p1-p2);
-	P p = (p1*a+p2*b+p3*c)/(a+b+c);
-	return C(p,DistanceToLine(p,p1,p2));
-}
-double torad(double deg) {
-	return deg/180*acos(-1);
-}
-//把 角度+-pi 转换到 [0,pi) 上
-double radToPositive(double rad) {
-	if (dcmp(rad)<0) rad=ceil(-rad/PI)*PI+rad;
-	if (dcmp(rad-PI)>=0) rad-=floor(rad/PI)*PI;
-	return rad;
-}
-double todeg(double rad) {
-	return rad*180/acos(-1);
-}
+template<class T0, class T1> inline T0& RD(T0 &x0, T1 &x1){RD(x0), RD(x1); return x0;}
+template<class T0, class T1, class T2> inline T0& RD(T0 &x0, T1 &x1, T2 &x2){RD(x0), RD(x1), RD(x2); return x0;}
+template<class T0, class T1, class T2, class T3> inline T0& RD(T0 &x0, T1 &x1, T2 &x2, T3 &x3){RD(x0), RD(x1), RD(x2), RD(x3); return x0;}
+template<class T0, class T1, class T2, class T3, class T4> inline T0& RD(T0 &x0, T1 &x1, T2 &x2, T3 &x3, T4 &x4){RD(x0), RD(x1), RD(x2), RD(x3), RD(x4); return x0;}
+template<class T0, class T1, class T2, class T3, class T4, class T5> inline T0& RD(T0 &x0, T1 &x1, T2 &x2, T3 &x3, T4 &x4, T5 &x5){RD(x0), RD(x1), RD(x2), RD(x3), RD(x4), RD(x5); return x0;}
+template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> inline T0& RD(T0 &x0, T1 &x1, T2 &x2, T3 &x3, T4 &x4, T5 &x5, T6 &x6){RD(x0), RD(x1), RD(x2), RD(x3), RD(x4), RD(x5), RD(x6); return x0;}
+template<class T0, class T1> inline void OT(const T0 &x0, const T1 &x1){OT(x0), OT(x1);}
+template<class T0, class T1, class T2> inline void OT(const T0 &x0, const T1 &x1, const T2 &x2){OT(x0), OT(x1), OT(x2);}
+template<class T0, class T1, class T2, class T3> inline void OT(const T0 &x0, const T1 &x1, const T2 &x2, const T3 &x3){OT(x0), OT(x1), OT(x2), OT(x3);}
+template<class T0, class T1, class T2, class T3, class T4> inline void OT(const T0 &x0, const T1 &x1, const T2 &x2, const T3 &x3, const T4 &x4){OT(x0), OT(x1), OT(x2), OT(x3), OT(x4);}
+template<class T0, class T1, class T2, class T3, class T4, class T5> inline void OT(const T0 &x0, const T1 &x1, const T2 &x2, const T3 &x3, const T4 &x4, const T5 &x5){OT(x0), OT(x1), OT(x2), OT(x3), OT(x4), OT(x5);}
+template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> inline void OT(const T0 &x0, const T1 &x1, const T2 &x2, const T3 &x3, const T4 &x4, const T5 &x5, const T6 &x6){OT(x0), OT(x1), OT(x2), OT(x3), OT(x4), OT(x5), OT(x6);}
+inline char& RC(char &a, char &b){RC(a), RC(b); return a;}
+inline char& RC(char &a, char &b, char &c){RC(a), RC(b), RC(c); return a;}
+inline char& RC(char &a, char &b, char &c, char &d){RC(a), RC(b), RC(c), RC(d); return a;}
+inline char& RC(char &a, char &b, char &c, char &d, char &e){RC(a), RC(b), RC(c), RC(d), RC(e); return a;}
+inline char& RC(char &a, char &b, char &c, char &d, char &e, char &f){RC(a), RC(b), RC(c), RC(d), RC(e), RC(f); return a;}
+inline char& RC(char &a, char &b, char &c, char &d, char &e, char &f, char &g){RC(a), RC(b), RC(c), RC(d), RC(e), RC(f), RC(g); return a;}
+inline DB& RF(DB &a, DB &b){RF(a), RF(b); return a;}
+inline DB& RF(DB &a, DB &b, DB &c){RF(a), RF(b), RF(c); return a;}
+inline DB& RF(DB &a, DB &b, DB &c, DB &d){RF(a), RF(b), RF(c), RF(d); return a;}
+inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e){RF(a), RF(b), RF(c), RF(d), RF(e); return a;}
+inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f){RF(a), RF(b), RF(c), RF(d), RF(e), RF(f); return a;}
+inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f, DB &g){RF(a), RF(b), RF(c), RF(d), RF(e), RF(f), RF(g); return a;}
+inline void RS(char *s1, char *s2){RS(s1), RS(s2);}
+inline void RS(char *s1, char *s2, char *s3){RS(s1), RS(s2), RS(s3);}
+template<class T0,class T1>inline T0& RDD(T0&a, T1&b){RDD(a),RDD(b); return a;}
+template<class T0,class T1,class T2>inline T1& RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c); return a;}
 
-//(R,lat,lng)->(x,y,z)
-void get_coord(double R,double lat,double lng,double &x,double &y,double &z) {
-	lat=torad(lat);
-	lng=torad(lng);
-	x=R*cos(lat)*cos(lng);
-	y=R*cos(lat)*sin(lng);
-	z=R*sin(lat);
-}
-void print(double a) {
-	printf("%.6lf",a);
-}
-void print(P p) {
-	printf("(%.6lf,%.6lf)",p.x,p.y);
-}
-template<class T>
-void print(vector<T> v) {
-	sort(v.begin(),v.end());
-	putchar('[');
-	int n=v.size();
-	Rep(i,n) {
-		print(v[i]);
-		if (i<n-1) putchar(',');
-	}
-	puts("]");
-}
-// 把直线沿v平移
-// Translation-平移
-Line LineTranslation(Line l,V v) {
-	l.p=l.p+v;
-	return l;
-}
-void CircleThroughAPointAndTangentToALineWithRadius(P p,Line l,double r,vector<P>& sol) {
-	V e=Normal(l.v);
-	Line l1=LineTranslation(l,e*r),l2=LineTranslation(l,e*(-r));
-	double t1,t2;
-	getLineCircleIntersection(l1,C(p,r),t1,t2,sol);
-	getLineCircleIntersection(l2,C(p,r),t1,t2,sol);
-}
-void CircleTangentToTwoLinesWithRadius(Line l1,Line l2,double r,vector<P>& sol) {
-	V e1=Normal(l1.v),e2=Normal(l2.v);
-	Line L1[2]={LineTranslation(l1,e1*r),LineTranslation(l1,e1*(-r))},
-		 L2[2]={LineTranslation(l2,e2*r),LineTranslation(l2,e2*(-r))};
-	Rep(i,2) Rep(j,2) sol.pb(GetLineIntersection(L1[i].p,L1[i].v,L2[j].p,L2[j].v));
-}
-void CircleTangentToTwoDisjointCirclesWithRadius(C c1,C c2,double r,vector<P>& sol) {
-	c1.r+=r; c2.r+=r;
-	getCircleCircleIntersection(c1,c2,sol);
-}
-//确定4个点能否组成凸多边形，并按顺序（不一定是逆时针）返回
-bool ConvexPolygon(P &A,P &B,P &C,P &D) {
-	if (SegmentProperIntersection(A,C,B,D)) return 1;
-	swap(B,C);
-	if (SegmentProperIntersection(A,C,B,D)) return 1;
-	swap(D,C);
-	if (SegmentProperIntersection(A,C,B,D)) return 1;
-	return 0;
-}
-bool IsParallel(P A,P B,P C,P D) {
-	return dcmp(Cross(B-A,D-C))==0;
-}
-bool IsPerpendicular(V A,V B) {
-	return dcmp(Dot(A,B))==0;
-}
-//先调用ConvexPolygon 求凸包并确认是否是四边形
-// Trapezium-梯形 Rhombus-菱形
-bool IsTrapezium(P A,P B,P C,P D){
-	return IsParallel(A,B,C,D)^IsParallel(B,C,A,D);
-}
-bool IsParallelogram(P A,P B,P C,P D) {
-	return IsParallel(A,B,C,D)&&IsParallel(B,C,A,D);
-}
-bool IsRhombus(P A,P B,P C,P D) {
-	return IsParallelogram(A,B,C,D)&&dcmp(Length(B-A)-Length(C-B))==0;
-}
-bool IsRectangle(P A,P B,P C,P D) {
-	return IsParallelogram(A,B,C,D)&&IsPerpendicular(B-A,D-A);
-}
-bool IsSquare(P A,P B,P C,P D) {
-	return IsParallelogram(A,B,C,D)&&IsPerpendicular(B-A,D-A)&&dcmp(Length(B-A)-Length(C-B))==0;
-}
+template<class T> inline void RST(T &A){memset(A, 0, sizeof(A));}
+template<class T> inline void FLC(T &A, int x){memset(A, x, sizeof(A));}
+template<class T> inline void CLR(T &A){A.clear();}
 
-bool IsCollinear(P A,P B,P C,P D) { //共线
-	return !dcmp(Cross(A-B,C-D)) && !dcmp(Cross(A-B,C-B)) && !dcmp(DistanceToLine(A,C,D));
-}
-//chord-弦 arc-弧
-double ArcDis(double chord,double r) {
-	return 2*asin(chord/2/r)*r;
-}
-typedef vector<P> Polygon ;
-int isPointInPolygon(P p,Polygon poly) {
-	int wn=0;
-	int n=poly.size();
-	Rep(i,n) if (p==poly[i]) return -1;
-	Rep(i,n) {
-		if (OnSegment(p,poly[i],poly[(i+1)%n])) return -1; //edge
-		int k=dcmp(Cross(poly[(i+1)%n]-poly[i],p-poly[i]));
-		int d1 = dcmp(poly[i].y-p.y);
-		int d2 = dcmp(poly[(i+1)%n].y-p.y);
-		if ( k > 0 && d1 <= 0 && d2 > 0 ) wn++;
-		if ( k < 0 && d2 <= 0 && d1 > 0 ) wn--;
-	}
-	if (wn!=0) return 1; //inside
-	return 0; //outside
-}
-bool isPointInConvex(P p,Polygon poly){ // Counterclockwise  inside 1 outside 0
-	int n=SI(poly);
-    if(n<3) return 0;
-    if(dcmp(Cross(p-poly[0],poly[1]-poly[0]))>=0) return 0;
-    if(dcmp(Cross(p-poly[0],poly[n-1]-poly[0]))<=0) return 0;
+template<class T0, class T1> inline void RST(T0 &A0, T1 &A1){RST(A0), RST(A1);}
+template<class T0, class T1, class T2> inline void RST(T0 &A0, T1 &A1, T2 &A2){RST(A0), RST(A1), RST(A2);}
+template<class T0, class T1, class T2, class T3> inline void RST(T0 &A0, T1 &A1, T2 &A2, T3 &A3){RST(A0), RST(A1), RST(A2), RST(A3);}
+template<class T0, class T1, class T2, class T3, class T4> inline void RST(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4){RST(A0), RST(A1), RST(A2), RST(A3), RST(A4);}
+template<class T0, class T1, class T2, class T3, class T4, class T5> inline void RST(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5){RST(A0), RST(A1), RST(A2), RST(A3), RST(A4), RST(A5);}
+template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> inline void RST(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5, T6 &A6){RST(A0), RST(A1), RST(A2), RST(A3), RST(A4), RST(A5), RST(A6);}
+template<class T0, class T1> inline void FLC(T0 &A0, T1 &A1, int x){FLC(A0, x), FLC(A1, x);}
+template<class T0, class T1, class T2> inline void FLC(T0 &A0, T1 &A1, T2 &A2, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x);}
+template<class T0, class T1, class T2, class T3> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x);}
+template<class T0, class T1, class T2, class T3, class T4> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x), FLC(A4, x);}
+template<class T0, class T1, class T2, class T3, class T4, class T5> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x), FLC(A4, x), FLC(A5, x);}
+template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5, T6 &A6, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x), FLC(A4, x), FLC(A5, x), FLC(A6, x);}
+template<class T> inline void CLR(priority_queue<T> &Q){while (!Q.empty()) Q.pop();}
+template<class T> inline void CLR(stack<T> &S){while (!S.empty()) S.pop();}
+template<class T> inline void CLR(queue<T> &Q){while (!Q.empty()) Q.pop();}
 
-    int i=2,j=n-1;
-    int line=-1;
-    while(i<=j) {
-        int mid=(i+j)>>1;
-        if(dcmp(Cross(p-poly[0],poly[mid]-poly[0]))>=0) {
-            line=mid;
-            j=mid-1;
+template<class T0, class T1> inline void CLR(T0 &A0, T1 &A1){CLR(A0), CLR(A1);}
+template<class T0, class T1, class T2> inline void CLR(T0 &A0, T1 &A1, T2 &A2){CLR(A0), CLR(A1), CLR(A2);}
+template<class T0, class T1, class T2, class T3> inline void CLR(T0 &A0, T1 &A1, T2 &A2, T3 &A3){CLR(A0), CLR(A1), CLR(A2), CLR(A3);}
+template<class T0, class T1, class T2, class T3, class T4> inline void CLR(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4){CLR(A0), CLR(A1), CLR(A2), CLR(A3), CLR(A4);}
+template<class T0, class T1, class T2, class T3, class T4, class T5> inline void CLR(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5){CLR(A0), CLR(A1), CLR(A2), CLR(A3), CLR(A4), CLR(A5);}
+template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> inline void CLR(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5, T6 &A6){CLR(A0), CLR(A1), CLR(A2), CLR(A3), CLR(A4), CLR(A5), CLR(A6);}
+template<class T> inline void CLR(T &A, int n){REP(i, n) CLR(A[i]);}
+
+template<class T> inline bool EPT(T &a){return a.empty();}
+template<class T> inline T& SRT(T &A){sort(ALL(A)); return A;}
+template<class T, class C> inline T& SRT(T &A, C cmp){sort(ALL(A), cmp); return A;}
+template<class T> inline T& RVS(T &A){reverse(ALL(A)); return A;}
+template<class T> inline T& UNQQ(T &A){A.resize(unique(ALL(A))-A.begin());return A;}
+template<class T> inline T& UNQ(T &A){SRT(A);return UNQQ(A);}
+template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A);}
+
+
+//}
+
+/** Constant List .. **/ //{
+
+const int MOD = int(1e9) + 7;
+const int INF = 0x3f3f3f3f;
+const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
+const DB EPS = 1e-9;
+const DB OO = 1e20;
+const DB PI = acos(-1.0); //M_PI;
+
+const int dx[] = {-1, 1, 0, 0};
+const int dy[] = {0, 0, 1, -1};
+
+//}
+
+/** Add On .. **/ //{
+// <<= '0. Nichi Joo ., //{
+
+template<class T> inline bool checkMin(T &a,const T b){return b < a ? a = b, 1 : 0;}
+template<class T> inline bool checkMax(T &a,const T b){return a < b ? a = b, 1 : 0;}
+template <class T, class C> inline bool checkUpd(T& a, const T b, C c){return c(b,a) ? a = b, 1 : 0;}
+template<class T> inline T min(T a, T b, T c){return min(min(a, b), c);}
+template<class T> inline T max(T a, T b, T c){return max(max(a, b), c);}
+template<class T> inline T min(T a, T b, T c, T d){return min(min(a, b), min(c, d));}
+template<class T> inline T max(T a, T b, T c, T d){return max(max(a, b), max(c, d));}
+template<class T> inline T min(T a, T b, T c, T d, T e){return min(min(min(a,b),min(c,d)),e);}
+template<class T> inline T max(T a, T b, T c, T d, T e){return max(max(max(a,b),max(c,d)),e);}
+template<class T> inline T sqr(T a){return a*a;}
+template<class T> inline T cub(T a){return a*a*a;}
+template<class T> inline T ceil(T x, T y){return (x - 1) / y + 1;}
+template<class T> T abs(T x){return x>0?x:-x;}
+inline int sgn(DB x){return x < -EPS ? -1 : x > EPS;}
+inline int sgn(DB x, DB y){return sgn(x - y);}
+
+inline DB cos(DB a, DB b, DB c){return (sqr(a)+sqr(b)-sqr(c))/(2*a*b);}
+inline DB cot(DB x){return 1./tan(x);};
+inline DB sec(DB x){return 1./cos(x);};
+inline DB csc(DB x){return 1./sin(x);};
+
+//}
+
+// <<= '9. Comutational Geometry .,//{
+namespace CG{
+
+#define cPo const Po&
+#define cLine const Line&
+#define cSeg const Seg&
+
+    inline DB dist2(DB x,DB y){return sqr(x)+sqr(y);}
+
+    struct Po{
+        DB x,y;Po(DB x=0,DB y=0):x(x),y(y){}
+
+        void in(){RF(x,y);}void out(){printf("(%.2f,%.2f)",x,y);}
+        inline friend istream&operator>>(istream&i,Po&p){return i>>p.x>>p.y;}
+        inline friend ostream&operator<<(ostream&o,Po p){return o<<"("<<p.x<<", "<<p.y<< ")";}
+
+        Po operator-()const{return Po(-x,-y);}
+        Po&operator+=(cPo p){x+=p.x,y+=p.y;rTs;}Po&operator-=(cPo p){x-=p.x,y-=p.y;rTs;}
+        Po&operator*=(DB k){x*=k,y*=k;rTs;}Po&operator/=(DB k){x/=k,y/=k;rTs;}
+        Po&operator*=(cPo p){rTs=Ts*p;}Po&operator/=(cPo p){rTs=Ts/p;}
+        Po operator+(cPo p)const{return Po(x+p.x,y+p.y);}Po operator-(cPo p)const{return Po(x-p.x,y-p.y);}
+        Po operator*(DB k)const{return Po(x*k,y*k);}Po operator/(DB k)const{return Po(x/k,y/k);}
+        Po operator*(cPo p)const{return Po(x*p.x-y*p.y,y*p.x+x*p.y);}Po operator/(cPo p)const{return Po(x*p.x+y*p.y,y*p.x-x*p.y)/p.len2();}
+
+        bool operator==(cPo p)const{return!sgn(x,p.x)&&!sgn(y,p.y);};bool operator!=(cPo p)const{return sgn(x,p.x)||sgn(y,p.y);}
+        bool operator<(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<0;}bool operator<=(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<=0;}
+        bool operator>(cPo p)const{return!(Ts<=p);}bool operator >=(cPo p)const{return!(Ts<p);}
+
+        DB len2()const{return dist2(x,y);}DB len()const{return sqrt(len2());}DB arg()const{return atan2(y,x);}
+        Po&_1(){rTs/=len();}Po&conj(){y=-y;rTs;}Po&lt(){swap(x,y),x=-x;rTs;}Po&rt(){swap(x,y),y=-y;rTs;}
+        Po&rot(DB a,cPo o=Po()){Ts-=o;Ts*=Po(cos(a),sin(a));rTs+=o;}
+
+
+        // 求所在象限，大部分情况下只区分两个足够。
+        inline int q()const{
+            return (y > 0 || y == 0 && x >= 0) ? 0 : 1;
+            /*if (x > 0 && y >= 0) return 0;
+             if (x <= 0 && y > 0) return 1;
+             if (x < 0 && y <= 0) return 2;
+             return 3;*/
         }
-        else i=mid+1;
+    };
+
+    inline DB dot(DB x1,DB y1,DB x2,DB y2){return x1*x2+y1*y2;}
+    inline DB dot(cPo a,cPo b){return dot(a.x,a.y,b.x,b.y);}
+    inline DB dot(cPo p0,cPo p1,cPo p2){return dot(p1-p0,p2-p0);}
+    inline DB det(DB x1,DB y1,DB x2,DB y2){return x1*y2-x2*y1;}
+    inline DB det(cPo a,cPo b){return det(a.x,a.y,b.x,b.y);}
+    inline DB det(cPo p0,cPo p1,cPo p2){return det(p1-p0,p2-p0);}
+    inline DB ang(cPo p0,cPo p1){return acos(dot(p0,p1)/p0.len()/p1.len());}
+    inline DB ang(cPo p0,cPo p1,cPo p2){return ang(p1-p0,p2-p0);}
+    inline DB ang(cPo p0,cPo p1,cPo p2,cPo p3){return ang(p1-p0,p3-p2);}
+    inline DB dist2(const Po &a, const Po &b){return dist2(a.x-b.x, a.y-b.y);}
+    template<class T1, class T2> inline int dett(const T1 &x, const T2 &y){return sgn(det(x, y));}
+    template<class T1, class T2, class T3> inline int dett(const T1 &x, const T2 &y, const T3 &z){return sgn(det(x, y, z));}
+    template<class T1, class T2, class T3, class T4> inline int dett(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(det(x, y, z, w));}
+    template<class T1, class T2> inline int dott(const T1 &x, const T2 &y){return sgn(dot(x, y));}
+    template<class T1, class T2, class T3> inline int dott(const T1 &x, const T2 &y, const T3 &z){return sgn(dot(x, y, z));}
+    template<class T1, class T2, class T3, class T4> inline int dott(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(dot(x, y, z, w));}
+    template<class T1, class T2> inline DB arg(const T1 &x, const T2 &y){DB a=ang(x,y);return~dett(x,y)?a:2*PI-a;}
+    template<class T1, class T2, class T3> inline DB arg(const T1 &x, const T2 &y, const T3 &z){DB a=ang(x,y,z);return~dett(x,y,z)?a:2*PI-a;}
+    template<class T1, class T2, class T3, class T4> inline DB arg(const T1 &x, const T2 &y, const T3 &z, const T4 &w){DB a=ang(x,y,z,w);return~dett(x,y,z,w)?a:2*PI-a;}
+    template<class T1, class T2> inline DB dist(const T1 &x, const T2 &y){return sqrt(dist2(x, y));}
+    template<class T1, class T2, class T3> inline DB dist(const T1 &x, const T2 &y, const T3 &z){return sqrt(dist2(x, y, z));}
+    inline Po _1(Po p){return p._1();}inline Po conj(Po p){return p.conj();}
+    inline Po lt(Po p){return p.lt();}inline Po rt(Po p){return p.rt();}
+    inline Po rot(Po p,DB a,cPo o=Po()){return p.rot(a,o);}
+    inline Po operator *(DB k,cPo p){return p*k;}
+    inline Po operator /(DB k,cPo p){return conj(p)*k/p.len2();}
+
+    typedef vector<Po> VP;
+
+    struct Line{
+        Po a,b;Line(cPo a=Po(),cPo b=Po()):a(a),b(b){}
+        Line(DB x0,DB y0,DB x1,DB y1):a(Po(x0,y0)),b(Po(x1,y1)){}
+        Line(cLine l):a(l.a),b(l.b){}
+
+        //Ax+By+C=0
+        Line(DB A,DB B,DB C){
+            C=-C;if(!::sgn(A))a=Po(0,C/B),b=Po(1,C/B);
+            else if(!::sgn(B))a=Po(C/A,0),b=Po(C/A,1);
+            else a=Po(0,C/B),b=Po(1,(C-A)/B);
+        }
+
+        void in(){a.in(),b.in();}
+        inline friend istream&operator>>(istream&i,Line& p){return i>>p.a>>p.b;}
+        inline friend ostream&operator<<(ostream&o,Line p){return o<<p.a<<"-"<< p.b;}
+
+        Line operator+(cPo x)const{return Line(a+x,b+x);}
+        Line operator-(cPo x)const{return Line(a-x,b-x);}
+        Line operator*(DB k)const{return Line(a*k,b*k);}
+        Line operator/(DB k)const{return Line(a/k,b/k);}
+
+        Po operator*(cLine)const;
+        Po d()const{return b-a;}DB len2()const{return d().len2();}DB len()const{return d().len();}DB arg()const{return d().arg();}
+
+        int sgn(cPo p)const{return dett(a, b, p);}
+        int sgn(cLine)const;
+
+        bool sameSgn(cPo  p1,cPo  p2)const{return sgn(p1)==sgn(p2);}
+        void getEquation(DB&K,DB&B)const{
+            K = ::sgn(a.x, b.x) ? (b.y-a.y)/(b.x-a.x) : OO;
+            B = a.y - K*a.x;
+        }
+        void getEquation(DB&A,DB&B,DB&C)const{A=a.y-b.y,B=b.x-a.x,C=det(a, b);}
+
+        Line&push(DB r){ // 正数右手螺旋向里
+            Po v=d()._1().lt()*r;a+=v,b+=v; rTs;
+        }
+    };
+
+    inline DB dot(cLine l1,cLine l2){return dot(l1.d(),l2.d());}
+    inline DB dot(cLine l,cPo p){return dot(l.a,l.b,p);}
+    inline DB dot(cPo p,cLine l){return dot(p,l.a,l.b);}
+    inline DB det(cLine l1,cLine l2){return det(l1.d(),l2.d());}
+    inline DB det(cLine l,cPo p){return det(l.a,l.b,p);}
+    inline DB det(cPo p,cLine l){return det(p,l.a,l.b);}
+    inline DB ang(cLine l0,cLine l1){return ang(l0.d(),l1.d());}
+    inline DB ang(cLine l,cPo p){return ang(l.a,l.b,p);}
+    inline DB ang(cPo p,cLine l){return ang(p,l.a,l.b);}
+
+    inline int Line::sgn(cLine l)const{return dett(Ts, l);}
+    inline Po Line::operator*(cLine l)const{return a+d()*det(a,l)/det(Ts,l);}
+    inline Po operator&(cPo p,cLine l){return l*Line(p,p+l.d().lt());}
+    inline Po operator%(cPo p,cLine l){return p&l*2-p;}
+    inline Line push(Line l, DB r){return l.push(r);}
+
+
+    struct Seg: public Line{
+        Seg(cPo a=Po(),cPo b=Po()):Line(a,b){}
+        Seg(DB x0,DB y0,DB x1,DB y1):Line(x0,y0,x1,y1){}
+        Seg(cLine l):Line(l){}
+        Seg(const Po &a,DB alpha):Line(a,alpha){}
+        Seg(DB A,DB B,DB C):Line(A,B,C){}
+
+        inline int sgn(cPo p)const;
+        inline int sgn(cLine l)const;
+        inline bool qrt(cSeg l)const;
+        inline int sgn(cSeg l)const;
+    };
+
+    // -1不相交 0相交（不规范） 1相交（规范）
+
+    //inline int Seg::sgn(cPo p)const{return -dott(p,a,b);}
+
+    inline int Seg::sgn(cPo p)const{
+        if (dett(p, a, b)) return -1; // 有时会有精度误差。。
+        if (a == p || b == p) return 0;
+        return -dott(p,a,b);
     }
-    return dcmp(Cross(p-poly[line-1],poly[line]-poly[line-1]))<0;
+
+
+    inline int Seg::sgn(cLine l)const{return sgn(Ts*l);}
+
+    // quick_rejection_test
+    inline bool Seg::qrt(cSeg l)const{
+        return min(a.x,b.x)<=max(l.a.x,l.b.x)&&min(l.a.x,l.b.x)<=max(a.x,b.x)&&
+        min(a.y,b.y)<=max(l.a.y,l.b.y)&&min(l.a.y,l.b.y)<=max(a.y,b.y);
+    }
+
+
+    inline int Seg::sgn(cSeg l)const{
+        if (!qrt(l)) return -1;
+
+        /*return
+         (dett(a,b,l.a)*dett(a,b,l.b)<=0 &&
+         dett(l.a,l.b,a)*dett(l.a,l.b,b)<=0)?1:-1;*/
+
+        int d1=dett(a,b,l.a),d2=dett(a,b,l.b),d3=dett(l.a,l.b,a),d4=dett(l.a,l.b,b);
+        if ((d1^d2)==-2&&(d3^d4)==-2)return 1;
+        return ((!d1&&dott(l.a-a,l.a-b)<=0)||(!d2&&dott(l.b-a,l.b-b)<=0)||
+                (!d3&&dott(a-l.a,a-l.b)<=0)||(!d4&&dott(b-l.a,b-l.b)<=0))?0:-1;
+    }
+
+    //inline DB dist2(cLine l,cPo p){return sqr(fabs(dot(lt(l.d()), p-l.a)))/l.len2();}
+    inline DB dist2(cLine l,cPo p){return sqr(fabs(det(l.d(), p-l.a)))/l.len2();}
+
+    inline DB dist2(cLine l1,cLine l2){return dett(l1,l2)?0:dist2(l1,l2.a);}
+
+    inline DB dist2(cSeg l,cPo p){
+        Po pa = p - l.a, pb = p - l.b;
+        if (dott(l.d(), pa) <= 0) return pa.len2();
+        if (dott(l.d(), pb) >= 0) return pb.len2();
+        return dist2(Line(l), p);
+    }
+
+
+    inline DB dist2(cSeg s,cLine l){
+        Po v1=s.a-l.a,v2=s.b-l.a;DB d1=det(l.d(),v1),d2=det(l.d(),v2);
+        return sgn(d1)!=sgn(d2) ? 0 : sqr(min(fabs(d1), fabs(d2)))/l.len2();
+    }
+    inline DB dist2(cSeg l1,cSeg l2){
+        if (~l1.sgn(l2)) return 0;
+        else return min(dist2(l2,l1.a), dist2(l2,l1.b), dist2(l1,l2.a), dist2(l1,l2.b));
+    }
+    template<class T1, class T2> inline DB dist2(const T1& a, const T2& b){
+        return dist2(b, a);
+    }
+
+} using namespace CG;//}
+
+
+
+
+//}
+
+
+
+/** I/O Accelerator Interface .. **/ //{
+#define g (c=getchar())
+#define d isdigit(g)
+#define p x=x*10+c-'0'
+#define n x=x*10+'0'-c
+#define pp l/=10,p
+#define nn l/=10,n
+template<class T> inline T& RD(T &x){
+    char c;while(!d);x=c-'0';while(d)p;
+    return x;
+}
+template<class T> inline T& RDD(T &x){
+    char c;while(g,c!='-'&&!isdigit(c));
+    if (c=='-'){x='0'-g;while(d)n;}
+    else{x=c-'0';while(d)p;}
+    return x;
+}
+inline DB& RF(DB &x){
+    //scanf("%lf", &x);
+    char c;while(g,c!='-'&&c!='.'&&!isdigit(c));
+    if(c=='-')if(g=='.'){x=0;DB l=1;while(d)nn;x*=l;}
+        else{x='0'-c;while(d)n;if(c=='.'){DB l=1;while(d)nn;x*=l;}}
+    else if(c=='.'){x=0;DB l=1;while(d)pp;x*=l;}
+        else{x=c-'0';while(d)p;if(c=='.'){DB l=1;while(d)pp;x*=l;}}
+    return x;
+}
+#undef nn
+#undef pp
+#undef n
+#undef p
+#undef d
+#undef g
+inline char* RS(char *s){
+    //gets(s);
+    scanf("%s", s);
+    return s;
 }
 
-int ConvexHull(P *p,int n,P *ch) {
-	sort(p,p+n);
-	int m=0;
-	Rep(i,n) {
-		while(m>1 && Cross(ch[m-1]-ch[m-2],p[i]-ch[m-2])<=0) m--;
-		ch[m++]=p[i];
-	}
-	int k=m;
-	RepD(i,n-2) {
-		while(m>k && Cross(ch[m-1]-ch[m-2],p[i]-ch[m-2])<=0) m--;
-		ch[m++]=p[i];
-	}
-	if ( n > 1 ) m--;
-	return m;
-}
-//把两点式转为一般式 ax+by+c=0
-void Two_pointFormToGeneralForm(P A,P B,double &a,double &b,double &c){
-	a = A.y - B.y;
-	b = B.x - A.x;
-	c = Cross(A,B);
-}
-//有向直线A->B 切割多边行poly 可能返回单点线段 O(n)
-Polygon CutPolygon(Polygon poly,P A,P B){
-	Polygon newpoly;
-	int n=poly.size();
-	Rep(i,n) {
-		P C = poly[i];
-		P D = poly[(i+1)%n];
-		if (dcmp(Cross(B-A,C-A))>=0)  newpoly.pb(C);
-		if (dcmp(Cross(B-A,C-D))) {
-			P ip = GetLineIntersection(A,B-A,C,D-C);
-			if (OnSegment(ip,C,D)) newpoly.pb(ip);
- 		}
-	}
-	return newpoly;
-}
-double PolygonArea(Polygon &p) {
-	double area=0;
-	int n=p.size();
-	For(i,n-2) area+=Cross(p[i]-p[0],p[i+1]-p[0]);
-	return area/2;
+LL last_ans; int Case; template<class T> inline void OT(const T &x){
+    //printf("Case #%d: ", ++Case);
+    //printf("%lld\n", x);
+    //printf("%I64d\n", x);
+    //printf("%.9f\n", x);
+    //printf("%d\n", x);
+    cout << x << endl;
+    //last_ans = x;
 }
 
-//线上不算
-bool OnLeft(Line L,P p) {
-	return Cross(L.v,p-L.p)>0;
-}
-P GetIntersection(Line a,Line b) {
-	V u=a.p-b.p;
-	double t = Cross(b.v,u) / Cross(a.v, b.v);
-	return a.p + a.v*t;
-}
-int HalfplaneIntersection(Line *L, int n, P* poly) {
-	sort(L,L+n);
-	int fi,la;
-	P *p = new P[n];
-	Line *q = new Line[n];
-	q[fi=la=0 ] = L[0];
-	For(i,n-1) {
-		while (fi < la && !OnLeft(L[i],p[la-1])) la--;
-		while (fi < la && !OnLeft(L[i],p[fi])) fi++;
-		q[++la] = L[i];
-		if (fabs(Cross(q[la].v, q[la-1].v))<eps) {
-			la--;
-			if (OnLeft(q[la],L[i].p)) q[la] = L[i];
-		}
-		if (fi<la) p[la-1] = GetIntersection(q[la-1],q[la]);
-	}
-	while(fi < la && !OnLeft(q[fi],p[la-1])) la--;
-	if (la-fi<=1) return 0;
-	p[la] = GetIntersection(q[la],q[fi]);
 
-	int m=0;
-	Fork(i,fi,la) poly[m++]=p[i];
-	return m;
+//}/* .................................................................................................................................. */
+
+const int N = int(1e5) + 9;
+VI adj[N]; int cost[N];
+LL g[N], f[N][3]; int o[N];
+int n, m;
+
+// 0 不放
+// 1 放
+// 2 不放 但是被孩子支配
+
+void dfs(int u, int p) {
+
+    f[u][0] = f[u][1] = 0;
+    LL t = INFF; // 强制某一个孩子放最少额外需要增加多少的代价。
+    for (auto v: adj[u]) if (v != p) {
+        dfs(v, u);
+        f[u][1] += min(f[v][0], f[v][1]);
+        f[u][0] += min(f[v][2], f[v][1]);
+        checkMin(t, f[v][1] - f[v][2]);
+    }
+    f[u][1] += cost[u];
+    f[u][2] = f[u][0] + max(0ll, t);
+    //   0
+    //   0
+    // 0 0 0
+    // 0 1 1
+
+    if (o[u] == 0) f[u][1] = INFF; else if (o[u] == 1) f[u][0] = f[u][2] = INFF;
+    //cout << "u: " << u << " " << f[u][0] << " " << f[u][1] << " " <<f[u][2] <<endl;
 }
 
-#define MAXN (6000000)
-int n,dx,dy;
-P a[MAXN],aa[MAXN];
-int id[MAXN];
+int main(){
 
-P poly[MAXN];
-Line l[MAXN];
-int ln=0;
-int main()
-{
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
-	cin>>dx>>dy>>n;
-	For(i,n) a[i]=read_point();
-	For(i,n) id[i]=read();
-	For(i,n) aa[i]=a[id[i]];
-	For(i,n) a[i]=aa[i];
 
-	ln=0;
-	/*Fork(i,2,n) For(j,i-1){
-		l[ln++]=Line(a[i],a[j]-a[i]);
-	}*/
-	l[ln++]=Line(P(0,0),P(dx,0));
+    RD(n, m); char _[3]; RS(_);
 
-	l[ln++]=Line(P(dx,0),P(0,dy));
+    REP_1(i, n) RD(cost[i]);
 
+    DO(n-1) {
+        int x, y; RD(x, y);
+        adj[x].PB(y);
+        adj[y].PB(x);
+    }
 
-	//l[ln++]=Line(P(dx,0),P(dx,dy));
+    REP_1(i, n) o[i] = -1;
 
-
-	l[ln++]=Line(P(dx,dy),P(-dx,0));
-	//l[ln++]=Line(P(dx,dy),P(0,dy));
-	l[ln++]=Line(P(0,dy),P(0,-dy));
-	//l[ln++]=Line(P(0,dy),P(0,0));
-	int mm=HalfplaneIntersection(l,ln,poly);
-	double area=PolygonArea(poly,mm);
-	printf("%.10lf\n",area);
-	return 0;
+    DO(m) {
+        int a, b; RD(a); RD(o[a]); RD(b); RD(o[b]);
+        dfs(1, 0);
+        LL z = min(f[1][1], f[1][2]);
+        if (z == INFF) z = -1;
+        cout << z << endl;
+        o[a] = -1; o[b] = -1;
+    }
 }
-
