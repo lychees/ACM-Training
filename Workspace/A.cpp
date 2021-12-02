@@ -223,8 +223,7 @@ const DB EPS = 1e-9;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
-const int dx[] = {-1, 1, 0, 0};
-const int dy[] = {0, 0, 1, -1};
+
 
 //}
 
@@ -603,48 +602,21 @@ struct Poly : public vector<Mint> {
 };
 
 
-const int N = int(1e5) + 9;
-Poly F, G, FF;
+
+const int dx[] = {-1,0,1,0,-1};
+const int dy[] = {0,1,0,-1,0};
+
+const int N = int(1e3) + 9;
+char s1[N], s2[N]; int cnt[N], rev[N][N];
 int n;
 
-void cdq(int l, int r) {
-    if (l + 1 == r) {
-        if (l != 1) {
-            F[l] *= fac[l-1] / 2;
-        }
-    } else {
-        int m = (l + r) / 2;
-        cdq(l, m);
-        int n = m - l;
-
-
-        Poly A(n), B(n), C;
-
-        REP(i, n) A[i] = F[l+i] * invFac[l+i];
-        C = sqr(A)*G.mod(r-l);
-        FOR(i, m, r) F[i] += C[i-1];
-
-        /*REP(i, n) A[i] = F[l+i] * invFac[l+i];
-        REP(i, n) {
-            B[i] = F[i] * invFac[i] * (i < l ? 2 : 1);
-        }
-        C = A*B;
-        FOR(i, m, r) FF[i] += C[i-l];*/
-
-        cdq(m+1, r);
-
-        // F[l..m] -> F[m..r]
-        // F[l] G[m-l]  F[m] G[0]
-        // F[l] G[r-l]  F[m] G[r-m]
-
-
-    }
+int f(int a, int b) {
+    if (a > b) return 0;
+    if (a == b) return s1[a] == s2[a];
+    int &z = rev[a][b];
+    if (z == -1) z = (s1[a] == s2[b]) + f(a+1,b-1) + (s1[b] == s2[a]) ;
+    return z;
 }
-
-//C[m-l] = An G0 Fm-1 G1 ... A0 G[m-l]
-//C[r] = An Gr-m Fm-1 Gr-m+1  G[r-l]
-
-char s[N];
 
 int main(){
 
@@ -653,7 +625,27 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RD(n); G.resize(n); RS(s); REP(i, n) G[i] = (s[i] == '1') * invFac[i];
-    F.resize(n+1); FF.resize(n+1); F[1] = 1; cdq(1, n);
-    REP_1(i, n) cout << F[i] << endl;
+    Rush {
+        RD(n); RS(s1+1,s2+1);
+
+
+        REP_1(i, n) cnt[i] = cnt[i-1] + (s1[i] == s2[i]);
+        int m1 = cnt[n], m2 = cnt[n];
+        int a = 1, b = 1;
+        REP_1(i, n) FOR_1(j, i, n) rev[i][j] = -1;
+
+        REP(len, n) {
+            REP_1(i, n-len) {
+                int j = i + len;
+                int m22 = cnt[i-1] + cnt[n] - cnt[j] + f(i, j);
+                if (m22 > m2) {
+                    a = i, b = j;
+                    m2 = m22;
+                }
+            }
+        }
+
+        cout << m1 << " " << m2 << " " << a << " " << b << endl;
+    }
+
 }
