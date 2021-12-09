@@ -223,7 +223,8 @@ const DB EPS = 1e-9;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
-
+const int dx[] = {-1, 1, 0, 0};
+const int dy[] = {0, 0, 1, -1};
 
 //}
 
@@ -252,6 +253,261 @@ inline DB sec(DB x){return 1./cos(x);};
 inline DB csc(DB x){return 1./sin(x);};
 
 //}
+// <<= '1. Bitwise Operation ., //{
+namespace BO{
+
+inline bool _1(int x, int i){return bool(x&1<<i);}
+inline bool _1(LL x, int i){return bool(x&1LL<<i);}
+inline LL _1(int i){return 1LL<<i;}
+inline LL _U(int i){return _1(i) - 1;};
+
+inline int reverse_bits(int x){
+    x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
+    x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
+    x = ((x >> 4) & 0x0f0f0f0f) | ((x << 4) & 0xf0f0f0f0);
+    x = ((x >> 8) & 0x00ff00ff) | ((x << 8) & 0xff00ff00);
+    x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
+    return x;
+}
+
+inline LL reverse_bits(LL x){
+    x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
+    x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
+    x = ((x >> 4) & 0x0f0f0f0f0f0f0f0fLL) | ((x << 4) & 0xf0f0f0f0f0f0f0f0LL);
+    x = ((x >> 8) & 0x00ff00ff00ff00ffLL) | ((x << 8) & 0xff00ff00ff00ff00LL);
+    x = ((x >>16) & 0x0000ffff0000ffffLL) | ((x <<16) & 0xffff0000ffff0000LL);
+    x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
+    return x;
+}
+
+template<class T> inline bool odd(T x){return x&1;}
+template<class T> inline bool even(T x){return !odd(x);}
+template<class T> inline T low_bit(T x) {return x & -x;}
+template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
+template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
+template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
+
+inline int clz(int x){return __builtin_clz(x);}
+inline int clz(LL x){return __builtin_clzll(x);}
+inline int ctz(int x){return __builtin_ctz(x);}
+inline int ctz(LL x){return __builtin_ctzll(x);}
+inline int lg2(int x){return !x ? -1 : 31 - clz(x);}
+inline int lg2(LL x){return !x ? -1 : 63 - clz(x);}
+inline int low_idx(int x){return !x ? -1 : ctz(x);}
+inline int low_idx(LL x){return !x ? -1 : ctz(x);}
+inline int high_idx(int x){return lg2(x);}
+inline int high_idx(LL x){return lg2(x);}
+inline int parity(int x){return __builtin_parity(x);}
+inline int parity(LL x){return __builtin_parityll(x);}
+inline int count_bits(int x){return __builtin_popcount(x);}
+inline int count_bits(LL x){return __builtin_popcountll(x);}
+
+} using namespace BO;//}
+
+
+// <<= '9. Comutational Geometry .,//{
+namespace CG{
+
+#define cPo const Po&
+#define cLine const Line&
+#define cSeg const Seg&
+
+    inline DB dist2(DB x,DB y){return sqr(x)+sqr(y);}
+
+    struct Po{
+        DB x,y;Po(DB x=0,DB y=0):x(x),y(y){}
+
+        void in(){RF(x,y);}void out(){printf("(%.2f,%.2f)",x,y);}
+        inline friend istream&operator>>(istream&i,Po&p){return i>>p.x>>p.y;}
+        inline friend ostream&operator<<(ostream&o,Po p){return o<<"("<<p.x<<", "<<p.y<< ")";}
+
+        Po operator-()const{return Po(-x,-y);}
+        Po&operator+=(cPo p){x+=p.x,y+=p.y;rTs;}Po&operator-=(cPo p){x-=p.x,y-=p.y;rTs;}
+        Po&operator*=(DB k){x*=k,y*=k;rTs;}Po&operator/=(DB k){x/=k,y/=k;rTs;}
+        Po&operator*=(cPo p){rTs=Ts*p;}Po&operator/=(cPo p){rTs=Ts/p;}
+        Po operator+(cPo p)const{return Po(x+p.x,y+p.y);}Po operator-(cPo p)const{return Po(x-p.x,y-p.y);}
+        Po operator*(DB k)const{return Po(x*k,y*k);}Po operator/(DB k)const{return Po(x/k,y/k);}
+        Po operator*(cPo p)const{return Po(x*p.x-y*p.y,y*p.x+x*p.y);}Po operator/(cPo p)const{return Po(x*p.x+y*p.y,y*p.x-x*p.y)/p.len2();}
+
+        bool operator==(cPo p)const{return!sgn(x,p.x)&&!sgn(y,p.y);};bool operator!=(cPo p)const{return sgn(x,p.x)||sgn(y,p.y);}
+        bool operator<(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<0;}bool operator<=(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<=0;}
+        bool operator>(cPo p)const{return!(Ts<=p);}bool operator >=(cPo p)const{return!(Ts<p);}
+
+        DB len2()const{return dist2(x,y);}DB len()const{return sqrt(len2());}DB arg()const{return atan2(y,x);}
+        Po&_1(){rTs/=len();}Po&conj(){y=-y;rTs;}Po&lt(){swap(x,y),x=-x;rTs;}Po&rt(){swap(x,y),y=-y;rTs;}
+        Po&rot(DB a,cPo o=Po()){Ts-=o;Ts*=Po(cos(a),sin(a));rTs+=o;}
+
+
+        // 求所在象限，大部分情况下只区分两个足够。
+        inline int q()const{
+            return (y > 0 || y == 0 && x >= 0) ? 0 : 1;
+            /*if (x > 0 && y >= 0) return 0;
+             if (x <= 0 && y > 0) return 1;
+             if (x < 0 && y <= 0) return 2;
+             return 3;*/
+        }
+    };
+
+    inline DB dot(DB x1,DB y1,DB x2,DB y2){return x1*x2+y1*y2;}
+    inline DB dot(cPo a,cPo b){return dot(a.x,a.y,b.x,b.y);}
+    inline DB dot(cPo p0,cPo p1,cPo p2){return dot(p1-p0,p2-p0);}
+    inline DB det(DB x1,DB y1,DB x2,DB y2){return x1*y2-x2*y1;}
+    inline DB det(cPo a,cPo b){return det(a.x,a.y,b.x,b.y);}
+    inline DB det(cPo p0,cPo p1,cPo p2){return det(p1-p0,p2-p0);}
+    inline DB ang(cPo p0,cPo p1){return acos(dot(p0,p1)/p0.len()/p1.len());}
+    inline DB ang(cPo p0,cPo p1,cPo p2){return ang(p1-p0,p2-p0);}
+    inline DB ang(cPo p0,cPo p1,cPo p2,cPo p3){return ang(p1-p0,p3-p2);}
+    inline DB dist2(const Po &a, const Po &b){return dist2(a.x-b.x, a.y-b.y);}
+    template<class T1, class T2> inline int dett(const T1 &x, const T2 &y){return sgn(det(x, y));}
+    template<class T1, class T2, class T3> inline int dett(const T1 &x, const T2 &y, const T3 &z){return sgn(det(x, y, z));}
+    template<class T1, class T2, class T3, class T4> inline int dett(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(det(x, y, z, w));}
+    template<class T1, class T2> inline int dott(const T1 &x, const T2 &y){return sgn(dot(x, y));}
+    template<class T1, class T2, class T3> inline int dott(const T1 &x, const T2 &y, const T3 &z){return sgn(dot(x, y, z));}
+    template<class T1, class T2, class T3, class T4> inline int dott(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(dot(x, y, z, w));}
+    template<class T1, class T2> inline DB arg(const T1 &x, const T2 &y){DB a=ang(x,y);return~dett(x,y)?a:2*PI-a;}
+    template<class T1, class T2, class T3> inline DB arg(const T1 &x, const T2 &y, const T3 &z){DB a=ang(x,y,z);return~dett(x,y,z)?a:2*PI-a;}
+    template<class T1, class T2, class T3, class T4> inline DB arg(const T1 &x, const T2 &y, const T3 &z, const T4 &w){DB a=ang(x,y,z,w);return~dett(x,y,z,w)?a:2*PI-a;}
+    template<class T1, class T2> inline DB dist(const T1 &x, const T2 &y){return sqrt(dist2(x, y));}
+    template<class T1, class T2, class T3> inline DB dist(const T1 &x, const T2 &y, const T3 &z){return sqrt(dist2(x, y, z));}
+    inline Po _1(Po p){return p._1();}inline Po conj(Po p){return p.conj();}
+    inline Po lt(Po p){return p.lt();}inline Po rt(Po p){return p.rt();}
+    inline Po rot(Po p,DB a,cPo o=Po()){return p.rot(a,o);}
+    inline Po operator *(DB k,cPo p){return p*k;}
+    inline Po operator /(DB k,cPo p){return conj(p)*k/p.len2();}
+
+    typedef vector<Po> VP;
+
+    struct Line{
+        Po a,b;Line(cPo a=Po(),cPo b=Po()):a(a),b(b){}
+        Line(DB x0,DB y0,DB x1,DB y1):a(Po(x0,y0)),b(Po(x1,y1)){}
+        Line(cLine l):a(l.a),b(l.b){}
+
+        //Ax+By+C=0
+        Line(DB A,DB B,DB C){
+            C=-C;if(!::sgn(A))a=Po(0,C/B),b=Po(1,C/B);
+            else if(!::sgn(B))a=Po(C/A,0),b=Po(C/A,1);
+            else a=Po(0,C/B),b=Po(1,(C-A)/B);
+        }
+
+        void in(){a.in(),b.in();}
+        inline friend istream&operator>>(istream&i,Line& p){return i>>p.a>>p.b;}
+        inline friend ostream&operator<<(ostream&o,Line p){return o<<p.a<<"-"<< p.b;}
+
+        Line operator+(cPo x)const{return Line(a+x,b+x);}
+        Line operator-(cPo x)const{return Line(a-x,b-x);}
+        Line operator*(DB k)const{return Line(a*k,b*k);}
+        Line operator/(DB k)const{return Line(a/k,b/k);}
+
+        Po operator*(cLine)const;
+        Po d()const{return b-a;}DB len2()const{return d().len2();}DB len()const{return d().len();}DB arg()const{return d().arg();}
+
+        int sgn(cPo p)const{return dett(a, b, p);}
+        int sgn(cLine)const;
+
+        bool sameSgn(cPo  p1,cPo  p2)const{return sgn(p1)==sgn(p2);}
+        void getEquation(DB&K,DB&B)const{
+            K = ::sgn(a.x, b.x) ? (b.y-a.y)/(b.x-a.x) : OO;
+            B = a.y - K*a.x;
+        }
+        void getEquation(DB&A,DB&B,DB&C)const{A=a.y-b.y,B=b.x-a.x,C=det(a, b);}
+
+        Line&push(DB r){ // 正数右手螺旋向里
+            Po v=d()._1().lt()*r;a+=v,b+=v; rTs;
+        }
+    };
+
+    inline DB dot(cLine l1,cLine l2){return dot(l1.d(),l2.d());}
+    inline DB dot(cLine l,cPo p){return dot(l.a,l.b,p);}
+    inline DB dot(cPo p,cLine l){return dot(p,l.a,l.b);}
+    inline DB det(cLine l1,cLine l2){return det(l1.d(),l2.d());}
+    inline DB det(cLine l,cPo p){return det(l.a,l.b,p);}
+    inline DB det(cPo p,cLine l){return det(p,l.a,l.b);}
+    inline DB ang(cLine l0,cLine l1){return ang(l0.d(),l1.d());}
+    inline DB ang(cLine l,cPo p){return ang(l.a,l.b,p);}
+    inline DB ang(cPo p,cLine l){return ang(p,l.a,l.b);}
+
+    inline int Line::sgn(cLine l)const{return dett(Ts, l);}
+    inline Po Line::operator*(cLine l)const{return a+d()*det(a,l)/det(Ts,l);}
+    inline Po operator&(cPo p,cLine l){return l*Line(p,p+l.d().lt());}
+    inline Po operator%(cPo p,cLine l){return p&l*2-p;}
+    inline Line push(Line l, DB r){return l.push(r);}
+
+
+    struct Seg: public Line{
+        Seg(cPo a=Po(),cPo b=Po()):Line(a,b){}
+        Seg(DB x0,DB y0,DB x1,DB y1):Line(x0,y0,x1,y1){}
+        Seg(cLine l):Line(l){}
+        Seg(const Po &a,DB alpha):Line(a,alpha){}
+        Seg(DB A,DB B,DB C):Line(A,B,C){}
+
+        inline int sgn(cPo p)const;
+        inline int sgn(cLine l)const;
+        inline bool qrt(cSeg l)const;
+        inline int sgn(cSeg l)const;
+    };
+
+    // -1不相交 0相交（不规范） 1相交（规范）
+
+    //inline int Seg::sgn(cPo p)const{return -dott(p,a,b);}
+
+    inline int Seg::sgn(cPo p)const{
+        if (dett(p, a, b)) return -1; // 有时会有精度误差。。
+        if (a == p || b == p) return 0;
+        return -dott(p,a,b);
+    }
+
+
+    inline int Seg::sgn(cLine l)const{return sgn(Ts*l);}
+
+    // quick_rejection_test
+    inline bool Seg::qrt(cSeg l)const{
+        return min(a.x,b.x)<=max(l.a.x,l.b.x)&&min(l.a.x,l.b.x)<=max(a.x,b.x)&&
+        min(a.y,b.y)<=max(l.a.y,l.b.y)&&min(l.a.y,l.b.y)<=max(a.y,b.y);
+    }
+
+
+    inline int Seg::sgn(cSeg l)const{
+        if (!qrt(l)) return -1;
+
+        /*return
+         (dett(a,b,l.a)*dett(a,b,l.b)<=0 &&
+         dett(l.a,l.b,a)*dett(l.a,l.b,b)<=0)?1:-1;*/
+
+        int d1=dett(a,b,l.a),d2=dett(a,b,l.b),d3=dett(l.a,l.b,a),d4=dett(l.a,l.b,b);
+        if ((d1^d2)==-2&&(d3^d4)==-2)return 1;
+        return ((!d1&&dott(l.a-a,l.a-b)<=0)||(!d2&&dott(l.b-a,l.b-b)<=0)||
+                (!d3&&dott(a-l.a,a-l.b)<=0)||(!d4&&dott(b-l.a,b-l.b)<=0))?0:-1;
+    }
+
+    //inline DB dist2(cLine l,cPo p){return sqr(fabs(dot(lt(l.d()), p-l.a)))/l.len2();}
+    inline DB dist2(cLine l,cPo p){return sqr(fabs(det(l.d(), p-l.a)))/l.len2();}
+
+    inline DB dist2(cLine l1,cLine l2){return dett(l1,l2)?0:dist2(l1,l2.a);}
+
+    inline DB dist2(cSeg l,cPo p){
+        Po pa = p - l.a, pb = p - l.b;
+        if (dott(l.d(), pa) <= 0) return pa.len2();
+        if (dott(l.d(), pb) >= 0) return pb.len2();
+        return dist2(Line(l), p);
+    }
+
+
+    inline DB dist2(cSeg s,cLine l){
+        Po v1=s.a-l.a,v2=s.b-l.a;DB d1=det(l.d(),v1),d2=det(l.d(),v2);
+        return sgn(d1)!=sgn(d2) ? 0 : sqr(min(fabs(d1), fabs(d2)))/l.len2();
+    }
+    inline DB dist2(cSeg l1,cSeg l2){
+        if (~l1.sgn(l2)) return 0;
+        else return min(dist2(l2,l1.a), dist2(l2,l1.b), dist2(l1,l2.a), dist2(l1,l2.b));
+    }
+    template<class T1, class T2> inline DB dist2(const T1& a, const T2& b){
+        return dist2(b, a);
+    }
+
+} using namespace CG;//}
+
+
+
 
 //}
 
@@ -308,314 +564,13 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
+const int N = int(1e5) + 9;
 
-////////////////////////////////////////////////////////////////////////////////
-template <unsigned M_> struct ModInt {
-  static constexpr unsigned M = M_;
-  unsigned x;
-  constexpr ModInt() : x(0U) {}
-  constexpr ModInt(unsigned x_) : x(x_ % M) {}
-  constexpr ModInt(unsigned long long x_) : x(x_ % M) {}
-  constexpr ModInt(int x_) : x(((x_ %= static_cast<int>(M)) < 0) ? (x_ + static_cast<int>(M)) : x_) {}
-  constexpr ModInt(long long x_) : x(((x_ %= static_cast<long long>(M)) < 0) ? (x_ + static_cast<long long>(M)) : x_) {}
-  ModInt &operator+=(const ModInt &a) { x = ((x += a.x) >= M) ? (x - M) : x; return *this; }
-  ModInt &operator-=(const ModInt &a) { x = ((x -= a.x) >= M) ? (x + M) : x; return *this; }
-  ModInt &operator*=(const ModInt &a) { x = (static_cast<unsigned long long>(x) * a.x) % M; return *this; }
-  ModInt &operator/=(const ModInt &a) { return (*this *= a.inv()); }
-  ModInt pow(long long e) const {
-    if (e < 0) return inv().pow(-e);
-    ModInt a = *this, b = 1U; for (; e; e >>= 1) { if (e & 1) b *= a; a *= a; } return b;
-  }
-  ModInt inv() const {
-    unsigned a = M, b = x; int y = 0, z = 1;
-    for (; b; ) { const unsigned q = a / b; const unsigned c = a - q * b; a = b; b = c; const int w = y - static_cast<int>(q) * z; y = z; z = w; }
-    assert(a == 1U); return ModInt(y);
-  }
-  ModInt operator+() const { return *this; }
-  ModInt operator-() const { ModInt a; a.x = x ? (M - x) : 0U; return a; }
-  ModInt operator+(const ModInt &a) const { return (ModInt(*this) += a); }
-  ModInt operator-(const ModInt &a) const { return (ModInt(*this) -= a); }
-  ModInt operator*(const ModInt &a) const { return (ModInt(*this) *= a); }
-  ModInt operator/(const ModInt &a) const { return (ModInt(*this) /= a); }
-  template <class T> friend ModInt operator+(T a, const ModInt &b) { return (ModInt(a) += b); }
-  template <class T> friend ModInt operator-(T a, const ModInt &b) { return (ModInt(a) -= b); }
-  template <class T> friend ModInt operator*(T a, const ModInt &b) { return (ModInt(a) *= b); }
-  template <class T> friend ModInt operator/(T a, const ModInt &b) { return (ModInt(a) /= b); }
-  explicit operator bool() const { return x; }
-  bool operator==(const ModInt &a) const { return (x == a.x); }
-  bool operator!=(const ModInt &a) const { return (x != a.x); }
-  friend std::ostream &operator<<(std::ostream &os, const ModInt &a) { return os << a.x; }
-};
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-constexpr unsigned MO = 998244353U;
-constexpr unsigned MO2 = 2U * MO;
-constexpr int FFT_MAX = 23;
-using Mint = ModInt<MO>;
-constexpr Mint FFT_ROOTS[FFT_MAX + 1] = {1U, 998244352U, 911660635U, 372528824U, 929031873U, 452798380U, 922799308U, 781712469U, 476477967U, 166035806U, 258648936U, 584193783U, 63912897U, 350007156U, 666702199U, 968855178U, 629671588U, 24514907U, 996173970U, 363395222U, 565042129U, 733596141U, 267099868U, 15311432U};
-constexpr Mint INV_FFT_ROOTS[FFT_MAX + 1] = {1U, 998244352U, 86583718U, 509520358U, 337190230U, 87557064U, 609441965U, 135236158U, 304459705U, 685443576U, 381598368U, 335559352U, 129292727U, 358024708U, 814576206U, 708402881U, 283043518U, 3707709U, 121392023U, 704923114U, 950391366U, 428961804U, 382752275U, 469870224U};
-constexpr Mint FFT_RATIOS[FFT_MAX] = {911660635U, 509520358U, 369330050U, 332049552U, 983190778U, 123842337U, 238493703U, 975955924U, 603855026U, 856644456U, 131300601U, 842657263U, 730768835U, 942482514U, 806263778U, 151565301U, 510815449U, 503497456U, 743006876U, 741047443U, 56250497U, 867605899U};
-constexpr Mint INV_FFT_RATIOS[FFT_MAX] = {86583718U, 372528824U, 373294451U, 645684063U, 112220581U, 692852209U, 155456985U, 797128860U, 90816748U, 860285882U, 927414960U, 354738543U, 109331171U, 293255632U, 535113200U, 308540755U, 121186627U, 608385704U, 438932459U, 359477183U, 824071951U, 103369235U};
-
-// as[rev(i)] <- \sum_j \zeta^(ij) as[j]
-void fft(Mint *as, int n) {
-  assert(!(n & (n - 1))); assert(1 <= n); assert(n <= 1 << FFT_MAX);
-  int m = n;
-  if (m >>= 1) {
-    for (int i = 0; i < m; ++i) {
-      const unsigned x = as[i + m].x;  // < MO
-      as[i + m].x = as[i].x + MO - x;  // < 2 MO
-      as[i].x += x;  // < 2 MO
-    }
-  }
-  if (m >>= 1) {
-    Mint prod = 1U;
-    for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-      for (int i = i0; i < i0 + m; ++i) {
-        const unsigned x = (prod * as[i + m]).x;  // < MO
-        as[i + m].x = as[i].x + MO - x;  // < 3 MO
-        as[i].x += x;  // < 3 MO
-      }
-      prod *= FFT_RATIOS[__builtin_ctz(++h)];
-    }
-  }
-  for (; m; ) {
-    if (m >>= 1) {
-      Mint prod = 1U;
-      for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-        for (int i = i0; i < i0 + m; ++i) {
-          const unsigned x = (prod * as[i + m]).x;  // < MO
-          as[i + m].x = as[i].x + MO - x;  // < 4 MO
-          as[i].x += x;  // < 4 MO
-        }
-        prod *= FFT_RATIOS[__builtin_ctz(++h)];
-      }
-    }
-    if (m >>= 1) {
-      Mint prod = 1U;
-      for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-        for (int i = i0; i < i0 + m; ++i) {
-          const unsigned x = (prod * as[i + m]).x;  // < MO
-          as[i].x = (as[i].x >= MO2) ? (as[i].x - MO2) : as[i].x;  // < 2 MO
-          as[i + m].x = as[i].x + MO - x;  // < 3 MO
-          as[i].x += x;  // < 3 MO
-        }
-        prod *= FFT_RATIOS[__builtin_ctz(++h)];
-      }
-    }
-  }
-  for (int i = 0; i < n; ++i) {
-    as[i].x = (as[i].x >= MO2) ? (as[i].x - MO2) : as[i].x;  // < 2 MO
-    as[i].x = (as[i].x >= MO) ? (as[i].x - MO) : as[i].x;  // < MO
-  }
-}
-
-// as[i] <- (1/n) \sum_j \zeta^(-ij) as[rev(j)]
-void invFft(Mint *as, int n) {
-  assert(!(n & (n - 1))); assert(1 <= n); assert(n <= 1 << FFT_MAX);
-  int m = 1;
-  if (m < n >> 1) {
-    Mint prod = 1U;
-    for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-      for (int i = i0; i < i0 + m; ++i) {
-        const unsigned long long y = as[i].x + MO - as[i + m].x;  // < 2 MO
-        as[i].x += as[i + m].x;  // < 2 MO
-        as[i + m].x = (prod.x * y) % MO;  // < MO
-      }
-      prod *= INV_FFT_RATIOS[__builtin_ctz(++h)];
-    }
-    m <<= 1;
-  }
-  for (; m < n >> 1; m <<= 1) {
-    Mint prod = 1U;
-    for (int h = 0, i0 = 0; i0 < n; i0 += (m << 1)) {
-      for (int i = i0; i < i0 + (m >> 1); ++i) {
-        const unsigned long long y = as[i].x + MO2 - as[i + m].x;  // < 4 MO
-        as[i].x += as[i + m].x;  // < 4 MO
-        as[i].x = (as[i].x >= MO2) ? (as[i].x - MO2) : as[i].x;  // < 2 MO
-        as[i + m].x = (prod.x * y) % MO;  // < MO
-      }
-      for (int i = i0 + (m >> 1); i < i0 + m; ++i) {
-        const unsigned long long y = as[i].x + MO - as[i + m].x;  // < 2 MO
-        as[i].x += as[i + m].x;  // < 2 MO
-        as[i + m].x = (prod.x * y) % MO;  // < MO
-      }
-      prod *= INV_FFT_RATIOS[__builtin_ctz(++h)];
-    }
-  }
-  if (m < n) {
-    for (int i = 0; i < m; ++i) {
-      const unsigned y = as[i].x + MO2 - as[i + m].x;  // < 4 MO
-      as[i].x += as[i + m].x;  // < 4 MO
-      as[i + m].x = y;  // < 4 MO
-    }
-  }
-  const Mint invN = Mint(n).inv();
-  for (int i = 0; i < n; ++i) {
-    as[i] *= invN;
-  }
-}
-
-void fft(vector<Mint> &as) {
-  fft(as.data(), as.size());
-}
-void invFft(vector<Mint> &as) {
-  invFft(as.data(), as.size());
-}
-
-vector<Mint> convolve(vector<Mint> as, vector<Mint> bs) {
-  if (as.empty() || bs.empty()) return {};
-  const int len = as.size() + bs.size() - 1;
-  int n = 1;
-  for (; n < len; n <<= 1) {}
-  as.resize(n); fft(as);
-  bs.resize(n); fft(bs);
-  for (int i = 0; i < n; ++i) as[i] *= bs[i];
-  invFft(as);
-  as.resize(len);
-  return as;
-}
-vector<Mint> square(vector<Mint> as) {
-  if (as.empty()) return {};
-  const int len = as.size() + as.size() - 1;
-  int n = 1;
-  for (; n < len; n <<= 1) {}
-  as.resize(n); fft(as);
-  for (int i = 0; i < n; ++i) as[i] *= as[i];
-  invFft(as);
-  as.resize(len);
-  return as;
-}
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// inv: log, exp, pow
-constexpr int LIM_INV = 1 << 20;  // @
-Mint inv[LIM_INV], fac[LIM_INV], invFac[LIM_INV];
-struct ModIntPreparator {
-  ModIntPreparator() {
-    inv[1] = 1;
-    for (int i = 2; i < LIM_INV; ++i) inv[i] = -((Mint::M / i) * inv[Mint::M % i]);
-    fac[0] = 1;
-    for (int i = 1; i < LIM_INV; ++i) fac[i] = fac[i - 1] * i;
-    invFac[0] = 1;
-    for (int i = 1; i < LIM_INV; ++i) invFac[i] = invFac[i - 1] * inv[i];
-  }
-} preparator;
-
-// polyWork0: *, inv, div, divAt, log, exp, pow, sqrt
-// polyWork1: inv, div, divAt, log, exp, pow, sqrt
-// polyWork2: divAt, exp, pow, sqrt
-// polyWork3: exp, pow, sqrt
-static constexpr int LIM_POLY = 1 << 20;  // @
-static_assert(LIM_POLY <= 1 << FFT_MAX, "Poly: LIM_POLY <= 1 << FFT_MAX must hold.");
-static Mint polyWork0[LIM_POLY], polyWork1[LIM_POLY], polyWork2[LIM_POLY], polyWork3[LIM_POLY];
-
-struct Poly : public vector<Mint> {
-  Poly() {}
-  explicit Poly(int n) : vector<Mint>(n) {}
-  Poly(const vector<Mint> &vec) : vector<Mint>(vec) {}
-  Poly(std::initializer_list<Mint> il) : vector<Mint>(il) {}
-  int size() const { return vector<Mint>::size(); }
-  Mint at(long long k) const { return (0 <= k && k < size()) ? (*this)[k] : 0U; }
-  int ord() const { for (int i = 0; i < size(); ++i) if ((*this)[i]) return i; return -1; }
-  int deg() const { for (int i = size(); --i >= 0; ) if ((*this)[i]) return i; return -1; }
-  Poly mod(int n) const { return Poly(vector<Mint>(data(), data() + min(n, size()))); }
-  friend std::ostream &operator<<(std::ostream &os, const Poly &fs) {
-    os << "[";
-    for (int i = 0; i < fs.size(); ++i) { if (i > 0) os << ", "; os << fs[i]; }
-    return os << "]";
-  }
-
-  Poly &operator+=(const Poly &fs) {
-    if (size() < fs.size()) resize(fs.size());
-    for (int i = 0; i < fs.size(); ++i) (*this)[i] += fs[i];
-    return *this;
-  }
-  Poly &operator-=(const Poly &fs) {
-    if (size() < fs.size()) resize(fs.size());
-    for (int i = 0; i < fs.size(); ++i) (*this)[i] -= fs[i];
-    return *this;
-  }
-  // 3 E(|t| + |f|)
-  Poly &operator*=(const Poly &fs) {
-    if (empty() || fs.empty()) return *this = {};
-    const int nt = size(), nf = fs.size();
-    int n = 1;
-    for (; n < nt + nf - 1; n <<= 1) {}
-    assert(n <= LIM_POLY);
-    resize(n);
-    fft(data(), n);  // 1 E(n)
-    memcpy(polyWork0, fs.data(), nf * sizeof(Mint));
-    memset(polyWork0 + nf, 0, (n - nf) * sizeof(Mint));
-    fft(polyWork0, n);  // 1 E(n)
-    for (int i = 0; i < n; ++i) (*this)[i] *= polyWork0[i];
-    invFft(data(), n);  // 1 E(n)
-    resize(nt + nf - 1);
-    return *this;
-  }
-
-  Poly &operator*=(const Mint &a) {
-    for (int i = 0; i < size(); ++i) (*this)[i] *= a;
-    return *this;
-  }
-  Poly &operator/=(const Mint &a) {
-    const Mint b = a.inv();
-    for (int i = 0; i < size(); ++i) (*this)[i] *= b;
-    return *this;
-  }
-  Poly operator+() const { return *this; }
-  Poly operator-() const {
-    Poly fs(size());
-    for (int i = 0; i < size(); ++i) fs[i] = -(*this)[i];
-    return fs;
-  }
-  Poly operator+(const Poly &fs) const { return (Poly(*this) += fs); }
-  Poly operator-(const Poly &fs) const { return (Poly(*this) -= fs); }
-  Poly operator*(const Poly &fs) const { return (Poly(*this) *= fs); }
-
-  // 10 E(n)
-  // f <- f - (t f - 1) f
-  Poly inv(int n) const {
-    assert(!empty()); assert((*this)[0]); assert(1 <= n);
-    assert(n == 1 || 1 << (32 - __builtin_clz(n - 1)) <= LIM_POLY);
-    Poly fs(n);
-    fs[0] = (*this)[0].inv();
-    for (int m = 1; m < n; m <<= 1) {
-      memcpy(polyWork0, data(), min(m << 1, size()) * sizeof(Mint));
-      memset(polyWork0 + min(m << 1, size()), 0, ((m << 1) - min(m << 1, size())) * sizeof(Mint));
-      fft(polyWork0, m << 1);  // 2 E(n)
-      memcpy(polyWork1, fs.data(), min(m << 1, n) * sizeof(Mint));
-      memset(polyWork1 + min(m << 1, n), 0, ((m << 1) - min(m << 1, n)) * sizeof(Mint));
-      fft(polyWork1, m << 1);  // 2 E(n)
-      for (int i = 0; i < m << 1; ++i) polyWork0[i] *= polyWork1[i];
-      invFft(polyWork0, m << 1); // 2 E(n)
-      memset(polyWork0, 0, m * sizeof(Mint));
-      fft(polyWork0, m << 1); // 2 E(n)
-      for (int i = 0; i < m << 1; ++i) polyWork0[i] *= polyWork1[i];
-      invFft(polyWork0, m << 1); // 2 E(n)
-      for (int i = m, i0 = min(m << 1, n); i < i0; ++i) fs[i] = -polyWork0[i];
-    }
-    return fs;
-  }
-};
-
-
-
-const int dx[] = {-1,0,1,0,-1};
-const int dy[] = {0,1,0,-1,0};
-
-const int N = int(1e3) + 9;
-char s1[N], s2[N]; int cnt[N], rev[N][N];
+Po a, b, c, p;
 int n;
 
-int f(int a, int b) {
-    if (a > b) return 0;
-    if (a == b) return s1[a] == s2[a];
-    int &z = rev[a][b];
-    if (z == -1) z = (s1[a] == s2[b]) + f(a+1,b-1) + (s1[b] == s2[a]) ;
-    return z;
+bool invalid() {
+    return Seg(a,b).sgn(p) == -1 && Seg(a,c).sgn(p) == -1 && Seg(b,c).sgn(p) == -1;
 }
 
 int main(){
@@ -625,27 +580,37 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
+
+
     Rush {
-        RD(n); RS(s1+1,s2+1);
+        a.in(); b.in(); c.in(); p.in();
 
+        if (invalid()) puts("-1");
+        else {
+            //    c
+            // a  p  b
+            if (Seg(a,c).sgn(p) >= 0) swap(b,c);
+            else if (Seg(b,c).sgn(p) >= 0) swap(a,c);
 
-        REP_1(i, n) cnt[i] = cnt[i-1] + (s1[i] == s2[i]);
-        int m1 = cnt[n], m2 = cnt[n];
-        int a = 1, b = 1;
-        REP_1(i, n) FOR_1(j, i, n) rev[i][j] = -1;
+            DB S = abs(det(a,b,c)) / 2;
 
-        REP(len, n) {
-            REP_1(i, n-len) {
-                int j = i + len;
-                int m22 = cnt[i-1] + cnt[n] - cnt[j] + f(i, j);
-                if (m22 > m2) {
-                    a = i, b = j;
-                    m2 = m22;
+            if (abs(det(c,a,p)) <= S) {
+                Po l = c, r = b;
+                DO(233) {
+                    Po m = (l + r) / 2;
+                    if (abs(det(m,b,p)) <= S) r = m;
+                    else l = m;
                 }
+                printf("%.9f %.9f\n", l.x, l.y);
+            } else {
+                Po l = c, r = a;
+                DO(233) {
+                    Po m = (l + r) / 2;
+                    if (abs(det(m,a,p)) <= S) r = m;
+                    else l = m;
+                }
+                printf("%.9f %.9f\n", l.x, l.y);
             }
         }
-
-        cout << m1 << " " << m2 << " " << a << " " << b << endl;
     }
-
 }

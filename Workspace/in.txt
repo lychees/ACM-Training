@@ -1,16 +1,3 @@
-5
-11
-happycoding
-onedocument
-8
-abbbcccd
-xcbcbybd
-3
-cat
-dog
-4
-abcd
-xyza
-3
-dog
-pop
+2
+0 0 1 1 1 0 1 0
+0 0 1 1 1 0 2 0
