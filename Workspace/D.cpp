@@ -216,7 +216,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = int(1e9) + 7;
+const int MOD = 998244353; //int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -465,77 +465,30 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
+const int N = int(2e5) + 9;
 
-const int N = int(3e3) + 9;
-int pred[N], succ[N], col[N];
-int pos[N];
-map<int,int> last;
+Int f[N], s[N]; int a[N]; stack<int> sta;
 int n;
 
-void del(int x) {
-    succ[pred[x]] = succ[x];
-    pred[succ[x]] = pred[x];
-}
-
-
-int main() {
+int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    Rush {
-        RD(n); REP_1(i, n) pred[i] = i-1, succ[i] = i+1, RD(col[i]); col[0] = -1;
-        succ[0] = 1; pred[n+1] = n;
+    RD(n); REP_1(i, n) RD(a[i]);
+    sta.push(0); s[0] = f[0] = 1;
 
-        int z = 0;
+    REP_1(i, n) {
+        while (a[i] < a[sta.top()]) sta.pop();
+        if (!sta.top()) f[i] = s[i-1] * a[i];
+        else f[i] = (s[i-1] - s[sta.top()-1]) * a[i] - f[sta.top()];
 
-        while (succ[succ[0]] != n+1) {
-
-            for (int i = succ[0];i != n+1; i = succ[i]) {
-                int ii = pred[i];
-                if (col[ii] == col[i]) {
-                    del(i);
-                }
-              //  cout << i << endl;
-            }
-
-            last.clear();
-
-            int cur = INF, cl, cr, c = 0;
-
-            int ii = 0;
-
-            for (int i = succ[0];i != n+1; i = succ[i]) {
-                pos[i] = ii++;
-                    //cout << i << endl;
-                if (last[col[i]]) {
-                    if (pos[i] - pos[last[col[i]]] < cur ) {
-                        cur = i - last[col[i]];
-                        cl = last[col[i]];
-                        cr = i;
-                    }
-                }
-                last[col[i]] = i;
-            }
-
-
-
-            if (cur == INF) {
-                z += ii-1;
-                break;
-            } else {
-                z += pos[cr] - pos[cl] - 1;
-                for (int i=succ[cl];i!=cr;i=succ[i]) col[i] = col[cl];
-            }
-            //cout << z << " " << cur << " " << cl << " " << cr << endl;
-        }
-
-        cout << z << endl;
-
-
-
+        sta.push(i);
+        f[i] = -f[i];
+        s[i] = s[i-1] + f[i];
     }
-
+    if (n&1) f[n] = -f[n];
+    cout << f[n] << endl;
 }

@@ -305,208 +305,109 @@ inline int count_bits(LL x){return __builtin_popcountll(x);}
 } using namespace BO;//}
 
 
-// <<= '9. Comutational Geometry .,//{
-namespace CG{
+// <<= '2. Number Theory .,//{
+namespace NT{
+//#define gcd __gcd
+inline LL gcd(LL a, LL b){return b?gcd(b,a%b):a;}
+inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 
-#define cPo const Po&
-#define cLine const Line&
-#define cSeg const Seg&
+inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
+inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-    inline DB dist2(DB x,DB y){return sqr(x)+sqr(y);}
+/* 模数两倍刚好超 int 时。
+inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
+inline void INC(int &a, int b){a = sum(a, b);}
+*/
 
-    struct Po{
-        DB x,y;Po(DB x=0,DB y=0):x(x),y(y){}
-
-        void in(){RF(x,y);}void out(){printf("(%.2f,%.2f)",x,y);}
-        inline friend istream&operator>>(istream&i,Po&p){return i>>p.x>>p.y;}
-        inline friend ostream&operator<<(ostream&o,Po p){return o<<"("<<p.x<<", "<<p.y<< ")";}
-
-        Po operator-()const{return Po(-x,-y);}
-        Po&operator+=(cPo p){x+=p.x,y+=p.y;rTs;}Po&operator-=(cPo p){x-=p.x,y-=p.y;rTs;}
-        Po&operator*=(DB k){x*=k,y*=k;rTs;}Po&operator/=(DB k){x/=k,y/=k;rTs;}
-        Po&operator*=(cPo p){rTs=Ts*p;}Po&operator/=(cPo p){rTs=Ts/p;}
-        Po operator+(cPo p)const{return Po(x+p.x,y+p.y);}Po operator-(cPo p)const{return Po(x-p.x,y-p.y);}
-        Po operator*(DB k)const{return Po(x*k,y*k);}Po operator/(DB k)const{return Po(x/k,y/k);}
-        Po operator*(cPo p)const{return Po(x*p.x-y*p.y,y*p.x+x*p.y);}Po operator/(cPo p)const{return Po(x*p.x+y*p.y,y*p.x-x*p.y)/p.len2();}
-
-        bool operator==(cPo p)const{return!sgn(x,p.x)&&!sgn(y,p.y);};bool operator!=(cPo p)const{return sgn(x,p.x)||sgn(y,p.y);}
-        bool operator<(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<0;}bool operator<=(cPo p)const{return sgn(x,p.x)<0||!sgn(x,p.x)&&sgn(y,p.y)<=0;}
-        bool operator>(cPo p)const{return!(Ts<=p);}bool operator >=(cPo p)const{return!(Ts<p);}
-
-        DB len2()const{return dist2(x,y);}DB len()const{return sqrt(len2());}DB arg()const{return atan2(y,x);}
-        Po&_1(){rTs/=len();}Po&conj(){y=-y;rTs;}Po&lt(){swap(x,y),x=-x;rTs;}Po&rt(){swap(x,y),y=-y;rTs;}
-        Po&rot(DB a,cPo o=Po()){Ts-=o;Ts*=Po(cos(a),sin(a));rTs+=o;}
+inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
+inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
+inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
+//inline int pdt(int a, int b){return (LL)a * b % MOD;}
+inline int pdt(int x,int y) {
+    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
+    return ret;
+}
 
 
-        // 求所在象限，大部分情况下只区分两个足够。
-        inline int q()const{
-            return (y > 0 || y == 0 && x >= 0) ? 0 : 1;
-            /*if (x > 0 && y >= 0) return 0;
-             if (x <= 0 && y > 0) return 1;
-             if (x < 0 && y <= 0) return 2;
-             return 3;*/
-        }
-    };
+inline int gcd(int m, int n, int &x, int &y){
 
-    inline DB dot(DB x1,DB y1,DB x2,DB y2){return x1*x2+y1*y2;}
-    inline DB dot(cPo a,cPo b){return dot(a.x,a.y,b.x,b.y);}
-    inline DB dot(cPo p0,cPo p1,cPo p2){return dot(p1-p0,p2-p0);}
-    inline DB det(DB x1,DB y1,DB x2,DB y2){return x1*y2-x2*y1;}
-    inline DB det(cPo a,cPo b){return det(a.x,a.y,b.x,b.y);}
-    inline DB det(cPo p0,cPo p1,cPo p2){return det(p1-p0,p2-p0);}
-    inline DB ang(cPo p0,cPo p1){return acos(dot(p0,p1)/p0.len()/p1.len());}
-    inline DB ang(cPo p0,cPo p1,cPo p2){return ang(p1-p0,p2-p0);}
-    inline DB ang(cPo p0,cPo p1,cPo p2,cPo p3){return ang(p1-p0,p3-p2);}
-    inline DB dist2(const Po &a, const Po &b){return dist2(a.x-b.x, a.y-b.y);}
-    template<class T1, class T2> inline int dett(const T1 &x, const T2 &y){return sgn(det(x, y));}
-    template<class T1, class T2, class T3> inline int dett(const T1 &x, const T2 &y, const T3 &z){return sgn(det(x, y, z));}
-    template<class T1, class T2, class T3, class T4> inline int dett(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(det(x, y, z, w));}
-    template<class T1, class T2> inline int dott(const T1 &x, const T2 &y){return sgn(dot(x, y));}
-    template<class T1, class T2, class T3> inline int dott(const T1 &x, const T2 &y, const T3 &z){return sgn(dot(x, y, z));}
-    template<class T1, class T2, class T3, class T4> inline int dott(const T1 &x, const T2 &y, const T3 &z, const T4 &w){return sgn(dot(x, y, z, w));}
-    template<class T1, class T2> inline DB arg(const T1 &x, const T2 &y){DB a=ang(x,y);return~dett(x,y)?a:2*PI-a;}
-    template<class T1, class T2, class T3> inline DB arg(const T1 &x, const T2 &y, const T3 &z){DB a=ang(x,y,z);return~dett(x,y,z)?a:2*PI-a;}
-    template<class T1, class T2, class T3, class T4> inline DB arg(const T1 &x, const T2 &y, const T3 &z, const T4 &w){DB a=ang(x,y,z,w);return~dett(x,y,z,w)?a:2*PI-a;}
-    template<class T1, class T2> inline DB dist(const T1 &x, const T2 &y){return sqrt(dist2(x, y));}
-    template<class T1, class T2, class T3> inline DB dist(const T1 &x, const T2 &y, const T3 &z){return sqrt(dist2(x, y, z));}
-    inline Po _1(Po p){return p._1();}inline Po conj(Po p){return p.conj();}
-    inline Po lt(Po p){return p.lt();}inline Po rt(Po p){return p.rt();}
-    inline Po rot(Po p,DB a,cPo o=Po()){return p.rot(a,o);}
-    inline Po operator *(DB k,cPo p){return p*k;}
-    inline Po operator /(DB k,cPo p){return conj(p)*k/p.len2();}
+    x = 1, y = 0; int xx = 0, yy = 1, q;
 
-    typedef vector<Po> VP;
+    while (1){
+        q = m / n, m %= n;
+        if (!m){x = xx, y = yy; return n;}
+        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
+        q = n / m, n %= m;
+        if (!n) return m;
+        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
+    }
+}
 
-    struct Line{
-        Po a,b;Line(cPo a=Po(),cPo b=Po()):a(a),b(b){}
-        Line(DB x0,DB y0,DB x1,DB y1):a(Po(x0,y0)),b(Po(x1,y1)){}
-        Line(cLine l):a(l.a),b(l.b){}
+inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
+inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
+inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
+inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
 
-        //Ax+By+C=0
-        Line(DB A,DB B,DB C){
-            C=-C;if(!::sgn(A))a=Po(0,C/B),b=Po(1,C/B);
-            else if(!::sgn(B))a=Po(C/A,0),b=Po(C/A,1);
-            else a=Po(0,C/B),b=Po(1,(C-A)/B);
-        }
+inline int pow(int a, LL b){
+    int c(1); while (b){
+        if (b&1) MUL(c, a);
+        MUL(a, a), b >>= 1;
+    }
+    return c;
+}
 
-        void in(){a.in(),b.in();}
-        inline friend istream&operator>>(istream&i,Line& p){return i>>p.a>>p.b;}
-        inline friend ostream&operator<<(ostream&o,Line p){return o<<p.a<<"-"<< p.b;}
+template<class T> inline T pow(T a, LL b){
+    T c(1); while (b){
+        if (b&1) c *= a;
+        a *= a, b >>= 1;
+    }
+    return c;
+}
 
-        Line operator+(cPo x)const{return Line(a+x,b+x);}
-        Line operator-(cPo x)const{return Line(a-x,b-x);}
-        Line operator*(DB k)const{return Line(a*k,b*k);}
-        Line operator/(DB k)const{return Line(a/k,b/k);}
+template<class T> inline T pow(T a, int b){
+    return pow(a, (LL)b);
+}
 
-        Po operator*(cLine)const;
-        Po d()const{return b-a;}DB len2()const{return d().len2();}DB len()const{return d().len();}DB arg()const{return d().arg();}
+inline int _I(int b){
+    int a = MOD, x1 = 0, x2 = 1, q; while (1){
+        q = a / b, a %= b;
+        if (!a) return x2;
+        DEC(x1, pdt(q, x2));
 
-        int sgn(cPo p)const{return dett(a, b, p);}
-        int sgn(cLine)const;
+        q = b / a, b %= a;
+        if (!b) return x1;
+        DEC(x2, pdt(q, x1));
+    }
+}
 
-        bool sameSgn(cPo  p1,cPo  p2)const{return sgn(p1)==sgn(p2);}
-        void getEquation(DB&K,DB&B)const{
-            K = ::sgn(a.x, b.x) ? (b.y-a.y)/(b.x-a.x) : OO;
-            B = a.y - K*a.x;
-        }
-        void getEquation(DB&A,DB&B,DB&C)const{A=a.y-b.y,B=b.x-a.x,C=det(a, b);}
+inline void DIV(int &a, int b){MUL(a, _I(b));}
+inline int qtt(int a, int b){return pdt(a, _I(b));}
 
-        Line&push(DB r){ // 正数右手螺旋向里
-            Po v=d()._1().lt()*r;a+=v,b+=v; rTs;
-        }
-    };
+struct Int{
+    int val;
 
-    inline DB dot(cLine l1,cLine l2){return dot(l1.d(),l2.d());}
-    inline DB dot(cLine l,cPo p){return dot(l.a,l.b,p);}
-    inline DB dot(cPo p,cLine l){return dot(p,l.a,l.b);}
-    inline DB det(cLine l1,cLine l2){return det(l1.d(),l2.d());}
-    inline DB det(cLine l,cPo p){return det(l.a,l.b,p);}
-    inline DB det(cPo p,cLine l){return det(p,l.a,l.b);}
-    inline DB ang(cLine l0,cLine l1){return ang(l0.d(),l1.d());}
-    inline DB ang(cLine l,cPo p){return ang(l.a,l.b,p);}
-    inline DB ang(cPo p,cLine l){return ang(p,l.a,l.b);}
+    operator int() const{return val;}
 
-    inline int Line::sgn(cLine l)const{return dett(Ts, l);}
-    inline Po Line::operator*(cLine l)const{return a+d()*det(a,l)/det(Ts,l);}
-    inline Po operator&(cPo p,cLine l){return l*Line(p,p+l.d().lt());}
-    inline Po operator%(cPo p,cLine l){return p&l*2-p;}
-    inline Line push(Line l, DB r){return l.push(r);}
-
-
-    struct Seg: public Line{
-        Seg(cPo a=Po(),cPo b=Po()):Line(a,b){}
-        Seg(DB x0,DB y0,DB x1,DB y1):Line(x0,y0,x1,y1){}
-        Seg(cLine l):Line(l){}
-        Seg(const Po &a,DB alpha):Line(a,alpha){}
-        Seg(DB A,DB B,DB C):Line(A,B,C){}
-
-        inline int sgn(cPo p)const;
-        inline int sgn(cLine l)const;
-        inline bool qrt(cSeg l)const;
-        inline int sgn(cSeg l)const;
-    };
-
-    // -1不相交 0相交（不规范） 1相交（规范）
-
-    //inline int Seg::sgn(cPo p)const{return -dott(p,a,b);}
-
-    inline int Seg::sgn(cPo p)const{
-        if (dett(p, a, b)) return -1; // 有时会有精度误差。。
-        if (a == p || b == p) return 0;
-        return -dott(p,a,b);
+    Int(int _val = 0):val(_val){
+        val %= MOD; if (val < 0) val += MOD;
+    }
+    Int(LL _val):val(_val){
+        _val %= MOD; if (_val < 0) _val += MOD;
+        val = _val;
     }
 
+    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
+    Int operator +(const int& rhs) const{return sum(val, rhs);}
+    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
+    Int operator -(const int& rhs) const{return dff(val, rhs);}
+    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
+    Int operator *(const int& rhs) const{return pdt(val, rhs);}
+    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
+    Int operator /(const int& rhs) const{return qtt(val, rhs);}
+    Int operator-()const{return MOD-*this;}
+};
 
-    inline int Seg::sgn(cLine l)const{return sgn(Ts*l);}
-
-    // quick_rejection_test
-    inline bool Seg::qrt(cSeg l)const{
-        return min(a.x,b.x)<=max(l.a.x,l.b.x)&&min(l.a.x,l.b.x)<=max(a.x,b.x)&&
-        min(a.y,b.y)<=max(l.a.y,l.b.y)&&min(l.a.y,l.b.y)<=max(a.y,b.y);
-    }
-
-
-    inline int Seg::sgn(cSeg l)const{
-        if (!qrt(l)) return -1;
-
-        /*return
-         (dett(a,b,l.a)*dett(a,b,l.b)<=0 &&
-         dett(l.a,l.b,a)*dett(l.a,l.b,b)<=0)?1:-1;*/
-
-        int d1=dett(a,b,l.a),d2=dett(a,b,l.b),d3=dett(l.a,l.b,a),d4=dett(l.a,l.b,b);
-        if ((d1^d2)==-2&&(d3^d4)==-2)return 1;
-        return ((!d1&&dott(l.a-a,l.a-b)<=0)||(!d2&&dott(l.b-a,l.b-b)<=0)||
-                (!d3&&dott(a-l.a,a-l.b)<=0)||(!d4&&dott(b-l.a,b-l.b)<=0))?0:-1;
-    }
-
-    //inline DB dist2(cLine l,cPo p){return sqr(fabs(dot(lt(l.d()), p-l.a)))/l.len2();}
-    inline DB dist2(cLine l,cPo p){return sqr(fabs(det(l.d(), p-l.a)))/l.len2();}
-
-    inline DB dist2(cLine l1,cLine l2){return dett(l1,l2)?0:dist2(l1,l2.a);}
-
-    inline DB dist2(cSeg l,cPo p){
-        Po pa = p - l.a, pb = p - l.b;
-        if (dott(l.d(), pa) <= 0) return pa.len2();
-        if (dott(l.d(), pb) >= 0) return pb.len2();
-        return dist2(Line(l), p);
-    }
-
-
-    inline DB dist2(cSeg s,cLine l){
-        Po v1=s.a-l.a,v2=s.b-l.a;DB d1=det(l.d(),v1),d2=det(l.d(),v2);
-        return sgn(d1)!=sgn(d2) ? 0 : sqr(min(fabs(d1), fabs(d2)))/l.len2();
-    }
-    inline DB dist2(cSeg l1,cSeg l2){
-        if (~l1.sgn(l2)) return 0;
-        else return min(dist2(l2,l1.a), dist2(l2,l1.b), dist2(l1,l2.a), dist2(l1,l2.b));
-    }
-    template<class T1, class T2> inline DB dist2(const T1& a, const T2& b){
-        return dist2(b, a);
-    }
-
-} using namespace CG;//}
-
-
+} using namespace NT;//}
 
 
 //}
@@ -564,13 +465,70 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e5) + 9;
+const int N = int(5e2) + 9;
+const int M = N * int(5e3) + 9;
+bitset<2*M+1> f[N];
+int a[N];
+int n, m, k;
 
-Po a, b, c, p;
-int n;
+void gao(multiset<PII>& S) {
+    while (!S.empty()) {
+        auto it = S.begin();
+        int r = it->fi, i = it->se;
+        S.erase(it);
 
-bool invalid() {
-    return Seg(a,b).sgn(p) == -1 && Seg(a,c).sgn(p) == -1 && Seg(b,c).sgn(p) == -1;
+        while (r >= k) {
+            printf("%d %d\n", i, k);
+            r -= k;
+        }
+
+        if (r) {
+            auto it = S.end(); --it;
+            int rr = it->fi, ii = it->se;
+            S.erase(it);
+
+            int dd = k-r;
+            printf("%d %d %d %d\n", i, r, ii, dd);
+            if (rr -= dd) S.insert({rr, ii});
+        }
+    }
+}
+
+void cut() {
+    REP(i, n+1) f[i].reset();
+    f[0].set(M);
+
+    REP(i, n) {
+        int t = a[i]-k;
+        f[i+1] = f[i];
+        //cout << n << " " << i << " " << t << endl;
+        if (t >= 0) f[i+1] |= (f[i] << t);
+        else {
+                f[i+1] |= (f[i] >> (-t));
+
+        }
+    }
+
+    int u = M-k; if (!f[n][u]) {
+        puts("-1");
+        return;
+    }
+
+    multiset<PII> L, R;
+
+    DWN(i, n, 0) {
+        int t = a[i]-k;
+        if (f[i][u-t]) {
+            L.insert({a[i], i+1});
+            u -= t;
+        } else {
+            R.insert({a[i], i+1});
+        }
+    }
+
+
+
+     gao(L); gao(R);
 }
 
 int main(){
@@ -580,37 +538,14 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-
-
     Rush {
-        a.in(); b.in(); c.in(); p.in();
+        RD(n,m,k); REP(i, n) RD(a[i]);
 
-        if (invalid()) puts("-1");
-        else {
-            //    c
-            // a  p  b
-            if (Seg(a,c).sgn(p) >= 0) swap(b,c);
-            else if (Seg(b,c).sgn(p) >= 0) swap(a,c);
-
-            DB S = abs(det(a,b,c)) / 2;
-
-            if (abs(det(c,a,p)) <= S) {
-                Po l = c, r = b;
-                DO(233) {
-                    Po m = (l + r) / 2;
-                    if (abs(det(m,b,p)) <= S) r = m;
-                    else l = m;
-                }
-                printf("%.9f %.9f\n", l.x, l.y);
-            } else {
-                Po l = c, r = a;
-                DO(233) {
-                    Po m = (l + r) / 2;
-                    if (abs(det(m,a,p)) <= S) r = m;
-                    else l = m;
-                }
-                printf("%.9f %.9f\n", l.x, l.y);
-            }
+        if (n < m + 2) {
+            multiset<PII> S; REP(i, n) S.insert({a[i], i+1});
+            gao(S);
+        } else { // n == m + 2
+            cut();
         }
     }
 }
