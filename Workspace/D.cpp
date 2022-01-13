@@ -465,10 +465,6 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
-
-Int f[N], s[N]; int a[N]; stack<int> sta;
-int n;
 
 int main(){
 
@@ -477,18 +473,22 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    RD(n); REP_1(i, n) RD(a[i]);
-    sta.push(0); s[0] = f[0] = 1;
-
-    REP_1(i, n) {
-        while (a[i] < a[sta.top()]) sta.pop();
-        if (!sta.top()) f[i] = s[i-1] * a[i];
-        else f[i] = (s[i-1] - s[sta.top()-1]) * a[i] - f[sta.top()];
-
-        sta.push(i);
-        f[i] = -f[i];
-        s[i] = s[i-1] + f[i];
+    Rush {
+        int n; RD(n);
+        map<int, int> H;
+        int z = -1;
+        REP(i, n) {
+            int a; RD(a); if (CTN(H, a)) {
+                checkMax(z, H[a] + (n-i));
+            }
+            H[a] = i;
+        }
+        cout << z << endl;
     }
-    if (n&1) f[n] = -f[n];
-    cout << f[n] << endl;
 }
+
+0    1
+
+a+b
+
+

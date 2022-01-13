@@ -91,8 +91,6 @@ using namespace std;
 #define rTs return Ts
 #define fi first
 #define se second
-#define re real()
-#define im imag()
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
@@ -454,6 +452,7 @@ inline char* RS(char *s){
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,87 +464,235 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(5e2) + 9;
-const int M = N * int(5e3) + 9;
-bitset<2*M+1> f[N];
-int a[N];
-int n, m, k;
+const int N = int(3e5)+9, M = 2*N;
 
-void gao(multiset<PII>& S) {
-    while (!S.empty()) {
-        auto it = S.begin();
-        int r = it->fi, i = it->se;
-        S.erase(it);
 
-        while (r >= k) {
-            printf("%d %d\n", i, k);
-            r -= k;
+#include <algorithm>
+#include <cassert>
+#include <vector>
+
+
+#include <algorithm>
+#include <utility>
+#include <vector>
+
+
+#include <algorithm>
+#include <utility>
+#include <vector>
+
+namespace atcoder {
+namespace internal {
+
+template <class E> struct csr {
+    std::vector<int> start;
+    std::vector<E> elist;
+    explicit csr(int n, const std::vector<std::pair<int, E>>& edges)
+        : start(n + 1), elist(edges.size()) {
+        for (auto e : edges) {
+            start[e.first + 1]++;
         }
-
-        if (r) {
-            auto it = S.end(); --it;
-            int rr = it->fi, ii = it->se;
-            S.erase(it);
-
-            int dd = k-r;
-            printf("%d %d %d %d\n", i, r, ii, dd);
-            if (rr -= dd) S.insert({rr, ii});
+        for (int i = 1; i <= n; i++) {
+            start[i] += start[i - 1];
         }
+        auto counter = start;
+        for (auto e : edges) {
+            elist[counter[e.first]++] = e.second;
+        }
+    }
+};
+
+}  // namespace internal
+
+}  // namespace atcoder
+
+
+namespace atcoder {
+namespace internal {
+
+struct scc_graph {
+  public:
+    explicit scc_graph(int n) : _n(n) {}
+
+    int num_vertices() { return _n; }
+
+    void add_edge(int from, int to) { edges.push_back({from, {to}}); }
+
+    std::pair<int, std::vector<int>> scc_ids() {
+        auto g = csr<edge>(_n, edges);
+        int now_ord = 0, group_num = 0;
+        std::vector<int> visited, low(_n), ord(_n, -1), ids(_n);
+        visited.reserve(_n);
+        auto dfs = [&](auto self, int v) -> void {
+            low[v] = ord[v] = now_ord++;
+            visited.push_back(v);
+            for (int i = g.start[v]; i < g.start[v + 1]; i++) {
+                auto to = g.elist[i].to;
+                if (ord[to] == -1) {
+                    self(self, to);
+                    low[v] = std::min(low[v], low[to]);
+                } else {
+                    low[v] = std::min(low[v], ord[to]);
+                }
+            }
+            if (low[v] == ord[v]) {
+                while (true) {
+                    int u = visited.back();
+                    visited.pop_back();
+                    ord[u] = _n;
+                    ids[u] = group_num;
+                    if (u == v) break;
+                }
+                group_num++;
+            }
+        };
+        for (int i = 0; i < _n; i++) {
+            if (ord[i] == -1) dfs(dfs, i);
+        }
+        for (auto& x : ids) {
+            x = group_num - 1 - x;
+        }
+        return {group_num, ids};
+    }
+
+    std::vector<std::vector<int>> scc() {
+        auto ids = scc_ids();
+        int group_num = ids.first;
+        std::vector<int> counts(group_num);
+        for (auto x : ids.second) counts[x]++;
+        std::vector<std::vector<int>> groups(ids.first);
+        for (int i = 0; i < group_num; i++) {
+            groups[i].reserve(counts[i]);
+        }
+        for (int i = 0; i < _n; i++) {
+            groups[ids.second[i]].push_back(i);
+        }
+        return groups;
+    }
+
+  private:
+    int _n;
+    struct edge {
+        int to;
+    };
+    std::vector<std::pair<int, edge>> edges;
+};
+
+}  // namespace internal
+
+}  // namespace atcoder
+
+
+namespace atcoder {
+
+struct scc_graph {
+  public:
+    scc_graph() : internal(0) {}
+    explicit scc_graph(int n) : internal(n) {}
+
+    void add_edge(int from, int to) {
+        int n = internal.num_vertices();
+        assert(0 <= from && from < n);
+        assert(0 <= to && to < n);
+        internal.add_edge(from, to);
+    }
+
+    std::vector<std::vector<int>> scc() { return internal.scc(); }
+
+  private:
+    internal::scc_graph internal;
+};
+
+}  // namespace atcoder
+
+VI _adj[N], adj[N]; int cnt[N], tot[N], dep[N], inD[N];
+int n, m, q, k;
+
+const int LV = 21;
+int fa[LV][N];
+
+inline int move_up(int x, int t){
+    for (int lv=0;t;++lv,t>>=1)
+        if (t&1) x = fa[lv][x];
+    return x;
+}
+
+inline int lca(int x, int y) {
+    if (dep[y] < dep[x]) swap(x, y); y = move_up(y, dep[y] - dep[x]); if (x == y) return x;
+    DWN(lv, LV, 0) if (fa[lv][x]!=fa[lv][y]) x = fa[lv][x], y = fa[lv][y];
+    return fa[0][x];
+}
+
+
+void dfs(int u) {
+    //cout << u << "??" << endl;
+    for (auto v: adj[u]) {
+            cout << u << " " << v << endl;
+    if (dep[v]) continue;
+        fa[0][v] = u; dep[v] = dep[u] + 1; tot[v] = tot[u] + cnt[v];
+        for (int lv=0;fa[lv+1][v]=fa[lv][fa[lv][v]];++lv);
+
+        dfs(v);
     }
 }
 
-void cut() {
-    REP(i, n+1) f[i].reset();
-    f[0].set(M);
-
-    REP(i, n) {
-        int t = a[i]-k;
-        f[i+1] = f[i];
-        //cout << n << " " << i << " " << t << endl;
-        if (t >= 0) f[i+1] |= (f[i] << t);
-        else {
-                f[i+1] |= (f[i] >> (-t));
-
-        }
-    }
-
-    int u = M-k; if (!f[n][u]) {
-        puts("-1");
-        return;
-    }
-
-    multiset<PII> L, R;
-
-    DWN(i, n, 0) {
-        int t = a[i]-k;
-        if (f[i][u-t]) {
-            L.insert({a[i], i+1});
-            u -= t;
-        } else {
-            R.insert({a[i], i+1});
-        }
-    }
-
-
-
-     gao(L); gao(R);
-}
 
 int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    Rush {
-        RD(n,m,k); REP(i, n) RD(a[i]);
+    RD(n,m,q,k);
 
-        if (n < m + 2) {
-            multiset<PII> S; REP(i, n) S.insert({a[i], i+1});
-            gao(S);
-        } else { // n == m + 2
-            cut();
+    auto G = atcoder::internal::scc_graph(n);
+
+    DO(m) {
+        int a, b; RD(a, b); --a; --b;
+        G.add_edge(a, b);
+        _adj[a].PB(b);
+    }
+
+    auto _ = G.scc_ids(); m = _.fi; auto id = _.se;
+
+    REP(_a, n) {
+        int a = id[_a];
+        for (auto _b: _adj[_a]) {
+            int b = id[_b];
+            if (a != b) {
+                adj[a].PB(b);
+                //cout << b << " -> " << a << endl;
+                ++inD[b];
+            }
         }
     }
+
+    //REP(i, n) cout << id[i] << " "; cout << endl;
+
+    REP(i, m) UNQ(adj[i]);
+    REP(i, n) ++cnt[id[i]];
+
+    //REP(i, n) cout << inD[i] << " "; cout << endl;
+    //REP(i, n) cout << dep[i] << " "; cout << endl;
+
+    int rt = 0; REP(i, m) if (inD[i] == 0) {
+        rt = i;
+        break;
+    }
+
+    tot[rt] = cnt[rt]; dfs(rt);
+
+    DO(q) {
+        int x, y; RD(x, y); --x; --y;
+        x = id[x]; y = id[y];
+        DO(k) {
+            int a, b; RD(a, b);
+        }
+
+        if (dep[x] > dep[y]) swap(x, y);
+        //int z = 0; REP(i, n) if (G[s][i] && G[i][t]) ++z;
+        cout << (lca(x, y) == x ? tot[y] - tot[x] : 0) << endl;
+    }
+
 }

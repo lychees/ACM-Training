@@ -1,12 +1,10 @@
-/*
-    This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
-    Template Date: 2015.10.12
-    Note: ...
-*/
+/** Micro Mezz Macro Flation -- Overheated Economy ., Last Update: Sep. 22th 2013 **/ //{
 
+/** Header .. **/ //{
 #pragma comment(linker, "/STACK:36777216")
 //#pragma GCC optimize ("O2")
 #define LOCAL
+//#include "testlib.h"
 #include <functional>
 #include <algorithm>
 #include <iostream>
@@ -36,35 +34,34 @@
 
 using namespace std;
 
-#define REP(i, n) for (int i=0;i<n;++i)
-#define FOR(i, a, b) for (int i=a;i<b;++i)
-#define DWN(i, b, a) for (int i=b-1;i>=a;--i)
-#define REP_1(i, n) for (int i=1;i<=n;++i)
-#define FOR_1(i, a, b) for (int i=a;i<=b;++i)
-#define DWN_1(i, b, a) for (int i=b;i>=a;--i)
-#define REP_C(i, n) for (int n____=n,i=0;i<n____;++i)
-#define FOR_C(i, a, b) for (int b____=b,i=a;i<b____;++i)
-#define DWN_C(i, b, a) for (int a____=a,i=b-1;i>=a____;--i)
-#define REP_N(i, n) for (i=0;i<n;++i)
-#define FOR_N(i, a, b) for (i=a;i<b;++i)
-#define DWN_N(i, b, a) for (i=b-1;i>=a;--i)
-#define REP_1_C(i, n) for (int n____=n,i=1;i<=n____;++i)
-#define FOR_1_C(i, a, b) for (int b____=b,i=a;i<=b____;++i)
-#define DWN_1_C(i, b, a) for (int a____=a,i=b;i>=a____;--i)
-#define REP_1_N(i, n) for (i=1;i<=n;++i)
-#define FOR_1_N(i, a, b) for (i=a;i<=b;++i)
-#define DWN_1_N(i, b, a) for (i=b;i>=a;--i)
-#define REP_C_N(i, n) for (int n____=(i=0,n);i<n____;++i)
-#define FOR_C_N(i, a, b) for (int b____=(i=0,b);i<b____;++i)
-#define DWN_C_N(i, b, a) for (int a____=(i=b-1,a);i>=a____;--i)
-#define REP_1_C_N(i, n) for (int n____=(i=1,n);i<=n____;++i)
-#define FOR_1_C_N(i, a, b) for (int b____=(i=a,b);i<=b____;++i)
-#define DWN_1_C_N(i, b, a) for (int a____=(i=b,a);i>=a____;--i)
+#define REP(i, n) for (int i=0;i<int(n);++i)
+#define FOR(i, a, b) for (int i=int(a);i<int(b);++i)
+#define DWN(i, b, a) for (int i=int(b-1);i>=int(a);--i)
+#define REP_1(i, n) for (int i=1;i<=int(n);++i)
+#define FOR_1(i, a, b) for (int i=int(a);i<=int(b);++i)
+#define DWN_1(i, b, a) for (int i=int(b);i>=int(a);--i)
+#define REP_C(i, n) for (int n____=int(n),i=0;i<n____;++i)
+#define FOR_C(i, a, b) for (int b____=int(b),i=a;i<b____;++i)
+#define DWN_C(i, b, a) for (int a____=int(a),i=b-1;i>=a____;--i)
+#define REP_N(i, n) for (i=0;i<int(n);++i)
+#define FOR_N(i, a, b) for (i=int(a);i<int(b);++i)
+#define DWN_N(i, b, a) for (i=int(b-1);i>=int(a);--i)
+#define REP_1_C(i, n) for (int n____=int(n),i=1;i<=n____;++i)
+#define FOR_1_C(i, a, b) for (int b____=int(b),i=a;i<=b____;++i)
+#define DWN_1_C(i, b, a) for (int a____=int(a),i=b;i>=a____;--i)
+#define REP_1_N(i, n) for (i=1;i<=int(n);++i)
+#define FOR_1_N(i, a, b) for (i=int(a);i<=int(b);++i)
+#define DWN_1_N(i, b, a) for (i=int(b);i>=int(a);--i)
+#define REP_C_N(i, n) for (int n____=(i=0,int(n));i<n____;++i)
+#define FOR_C_N(i, a, b) for (int b____=(i=0,int(b);i<b____;++i)
+#define DWN_C_N(i, b, a) for (int a____=(i=b-1,int(a));i>=a____;--i)
+#define REP_1_C_N(i, n) for (int n____=(i=1,int(n));i<=n____;++i)
+#define FOR_1_C_N(i, a, b) for (int b____=(i=1,int(b);i<=b____;++i)
+#define DWN_1_C_N(i, b, a) for (int a____=(i=b,int(a));i>=a____;--i)
 
-#define ECH(it, A) for (__typeof((A).begin()) it=(A).begin(); it != (A).end(); ++it)
-#define rECH(it, A) for (__typeof((A).rbegin()) it=(A).rbegin(); it != (A).rend(); ++it)
+#define ECH(it, A) for (__typeof(A.begin()) it=A.begin(); it != A.end(); ++it)
 #define REP_S(i, str) for (char*i=str;*i;++i)
-#define REP_L(i, hd, suc) for (int i=hd;i;i=suc[i])
+#define REP_L(i, hd, nxt) for (int i=hd;i;i=nxt[i])
 #define REP_G(i, u) REP_L(i,hd[u],suc)
 #define REP_SS(x, s) for (int x=s;x;x=(x-1)&s)
 #define DO(n) for ( int ____n = n; ____n-->0; )
@@ -80,8 +77,7 @@ using namespace std;
 #define CPY(A, B) memcpy(A, B, sizeof(A))
 #define INS(A, P, B) A.insert(A.begin() + P, B)
 #define ERS(A, P) A.erase(A.begin() + P)
-#define LBD(A, x) (lower_bound(ALL(A), x) - A.begin())
-#define UBD(A, x) (upper_bound(ALL(A), x) - A.begin())
+#define BSC(A, x) (lower_bound(ALL(A), x) - A.begin())
 #define CTN(T, x) (T.find(x) != T.end())
 #define SZ(A) int((A).size())
 #define PB push_back
@@ -172,8 +168,8 @@ inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f){RF(a), RF(b), RF(c), RF(
 inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f, DB &g){RF(a), RF(b), RF(c), RF(d), RF(e), RF(f), RF(g); return a;}
 inline void RS(char *s1, char *s2){RS(s1), RS(s2);}
 inline void RS(char *s1, char *s2, char *s3){RS(s1), RS(s2), RS(s3);}
-template<class T0,class T1>inline T0& RDD(T0&a, T1&b){RDD(a),RDD(b); return a;}
-template<class T0,class T1,class T2>inline T1& RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c); return a;}
+template<class T0,class T1>inline void RDD(T0&a, T1&b){RDD(a),RDD(b);}
+template<class T0,class T1,class T2>inline void RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c);}
 
 template<class T> inline void RST(T &A){memset(A, 0, sizeof(A));}
 template<class T> inline void FLC(T &A, int x){memset(A, x, sizeof(A));}
@@ -191,9 +187,9 @@ template<class T0, class T1, class T2, class T3> inline void FLC(T0 &A0, T1 &A1,
 template<class T0, class T1, class T2, class T3, class T4> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x), FLC(A4, x);}
 template<class T0, class T1, class T2, class T3, class T4, class T5> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x), FLC(A4, x), FLC(A5, x);}
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6> inline void FLC(T0 &A0, T1 &A1, T2 &A2, T3 &A3, T4 &A4, T5 &A5, T6 &A6, int x){FLC(A0, x), FLC(A1, x), FLC(A2, x), FLC(A3, x), FLC(A4, x), FLC(A5, x), FLC(A6, x);}
-template<class T> inline void CLR(priority_queue<T> &Q){while (!Q.empty()) Q.pop();}
+template<class T> inline void CLR(priority_queue<T, vector<T>, less<T> > &Q){while (!Q.empty()) Q.pop();}
+template<class T> inline void CLR(priority_queue<T, vector<T>, greater<T> > &Q){while (!Q.empty()) Q.pop();}
 template<class T> inline void CLR(stack<T> &S){while (!S.empty()) S.pop();}
-template<class T> inline void CLR(queue<T> &Q){while (!Q.empty()) Q.pop();}
 
 template<class T0, class T1> inline void CLR(T0 &A0, T1 &A1){CLR(A0), CLR(A1);}
 template<class T0, class T1, class T2> inline void CLR(T0 &A0, T1 &A1, T2 &A2){CLR(A0), CLR(A1), CLR(A2);}
@@ -205,41 +201,42 @@ template<class T> inline void CLR(T &A, int n){REP(i, n) CLR(A[i]);}
 
 template<class T> inline bool EPT(T &a){return a.empty();}
 template<class T> inline T& SRT(T &A){sort(ALL(A)); return A;}
-template<class T, class C> inline T& SRT(T &A, C cmp){sort(ALL(A), cmp); return A;}
+template<class T, class C> inline T& SRT(T &A, C B){sort(ALL(A), B); return A;}
 template<class T> inline T& RVS(T &A){reverse(ALL(A)); return A;}
 template<class T> inline T& UNQQ(T &A){A.resize(unique(ALL(A))-A.begin());return A;}
 template<class T> inline T& UNQ(T &A){SRT(A);return UNQQ(A);}
-template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A);}
 
 
 //}
 
 /** Constant List .. **/ //{
 
-const int MOD = 998244353;
+const int MOD = int(1e9) + 7;
+//int MOD = 99990001;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
-const int dx[] = {-1, 1, 0, 0};
-const int dy[] = {0, 0, 1, -1};
+const int dx[] = {-1, 0, 1, 0};
+const int dy[] = {0, 1, 0, -1};
 
 //}
 
 /** Add On .. **/ //{
 // <<= '0. Nichi Joo ., //{
 
-template<class T> inline bool checkMin(T &a,const T b){return b < a ? a = b, 1 : 0;}
-template<class T> inline bool checkMax(T &a,const T b){return a < b ? a = b, 1 : 0;}
-template <class T, class C> inline bool checkUpd(T& a, const T b, C c){return c(b,a) ? a = b, 1 : 0;}
+template<class T> inline T& checkMin(T &a,const T b){if (b<a) a=b;return a;}
+template<class T> inline T& checkMax(T &a,const T b){if (a<b) a=b;return a;}
+template<class T> inline T& checkMin(T &a, T &b, const T x){checkMin(a, x), checkMin(b, x);return a;}
+template<class T> inline T& checkMax(T &a, T &b, const T x){checkMax(a, x), checkMax(b, x);return a;}
+template <class T, class C> inline T& checkMin(T& a, const T b, C c){if (c(b,a)) a = b;return a;}
+template <class T, class C> inline T& checkMax(T& a, const T b, C c){if (c(a,b)) a = b;return a;}
 template<class T> inline T min(T a, T b, T c){return min(min(a, b), c);}
 template<class T> inline T max(T a, T b, T c){return max(max(a, b), c);}
 template<class T> inline T min(T a, T b, T c, T d){return min(min(a, b), min(c, d));}
 template<class T> inline T max(T a, T b, T c, T d){return max(max(a, b), max(c, d));}
-template<class T> inline T min(T a, T b, T c, T d, T e){return min(min(min(a,b),min(c,d)),e);}
-template<class T> inline T max(T a, T b, T c, T d, T e){return max(max(max(a,b),max(c,d)),e);}
 template<class T> inline T sqr(T a){return a*a;}
 template<class T> inline T cub(T a){return a*a*a;}
 template<class T> inline T ceil(T x, T y){return (x - 1) / y + 1;}
@@ -303,115 +300,7 @@ inline int count_bits(int x){return __builtin_popcount(x);}
 inline int count_bits(LL x){return __builtin_popcountll(x);}
 
 } using namespace BO;//}
-
-
-// <<= '2. Number Theory .,//{
-namespace NT{
-//#define gcd __gcd
-inline LL gcd(LL a, LL b){return b?gcd(b,a%b):a;}
-inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-
-inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
-inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
-
-/* 模数两倍刚好超 int 时。
-inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
-inline void INC(int &a, int b){a = sum(a, b);}
-*/
-
-inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
-inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
-inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
-//inline int pdt(int a, int b){return (LL)a * b % MOD;}
-inline int pdt(int x,int y) {
-    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
-    return ret;
-}
-
-
-inline int gcd(int m, int n, int &x, int &y){
-
-    x = 1, y = 0; int xx = 0, yy = 1, q;
-
-    while (1){
-        q = m / n, m %= n;
-        if (!m){x = xx, y = yy; return n;}
-        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
-        q = n / m, n %= m;
-        if (!n) return m;
-        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
-    }
-}
-
-inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
-inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
-inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
-inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
-
-inline int pow(int a, LL b){
-    int c(1); while (b){
-        if (b&1) MUL(c, a);
-        MUL(a, a), b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, LL b){
-    T c(1); while (b){
-        if (b&1) c *= a;
-        a *= a, b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, int b){
-    return pow(a, (LL)b);
-}
-
-inline int _I(int b){
-    int a = MOD, x1 = 0, x2 = 1, q; while (1){
-        q = a / b, a %= b;
-        if (!a) return x2;
-        DEC(x1, pdt(q, x2));
-
-        q = b / a, b %= a;
-        if (!b) return x1;
-        DEC(x2, pdt(q, x1));
-    }
-}
-
-inline void DIV(int &a, int b){MUL(a, _I(b));}
-inline int qtt(int a, int b){return pdt(a, _I(b));}
-
-struct Int{
-    int val;
-
-    operator int() const{return val;}
-
-    Int(int _val = 0):val(_val){
-        val %= MOD; if (val < 0) val += MOD;
-    }
-    Int(LL _val):val(_val){
-        _val %= MOD; if (_val < 0) _val += MOD;
-        val = _val;
-    }
-
-    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
-    Int operator +(const int& rhs) const{return sum(val, rhs);}
-    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
-    Int operator -(const int& rhs) const{return dff(val, rhs);}
-    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
-    Int operator *(const int& rhs) const{return pdt(val, rhs);}
-    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
-    Int operator /(const int& rhs) const{return qtt(val, rhs);}
-    Int operator-()const{return MOD-*this;}
-};
-
-} using namespace NT;//}
-
-
 //}
-
 
 
 /** I/O Accelerator Interface .. **/ //{
@@ -455,86 +344,141 @@ inline char* RS(char *s){
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
-    //printf("%I64d\n", x);
-    //printf("%.9f\n", x);
-    //printf("%d\n", x);
-    cout << x << endl;
+    //printf("%.4f\n", x);
+    printf("%d\n", x);
+    //cout << x << endl;
     //last_ans = x;
 }
-
+//}
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1.5e5) + 9;
+const int N = int(1e5) + 9;
 
-vector<int> a;
-Int pw[N]; int x;
+struct node{
 
-Int g(int,int,int,int,int);
+    static node *NIL; node *c[2], *p;
+    int bj, sz, ky, bd[2], up[3], dn[3];
 
-Int f(int l1, int r1, int l2, int r2, int k) {
+#define NIL node::NIL
+#define rt node::rt
+#define tp node::tp
+#define l c[0]
+#define r c[1]
+#define lx x->l
+#define rx x->r
+#define px x->p
+#define ly y->l
+#define ry y->r
+#define py y->p
 
-    //cout << l1 << " " << r1 << " " << l2 << " " << r2 << endl;
+    inline void reset(int v=0){l=r=p=NIL,bj=0,ky=v;}
+    inline void rev(){bj^=1,swap(l,r),swap(bd[0],bd[1]),swap(up[0],dn[1]),swap(up[1],dn[0]),swap(up[2],dn[2]);}
 
-    if (k == 0 || l1 == r1 || l2 == r2) {
-        return (pw[r1-l1]-1) * (pw[r2-l2]-1);
+    inline void upd(){
+        //assert(this != NIL);
+        sz = l->sz + 1 + r->sz;
+        bd[0] = l == NIL ? ky : l->bd[0];
+        bd[1] = r == NIL ? ky : r->bd[1];
+
+        up[0] = l->up[0]; if (l == NIL || up[0] == l->sz && l->bd[1] < ky)
+            up[0] += 1 + (ky < r->bd[0] ? r->up[0] : 0);
+        dn[0] = l->dn[0]; if (l == NIL || dn[0] == l->sz && l->bd[1] > ky)
+            dn[0] += 1 + (ky > r->bd[0] ? r->dn[0] : 0);
+        up[1] = r->up[1]; if (r == NIL || up[1] == r->sz && ky < r->bd[0])
+            up[1] += 1 + (l->bd[1] < ky ? l->up[1] : 0);
+        dn[1] = r->dn[1]; if (r == NIL || dn[1] == r->sz && ky > r->bd[0])
+            dn[1] += 1 + (l->bd[1] > ky ? l->dn[1] : 0);
+
+        up[2] = max(l->up[2], (l->bd[1] < ky ? l->up[1] : 0) + 1 + (ky < r->bd[0] ? r->up[0] : 0), r->up[2]);
+        dn[2] = max(l->dn[2], (l->bd[1] > ky ? l->dn[1] : 0) + 1 + (ky > r->bd[0] ? r->dn[0] : 0), r->dn[2]);
+
     }
 
-    --k;
-    int m1 = std::partition_point(a.begin() + l1, a.begin() + r1, [&](int x) { return ~x >> (k) & 1; }) - a.begin();
-int m2 = std::partition_point(a.begin() + l2, a.begin() + r2, [&](int x) { return ~x >> (k) & 1; }) - a.begin();
-
-    //cout << x << " " << k << endl;
-
-    if (_1(x, k)) {
-        return g(l1, m1, m2, r2, k) * g(m1, r1, l2, m2, k) - pw[r2-l2] - pw[r1-l1] + 1;
-        //return g(l1, m1, m2, r2, k) * g(m1, r1, l2, m2, k); // - pw[r2-l2] - pw[r1-l1] + 1;
-    } else {
-        return f(l1, m1, l2, m2, k) + f(m1, r1, m2, r2, k);
+    inline void rls(){
+        //assert(this != NIL);
+        if (bj){
+            l->rev(), r->rev();
+            bj = 0;
+        }
     }
-};
 
-Int g(int l1, int r1, int l2, int r2, int k) {
-    return f(l1, r1, l2, r2, k) + pw[r1-l1] + pw[r2-l2] - 1;
-}
+    inline int sgn(){return p->l==this?0:p->r==this?1:-1;}
+    inline void setc(int d,node*x){c[d]=x,px=this;}
+    inline void setl(node*x){setc(0,x);}
+    inline void setr(node*x){setc(1,x);}
 
+    inline void rot(int d){
+        node *y = p, *z = py; if (~y->sgn()) z->setc(y->sgn(), this); else p = z;
+        y->setc(!d, c[d]), setc(d, y), y->upd();
+    }
 
-int main() {
+    inline void rot(){rot(!sgn());}
+    inline void zag(){rot(0);}
+    inline void zig(){rot(1);}
 
+    inline void fix(){if (~sgn()) p->fix(); rls();}
+
+    inline node* splay(){
+        fix();while(~sgn())rot();upd();
+        return this;
+    }
+/*
+    inline node *splay(){
+        fix(); while (~sgn()){
+            node*y = p,*z = y->p; if (!~y->sgn()){rot();break;}
+            if (z->l == y){
+                if (y->l == this) y->zig(), zig();
+                else zag(), zig();
+            }
+            else {
+                if (y->r == this) y->zag(), zag();
+                else zig(), zag();
+            }
+        }
+        upd();
+        return this;
+    }
+*/
+    inline node *acs(){
+        node *x = this, *y = NIL; do{
+            x->splay();
+            rx = y, x->upd();
+            y = x, x = px;
+        } while (x != NIL);
+        return splay();
+    }
+
+    inline node* ert(){acs()->rev();return this;}
+
+    void Query(node *x){
+        ert(); OT(x->acs()->up[2]);
+        /*acs(); node *y = NIL; do{
+            x->splay(); if (px == NIL)
+            OT(max(rx->dn[2], (rx->bd[0] < x->ky ? rx->dn[0] : 0) + 1 + (x->ky < y->bd[0] ? y->up[0] : 0), y->up[2]));
+            rx = y, x->upd();
+            y = x, x = px;
+        } while (x != NIL);*/
+    }
+} *NIL, *T[N]; int n;
+
+int main(){
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
+    NIL = new node(); REP(i, N) T[i] = new node();
 
-    int n;
-    std::cin >> n >> x;
+    Rush{
+        if (Case) puts(""); printf("Case #%d:\n", ++Case);
+        REP_1_C(i, RD(n)) T[i]->reset(RD());
+        FOR_1(i, 2, n) T[i]->p = T[RD()];
 
-    Int ans = 0; a.resize(n);
-    REP(i, n) RD(a[i]);
-    std::sort(a.begin(), a.end());
-
-
-    pw[0] = 1;
-    for (int i = 1; i <= n; i++) {
-        pw[i] = 2 * pw[i - 1];
-    }
-
-    int k = x == 0 ? 0 : 1 + std::__lg(x);
-
-    for (int i = 0, j = 0; i < n; i = j) {
-        j = i;
-        while (j < n && (a[i] >> k) == (a[j] >> k)) {
-            j++;
+        Rush{
+            int x, y; RD(x, y);
+            T[x]->Query(T[y]);
         }
-        //cout << i << " " << j << endl;
-        int m = std::partition_point(a.begin() + i, a.begin() + j, [&](int x) { return ~x >> (k - 1) & 1; }) - a.begin();
-        //cout << i << " " << m << " " << j << " " << x << endl;
-        ans += g(i, m, m, j, k - 1) - 1;
     }
-
-    std::cout << ans << "\n";
-
-    return 0;
 }
