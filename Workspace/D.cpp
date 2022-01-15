@@ -91,8 +91,6 @@ using namespace std;
 #define rTs return Ts
 #define fi first
 #define se second
-#define re real()
-#define im imag()
 
 #define Rush for(int ____T=RD(); ____T--;)
 #define Display(A, n, m) {                      \
@@ -216,7 +214,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = 998244353; //int(1e9) + 7;
+const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -305,111 +303,6 @@ inline int count_bits(LL x){return __builtin_popcountll(x);}
 } using namespace BO;//}
 
 
-// <<= '2. Number Theory .,//{
-namespace NT{
-//#define gcd __gcd
-inline LL gcd(LL a, LL b){return b?gcd(b,a%b):a;}
-inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-
-inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
-inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
-
-/* 模数两倍刚好超 int 时。
-inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
-inline void INC(int &a, int b){a = sum(a, b);}
-*/
-
-inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
-inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
-inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
-//inline int pdt(int a, int b){return (LL)a * b % MOD;}
-inline int pdt(int x,int y) {
-    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
-    return ret;
-}
-
-
-inline int gcd(int m, int n, int &x, int &y){
-
-    x = 1, y = 0; int xx = 0, yy = 1, q;
-
-    while (1){
-        q = m / n, m %= n;
-        if (!m){x = xx, y = yy; return n;}
-        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
-        q = n / m, n %= m;
-        if (!n) return m;
-        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
-    }
-}
-
-inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
-inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
-inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
-inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
-
-inline int pow(int a, LL b){
-    int c(1); while (b){
-        if (b&1) MUL(c, a);
-        MUL(a, a), b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, LL b){
-    T c(1); while (b){
-        if (b&1) c *= a;
-        a *= a, b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, int b){
-    return pow(a, (LL)b);
-}
-
-inline int _I(int b){
-    int a = MOD, x1 = 0, x2 = 1, q; while (1){
-        q = a / b, a %= b;
-        if (!a) return x2;
-        DEC(x1, pdt(q, x2));
-
-        q = b / a, b %= a;
-        if (!b) return x1;
-        DEC(x2, pdt(q, x1));
-    }
-}
-
-inline void DIV(int &a, int b){MUL(a, _I(b));}
-inline int qtt(int a, int b){return pdt(a, _I(b));}
-
-struct Int{
-    int val;
-
-    operator int() const{return val;}
-
-    Int(int _val = 0):val(_val){
-        val %= MOD; if (val < 0) val += MOD;
-    }
-    Int(LL _val):val(_val){
-        _val %= MOD; if (_val < 0) _val += MOD;
-        val = _val;
-    }
-
-    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
-    Int operator +(const int& rhs) const{return sum(val, rhs);}
-    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
-    Int operator -(const int& rhs) const{return dff(val, rhs);}
-    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
-    Int operator *(const int& rhs) const{return pdt(val, rhs);}
-    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
-    Int operator /(const int& rhs) const{return qtt(val, rhs);}
-    Int operator-()const{return MOD-*this;}
-};
-
-} using namespace NT;//}
-
-
 //}
 
 
@@ -454,6 +347,7 @@ inline char* RS(char *s){
 
 LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //printf("Case #%d: ", ++Case);
+    //printf("Case #%d: ", ++Case);
     //printf("%lld\n", x);
     //printf("%I64d\n", x);
     //printf("%.9f\n", x);
@@ -465,30 +359,427 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
+const int N = int(3e5)+9, M = 2*N;
 
-int main(){
+namespace atcoder {
+namespace internal {
+
+template <class E> struct csr {
+    std::vector<int> start;
+    std::vector<E> elist;
+    explicit csr(int n, const std::vector<std::pair<int, E>>& edges)
+        : start(n + 1), elist(edges.size()) {
+        for (auto e : edges) {
+            start[e.first + 1]++;
+        }
+        for (int i = 1; i <= n; i++) {
+            start[i] += start[i - 1];
+        }
+        auto counter = start;
+        for (auto e : edges) {
+            elist[counter[e.first]++] = e.second;
+        }
+    }
+};
+
+}  // namespace internal
+
+}  // namespace atcoder
+
+
+namespace atcoder {
+namespace internal {
+
+struct scc_graph {
+  public:
+    explicit scc_graph(int n) : _n(n) {}
+
+    int num_vertices() { return _n; }
+
+    void add_edge(int from, int to) { edges.push_back({from, {to}}); }
+
+    std::pair<int, std::vector<int>> scc_ids() {
+        auto g = csr<edge>(_n, edges);
+        int now_ord = 0, group_num = 0;
+        std::vector<int> visited, low(_n), ord(_n, -1), ids(_n);
+        visited.reserve(_n);
+        auto dfs = [&](auto self, int v) -> void {
+            low[v] = ord[v] = now_ord++;
+            visited.push_back(v);
+            for (int i = g.start[v]; i < g.start[v + 1]; i++) {
+                auto to = g.elist[i].to;
+                if (ord[to] == -1) {
+                    self(self, to);
+                    low[v] = std::min(low[v], low[to]);
+                } else {
+                    low[v] = std::min(low[v], ord[to]);
+                }
+            }
+            if (low[v] == ord[v]) {
+                while (true) {
+                    int u = visited.back();
+                    visited.pop_back();
+                    ord[u] = _n;
+                    ids[u] = group_num;
+                    if (u == v) break;
+                }
+                group_num++;
+            }
+        };
+        for (int i = 0; i < _n; i++) {
+            if (ord[i] == -1) dfs(dfs, i);
+        }
+        for (auto& x : ids) {
+            x = group_num - 1 - x;
+        }
+        return {group_num, ids};
+    }
+
+    std::vector<std::vector<int>> scc() {
+        auto ids = scc_ids();
+        int group_num = ids.first;
+        std::vector<int> counts(group_num);
+        for (auto x : ids.second) counts[x]++;
+        std::vector<std::vector<int>> groups(ids.first);
+        for (int i = 0; i < group_num; i++) {
+            groups[i].reserve(counts[i]);
+        }
+        for (int i = 0; i < _n; i++) {
+            groups[ids.second[i]].push_back(i);
+        }
+        return groups;
+    }
+
+  private:
+    int _n;
+    struct edge {
+        int to;
+    };
+    std::vector<std::pair<int, edge>> edges;
+};
+
+}  // namespace internal
+
+}  // namespace atcoder
+
+
+namespace atcoder {
+
+struct scc_graph {
+  public:
+    scc_graph() : internal(0) {}
+    explicit scc_graph(int n) : internal(n) {}
+
+    void add_edge(int from, int to) {
+        int n = internal.num_vertices();
+        assert(0 <= from && from < n);
+        assert(0 <= to && to < n);
+        internal.add_edge(from, to);
+    }
+
+    std::vector<std::vector<int>> scc() { return internal.scc(); }
+
+  private:
+    internal::scc_graph internal;
+};
+
+}  // namespace atcoder
+
+
+inline int read()
+{
+    char c=getchar();int x=0;bool f=0;
+    for(;!isdigit(c);c=getchar())f^=!(c^45);
+    for(;isdigit(c);c=getchar())x=(x<<1)+(x<<3)+(c^48);
+    if(f)x=-x;return x;
+}
+
+
+int n,m,q,k,head[N],cnt,d[N];
+struct Graph
+{
+	int head[N],cnt;
+	struct edge
+	{
+		int to,nxt;
+	}e[N*2];
+	void add(int u,int v)
+	{
+		e[++cnt].to=v;
+		e[cnt].nxt=head[u];
+		head[u]=cnt;
+	}
+}G1,G2;
+struct graph
+{
+	int head[20],cnt;
+	struct edge
+	{
+		int to,nxt,v;
+	}e[30*2];
+	void add(int u,int v,int w)
+	{
+//		cout<<u<<" "<<v<<" "<<w<<endl;
+		e[++cnt].to=v;
+		e[cnt].nxt=head[u];
+		head[u]=cnt;
+		e[cnt].v=w;
+	}
+	void clear()
+	{
+		cnt=0;
+		memset(head,0,sizeof head);
+	}
+}G3,G4;
+struct edge
+{
+	int to,nxt;
+}e[N*2];
+void add(int u,int v)
+{
+	e[++cnt].to=v;
+	e[cnt].nxt=head[u];
+	head[u]=cnt;
+}
+int col[N],colw[N],tot,s[N],top,Sum,st,ed,h[15],sum[N],lg[N],f[N][20],dep[N],Tot,L[N],ind[N];
+#define sum Sum
+
+void topo()//G1DAG->G2 tree
+{
+	queue<int> q;
+	for(int i=1;i<=sum;i++)
+	if(!d[i]) q.push(i);
+	while(!q.empty())
+	{
+		int now=q.front();q.pop();
+		for(int i=G1.head[now];i;i=G1.e[i].nxt)
+		{
+			d[G1.e[i].to]--;
+			if(d[G1.e[i].to]==0)
+			{
+				G2.add(now,G1.e[i].to);
+
+			//	cout << "topo: " << now << " " <<G1.e[i].to << endl;
+
+				ind[G1.e[i].to]++;
+				cout<<now<<" "<<G1.e[i].to<<endl;
+				q.push(G1.e[i].to);
+			}
+		}
+	}
+}
+#undef sum
+struct Hash
+{
+	unordered_map<int,int> mp;
+	int cnt;
+	void clear()
+	{
+		mp.clear();
+		cnt=0;
+	}
+	int get(int x)
+	{
+		if(mp[x]==0) mp[x]=++cnt;
+		return mp[x];
+	}
+}H;
+
+void dfs1(int now,int fa)//G2 tree dfs ：lca，dfn（L），权值前缀和（sum）
+{
+
+   // cout << "dfs: " << now << " " << fa << endl;
+
+	f[now][0]=fa;
+	L[now]=++Tot;
+	dep[now]=dep[fa]+1;
+	for(int i=1;i<=lg[dep[now]];i++)
+	f[now][i]=f[f[now][i-1]][i-1];
+	sum[now]=sum[fa]+colw[now];
+	for(int i=G2.head[now];i;i=G2.e[i].nxt)
+	{
+		if(G2.e[i].to!=fa)
+		dfs1(G2.e[i].to,now);
+	}
+}
+int LCA(int x,int y)
+{
+	if(dep[x]<dep[y]) swap(x,y);
+	while(dep[x]>dep[y]) x=f[x][lg[dep[x]-dep[y]]-1];
+	if(x==y) return x;
+	for(int i=lg[dep[x]];i>=0;i--)
+	if(f[x][i]!=f[y][i])
+	x=f[x][i],y=f[y][i];
+	return f[x][0];
+}
+bool cmp(int x,int y)
+{
+	return L[x]<L[y];
+}
+int vis[30],vis2[30],vp[30],val[30];
+int work()
+{
+	memset(vis,0,sizeof vis);
+	memset(vp,0,sizeof vp);
+	queue<int> q;
+//	cout<<H.get(st)<<" "<<H.get(ed)<<endl;
+	q.push(H.get(st));
+	while(!q.empty())//G3 bfs
+	{
+		int now=q.front();q.pop();
+	//	cout << "afs:" << now << " " << vp[now] << " " << endl;
+		vp[now]=1;
+		for(int i=G3.head[now];i;i=G3.e[i].nxt)
+		{
+			if(!vis[i])
+			{
+				vis[i]=1;
+				q.push(G3.e[i].to);
+			}
+		}
+	}
+	int ans=0;
+	memset(vis2,0,sizeof vis2);
+	q.push(H.get(ed));
+	while(!q.empty())//G4 bfs
+	{
+		int now=q.front();q.pop();
+
+	//	cout << "bfs:" << now << " " << vp[now] << " " << endl;
+
+		if(vp[now]) ans+=val[now],vp[now]=0;
+		for(int i=G4.head[now];i;i=G4.e[i].nxt)
+		{
+			if(!vis2[i])
+			{
+				vis2[i]=1;
+				if(vis[i]) ans+=G4.e[i].v,vis[i]=0;
+				q.push(G4.e[i].to);
+			}
+		}
+	}
+	memset(val,0,sizeof val);
+	return ans;
+}
+int main()
+{
+
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    Rush {
-        int n; RD(n);
-        map<int, int> H;
-        int z = -1;
-        REP(i, n) {
-            int a; RD(a); if (CTN(H, a)) {
-                checkMax(z, H[a] + (n-i));
-            }
-            H[a] = i;
+	n=read();m=read();q=read();k=read();
+	for(int i=1;i<=n;i++)
+	lg[i]=lg[i/2]+1;
+
+
+	auto G = atcoder::internal::scc_graph(n+1);
+
+
+	for(int i=1;i<=m;i++)
+	{
+		int u=read(),v=read();
+		add(u,v);
+		 G.add_edge(u, v);
+	}
+
+    auto _ = G.scc_ids(); m = _.fi; auto id = _.se;
+
+    REP_1(i, n) colw[col[i] = id[i]+1]++;
+
+    REP_1(i, n) for(int j=head[i];j;j=e[j].nxt) {
+
+
+        int a = col[i];
+        int b = col[e[j].to]     ;
+
+
+        if(a != b) {
+
+            G1.add(a, b),d[b]++;
         }
-        cout << z << endl;
     }
+
+
+
+
+	/*for(int i=1;i<=n;i++)
+	if(!dfn[i]) dfs(i);
+
+	for(int i=1;i<=n;i++)
+	for(int j=head[i];j;j=e[j].nxt)
+	if(col[i]!=col[e[j].to])
+	G1.add(col[i],col[e[j].to]),d[col[e[j].to]]++;*/
+
+    Sum = m-1;
+	topo();
+    //for(int i=1;i<=Sum;i++) cout << colw[i] << " "; cout << endl;
+
+	int root=0;
+	for(int i=1;i<=Sum;i++)
+	if(ind[i]==0) root=i;
+	dfs1(root,0);
+	for(int i=1;i<=q;i++)
+	{
+		G3.clear();G4.clear();H.clear();
+		st=read();ed=read();
+		st=col[st];ed=col[ed];
+
+
+		h[1]=st;h[2]=ed;
+		top=0;
+		for(int j=1;j<=k;j++)
+		{
+			int u=read(),v=read();
+			u=col[u];v=col[v];
+			if(u==v) continue;
+			G3.add(H.get(u),H.get(v),0);
+			G4.add(H.get(v),H.get(u),0);
+			h[j*2+1]=u;h[j*2+2]=v;
+		}
+		sort(h+1,h+(k+1)*2+1,cmp);
+		int qwq=unique(h+1,h+(k+1)*2+1)-h-1;
+		for(int j=1;j<=qwq;j++)
+		val[H.get(h[j])]=colw[h[j]];
+		s[++top]=h[1];
+		for(int j=2;j<=qwq;j++)
+		{
+			int lca=LCA(h[j],s[top]);
+			val[H.get(lca)]=colw[lca];
+			while(1)
+			{
+				if(dep[lca]>=dep[s[top-1]])
+				{
+					if(lca!=s[top])
+					{
+						G3.add(H.get(lca),H.get(s[top]),sum[f[s[top]][0]]-sum[lca]);
+						G4.add(H.get(s[top]),H.get(lca),sum[f[s[top]][0]]-sum[lca]);
+						if(lca!=s[top-1])
+						s[top]=lca;
+						else top--;
+					}
+					break;
+				}
+				else
+				{
+					G3.add(H.get(s[top-1]),H.get(s[top]),sum[f[s[top]][0]]-sum[s[top-1]]);
+					G4.add(H.get(s[top]),H.get(s[top-1]),sum[f[s[top]][0]]-sum[s[top-1]]);
+					top--;
+				}
+			}
+			s[++top]=h[j];
+		}
+		while(top-1)
+		{
+	//		cout<<"qwq";
+			G3.add(H.get(s[top-1]),H.get(s[top]),sum[f[s[top]][0]]-sum[s[top-1]]);
+			G4.add(H.get(s[top]),H.get(s[top-1]),sum[f[s[top]][0]]-sum[s[top-1]]);
+			top--;
+		}
+	//	for(int i=0;i<=Sum;i++) cout << val[i] << " "; cout << endl;
+		printf("%d\n",work());
+	}
+	return 0;
 }
-
-0    1
-
-a+b
-
-
