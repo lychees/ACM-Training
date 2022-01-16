@@ -10,7 +10,14 @@ import Control.Monad
 import Data.List
 import Data.Array.Unboxed
  
-
+ 
+mainFun :: SP Builder
+mainFun = do
+  ~[t] <- getInts 1
+  fmap mconcat $ replicateM t $ do
+    ~[n, m] <- getInts 2
+    pure $ putInts $ sort [ 0 | i <- [0..n-1], j <- [0..m-1]]
+ 
 type SP = State [P.ByteString]
  
 getNext :: Int -> SP [P.ByteString]
@@ -33,12 +40,3 @@ main = do
   inp <- P.getContents
   let  outp = evalState mainFun $ P.words inp
   P.putStr $ toLazyByteString outp
-
-
-
-mainFun :: SP Builder
-mainFun = do
-      ~[t] <- getInts 1
-      fmap mconcat $ replicateM t $ do
-            ~[n, m] <- getInts 2
-            pure $ putInts $ sort [ (max i (n-1-i)) + (max j (m-1-j)) | i <- [0..n-1], j <- [0..m-1]]

@@ -466,8 +466,41 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 //}/* .................................................................................................................................. */
 
 
-const int N = int(1e4) + 9;
-int a[N];
+const int PMAX = int(1e6) + 9;
+VI P; bitset<PMAX> isP;
+void sieve(){
+    FOR(i, 2, PMAX){
+        if (!isP[i]) P.PB(i);
+        for (int j=0;j<SZ(P)&&i*P[j]<PMAX;++j){
+            isP[i*P[j]]=1; if (!(i%P[j])) break;
+        }
+    }
+}
+
+//因数分解。。
+VII fac; void fact(int x){
+    int z = x; fac.clear(); ECH(it, P) if (!(x%*it)){
+        int c=1; x/=*it; while (!(x%*it)) x/=*it, ++c;
+        fac.PB(MP(*it, c));
+    }
+    if (x!=1) fac.PB(MP(x, 1));
+}
+    //    1
+    // 2   3   5   7
+
+    // 4 6 9 10 15 25  49
+
+    //             30
+
+
+    // 25 10 5 2 1
+    // 35 15 5 3 1
+
+const int N = int(1e6) + 9;
+int bj[N], cnt[N];
+int n;
+
+
 
 int main(){
 
@@ -476,17 +509,46 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-	Rush {
-		int n; RD(n); RST(a);
-		REP_1(i, n) if(!a[i]){
-	        VI b; for (;SZ(b) < 2 || b.front()!=b.back();b.PB(RD()))  {
-				cout<<"? "<<i<<endl; fflush(stdout);
-			}
-			REP(i,SZ(b)-1) a[b[i]]=b[i+1];
-	    }
-	    putchar('!'); REP_1(i, n) printf(" %d", a[i]); puts("");
-		fflush(stdout);
-	}
+    sieve();
 
+    RD(n); REP(i, n) bj[RD()] = 1;
+
+
+    int z = 0;
+    DWN(i, N, 1) {
+        for (int j=i;j<N;j+=i) cnt[i] += bj[j];
+
+        if (cnt[i] >= 2) {
+            int j; for (j=i+i;j<N&&cnt[j]!=cnt[i];j+=i);
+            if (j >= N && !bj[i]) {
+                ++z;
+                //cout << i << endl;
+            }
+        }
+
+
+
+    }
+
+    //for (auto t: H) cout << t << " "; cout << endl;
+
+
+    cout << z << endl;
 }
+
+/*
+1  2
+3  2
+2  2   1
+5      1
+23 2
+25 1   1
+27 1
+35 1
+37 1
+235 1
+237 1
+2 5
+*/
+
 
