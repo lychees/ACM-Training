@@ -314,7 +314,7 @@ inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
 inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
 inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
 
-/* ģ�������պó� int ʱ��
+/* Ä£ÊýÁ½±¶¸ÕºÃ³¬ int Ê±¡£
 inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
 inline void INC(int &a, int b){a = sum(a, b);}
 */
