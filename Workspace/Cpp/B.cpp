@@ -465,39 +465,44 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
 
-int a[N],b[N],cnt[5];
-int n,k,t;
+const int N = int(1e5) + 9;
+LL x,n,a[N];
 
-int main(){
-
+int main()
+{
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-	Rush {
-	    RD(n, k); t=(n+k+1)/2;
-		REP_1(i,n) b[i] = RD(a[i]); sort(a+1,a+1+n);
-#define zi (a[i+t-1]-a[i])
-		int p=1,z=a[n]-a[1];
-		REP_1(i, n-t+1) if(zi<z) {
-            p = i;
-            z = zi;
-		}
-		printf("%d %d\n", a[p], a[p]+z);
-		int x=a[p],y=a[p]+z, l=1;
-		REP_1(i, k) {
-			int r=l; RST(cnt);
-			do {
-                ++cnt[(x<=b[r]&&b[r]<=y)];
-                if (cnt[1] > cnt[0]) break;
-                ++r;
-			} while (1);
-			printf("%d %d\n", l, i==k?n:r);
-			l=r+1;
-		}
-	}
-}
+	RD(n,x);
+	REP_1(i, n) RD(a[i]);
+	sort(a+1,a+n+1);
+	multiset<pair<LL,LL> > S;
+	multiset<LL> SS1;
+	multiset<LL> SS2;
+	REP_1(i,n) S.insert({a[i],a[i]}),SS1.insert(a[i]),SS2.insert(a[i]);
 
+
+	LL ans = a[n] - a[1];
+
+	DO(60*n) {
+		LL p=*SS1.rbegin(),r=*SS2.begin();
+		checkMin(ans,p-r);
+		if(ans<=0) break;
+
+		auto it=S.begin(); auto pa=*it; S.erase(it);
+		auto it1=SS1.lower_bound(pa.fi); SS1.erase(it1);
+		auto it2=SS2.lower_bound(pa.se); SS2.erase(it2);
+
+		pa.fi*=2,pa.se=pa.se*2+x;
+		if(pa.fi<0||pa.se<0) break;
+		S.insert(pa);
+		SS1.insert(pa.fi);
+		SS2.insert(pa.se);
+	}
+	if (ans < x) ans = 0;
+	checkMax(ans, 0ll);
+	OT(ans);
+}

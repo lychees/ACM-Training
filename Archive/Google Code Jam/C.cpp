@@ -471,57 +471,48 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 const int N = int(1e2) + 1;
 
-int dp[N][N], a[N][N], lcp[N][N], t[N];
+int dp[N][N], a[N][N], t[N];
 int n, m;
-
-void init() {
-    REP(l, n) FOR(r, l+1, n+1) {
-        vector<int> t; REP(j, m) t.PB(INF);
-        FOR(i, l, r) REP(j, m) checkMin(t[j], a[i][j]);
-        lcp[l][r] = 0; REP(j, m) lcp[l][r] += t[j];
-    }
-}
 
 
 int f(int l, int r) {
+
     int &z = dp[l][r];
     if (z == -1) {
+            cout << l << " " << r << endl;
         z = 0;
-        if (l + 1 < r) {
-            z = INF; FOR(k, l+1, r) checkMin(z, f(l, k) + f(k, r) + 2 * (lcp[l][k] + lcp[k][r]));
-            z -= 4*lcp[l][r];
+        if (l + 1 == r) {
+            REP(j, m) z += 2*a[l][j];
+            return z;
         }
+        vector<int> t; REP(j, m) t.PB(INF);
+        FOR(i, l, r) REP(j, m) checkMin(t[j], a[i][j]);
+        REP(j, m) z += t[j]; FOR(i, l, r) REP(j, m) a[i][j] -= t[j];
+        int d = INF;
+        FOR(k, l+1, r-1) {
+            int w = 0;
+            //int w = 0; REP(j, m)  w += a[k-1][j] + a[k][j];
+            w += f(l, k) + f(k, r);
+            checkMin(d, w);
+        }
+        FOR(i, l, r) REP(j, m) a[i][j] += t[j];
+        z += d;
     }
     return z;
 }
 
 int gao() {
-    FLC(dp, -1); RD(n, m); REP(i, n) REP(j, m) RD(a[i][j]); init();
-    return f(0, n) + 2*lcp[0][n];
+    FLC(dp, -1); RD(n, m); REP(i, n) REP(j, m) RD(a[i][j]);
+    return f(0, n);
 }
 
 int main() {
 
 #ifndef ONLINE_JUDGE
-    // freopen("in.txt", "r", stdin);
+    freopen("in.txt", "r", stdin);
 #endif
     Rush {
         printf("Case #%d: %d\n", ++Case, gao());
     }
 }
 
-
-// 2 1 1
-
-// 4*2 = 8
-
-// 1 0 0   2
-// -------
-// 1 2 2   8 + 2 = 10
-// 0 2 2
-
-// lcp
-
-// 8 + 2 + 10 = 20
-
-// (2 + 8) + 8 + 8 ...
