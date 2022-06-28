@@ -1,6 +1,6 @@
 /*
     This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
-    Template Date: 2015.10.12
+    Template Date: 2022.6.21
     Note: ...
 */
 
@@ -143,9 +143,6 @@ inline char RC(){char c; return RC(c);}
 //inline char& RC(char &c){c = getchar(); return c;}
 //inline char RC(){return getchar();}
 
-template<class T> inline T& RDD(T &);
-inline LL RDD(){LL x; return RDD(x);}
-
 template<class T0, class T1> inline T0& RD(T0 &x0, T1 &x1){RD(x0), RD(x1); return x0;}
 template<class T0, class T1, class T2> inline T0& RD(T0 &x0, T1 &x1, T2 &x2){RD(x0), RD(x1), RD(x2); return x0;}
 template<class T0, class T1, class T2, class T3> inline T0& RD(T0 &x0, T1 &x1, T2 &x2, T3 &x3){RD(x0), RD(x1), RD(x2), RD(x3); return x0;}
@@ -172,8 +169,6 @@ inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f){RF(a), RF(b), RF(c), RF(
 inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f, DB &g){RF(a), RF(b), RF(c), RF(d), RF(e), RF(f), RF(g); return a;}
 inline void RS(char *s1, char *s2){RS(s1), RS(s2);}
 inline void RS(char *s1, char *s2, char *s3){RS(s1), RS(s2), RS(s3);}
-template<class T0,class T1>inline T0& RDD(T0&a, T1&b){RDD(a),RDD(b); return a;}
-template<class T0,class T1,class T2>inline T1& RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c); return a;}
 
 template<class T> inline void RST(T &A){memset(A, 0, sizeof(A));}
 template<class T> inline void FLC(T &A, int x){memset(A, x, sizeof(A));}
@@ -422,10 +417,6 @@ struct Int{
 #define pp l/=10,p
 #define nn l/=10,n
 template<class T> inline T& RD(T &x){
-    char c;while(!d);x=c-'0';while(d)p;
-    return x;
-}
-template<class T> inline T& RDD(T &x){
     char c;while(g,c!='-'&&!isdigit(c));
     if (c=='-'){x='0'-g;while(d)n;}
     else{x=c-'0';while(d)p;}
@@ -465,44 +456,68 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
+const int N = int(5e5) + 9;
+int a[N], p0[N], p1[N];
+int n;
 
-const int N = int(1e5) + 9;
-LL x,n,a[N];
 
-int main()
-{
+
+int main(){
+
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-	RD(n,x);
-	REP_1(i, n) RD(a[i]);
-	sort(a+1,a+n+1);
-	multiset<pair<LL,LL> > S;
-	multiset<LL> SS1;
-	multiset<LL> SS2;
-	REP_1(i,n) S.insert({a[i],a[i]}),SS1.insert(a[i]),SS2.insert(a[i]);
+    Rush {
+        RD(n); REP(i,n) RD(a[i]);
+        stack<int> aa, bb;
+
+        // INF 1 3 2 5 4
+        // -INF
+
+        REP(i, n) {
+            p0[i] = p1[i] = -1;
+            int t = a[i];
+
+            while (!aa.empty() && aa.top() < t) {
+                aa.pop();
+            }
+            while (!bb.empty() && bb.top() > t) {
+                bb.pop();
+            }
+
+            // 5 4
+            if (!aa.empty()) {
+                p0[aa.top()] = i;
+            }
+            if (!bb.empty()) {
+                p1[bb.top()] = i;
+            }
 
 
-	LL ans = a[n] - a[1];
+            aa.push(i);
+            bb.push(i);
 
-	DO(60*n) {
-		LL p=*SS1.rbegin(),r=*SS2.begin();
-		checkMin(ans,p-r);
-		if(ans<=0) break;
+        }
 
-		auto it=S.begin(); auto pa=*it; S.erase(it);
-		auto it1=SS1.lower_bound(pa.fi); SS1.erase(it1);
-		auto it2=SS2.lower_bound(pa.se); SS2.erase(it2);
+        REP(i, n) {
+            cout << p0[i] << " " << p1[i] << endl;
+        }
 
-		pa.fi*=2,pa.se=pa.se*2+x;
-		if(pa.fi<0||pa.se<0) break;
-		S.insert(pa);
-		SS1.insert(pa.fi);
-		SS2.insert(pa.se);
-	}
-	if (ans < x) ans = 0;
-	checkMax(ans, 0ll);
-	OT(ans);
+
+        /*int z = 0, i = 0;
+        while (i != n-1) {
+            ++z;
+            int j = i + 1, r = n;
+            if (a[j] < a[i])  {
+                j = min_p(i+1, r);
+                while
+            } else {
+            }
+        }
+        cout <<z << endl;*/
+    }
+
 }
+

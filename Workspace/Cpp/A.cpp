@@ -143,9 +143,6 @@ inline char RC(){char c; return RC(c);}
 //inline char& RC(char &c){c = getchar(); return c;}
 //inline char RC(){return getchar();}
 
-template<class T> inline T& RDD(T &);
-inline LL RDD(){LL x; return RDD(x);}
-
 template<class T0, class T1> inline T0& RD(T0 &x0, T1 &x1){RD(x0), RD(x1); return x0;}
 template<class T0, class T1, class T2> inline T0& RD(T0 &x0, T1 &x1, T2 &x2){RD(x0), RD(x1), RD(x2); return x0;}
 template<class T0, class T1, class T2, class T3> inline T0& RD(T0 &x0, T1 &x1, T2 &x2, T3 &x3){RD(x0), RD(x1), RD(x2), RD(x3); return x0;}
@@ -172,8 +169,6 @@ inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f){RF(a), RF(b), RF(c), RF(
 inline DB& RF(DB &a, DB &b, DB &c, DB &d, DB &e, DB &f, DB &g){RF(a), RF(b), RF(c), RF(d), RF(e), RF(f), RF(g); return a;}
 inline void RS(char *s1, char *s2){RS(s1), RS(s2);}
 inline void RS(char *s1, char *s2, char *s3){RS(s1), RS(s2), RS(s3);}
-template<class T0,class T1>inline T0& RDD(T0&a, T1&b){RDD(a),RDD(b); return a;}
-template<class T0,class T1,class T2>inline T1& RDD(T0&a, T1&b, T2&c){RDD(a),RDD(b),RDD(c); return a;}
 
 template<class T> inline void RST(T &A){memset(A, 0, sizeof(A));}
 template<class T> inline void FLC(T &A, int x){memset(A, x, sizeof(A));}
@@ -216,7 +211,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 
 /** Constant List .. **/ //{
 
-const int MOD = 998244353;
+const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
 const DB EPS = 1e-9;
@@ -411,7 +406,10 @@ struct Int{
 
 
 //}
-
+#define gmax(a,b) a=max(a,b);
+#define gmin(a,b) a=min(a,b);
+#define lx (x<<1)
+#define rx (lx|1)
 
 
 /** I/O Accelerator Interface .. **/ //{
@@ -422,10 +420,6 @@ struct Int{
 #define pp l/=10,p
 #define nn l/=10,n
 template<class T> inline T& RD(T &x){
-    char c;while(!d);x=c-'0';while(d)p;
-    return x;
-}
-template<class T> inline T& RDD(T &x){
     char c;while(g,c!='-'&&!isdigit(c));
     if (c=='-'){x='0'-g;while(d)n;}
     else{x=c-'0';while(d)p;}
@@ -462,36 +456,98 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //last_ans = x;
 }
 
-
 //}/* .................................................................................................................................. */
 
-const int N = int(2e5) + 9;
+const int N = int(1e2) + 9, NN = N*N;
 
-int a[N], b[N], z[N]; bool vis[N];
+namespace DSU{ // Disjoint Set Union
+    int P[NN], R[NN], S[NN], n;
+    inline void Make(int x){
+        P[x] = x, R[x] = 0, S[x] = 1;
+    }
+    inline int Find(int x){
+        return P[x] == x ? x : P[x] = Find(P[x]);
+    }
+    inline void Unionn(int x, int y){
+        if (R[x] == R[y]) ++R[x];
+        else if (R[x] < R[y]) swap(x, y);
+        P[y] = x;
+        S[x] += S[y];
+    }
+    inline void Union(int x, int y){
+        x = Find(x), y = Find(y); if (x == y) return;
+        Unionn(x, y);
+    }
+    inline void Init(){
+        REP(i, n) Make(i);
+    }
+} //using namespace DSU;
+
+char s[N][N][N];
 int n;
 
-int f(int b[]) {
-    int z = 0;
-    b[n] = b[0];
-    REP(i, n) {
-        z += abs(b[i] -  a[b[i+1]]);
+VI adj[N]; int d[N][N];
+bool bfs(int s) {
+    queue<int> Q; Q.push(s);
+    REP(i, n) d[s][i] = INF; d[s][s] = 0; int c = 0;
+    while (!Q.empty()) {
+        ++c; int u = Q.front(); Q.pop();
+        for (auto v: adj[u]) if (d[s][v] == INF) {
+            d[s][v] = d[s][u] + 1;
+            Q.push(v);
+        }
     }
-    return z;
+    return c == n;
 }
 
-void dfs(int k = 0) {
-    if (k == n) {
-        if (f(b) < f(z)) {
-            REP(i, n) z[i] = b[i];
-        }
-    } else {
-        REP(i, n) if (!vis[i]) {
-            vis[i] = 1;
-            b[k] = i;
-            dfs(k+1);
-            vis[i] = 0;
+bool ok(int x) {
+    REP(i, n) adj[i].clear();
+    REP(i, DSU::n) if (DSU::Find(i) == x) {
+        int a = i / n, b = i % n;
+        if (a == b) return 0;
+        adj[a].PB(b); adj[b].PB(a);
+    }
+    REP(i, n) if (!bfs(i)) return 0;
+    REP(i, n-1) REP_1(j, n-1-i) REP(k, n) {
+        if ((s[i][j][k] == '1') ^ (d[i][k] == d[i+j][k])) return 0;
+    }
+    return 1;
+}
+
+
+int v(int i, int j) {
+    if (i>j) swap(i, j);
+    return i*n+j;
+}
+
+void gao() {
+    RD(n);
+
+    DSU::n = n*(n-1);
+    DSU::Init();
+
+    REP(i, n-1) {
+        REP_1(j, n-1-i) {
+            RS(s[i][j]); REP(k, n) if (s[i][j][k] == '1') {
+                int a = v(i,k);
+                int b = v(i+j,k);
+                DSU::Union(a, b);
+            }
         }
     }
+
+    REP(i, DSU::n) if (DSU::Find(i) == i){
+        //cout << " - " << DSU::S[i] << " " << endl;
+        if (DSU::S[i] == n-1 && ok(i)) {
+            puts("Yes");
+            REP(i, n) for (auto j: adj[i]) {
+                if (i < j) printf("%d %d\n", i+1, j+1);
+            }
+            return;
+        }
+    }
+    puts("No");
+
 }
 
 int main(){
@@ -501,23 +557,5 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    Rush {
-        RD(n); REP(i, n) --RD(a[i]), z[i] = i;
-        dfs();
-        REP(i, n) {
-            cout << z[i] + 1 << " ";
-        }
-        cout << ": " << f(z) << endl;
-
-        REP(i, n) {
-            cout << abs(z[i] -  a[z[i+1]]) << " ";
-        }
-        cout << endl;
-
-    }
+    Rush gao();
 }
-
-
-
-
-
