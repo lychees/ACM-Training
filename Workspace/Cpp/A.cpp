@@ -458,97 +458,10 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
 
 //}/* .................................................................................................................................. */
 
-const int N = int(1e2) + 9, NN = N*N;
-
-namespace DSU{ // Disjoint Set Union
-    int P[NN], R[NN], S[NN], n;
-    inline void Make(int x){
-        P[x] = x, R[x] = 0, S[x] = 1;
-    }
-    inline int Find(int x){
-        return P[x] == x ? x : P[x] = Find(P[x]);
-    }
-    inline void Unionn(int x, int y){
-        if (R[x] == R[y]) ++R[x];
-        else if (R[x] < R[y]) swap(x, y);
-        P[y] = x;
-        S[x] += S[y];
-    }
-    inline void Union(int x, int y){
-        x = Find(x), y = Find(y); if (x == y) return;
-        Unionn(x, y);
-    }
-    inline void Init(){
-        REP(i, n) Make(i);
-    }
-} //using namespace DSU;
-
-char s[N][N][N];
+const int N = int(2e2) + 9;
+LL d[N][N];
+LL x[N], y[N], p[N];
 int n;
-
-VI adj[N]; int d[N][N];
-bool bfs(int s) {
-    queue<int> Q; Q.push(s);
-    REP(i, n) d[s][i] = INF; d[s][s] = 0; int c = 0;
-    while (!Q.empty()) {
-        ++c; int u = Q.front(); Q.pop();
-        for (auto v: adj[u]) if (d[s][v] == INF) {
-            d[s][v] = d[s][u] + 1;
-            Q.push(v);
-        }
-    }
-    return c == n;
-}
-
-bool ok(int x) {
-    REP(i, n) adj[i].clear();
-    REP(i, DSU::n) if (DSU::Find(i) == x) {
-        int a = i / n, b = i % n;
-        if (a == b) return 0;
-        adj[a].PB(b); adj[b].PB(a);
-    }
-    REP(i, n) if (!bfs(i)) return 0;
-    REP(i, n-1) REP_1(j, n-1-i) REP(k, n) {
-        if ((s[i][j][k] == '1') ^ (d[i][k] == d[i+j][k])) return 0;
-    }
-    return 1;
-}
-
-
-int v(int i, int j) {
-    if (i>j) swap(i, j);
-    return i*n+j;
-}
-
-void gao() {
-    RD(n);
-
-    DSU::n = n*(n-1);
-    DSU::Init();
-
-    REP(i, n-1) {
-        REP_1(j, n-1-i) {
-            RS(s[i][j]); REP(k, n) if (s[i][j][k] == '1') {
-                int a = v(i,k);
-                int b = v(i+j,k);
-                DSU::Union(a, b);
-            }
-        }
-    }
-
-    REP(i, DSU::n) if (DSU::Find(i) == i){
-        //cout << " - " << DSU::S[i] << " " << endl;
-        if (DSU::S[i] == n-1 && ok(i)) {
-            puts("Yes");
-            REP(i, n) for (auto j: adj[i]) {
-                if (i < j) printf("%d %d\n", i+1, j+1);
-            }
-            return;
-        }
-    }
-    puts("No");
-
-}
 
 int main(){
 
@@ -557,5 +470,16 @@ int main(){
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-    Rush gao();
+    RD(n); REP(i, n) RD(x[i], y[i], p[i]);
+
+    REP(i, n) REP(j, n) d[i][j] = ceil((abs(x[i] - x[j]) + abs(y[i] - y[j])), p[i]);
+
+    REP(k, n) REP(i, n) REP(j, n) checkMin(d[i][j], max(d[i][k], d[k][j]));
+
+    LL z = INFF; REP(i, n) {
+        LL zz = 0; REP(j, n) checkMax(zz, d[i][j]);
+        checkMin(z, zz);
+    }
+    cout << z << endl;
+
 }
