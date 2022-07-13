@@ -1,6 +1,6 @@
 /*
     This code has been written by MinakoKojima, feel free to ask me question. Blog: http://www.shuizilong.com/house
-    Template Date: 2015.10.12
+    Template Date: 2022.6.21
     Note: ...
 */
 
@@ -109,8 +109,8 @@ using namespace std;
 }
 
 typedef long long LL;
-//typedef long double DB;
-typedef double DB;
+typedef long double DB;
+// typedef double DB;
 typedef unsigned uint;
 typedef unsigned long long uLL;
 
@@ -214,7 +214,7 @@ template<class T, class C> inline T& UNQ(T &A, C cmp){SRT(A, cmp);return UNQQ(A)
 const int MOD = int(1e9) + 7;
 const int INF = 0x3f3f3f3f;
 const LL INFF = 0x3f3f3f3f3f3f3f3fLL;
-const DB EPS = 1e-9;
+const DB EPS = 1e-12;
 const DB OO = 1e20;
 const DB PI = acos(-1.0); //M_PI;
 
@@ -248,168 +248,9 @@ inline DB sec(DB x){return 1./cos(x);};
 inline DB csc(DB x){return 1./sin(x);};
 
 //}
-// <<= '1. Bitwise Operation ., //{
-namespace BO{
-
-inline bool _1(int x, int i){return bool(x&1<<i);}
-inline bool _1(LL x, int i){return bool(x&1LL<<i);}
-inline LL _1(int i){return 1LL<<i;}
-inline LL _U(int i){return _1(i) - 1;};
-
-inline int reverse_bits(int x){
-    x = ((x >> 1) & 0x55555555) | ((x << 1) & 0xaaaaaaaa);
-    x = ((x >> 2) & 0x33333333) | ((x << 2) & 0xcccccccc);
-    x = ((x >> 4) & 0x0f0f0f0f) | ((x << 4) & 0xf0f0f0f0);
-    x = ((x >> 8) & 0x00ff00ff) | ((x << 8) & 0xff00ff00);
-    x = ((x >>16) & 0x0000ffff) | ((x <<16) & 0xffff0000);
-    return x;
-}
-
-inline LL reverse_bits(LL x){
-    x = ((x >> 1) & 0x5555555555555555LL) | ((x << 1) & 0xaaaaaaaaaaaaaaaaLL);
-    x = ((x >> 2) & 0x3333333333333333LL) | ((x << 2) & 0xccccccccccccccccLL);
-    x = ((x >> 4) & 0x0f0f0f0f0f0f0f0fLL) | ((x << 4) & 0xf0f0f0f0f0f0f0f0LL);
-    x = ((x >> 8) & 0x00ff00ff00ff00ffLL) | ((x << 8) & 0xff00ff00ff00ff00LL);
-    x = ((x >>16) & 0x0000ffff0000ffffLL) | ((x <<16) & 0xffff0000ffff0000LL);
-    x = ((x >>32) & 0x00000000ffffffffLL) | ((x <<32) & 0xffffffff00000000LL);
-    return x;
-}
-
-template<class T> inline bool odd(T x){return x&1;}
-template<class T> inline bool even(T x){return !odd(x);}
-template<class T> inline T low_bit(T x) {return x & -x;}
-template<class T> inline T high_bit(T x) {T p = low_bit(x);while (p != x) x -= p, p = low_bit(x);return p;}
-template<class T> inline T cover_bit(T x){T p = 1; while (p < x) p <<= 1;return p;}
-template<class T> inline int cover_idx(T x){int p = 0; while (_1(p) < x ) ++p; return p;}
-
-inline int clz(int x){return __builtin_clz(x);}
-inline int clz(LL x){return __builtin_clzll(x);}
-inline int ctz(int x){return __builtin_ctz(x);}
-inline int ctz(LL x){return __builtin_ctzll(x);}
-inline int lg2(int x){return !x ? -1 : 31 - clz(x);}
-inline int lg2(LL x){return !x ? -1 : 63 - clz(x);}
-inline int low_idx(int x){return !x ? -1 : ctz(x);}
-inline int low_idx(LL x){return !x ? -1 : ctz(x);}
-inline int high_idx(int x){return lg2(x);}
-inline int high_idx(LL x){return lg2(x);}
-inline int parity(int x){return __builtin_parity(x);}
-inline int parity(LL x){return __builtin_parityll(x);}
-inline int count_bits(int x){return __builtin_popcount(x);}
-inline int count_bits(LL x){return __builtin_popcountll(x);}
-
-} using namespace BO;//}
-
-
-// <<= '2. Number Theory .,//{
-namespace NT{
-//#define gcd __gcd
-inline LL gcd(LL a, LL b){return b?gcd(b,a%b):a;}
-inline LL lcm(LL a, LL b){return a*b/gcd(a,b);}
-
-inline void INC(int &a, int b){a += b; if (a >= MOD) a -= MOD;}
-inline int sum(int a, int b){a += b; if (a >= MOD) a -= MOD; return a;}
-
-/* 模数两倍刚好超 int 时。
-inline int sum(uint a, int b){a += b; a %= MOD;if (a < 0) a += MOD; return a;}
-inline void INC(int &a, int b){a = sum(a, b);}
-*/
-
-inline void DEC(int &a, int b){a -= b; if (a < 0) a += MOD;}
-inline int dff(int a, int b){a -= b; if (a < 0) a  += MOD; return a;}
-inline void MUL(int &a, int b){a = (LL)a * b % MOD;}
-//inline int pdt(int a, int b){return (LL)a * b % MOD;}
-inline int pdt(int x,int y) {
-    int ret; __asm__ __volatile__ ("\tmull %%ebx\n\tdivl %%ecx\n":"=d"(ret):"a"(x),"b"(y),"c"(MOD));
-    return ret;
-}
-
-
-inline int gcd(int m, int n, int &x, int &y){
-
-    x = 1, y = 0; int xx = 0, yy = 1, q;
-
-    while (1){
-        q = m / n, m %= n;
-        if (!m){x = xx, y = yy; return n;}
-        DEC(x, pdt(q, xx)), DEC(y, pdt(q, yy));
-        q = n / m, n %= m;
-        if (!n) return m;
-        DEC(xx, pdt(q, x)), DEC(yy, pdt(q, y));
-    }
-}
-
-inline int sum(int a, int b, int c){return sum(a, sum(b, c));}
-inline int sum(int a, int b, int c, int d){return sum(sum(a, b), sum(c, d));}
-inline int pdt(int a, int b, int c){return pdt(a, pdt(b, c));}
-inline int pdt(int a, int b, int c, int d){return pdt(pdt(a, b), pdt(c, d));}
-
-inline int pow(int a, LL b){
-    int c(1); while (b){
-        if (b&1) MUL(c, a);
-        MUL(a, a), b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, LL b){
-    T c(1); while (b){
-        if (b&1) c *= a;
-        a *= a, b >>= 1;
-    }
-    return c;
-}
-
-template<class T> inline T pow(T a, int b){
-    return pow(a, (LL)b);
-}
-
-inline int _I(int b){
-    int a = MOD, x1 = 0, x2 = 1, q; while (1){
-        q = a / b, a %= b;
-        if (!a) return x2;
-        DEC(x1, pdt(q, x2));
-
-        q = b / a, b %= a;
-        if (!b) return x1;
-        DEC(x2, pdt(q, x1));
-    }
-}
-
-inline void DIV(int &a, int b){MUL(a, _I(b));}
-inline int qtt(int a, int b){return pdt(a, _I(b));}
-
-struct Int{
-    int val;
-
-    operator int() const{return val;}
-
-    Int(int _val = 0):val(_val){
-        val %= MOD; if (val < 0) val += MOD;
-    }
-    Int(LL _val):val(_val){
-        _val %= MOD; if (_val < 0) _val += MOD;
-        val = _val;
-    }
-
-    Int& operator +=(const int& rhs){INC(val, rhs);rTs;}
-    Int operator +(const int& rhs) const{return sum(val, rhs);}
-    Int& operator -=(const int& rhs){DEC(val, rhs);rTs;}
-    Int operator -(const int& rhs) const{return dff(val, rhs);}
-    Int& operator *=(const int& rhs){MUL(val, rhs);rTs;}
-    Int operator *(const int& rhs) const{return pdt(val, rhs);}
-    Int& operator /=(const int& rhs){DIV(val, rhs);rTs;}
-    Int operator /(const int& rhs) const{return qtt(val, rhs);}
-    Int operator-()const{return MOD-*this;}
-};
-
-} using namespace NT;//}
-
 
 //}
-#define gmax(a,b) a=max(a,b);
-#define gmin(a,b) a=min(a,b);
-#define lx (x<<1)
-#define rx (lx|1)
+
 
 
 /** I/O Accelerator Interface .. **/ //{
@@ -456,30 +297,89 @@ LL last_ans; int Case; template<class T> inline void OT(const T &x){
     //last_ans = x;
 }
 
+
 //}/* .................................................................................................................................. */
 
-const int N = int(2e2) + 9;
-LL d[N][N];
-LL x[N], y[N], p[N];
-int n;
+const int M = 21, N = 21;
 
-int main(){
+struct Simplex {
+    DB A[N][M]; int b[N], c[M]; DB x[M];
+    int n, m;
+
+    void pivot(int u, int v) {
+        DB t = -A[u][v]; REP(j, m+1) A[u][j] /= t; A[u][v] = -1./t;
+        REP(i, n+1) if (i!=u && sgn(A[i][v])) {
+            t = A[i][v]; A[i][v] = 0;
+            REP(j, m+1) A[i][j] += t*A[u][j];
+        }
+        swap(b[u], c[v]);
+    }
+
+    bool feasible() {
+        while (true) {
+            int u=1,v=0;
+            FOR_1(i, 2, n) if(A[i][0]<A[u][0]) u = i;
+            if(sgn(A[u][0]) >= 0)break;
+            REP_1(j, m) if(sgn(A[u][j])>0) {
+                if ((!v || c[j] > c[v])) {
+                    v = j;
+                }
+            }
+            if(!v) return false;
+            pivot(u, v);
+        }
+
+        return true;
+    }
+
+    bool bounded() {
+        while (true) {
+            int u=0,v=1; DB mn=OO;
+            FOR_1(j, 2, m) if(A[0][j]>A[0][v]) v = j;
+            if(sgn(A[0][v]) <= 0)break;
+            REP_1(i, n) if(sgn(A[i][v])<0) {
+                DB t = -A[i][0]/A[i][v];
+                if (sgn(t,mn) < 0 || !sgn(t,mn) && (!u || b[i] > b[u])) {
+                    mn = t;
+                    u = i;
+                }
+            }
+            if(!u) return false;
+            pivot(u, v);
+        }
+        return true;
+    }
+
+    void run() {
+        int t; RD(m,n,t);
+        REP_1(j, m) RD(A[0][j]);
+        REP_1(i, n) {
+            REP_1(j, m) A[i][j] = -RD();
+            RD(A[i][0]);
+        }
+        REP_1(i, n) b[i] = -i; REP_1(j, m) c[j] = j;
+
+        if (!feasible()) puts("Infeasible"); else {
+            if (!bounded()) puts("Unbounded"); else {
+                printf("%.9Lf\n", A[0][0]);
+                if (t) {
+                    REP_1(i, n) if (b[i] > 0) x[b[i]] = A[i][0];
+                    REP_1(j, m) printf("%.9Lf ", x[j]);
+                    puts("");
+                }
+            }
+        }
+    }
+
+} A;
+
+
+int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
-    //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
+    //freopen("out.txt", "w", stdout);
 #endif
 
-    RD(n); REP(i, n) RD(x[i], y[i], p[i]);
-
-    REP(i, n) REP(j, n) d[i][j] = ceil((abs(x[i] - x[j]) + abs(y[i] - y[j])), p[i]);
-
-    REP(k, n) REP(i, n) REP(j, n) checkMin(d[i][j], max(d[i][k], d[k][j]));
-
-    LL z = INFF; REP(i, n) {
-        LL zz = 0; REP(j, n) checkMax(zz, d[i][j]);
-        checkMin(z, zz);
-    }
-    cout << z << endl;
-
+    A.run();
 }
