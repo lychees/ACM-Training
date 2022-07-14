@@ -1,7 +1,16 @@
 2012 Spoj 自选
 2013 Codeforces
-2014 ACMWorld Finals
+https://web.archive.org/web/20150308042327/http://www.tsinsen.com/resources.page
+
+2014 ACM World Finals
 2015 Codeforces
+https://ydc.blog.uoj.ac/blog/65
 2016 CodeChef
+http://wyfcyx.is-programmer.com/posts/185756.html
 2017 Topcoder
 https://github.com/Mulab11/cntt2016-hw1
+2020 Codeforces、Atcoder
+https://github.com/Early0v0/IOI2020-Homework
+https://www.xht37.com/ioi2020-%e9%9b%86%e8%ae%ad%e9%98%9f%e4%bd%9c%e4%b8%9a/
+2021 ACM World Finals、NEERC、CERC
+https://www.cnblogs.com/s-r-f/p/13805137.html
