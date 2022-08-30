@@ -3,7 +3,8 @@
 https://web.archive.org/web/20150308042327/http://www.tsinsen.com/resources.page
 
 2014 ACM World Finals
-2015 Codeforces
+2015 Codeforces、USACO、Google Codejam Final
+https://github.com/roastduck/team_homework
 https://ydc.blog.uoj.ac/blog/65
 2016 CodeChef
 http://wyfcyx.is-programmer.com/posts/185756.html
