@@ -43,6 +43,7 @@ int main(){
 	}
 
 	REP(s, n) {
+        if (qry[s].empty()) continue;
         t = 0; dep[s] = 0; dfs(s, -1);
         REP(i, n) pre[in[i]+1] = suf[in[i]] = dep[i];
         REP_1(i, n) checkMax(pre[i], pre[i-1]);
