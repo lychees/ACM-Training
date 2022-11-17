@@ -1,16 +1,14 @@
 #include <lastweapon/io>
 using namespace lastweapon;
 
-
 const int N = int(1e3) + 9;
 DB F[N][N], G[N][N], C[N][N];
 int n, m, r;
 
-
 int main() {
 
 #ifndef ONLINE_JUDGE
-    freopen("in.txt", "r", stdin);
+    //freopen("in.txt", "r", stdin);
     //freopen("out.txt", "w", stdout);
 #endif
 
@@ -25,13 +23,13 @@ int main() {
 
 #define gu G[i][j]
 #define fu F[i][j]
+#define c C[j][d]
 
     REP(i, m) {
         REP(j, n+1) if (sgn(gu)) {
             REP_1(d, min(j, m-i)) {
-                DB c = C[j][d], delta = gu * c;
-                G[i+d][d] += delta;
-                F[i+d][d] += fu * c + delta * min(d, r);
+                G[i+d][d] += gu * c;
+                F[i+d][d] += (fu + gu * min(d,r)) * c;
             }
         }
     }
