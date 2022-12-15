@@ -1,23 +1,8 @@
-# Start with x = 1
-x = 1
+# Parse the input
+s = input()
 
-# Keep looping until we find the smallest number that satisfies the condition
-while True:
-    # Count the number of occurrences of each digit in x, 2x, 3x, 4x, 5x, and 6x
-    counts = [0] * 10
-    for num in [x, 2*x, 3*x, 4*x, 5*x, 6*x]:
-        for digit in str(num):
-            counts[int(digit)] += 1
-
-        # If the counts of any digit are not equal, this number does not satisfy the condition
-        # We can break out of the loop and try the next number
-        if not all(count == counts[0] for count in counts):
-            break
-    else:
-        # If we reach this point, it means that all of the numbers satisfy the condition
-        # Print the result and exit the loop
-        print(x)
-        break
-
-    # Increment x and try again
-    x += 1
+# Check if the string satisfies the condition
+if len(s) != 8 or not s[0].isalpha() or not s[0].isupper() or not s[1:7].isdigit() or int(s[1:7]) < 100000 or int(s[1:7]) > 999999 or not s[7].isalpha() or not s[7].isupper():
+  print("No")
+else:
+  print("Yes")
