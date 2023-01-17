@@ -1,38 +1,44 @@
-import sys
-from atcoder.maxflow import MFGraph
-I = lambda: [int(x) for x in input().split()]
+def count_odd_integers(t, integers_list):
+  # Loop through the test cases
 
-n, m = I()
-s = 2*n
-t = s+1
-G = MFGraph(t+1)
-a = I()
-b = I()
-z = 0
+  for i in range(t):
+    # Get the list of integers for this test case
+    integers = integers_list[i]
 
-a1 - a2n - 1        
-(a1 - a2n - k)!  (k-1)!
+    # Initialize a counter to keep track of the number of odd integers
+    odd_count = 0
 
+    # Loop through the integers in the list
+    for integer in integers:
+      # If the integer is odd, increment the counter
+      if integer % 2 == 1:
+        odd_count += 1
 
- a2n! (k-1)!
- 
+    # Print the number of odd integers
+    print(odd_count)
 
+def count_odd_integers2():
+  # Read the first line of input, which contains the value of t
+  t_line = input()
+  t = int(t_line)
 
-for i in range(n):
-    bb = abs(b[i])
-    z += bb
-    G.add_edge(i, i+n, a[i] + bb)
-    bb *= 2
-    if (b[i] < 0):
-        G.add_edge(i+n, t, bb)
-    else:
-        G.add_edge(s, i, bb)
+  # Create a list to store the lists of integers
+  integers_list = []
 
-for i in range(m):
-    x, y = I()
-    x -= 1
-    y -= 1
-    G.add_edge(x+n, y, sys.maxsize)
-    G.add_edge(y+n, x, sys.maxsize)
+  # Use a loop to read the remaining lines of input
+  for i in range(t):
+    # Read a line of input
+    n = input()
+    line = input()
 
-print(z-G.flow(s,t))
+    # Split the line by space to get a list of integers
+    integers = list(map(int, line.split()))
+
+    # Add the list of integers to the list of lists
+    integers_list.append(integers)
+
+  # Call the count_odd_integers() function to solve the problem
+  count_odd_integers(t, integers_list)
+
+# Test the function
+count_odd_integers2()
