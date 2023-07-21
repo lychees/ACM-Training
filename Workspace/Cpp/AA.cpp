@@ -1,75 +1,118 @@
-#include<bits/stdc++.h>
-using namespace std;
-const int N=2e5+4;
-int n,m,st[20][N+N],cnt,dfn[N+N],d[N+N];
-vector<int>g[N+N];int a[N];
-bool cmp(int x,int y){return dfn[x]>dfn[y];}
-void dfs(int x,int f){
-	st[0][cnt++]=f,dfn[x]=cnt;
-	for(auto y:g[x])if(y!=f)d[y]=d[x]+1,dfs(y,x);
+#include <lastweapon/io>
+using namespace lastweapon;
+
+const int N = 30;
+
+map<vector<PII>, int> D;
+vector<vector<PII>> Q; VI P, O;
+char Map[N][N]; string OP;
+int n, m;
+
+char get(int i) {
+    if (i == 0) return 'W';
+    if (i == 1) return 'S';
+    if (i == 2) return 'D';
+    return 'A';
 }
-int lca(int u,int v){
-	if(u==v)return u;u=dfn[u],v=dfn[v];
-	if(u>v)swap(u,v);int t=__lg(v-u);v-=1<<t;
-	return cmp(st[t][u],st[t][v])?st[t][v]:st[t][u];
+
+void gao(int x) {
+    if (x) {
+        OP.PB(get(O[x]));
+        gao(P[x]);
+    } else {
+        RVS(OP);
+        cout << OP << endl;
+    }
+
+    char o1 = Map[Q[x][0].fi][Q[x][0].se];
+    char o2 = Map[Q[x][1].fi][Q[x][1].se];
+    char o3 = Map[Q[x][2].fi][Q[x][2].se];
+
+    Map[Q[x][0].fi][Q[x][0].se] = 'x';
+    Map[Q[x][1].fi][Q[x][1].se] = 'y';
+    Map[Q[x][2].fi][Q[x][2].se] = 'z';
+    REP(i, n) cout << Map[i] << endl;
+    Map[Q[x][0].fi][Q[x][0].se] = o1;
+    Map[Q[x][1].fi][Q[x][1].se] = o2;
+    Map[Q[x][2].fi][Q[x][2].se] = o3;
+    cout << endl;
 }
-int dis(int u,int v){return d[u]+d[v]-d[lca(u,v)]*2;}
-void built(int n){
-	dfs(1,0);if(n>1)for(int t=1;t<=__lg(n-1);t++)
-		for(int i=1,j=1+(1<<t-1),k=1<<t;k<n;i++,j++,k++)
-			st[t][i]=cmp(st[t-1][i],st[t-1][j])?st[t-1][j]:st[t-1][i];
+
+bool ok(PII u) {
+    return Map[u.fi][u.se] != '#';
 }
-int A[1<<19],B[1<<19];
-void pushup(int i){
-	int ls=i<<1,rs=i<<1|1,val=0;
-	vector<int>v{A[ls],B[ls],A[rs],B[rs]};
-	for(int a=0;a<4;a++)for(int b=a+1;b<4;b++){
-		int t=dis(v[a],v[b]);
-		if(t>val)val=t,A[i]=v[a],B[i]=v[b];
-	}
+
+void bfs() {
+    int cz = 0;
+    Q.PB({{4,3},{4,4},{5,7}});
+    P.PB(-1); O.PB(-1);
+    D[{{4,3},{4,4},{5,7}}] = 0;
+
+
+    while (cz < Q.size()) {
+        PII u1 = Q[cz][0], u2 = Q[cz][1], u3 = Q[cz][2];
+
+        REP(i, 4) {
+            PII v1 = {u1.fi + dx[i], u1.se + dy[i]};
+            PII v2 = {u2.fi + dx[i], u2.se + dy[i]};
+            PII v3 = {u3.fi + dx[i], u3.se + dy[i]};
+
+            if (!ok(v1)) v1 = u1; if (!ok(v2)) v2 = u2; if (!ok(v3)) v3 = u3;
+
+            if (v3 == u3) {
+                if (v1 == u3) v1 = u1;
+                if (v2 == u3) v2 = u2;
+            }
+
+            if (v1 == v2) {
+                if (dx[i] == 1) {
+                    if (u1.fi > u2.fi) v2 = u2;
+                    else v1 = u1;
+                } else if (dx[i] == -1) {
+                    if (u1.fi > u2.fi) v1 = u1;
+                    else v2 = u2;
+                } else if (dy[i] == 1) {
+                    if (u1.se > u2.se) v2 = u2;
+                    else v1 = u1;
+                } else {
+                    if (u1.se > u2.se) v1 = u1;
+                    else v2 = u2;
+                }
+            }
+
+
+            vector<PII> t = {v1,v2,v3};
+            if (CTN(D, t)) continue;
+            D[{v1,v2,v3}] = D[{u1,u2,u3}] + 1;
+
+            //cout << D[{v1,v2,v3}] << endl;
+
+
+            P.PB(cz);
+            O.PB(i);
+            Q.PB({v1,v2,v3});
+
+            if (Map[v1.fi][v1.se] == 'o' && Map[v2.fi][v2.se] == 'o') {
+                cout << D[{v1,v2,v3}] << endl;
+                gao(Q.size()-1);
+                return;
+            }
+
+
+        }
+        ++cz;
+    }
 }
-void init(int i,int l,int r){
-	if(l!=r){
-		int m=l+r>>1;
-		init(i<<1,l,m),init(i<<1|1,m+1,r);
-		pushup(i);
-	}else A[i]=l,B[i]=l+n;
-}
-void upd(int i,int l,int r,int p){
-	if(l!=r){
-		int m=l+r>>1;
-		if(p<=m)upd(i<<1,l,m,p);
-		else upd(i<<1|1,m+1,r,p);
-		pushup(i);
-	}
-}
-int main(){
+
+
+
+int main() {
 
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
     //freopen("/Users/minakokojima/Documents/GitHub/ACM-Training/Workspace/out.txt", "w", stdout);
 #endif
 
-	scanf("%d",&n);
-	for(int i=1;i<=n;i++)scanf("%d",&a[i]),g[i].push_back(n+i);
-	for(int i=1;i<n;i++){
-		int u,v;scanf("%d%d",&u,&v);
-		g[u].push_back(v),g[v].push_back(u);
-	}
-	built(n+n);
-	for(int i=1;i<=n;i++)d[n+i]=d[i]+a[i];
-	init(1,1,n);
-	scanf("%d",&m);while(m--){
-		int x,w;scanf("%d%d",&x,&w);
-		d[n+x]-=a[x],d[n+x]+=w,a[x]=w;
-		upd(1,1,n,x);int ans;
-		int u=A[1],v=B[1],z=dis(u,v);
-		if(u>n)u-=n;if(v>n)v-=n;
-		if(a[u]*2>=z||a[v]*2>=z)ans=max(a[u],a[v]);
-		else{
-			if(z%2==0)ans=z/2;
-			else ans=(z+1)/2;
-		}
-		printf("%d\n",ans);
-	}
+    RD(n, m); REP(i, n) RS(Map[i]);
+    bfs();
 }
